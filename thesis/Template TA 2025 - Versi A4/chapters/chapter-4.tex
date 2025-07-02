@@ -1,0 +1,47 @@
+\newpage
+\chapter{HASIL DAN PEMBAHASAN} \label{Bab IV}
+
+\section{Penggunaan Dataset} \label{IV.Penggunaan}
+Dataset yang digunakan pada penelitian ini merupakan dataset PURE. 
+\lipsum[1-2] % Menampilkan paragraf 1 sampai 2 dari lorem ipsum
+
+
+\section{Akuisisi Gambar} \label{IV.Akuisisi}
+Pada tahap ini, proses pembacaan dataset dilakukan dengan seksama untuk memastikan setiap gambar diperoleh dengan urutan yang benar dan sistematis. Penting untuk memastikan bahwa gambar yang diperoleh terurut dalam format \textit{time-series} agar memudahkan analisis pergerakan wajah yang terjadi dalam video. Implementasi kode yang digunakan untuk proses ini dapat dilihat pada \cref{code:4.akuisisi}. \par
+
+\begin{lstlisting}[caption={Akuisisi Gambar}, label={code:4.akuisisi}, basicstyle=\ttfamily\scriptsize]
+DATASET_ROOT = os.path.join(os.getcwd(), 'PURE Dataset')
+def get_all_dataset_folders(root_path):
+    dataset_folders = []
+    for root, dirs, files in os.walk(root_path):
+        if any(file.endswith('.png') for file in files):
+            dataset_folders.append(root)
+    return dataset_folder
+def process_dataset(dataset_path):
+    image_files = glob(os.path.join(dataset_path, '*.png'))
+    image_files.sort()
+    for image_file in image_files:
+        frame = cv2.imread(image_file)
+        if frame is None:
+            continue
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        cv2.imshow('Frame', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cv2.destroyAllWindows()
+def main():
+    datasets = get_all_dataset_folders(DATASET_ROOT)
+    for dataset in datasets:
+        process_dataset(dataset)
+\end{lstlisting}
+
+
+\cref{code:4.akuisisi} merupakan baris kode untuk melakukan akuisisi gambar. 
+
+
+\section{Analisis Hasil Penelitian} \label{IV.Analisis}
+\lipsum[1-2] % Menampilkan paragraf 1 sampai 2 dari lorem ipsum
+
+
+\section{Pembahasan} \label{IV.Bahas}
+\lipsum[1-2] % Menampilkan paragraf 1 sampai 2 dari lorem ipsum

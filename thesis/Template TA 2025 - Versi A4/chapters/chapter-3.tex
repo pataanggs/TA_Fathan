@@ -1,0 +1,79 @@
+\newpage
+\chapter{METODE PENELITIAN} \label{Bab III}
+
+\section{Alur Penelitian} \label{III.Alur}
+Pada penelitian ini, alur dirancang untuk memastikan setiap tahapan pemrosesan dilakukan secara sistematis dan efisien. Alur penelitian ini mencerminkan langkah-langkah utama yang dilakukan pada penelitian ini, dapat dilihat pada Gambar \ref{fig:3.alur}. \par
+
+\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/samplephoto.jpg}
+    \caption{Alur Penelitian}
+    \label{fig:3.alur}
+\end{figure}
+
+\section{Penjabaran Langkah Penelitian} \label{III.Jabar Alur}
+Untuk memperjelas setiap langkah-langkah yang telah didefinisikan pada Gambar \ref{fig:3.alur}, berikut ini akan dijelaskan secara rinci tahapan-tahapan yang dilakukan dalam penelitian ini.
+
+\subsection{Identifikasi Masalah} \label{III.Identifikasi_masalah}
+\lipsum[1] % Menampilkan paragraf 1 sampai 2 dari lorem ipsum
+
+
+\section{Alat dan Bahan Tugas Akhir} \label{III.Alat dan Bahan}
+Dalam menjalani penelitian, beberapa alat dan bahan digunakan untuk memastikan penelitian berjalan dengan baik.\par
+
+\subsection{Alat} \label{III.Alat}
+Dalam membuat pengukuran frekuensi denyut nadi non-kontak dalam penelitian, berikut adalah alat-alat yang digunakan: \par
+\begin{enumerate}[noitemsep]
+	\item \textit{Visual Studio Code} sebagai \textit{tools} untuk \textit{text editor}.
+	\item Python versi 3.12.5
+        \item OpenCV versi 4.10.0.84
+	\item NumPy versi 2.1.1
+	\item Mediapipe versi 0.10.14
+	\item Scipy versi 1.12.0
+        \item Matplotlib versi 3.8.3
+        \item Flask versi 3.1.0
+\end{enumerate}
+
+\subsection{Bahan} \label{III.Bahan}
+Dataset yang digunakan pada penelitian ini merupakan dataset 
+
+\section{Ilustrasi Perhitungan Metode} \label{III.Ilustrasi}
+Dalam penelitian ini, hasil perhitungan dari program akan melalui serangkaian pengujian untuk mengevaluasi tingkat keakuratan model yang digunakan. Data dummy tersebut dapat dilihat pada Tabel \ref{table:3.dummy}. \par
+
+\begin{longtable}{|c|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|}
+	\caption{Data \textit{dummy} Pengujian}
+	\label{table:3.dummy}\\
+	\hline
+	\multirow{2}{*}{\textbf{Subjek}} & \multicolumn{7}{|c|}{\textbf{Hasil Prediksi (BPM)}} & \multirow{2}{*}{\textbf{GT}} \\ \cline{2-8}
+    & \textbf{F} & \textbf{NA} & \textbf{NO} & \textbf{RC} & \textbf{LC} & \textbf{M} & \textbf{C} & \\ 
+        \hline
+	   \endfirsthead
+       \hline
+       \multirow{2}{*}{\textbf{Subjek}} & \multicolumn{7}{|c|}{\textbf{Hasil Prediksi (BPM)}} & \multirow{2}{*}{\textbf{GT}} \\ \cline{2-8}
+    & \textbf{F} & \textbf{NA} & \textbf{NO} & \textbf{RC} & \textbf{LC} & \textbf{M} & \textbf{C} & \\ 
+    \hline
+	\endhead
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	1 & 68 & 69 & 68 & 70 & 68 & 71 & 69 & 68 \\ 
+	\hline
+	2 & 69 & 69 & 68 & 70 & 68 & 71 & 69 & 69 \\
+	\hline
+	3 & 70 & 70 & 69 & 71 & 68 & 73 & 69 & 70\\
+	\hline
+	4 & 71 & 70 & 70 & 72 & 69 & 73 & 70 & 71 \\
+	\hline
+	5 & 72 & 72 & 70 & 72 & 70 & 74 & 70 & 72 \\
+	\hline
+        6 & 73 & 72 & 71 & 74 & 71 & 76 & 71 & 73 \\ 
+	\hline
+	7 & 74 & 73 & 72 & 74 & 72 & 77 & 71 & 74 \\
+	\hline
+	8 & 75 & 74 & 72 & 74 & 73 & 77 & 73 & 75\\
+	\hline
+	9 & 76 & 75 & 73 & 75 & 74 & 78 & 75 & 76 \\
+	\hline
+	10 & 77 & 76 & 74 & 78 & 75 & 78 & 76 & 77
+\end{longtable}

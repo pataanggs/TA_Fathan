@@ -1,0 +1,65 @@
+\clearpage
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\phantomsection% 
+\addcontentsline{toc}{chapter}{LEMBAR PENGESAHAN}
+
+\begin{center}
+
+	\large \bfseries \MakeUppercase{Lembar Pengesahan}\linebreak
+    
+    \normalsize \normalfont \onehalfspacing \justify{
+    Tugas Akhir Sarjana dengan judul "{\thetitle}" adalah benar dibuat oleh saya sendiri dan belum pernah dibuat dan diserahkan sebelumnya, baik sebagian ataupun seluruhnya, baik oleh saya ataupun orang lain, baik di Institut Teknologi Sumatera maupun di institusi pendidikan lainnya.}
+
+	% Informasi Mahasiswa
+	\setlength{\tabcolsep}{0pt}
+	\begin{tabular}{p{0.7\textwidth} p{0.3\textwidth}}
+		Lampung Selatan, \today & %
+		\multirow{6}{*}{
+			% Kotak pasfoto 3x4
+			\phantom{---} % Amazing hack biar kotaknya ke kanan (RDB)
+			\begin{tikzpicture}
+				\draw rectangle (3cm,4cm) node[pos=0.5] {Foto 3x4};
+			\end{tikzpicture}
+		}\\
+		Penulis, \\
+		& \\
+		& \\
+		& \\
+		& \\
+		\theauthor\\
+		NIM \printnim
+	\end{tabular}
+
+	% Informasi Dosen
+	\centering Diperiksa dan disetujui oleh,
+	\justify
+    \setlength{\tabcolsep}{0pt}
+    \begin{tabular}{ m{0.5cm}  m{0.7\textwidth} >{\centering\arraybackslash}m{0.3\textwidth}}
+        \multicolumn{2}{c}{Pembimbing} & \multicolumn{1}{c}{Tanda Tangan} \\
+		1. & \printnamadosbinga & \\
+		 & \printnipdosbinga & ............... \\
+		 & \\
+		\multicolumn{2}{c}{Penguji} & \multicolumn{1}{c}{Tanda Tangan} \\
+		1. & \printnamapengujia & \\
+		& \printnippengujia & ............... \\
+		2. & \printnamapengujib & \\
+		& \printnippengujib & ............... \\
+    \end{tabular}
+%	\vfill
+
+	\begin{center}
+		\fontsize{10pt}{12pt}
+		Disahkan oleh,\\
+		Koordinator Program Studi Teknik Informatika\\
+		Fakultas Teknologi Industri\\
+		Institut Teknologi Sumatera
+		\vspace{2cm}\\
+		Andika Setiawan, S.Kom., M.Cs. \\ % TODO: make automatic
+		NIP 19911127 2022 03 1 007 \\
+	\end{center}
+	\vfill
+
+\end{center}
+\clearpage
