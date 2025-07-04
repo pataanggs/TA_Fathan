@@ -1,21 +1,13 @@
 # Research Logbook
 
-## August
+## June 2025
 
-### 2024-08-30
-- Developing the new feature
-- Fixing the bug
-    ```
-    def test():
-        pass
-    ```
+| DATE  |TASK   |
+| :------------: | ------------ |
+| 30 JUNE 2025  |  Mengambil fokus literature dan mulai mencari beberapa paper yang relevan dengan penelitian yang akan dilakukan |
 
-## July
+## July 2025
 
-### 2024-07-15
-- Researching the new feature
-- Updating the documentation
-    ```
-    def test():
-        pass
-    ```
+| DATE  |TASK   |
+| :------------: | ------------ |
+| 1- 3 JULY 2025  |  Mereview beberapa paper yang sudah ditemukan menggunakan bantuan AI NotebookLM |
