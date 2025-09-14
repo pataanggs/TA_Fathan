@@ -19,3 +19,10 @@
 |:----------: | ----------- |
 | 15 AUGUST 2025 | Mencari dataset audio berbahasa indonesia ataupun berbahasa daerah yang ada di Indonesia |
 | 29 AUGUST 2025 | Masih mencari dataset audio berbahasa indonesia atau bahasa daerah indonesia (Sunda, jawa, Bali, dll) |
+
+## September 2025
+
+| DATE | TASK |
+|:----------: | ----------- |
+| 10 - 12 September 2025 | Mencoba membuat workplan TA untuk target Sempro di bulan November  |
+| 12 - 14 September 2025 | Mencoba breakdown dataset yang didapatkan untuk training model di colab. Gagal karena runtime exceed (24 jam)  |
