@@ -26,3 +26,9 @@
 |:----------: | ----------- |
 | 10 - 12 September 2025 | Mencoba membuat workplan TA untuk target Sempro di bulan November  |
 | 12 - 14 September 2025 | Mencoba breakdown dataset yang didapatkan untuk training model di colab. Gagal karena runtime exceed (24 jam)  |
+| 21 - 28 September 2025 | Mencoba menggunakan runpod dengan dataset yang sudah didapatkan. Masih gagal karena data collator error |
+
+## Oktober 2025
+| DATE | TASK |
+|:----------: | -------------- |
+| 1 Oktober 2025 | Mencoba melakukan train |
