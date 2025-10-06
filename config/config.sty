@@ -25,6 +25,7 @@
 \usepackage{longtable} % Untuk tabel yang potong halaman
 \usepackage{amsmath} % Untuk equation
 \usepackage{enumitem} % Untuk list enumerate yg lebih rapi
+\usepackage{nameref} % Untuk dapat menggunakan nameref, referensi dengan nama section/caption
 \usepackage[bookmarks]{hyperref}
 \usepackage{lipsum}
 \hypersetup{
@@ -35,12 +36,16 @@
 	urlcolor=black
 }
 
-
 % Setting indensasi
 \usepackage{indentfirst}
 \usepackage{parskip}
-\setlength{\parindent}{20pt}
+\usepackage[indentafter]{titlesec}
+\usepackage{microtype}
+%\setlength{\parindent}{20pt}
 \setlength{\parskip}{0pt}
+\newlength{\sectionindent}
+\settowidth{\sectionindent}{\thesection\hspace{0.965em}} % Agar indensasi paragraf selaras dengan indensasi judul subbab (Alfaina)
+\setlength{\parindent}{\sectionindent}
 
 % Linespacing 1.5. Tidak serupa dengan 1.5 di Word (RDB)
 \renewcommand{\baselinestretch}{1.5}
@@ -59,10 +64,9 @@
 % Format tanggal
 \usepackage[style=ddmmyyyy,datesep=-]{datetime2}
 
-
-
 % Format citation
-\usepackage[backend=biber,citestyle=ieee]{biblatex}
+\usepackage[backend=bibtex,citestyle=ieee]{biblatex} % Untuk bisa jalan di Texstudio, harus backend=bibtex
+% Seriusan, JANGAN GANTI BACKENDNYA (RDB)
 
 % Remove "In:" before journal titles
 \renewbibmacro{in:}{}
@@ -80,11 +84,9 @@
 
 \DeclareLanguageMapping{bahasa}{english}
 
-
-
 % Package untuk link di daftar isi.
-\usepackage{titlesec}       % Package Format judul
-\usepackage{parskip}
+%\usepackage{titlesec}       % Package Format judul
+%\usepackage{parskip}
 \usepackage{ragged2e}		% Alignment
 \usepackage{multirow}		% Untuk bisa merge cell di tabel
 \usepackage{tikz}			% Untuk menggambar kotak pas foto
@@ -108,7 +110,7 @@
 	\fancyhead[R]{\thepage}
 }
 
-% Fancy header selang-seling kiri-kanan atas
+% Fancy header selang-seling kiri-kanan atas (Ardoni)
 \fancypagestyle{alternatingstyle}{
   \fancyhf{} % Clear all headers and footers
   \renewcommand{\headrulewidth}{0pt}
@@ -193,8 +195,6 @@
   \apptocmd {\listoftables} { \endgroup}{}{}
 \makeatother
 
-
-
 \setcounter{tocdepth}{3} 
 
 % Tambahkan kata "BAB" sebelum nomor bab di daftar isi
@@ -203,7 +203,7 @@
 \settowidth{\cftchapnumwidth}{\cftchappresnum}
 \renewcommand{\cftchapaftersnumb}{\quad}
 \addtocontents{toc}{
-\protect\renewcommand*\protect\cftchappresnum{\MakeUppercase{\chaptername}~}
+	\protect\renewcommand*\protect\cftchappresnum{\MakeUppercase{\chaptername}~}
 }
 
 \renewcommand{\cftchapleader}{\dotfill} 
@@ -227,7 +227,6 @@
 	\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}
 }
 
-
 % Mengatur format daftar rumus
 \renewcommand{\cftmyequationspresnum}{}
 \newlength{\mylenf}
@@ -236,32 +235,27 @@
 \setlength{\cftmyequationsindent}{1.5em} % Menambahkan indentasi daftar rumus
 \renewcommand{\cftmyequationsleader}{\dotfill}
 
-\usepackage{etoolbox}
-
+% Setting penulisan rumus yang baru (Ardoni)
 \newenvironment{equationcaptioned}[3][]{%
   \refstepcounter{equation}
   \myequations{#3}
-  \begin{center}
-    \vspace{0.5em}
+  \begin{center} % TODO: Rumus harusnya rata kiri
+    \vspace{1em}
     % Removed the fcolorbox and kept only the minipage
     \begin{minipage}{0.9\linewidth}
-      \begin{spacing}{0.7} % ⬅️ Spasi 1.0 hanya di rumus
-      \begin{equation*}
-      \begin{gathered}
-        #2
-      \end{gathered}
-      \ifstrempty{#1}{}{\label{#1}}
-      \end{equation*}
-      \end{spacing}
+		\begin{spacing}{0.7} % ⬅️ Spasi 1.0 hanya di rumus
+			\begin{equation*}
+				#2
+				\ifstrempty{#1}{}{\label{#1}}
+			\end{equation*}
+		\end{spacing}
+		\begin{flushright}
+			(\footnotesize\theequation)
+		\end{flushright}
     \end{minipage}
   \end{center}
   \vspace{0.5em}
-  \begin{center}
-    \footnotesize \theequation\ #3
-  \end{center}
 }{}
-
-
 
 % Setting daftar gambar dan daftar tabel
 \renewcommand\cftfigpresnum{Gambar\ }
@@ -274,40 +268,42 @@
 % Setting penomoran caption gambar, tabel, dan rumus
 \renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
 \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
-\renewcommand\theequation{Rumus~\arabic{section}.\arabic{equation}}
+\renewcommand\theequation{Rumus~\arabic{chapter}.\arabic{equation}} % Penomoran rumus berdasarkan Babnya (Minggus)
 
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{geometry}
 
-% Pengaturan untuk listings
+% Pengaturan untuk penulisan blok kode (listings) (Ardoni)
 \lstset{
-    language=Python,                  % Bahasa pemrograman
-    basicstyle=\ttfamily\footnotesize,        % Gaya font kode (diperkecil)
-    numbers=none,                      % Tidak menampilkan nomor baris
-    backgroundcolor=\color{white},     % Warna latar belakang
-    showstringspaces=false,            % Tidak menampilkan spasi dalam string
-    frame=single,                      % Membuat frame di sekitar kode
-    rulecolor=\color{black},           % Warna garis bingkai
-    breaklines=true,                   % Membungkus kode jika lebih panjang dari satu baris
-    breakatwhitespace=true,            % Membungkus di spasi
-    keepspaces=true,                   % Menjaga spasi di dalam kode
-    xleftmargin=10pt,                  % Margin kiri
-    xrightmargin=10pt,                 % Margin kanan
-    aboveskip=0pt,                    % Jarak di atas kode
-    belowskip=0pt,                    % Jarak di bawah kode
+    language=Python,                  	% Bahasa pemrograman
+    basicstyle=\ttfamily\scriptsize,	% Gaya font kode (diperkecil)
+    numbers=left,                      	% Menampilkan nomor baris di sisi kiri
+    numberstyle=\tiny\color{black},		% Warna nomor baris
+    showstringspaces=false,            	% Tidak menampilkan icon spasi dalam string
+    frame=single,                      	% Membuat frame di sekitar kode
+    rulecolor=\color{black},           	% Warna garis bingkai
+    breaklines=true,                   	% Membungkus kode jika lebih panjang dari satu baris
+    breakatwhitespace=true,           	% Membungkus di spasi
+    backgroundcolor=\color{white},    	% Warna latar belakang
+    commentstyle=\color{green}, 		% Warna untuk teks comment
+    keywordstyle=\color{blue}, 			% Warna untuk teks fungsi
+    stringstyle=\color{red},			% Warna untuk teks string
+    keepspaces=true,                   	% Menjaga spasi di dalam kode
+    xleftmargin=10pt,                 	% Margin kiri
+    xrightmargin=10pt,                 	% Margin kanan
+    aboveskip=0pt,                    	% Jarak di atas kode
+    belowskip=0pt,                    	% Jarak di bawah kode
     lineskip=-1pt,
-    extendedchars=true                 % Mengizinkan karakter non-ASCII
-    escapeinside={\%*}{*)}             % Escape karakter LaTeX dalam listings
+    extendedchars=true                 	% Mengizinkan karakter non-ASCII
+    escapeinside={\%*}{*)}            	% Escape karakter LaTeX dalam listings
 }
-
 
 % Daftar Kode
 \usepackage{tocloft}
 \newcommand{\listoflistingscaption}{DAFTAR KODE}
 \renewcommand{\lstlistingname}{Kode}
 \renewcommand{\lstlistlistingname}{\listoflistingscaption}
-
 
 % Menentukan format penomoran untuk listings dengan angka Arab
 \makeatletter
@@ -345,7 +341,6 @@
 \renewcommand\@dotsep{2.5}  % Coba nilai yang berbeda: 1.5, 2.0, 2.5, 3.0, dll.
 \makeatother
 
-
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -360,7 +355,6 @@
 \crefname{kode}{Kode}{Kode}
 \Crefname{kode}{Kode}{Kode}
 \newcommand{\coderef}[1]{Kode~\ref{#1}}
-
 
 % Untuk mengganti nama bulan di babel bahasa
 % tapi belum jalan (RDB)
@@ -407,6 +401,11 @@
 \newcommand{\printnippengujib}{\@nippengujib}
 \newcommand{\pengujiA}[2]{\namapengujia{#1} \nippengujia{#2}}
 \newcommand{\pengujiB}[2]{\namapengujib{#1} \nippengujib{#2}}
+
+% Command untuk variabel tanggal dengan format seperti "27 Juli 2025"
+\newcommand{\todayIndo}{\the\day~\ifcase\month
+	\or Januari\or Februari\or Maret\or April\or Mei\or Juni%
+	\or Juli\or Agustus\or September\or Oktober\or November\or Desember\fi~\number\year}
 
 % Command untuk merubah spacing equation
 \g@addto@macro\normalsize{%

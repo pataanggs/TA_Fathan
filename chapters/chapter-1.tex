@@ -1,0 +1,105 @@
+\newpage
+\chapter{PENDAHULUAN} \label{Bab I}
+
+\section{Latar Belakang} \label{I.Latar Belakang}
+Dalam beberapa dekade terakhir, kemajuan dalam pemrosesan suara dan pengenalan ucapan (\textit{Automatic Speech Recognition} / ASR) telah menjadi salah satu bidang riset yang sangat penting, terutama karena potensinya besar di banyak aspek kehidupan manusia, misalnya asisten suara (\textit{Siri, Google Assistant}), sistem transkripsi otomatis, aksesibilitas bagi penyandang disabilitas, layanan publik, pendidikan, serta interaksi manusia-komputer. Model-model berbasis pembelajaran mendalam (\textit{deep learning}) yang menggunakan arsitektur \textit{Transformer}, atau model "\textit{end-to-end}", semakin banyak digunakan untuk menggantikan pendekatan tradisional seperti \textit{Hidden Markov Model dan Gaussian Mixture Model}. \par
+
+Namun, performa ASR sangat bergantung pada ketersediaan data berbicara (\textit{speech}) dan transkripsi yang berkualitas dan representatif dari bahasa atau dialek target. Untuk bahasa mayor seperti Inggris, Mandarin, Spanyol, data sangat melimpah; sementara untuk bahasa lokal atau dialek (termasuk bahasa daerah di Indonesia) data seringkali sangat terbatas (\textit{low-resource}). Model yang telah dilatih pada data multibahasa besar seperti Whisper kadang masih kurang optimal ketika menghadapi dialek atau bahasa yang kurang terwakili dalam data latihannya. \par
+
+OpenAI memperkenalkan model Whisper sebagai model \textit{speech-to-text} multibahasa dengan pelatihan lemah-supervisi skala besar (\textit{Large-Scale Weak Supervision}) (sekitar 680.000 jam data audio transkrip) untuk generalisasi ke berbagai kondisi dan bahasa \cite{radford2023whisper}. Meskipun demikian, model dasar ("\textit{base Whisper}") seringkali tidak menghasilkan akurasi memadai ketika dihadapkan pada bahasa atau dialek yang sangat spesifik atau dengan variasi fonetik tinggi yang belum banyak direpresentasikan. Oleh karena itu, teknik \textit{fine-tuning} terhadap model dasar menjadi sangat penting agar model "teradaptasi" ke karakteristik bahasa lokal tersebut. \par
+
+Teknik \textit{fine-tuning} Whisper telah dieksplorasi dalam sejumlah studi, terutama untuk bahasa \textit{low-resource}. Misalnya, penelitian \textit{Exploration of Whisper fine-tuning strategies for low-resource ASR} menunjukkan bahwa berbagai strategi \textit{fine-tuning} dapat secara signifikan meningkatkan performa pengenalan suara untuk bahasa-bahasa dengan data terbatas \cite{liu2024exploration}. Ada pula penelitian "\textit{Fine-tuning Whisper on Low-Resource Languages for Real-World Applications}" yang memperkenalkan metode transformasi dataset kalimat-ke-audio panjang untuk menjaga kemampuan segmentasi dan bagus bagi aplikasi nyata \cite{timmel2024finetune}. \par
+
+Studi lain mengusulkan metode \textit{fine-tuning} efisien, seperti \textit{LoRA-Whisper}, yang bertujuan agar adaptasi ke bahasa baru bisa dilakukan tanpa menurunkan performa bahasa lain dan dengan \textit{overhead} parameter yang lebih kecil \cite{deng2024lorawhisper}. Juga ada penelitian \textit{Multistage Fine-tuning Strategies for Automatic Speech Recognition in Low-resource Languages} yang menggunakan strategi \textit{multistage} (bertahap) untuk mengadaptasi model melalui bahasa yang punya kemiripan linguistik \cite{pillai2024multistage}. \par
+
+Begitu juga, studi aplikasi domain khusus (misalnya dalam konteks medis) menekankan bahwa \textit{fine-tuning} model Whisper pada domain spesifik (dengan kosakata dan pola suara khusus) mampu meningkatkan akurasi dibandingkan model standar \cite{zhao2024whispermed}. Dengan demikian, adaptasi model ASR (melalui \textit{fine-tuning}) telah menjadi pendekatan penting untuk menjembatani kesenjangan antara model umum dan kebutuhan lokal atau domain khusus. \par
+
+Di Indonesia, keragaman bahasa dan dialek sangat tinggi, dan banyak komunitas menggunakan bahasa daerah dalam kehidupan sehari-hari. Bahasa Minangkabau adalah salah satu bahasa daerah yang memiliki nilai budaya, sosial, dan historis tinggi, khususnya di wilayah Sumatera Barat dan daerah-daerah diaspora Minangkabau. Namun, dalam literatur riset ASR Indonesia, fokus utama lebih banyak pada bahasa Indonesia (standar) atau beberapa dialek besar (Sunda, Jawa, dsb.), sedangkan kontribusi penelitian terhadap bahasa Minangkabau relatif sedikit. \par
+
+Karena bahasa Minangkabau memiliki fonetik, kosakata, dan intonasi yang khas, transkripsi otomatis dengan model umum (bahasa Indonesia atau multibahasa) cenderung menghasilkan kesalahan (\textit{error}) yang cukup tinggi. Hal ini dapat disebabkan oleh kekurangan data latih (audio + transkripsi) dalam bahasa Minangkabau, serta ketidakmampuan model awal menangani variasi dialek, aksen lokal, dan fenomena fonologi spesifik. Oleh karena itu, tugas untuk mengembangkan sistem ASR yang mampu mengenali ucapan bahasa Minangkabau dengan baik memerlukan adaptasi model melalui \textit{fine-tuning}, agar model "belajar" karakteristik suara, kosakata, dan pola ucapan lokal tersebut. \par
+
+\section{Rumusan Masalah} \label{I.Rumusan Masalah}
+Berdasarkan latar belakang yang telah dijelaskan, maka permasalahan utama dalam penelitian ini dapat dirumuskan sebagai berikut:
+
+\begin{enumerate}
+    \item Bagaimana mengadaptasi (\textit{fine-tuning}) model \textbf{OpenAI Whisper Small} agar mampu mengenali dan mentranskripsi ucapan dalam \textbf{bahasa Minangkabau} secara akurat, mengingat keterbatasan data suara dan teks (\textit{low-resource}) yang tersedia?
+    
+    \item Bagaimana proses perancangan dan implementasi sistem \textbf{Automatic Speech Recognition (ASR)} berbasis hasil \textit{fine-tuning} tersebut dengan menggunakan bahasa pemrograman \textbf{Python} dan pustaka \textit{machine learning} seperti \textbf{PyTorch} dan \textbf{Hugging Face Transformers}?
+    
+    \item Bagaimana pengaruh penerapan teknik \textit{fine-tuning} tertentu (misalnya \textit{full fine-tuning} atau \textit{parameter-efficient fine-tuning} seperti \textbf{LoRA}) terhadap \textbf{kinerja model Whisper Small} dalam mengenali ucapan bahasa Minangkabau?
+    
+    \item Bagaimana cara mengukur dan mengevaluasi \textbf{performa model hasil fine-tuning} menggunakan metrik kuantitatif seperti \textit{Word Error Rate (WER)} dan \textit{Character Error Rate (CER)}, serta analisis kualitatif terhadap kesalahan transkripsi pada beragam variasi penutur dan kondisi rekaman?
+    
+    \item Bagaimana hasil implementasi dan pengujian sistem ASR yang dikembangkan dapat memberikan \textbf{kontribusi nyata terhadap pelestarian bahasa daerah} dan pengembangan teknologi pengenalan suara untuk bahasa lokal di Indonesia?
+\end{enumerate}
+
+\section{Tujuan Penelitian} \label{I.Tujuan}
+Berdasarkan rumusan masalah yang telah dikemukakan, penelitian ini memiliki beberapa tujuan sebagai berikut:
+
+\begin{enumerate}
+    \item \textbf{Mengadaptasi model OpenAI Whisper Small} melalui proses \textit{fine-tuning} agar mampu mengenali dan mentranskripsi ucapan dalam \textbf{bahasa Minangkabau} dengan tingkat akurasi yang lebih baik dibandingkan model dasar (\textit{pretrained model}).
+    
+    \item \textbf{Merancang dan mengimplementasikan sistem Automatic Speech Recognition (ASR)} berbasis hasil \textit{fine-tuning} model Whisper menggunakan bahasa pemrograman \textbf{Python} dan pustaka \textit{deep learning} seperti \textbf{PyTorch} serta \textbf{Hugging Face Transformers}.
+    
+    \item \textbf{Menerapkan dan membandingkan teknik fine-tuning yang berbeda}, seperti \textit{full fine-tuning} dan \textit{parameter-efficient fine-tuning} (misalnya \textbf{LoRA-Whisper}), untuk menentukan metode yang paling efektif terhadap bahasa dengan sumber daya terbatas (\textit{low-resource language}).
+    
+    \item \textbf{Mengevaluasi performa model hasil fine-tuning} menggunakan metrik kuantitatif seperti \textit{Word Error Rate (WER)}, \textit{Character Error Rate (CER)}, dan analisis kualitatif terhadap kesalahan transkripsi, guna mengetahui sejauh mana peningkatan yang dicapai.
+    
+    \item \textbf{Menghasilkan prototipe sistem ASR bahasa Minangkabau yang fungsional dan terverifikasi}, serta memberikan kontribusi terhadap upaya pelestarian bahasa daerah melalui penerapan teknologi kecerdasan buatan di bidang pengenalan suara multibahasa.
+\end{enumerate}
+
+\section{Batasan Masalah} \label{I.Batasan}
+Agar penelitian ini memiliki ruang lingkup yang terarah dan dapat diselesaikan secara realistis dalam waktu yang terbatas, maka ditetapkan beberapa batasan masalah sebagai berikut:
+
+\begin{enumerate}
+    \item Penelitian ini hanya berfokus pada \textbf{implementasi \textit{fine-tuning} model OpenAI Whisper Small} untuk pengenalan ucapan (\textit{Automatic Speech Recognition}) pada \textbf{bahasa Minangkabau}.
+    
+    \item Dataset yang digunakan terdiri dari \textbf{rekaman suara dan transkripsi teks bahasa Minangkabau} yang bersumber dari korpus publik, hasil pengumpulan mandiri, atau dataset hasil \textit{crowdsourcing} berskala terbatas. Penelitian ini tidak mencakup proses pembuatan dataset baru dalam skala besar.
+    
+    \item Model yang diujikan dibatasi pada \textbf{varian Whisper Small} dan teknik \textit{fine-tuning} tertentu seperti \textit{full fine-tuning} dan \textit{parameter-efficient fine-tuning} (misalnya LoRA), tanpa membandingkan seluruh varian Whisper lainnya (Tiny, Base, Medium, Large).
+
+    \item Evaluasi performa model dilakukan menggunakan metrik \textbf{Word Error Rate (WER)}, \textbf{Character Error Rate (CER)}, dan analisis kesalahan transkripsi pada sampel data uji. Evaluasi subjektif atau berbasis pengguna akhir (\textit{user study}) tidak termasuk dalam ruang lingkup penelitian ini.
+
+    \item Implementasi sistem ASR dilakukan menggunakan bahasa pemrograman \textbf{Python} dengan pustaka \textbf{PyTorch} dan \textbf{Hugging Face Transformers}, serta dijalankan dalam lingkungan komputasi lokal atau GPU yang tersedia. Integrasi ke aplikasi lain (misalnya mobile atau web) tidak menjadi fokus utama penelitian ini.
+    
+    \item Penelitian ini tidak membahas aspek keamanan data, privasi pengguna, maupun optimasi energi selama pelatihan model, melainkan berfokus pada \textbf{adaptasi model dan analisis performa hasil fine-tuning}.
+\end{enumerate}
+
+
+\section{Manfaat Penelitian} \label{I.Manfaat}
+Penelitian ini diharapkan dapat memberikan manfaat baik dari segi akademik maupun praktis, yaitu sebagai berikut:
+
+\begin{enumerate}
+    \item \textbf{Manfaat Akademik:}
+    \begin{enumerate}
+        \item Memberikan kontribusi terhadap pengembangan ilmu pengetahuan di bidang \textbf{kecerdasan buatan (Artificial Intelligence)} dan \textbf{pemrosesan suara (Speech Processing)}, khususnya dalam konteks \textit{Automatic Speech Recognition} (ASR) untuk bahasa dengan sumber daya terbatas.
+        \item Menjadi \textbf{referensi ilmiah} dan bahan pembelajaran bagi mahasiswa atau peneliti lain yang tertarik untuk melakukan penelitian serupa dalam bidang \textit{speech-to-text}, \textit{low-resource language modeling}, dan \textit{model adaptation}.
+        \item Menunjukkan penerapan teknik \textit{fine-tuning} pada model \textbf{OpenAI Whisper Small} menggunakan pustaka \textbf{PyTorch} dan \textbf{Hugging Face Transformers}, sehingga dapat menjadi dasar penelitian lanjutan terkait efisiensi model, optimasi pelatihan, dan adaptasi multibahasa.
+    \end{enumerate}
+
+    \item \textbf{Manfaat Praktis:}
+    \begin{enumerate}
+        \item Menghasilkan \textbf{sistem pengenalan suara bahasa Minangkabau} yang dapat digunakan sebagai alat bantu transkripsi otomatis untuk konten audio lokal, seperti wawancara, podcast, atau dokumentasi budaya.
+        \item Mendukung \textbf{pelestarian bahasa daerah} melalui pemanfaatan teknologi AI yang dapat mempermudah digitalisasi dan dokumentasi bahasa Minangkabau.
+        \item Memberikan \textbf{contoh implementasi praktis} penggunaan model besar berbasis \textit{Transformer} dalam konteks lokal, yang dapat menjadi acuan bagi pengembang, lembaga penelitian, dan institusi pendidikan di Indonesia.
+    \end{enumerate}
+\end{enumerate}
+
+
+\section{Sistematika Penulisan} \label{I.Sistematika}
+Sistematika penulisan berisi penjelasan mengenai susunan bab dalam laporan tugas akhir ini. Setiap bab disusun secara sistematis agar pembaca dapat memahami alur penelitian yang dilakukan, mulai dari tahap perumusan masalah hingga kesimpulan akhir. Adapun sistematika penulisan tugas akhir ini adalah sebagai berikut:
+
+\subsection*{Bab I: Pendahuluan}
+Bab ini berisi penjelasan mengenai \textbf{latar belakang penelitian}, \textbf{rumusan masalah}, \textbf{tujuan penelitian}, \textbf{batasan masalah}, \textbf{manfaat penelitian}, serta \textbf{sistematika penulisan}. Bab ini memberikan gambaran umum mengenai alasan dan arah penelitian yang dilakukan, sehingga pembaca memahami konteks dan ruang lingkup penelitian ini.
+
+\subsection*{Bab II: Tinjauan Pustaka}
+Bab ini membahas \textbf{landasan teori} dan \textbf{penelitian terdahulu} yang relevan dengan topik tugas akhir, meliputi konsep dasar \textit{Automatic Speech Recognition (ASR)}, model \textbf{OpenAI Whisper}, teknik \textit{fine-tuning} dan \textit{parameter-efficient fine-tuning} seperti \textbf{LoRA}, serta pembahasan mengenai \textbf{bahasa Minangkabau sebagai bahasa low-resource}. Bab ini menjadi dasar konseptual dan teoritis bagi metode yang digunakan dalam penelitian.
+
+\subsection*{Bab III: Metodologi Penelitian}
+Bab ini menjelaskan \textbf{tahapan penelitian} yang dilakukan, termasuk rancangan sistem, arsitektur model, dataset yang digunakan, tahapan \textit{fine-tuning}, lingkungan pengujian, serta metode evaluasi performa. Selain itu, bab ini juga menjelaskan alur kerja penelitian mulai dari pengumpulan data, pelatihan model, hingga proses evaluasi hasil.
+
+\subsection*{Bab IV: Implementasi dan Hasil Penelitian}
+Bab ini membahas \textbf{implementasi model dan sistem} yang dikembangkan, hasil pengujian terhadap model \textit{Whisper Small} yang telah di-\textit{fine-tune}, serta analisis performa berdasarkan metrik \textit{Word Error Rate (WER)}, \textit{Character Error Rate (CER)}, dan evaluasi kualitatif terhadap hasil transkripsi. Pada bagian ini juga dijelaskan perbandingan antara model dasar dan model hasil adaptasi terhadap bahasa Minangkabau.
+
+\subsection*{Bab V: Kesimpulan dan Saran}
+Bab ini berisi \textbf{kesimpulan} yang diperoleh dari hasil penelitian dan \textbf{saran} untuk pengembangan lebih lanjut. Kesimpulan mencakup hasil utama penelitian, tingkat keberhasilan implementasi sistem ASR bahasa Minangkabau, serta potensi pengembangan model atau sistem di masa depan.
