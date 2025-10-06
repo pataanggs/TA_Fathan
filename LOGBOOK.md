@@ -32,3 +32,4 @@
 | DATE | TASK |
 |:----------: | -------------- |
 | 1 Oktober 2025 | Mencoba melakukan train |
+| 7 Oktober 2025 | Mulai menuliskan BAB 1. Latar Belakang Penelitian |
