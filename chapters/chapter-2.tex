@@ -59,7 +59,7 @@ Bagian ini membahas penelitian terdahulu yang relevan dengan topik \textit{fine-
 
 \textbf{Masalah:} Mencapai WER kompetitif Bahasa Indonesia dengan data terbatas.
 
-\textbf{Metode:} \textit{Fine-tuning} XLSR-53 (${\sim}24 jam) + \textit{language model} (KenLM 4-gram) pada decoding.
+\textbf{Metode:} \textit{Fine-tuning} XLSR-53 ($\sim$24 jam) + \textit{language model} (KenLM 4-gram) pada decoding.
 
 \textbf{Hasil/Pengujian:} WER $\sim$20\% $\to$ $\sim$12\% dengan LM pada \textit{test set} publik.
 
@@ -146,7 +146,7 @@ Bagian ini membahas konsep inti yang mendasari pengembangan \textit{Automatic Sp
 \subsection{Formulasi Umum ASR}
 ASR memetakan fitur akustik $X$ menjadi urutan token teks $y=(y_1,\dots,y_T)$ dengan memaksimalkan probabilitas posterior.
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Objektif umum ASR: pemilihan urutan hipotesis terbaik}
 \label{eq:asr-objective}
 \begin{equation}
@@ -160,7 +160,7 @@ Persamaan~\ref{eq:asr-objective} adalah target inferensi untuk model \textit{enc
 \subsection{Representasi Akustik (Log–Mel Spectrogram)}
 Sebagian besar sistem terkini (termasuk Whisper) mengonsumsi \textit{log–Mel spectrogram}.
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Pipeline komputasi log–Mel spectrogram}
 \label{eq:logmel}
 \begin{equation}
@@ -180,7 +180,7 @@ Persamaan~\ref{eq:logmel} memetakan sinyal waktu $s[n]$ ke fitur $X$ yang lebih 
 \textbf{Conformer} menggabungkan konvolusi (lokal) dan \textit{self-attention} (global), efektif untuk ketergantungan pendek–panjang \cite{gulati2020conformer}.  
 Pada jalur pra-latih \textit{self-supervised}, \textbf{wav2vec\,2.0} \cite{baevski2020wav2vec2}, \textbf{XLS-R} \cite{conneau2021xlsr}, dan \textbf{WavLM} \cite{chen2022wavlm} menyediakan representasi akustik lintas-bahasa yang kuat untuk diadaptasi dengan transkrip terbatas.
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Skor perhatian (scaled dot-product) pada Transformer}
 \label{eq:attn}
 \begin{equation}
@@ -192,7 +192,7 @@ Pada jalur pra-latih \textit{self-supervised}, \textbf{wav2vec\,2.0} \cite{baevs
 \subsection{Model Whisper}
 Whisper adalah \textit{encoder–decoder} Transformer multibahasa yang dipra-latih $\sim$680k jam \cite{radford2023whisper}. Pada adaptasi, digunakan kerugian \textit{cross-entropy} autoregresif:
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Fungsi kerugian \textit{cross-entropy} untuk decoding autoregresif}
 \label{eq:ce}
 \begin{equation}
@@ -210,7 +210,7 @@ Seluruh parameter dioptimasi dengan \textit{learning rate} kecil; akurat namun b
 \paragraph{Parameter-Efficient Fine-Tuning (LoRA).}
 LoRA menambah pembaruan ber-rank rendah pada proyeksi linear (mis.\ di modul atensi) tanpa memodifikasi bobot pra-latih utama.
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Formulasi LoRA untuk pembaruan ber-rank rendah}
 \label{eq:lora}
 \begin{equation}
@@ -225,7 +225,7 @@ Studi 2024 menunjukkan semua strategi (penuh, \textit{partial freeze}, adapter, 
 \paragraph{Kendala Alignment Monotonik.}
 Untuk ASR, keselarasan audio$\rightarrow$teks cenderung monotonik; menambahkan penalti alignment saat \textit{fine-tuning} terbukti menurunkan WER (2025) \cite{zhuang2025monotonic}.
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Regularisasi \textit{monotonic alignment} (contoh: KL terhadap topeng monotonic)}
 \label{eq:mono}
 \begin{equation}
@@ -241,7 +241,7 @@ dengan $A$ matriks atensi dan $M_{\mathrm{mono}}$ topeng yang menegakkan urutan 
 \subsection{Decoding dan Integrasi Model Bahasa}
 Pada \textit{beam search}, skor akustik dari Whisper dapat dipadukan dengan LM eksternal (\textit{shallow fusion}) untuk menurunkan WER pada data terbatas (lihat bukti 2024 untuk bahasa under-represented).
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Skor gabungan \textit{shallow fusion} untuk decoding}
 \label{eq:sf}
 \begin{equation}
@@ -254,7 +254,7 @@ dengan $\lambda,\beta$ hiperparameter dan $|y|$ penalti panjang.
 
 % ---------- 2.7 Metrik evaluasi ----------
 \subsection{Metrik Evaluasi}
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Word Error Rate (WER)}
 \label{eq:wer}
 \begin{equation}
@@ -262,7 +262,7 @@ dengan $\lambda,\beta$ hiperparameter dan $|y|$ penalti panjang.
 \end{equation}
 \end{eqfloat}
 
-\begin{eqfloat}
+\begin{eqfloat}[H]
 \caption{Character Error Rate (CER)}
 \label{eq:cer}
 \begin{equation}
@@ -270,7 +270,7 @@ dengan $\lambda,\beta$ hiperparameter dan $|y|$ penalti panjang.
 \end{equation}
 \end{eqfloat}
 
-$S,D,I$ adalah jumlah \textit{substitution}, \textit{deletion}, \textit{insertion} terhadap $N$ kata referensi; subskrip $_c$ untuk level karakter. CER sering lebih stabil pada bahasa dengan variasi ejaan atau morfologi kaya (praktik 2020–2025).
+dengan $S,D,I$ adalah jumlah \textit{substitution}, \textit{deletion}, \textit{insertion} terhadap $N$ kata referensi; subskrip $_c$ untuk level karakter. CER sering lebih stabil pada bahasa dengan variasi ejaan atau morfologi kaya (praktik 2020–2025).
 
 % ---------- 2.8 Keterkaitan ----------
 \subsection{Keterkaitan dengan Penelitian Ini}
