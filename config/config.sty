@@ -88,12 +88,41 @@
 %\usepackage{titlesec}       % Package Format judul
 %\usepackage{parskip}
 \usepackage{ragged2e}		% Alignment
+\usepackage{ltablex}        % longtable + tabularx (untuk tabel fleksibel)
+\keepXColumns               % Mempertahankan kolom X di ltablex
+\renewcommand\tabularxcolumn[1]{m{#1}} % Kolom X dengan vertical centering
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X} % Kolom X dengan RaggedRight
+\setlength\LTleft{0pt}      % Tabel tabularx mepet margin kiri
+\setlength\LTright{0pt}     % Tabel tabularx mepet margin kanan
 \usepackage{multirow}		% Untuk bisa merge cell di tabel
 \usepackage{tikz}			% Untuk menggambar kotak pas foto
 \usepackage{setspace}		% Spacing paragraph
 \usepackage{fancyhdr}		% Agar nomor halaman di pojok kanan atas
 \usepackage{caption} 		% Caption gambar & tabel
 \usepackage{comment}
+
+% ---- Float khusus persamaan + daftar persamaan ----
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[
+  fileext=loe,                % ekstensi aux utk daftar
+  listname={Daftar Persamaan},% judul list
+  name={Persamaan}            % nama caption di bawah rumus
+]{eqfloat}
+
+% Penomoran persamaan per section (subbab)
+\usepackage{chngcntr}
+\counterwithin{equation}{section}
+\DeclareFloatingEnvironment[
+  fileext=loe,                % ekstensi aux utk daftar
+  listname={Daftar Persamaan},% judul list
+  name={Persamaan}            % nama caption di bawah rumus
+]{eqfloat}
+% Pemanggilan daftar persamaan: \listof{eqfloat}{Daftar Persamaan}
+
+% (opsional) penomoran persamaan per subbab:
+\usepackage{chngcntr}
+\counterwithin{equation}{section}
+
 
 \captionsetup[figure]{font=footnotesize} % Mengatur caption gambar ke 10pt (footnotesize)
 \captionsetup[figure]{labelsep=space} % Mengubah ":" menjadi spasi setelah nomor gambar

@@ -2,109 +2,280 @@
 \chapter{TINJAUAN PUSTAKA} \label{Bab II}
 
 \section{Tinjauan Pustaka} \label{II.Tinjauan}
-Berisi penelitian terdahulu yang menjadi konsep / pendukung penelitian yang dilakukan. Lakukan pembahasan secara sistematis dengan menjelaskan masalah apa yang diangkat di penelitian terdahulu, metode yang digunakan, kontribusi yang diberikan, serta analisis penulis terkait dengan keunggulan atau keterbatasannya. Tuangkan perbandingan penelitian terdahulu dengan penelitian yang akan dikerjakan, minimal 5 jurnal pembanding (4-5 tahun terakhir). Kemudian penulis sebaiknya melakukan rangkuman terutama terkait dengan peluang pengembangan atau tugas akhir yang akan dilakukan \par
+Bagian ini membahas penelitian terdahulu yang relevan dengan topik \textit{fine-tuning} Whisper dan Automatic Speech Recognition (ASR) untuk bahasa \textit{low-resource}. Pembahasan disusun secara sistematis dengan: (i) masalah yang diangkat, (ii) metode yang digunakan, (iii) hasil/pengujian, (iv) analisis kelebihan/keterbatasan, serta (v) perbandingan dengan penelitian yang dikerjakan pada skripsi ini (Whisper Small untuk Bahasa Minangkabau). 
 
-Perujukan literatur dapat dilakukan dengan menambahkan entri baru dalam file \verb|references.bib|. Cara merujuk sitasi menggunakan \verb|\cite{nama label sitasi}|. Hasil sitasi seperti ini: \cite{knuth2001art}, \cite{Vogels2006Am}, atau \cite{Suryanto2019MAE}\cite{Ivanny2014Banding}. Daftar Pustaka hanya akan memunculkan sitasi yang direferensikan menggunakan command \verb|\cite{}|. \par
+\subsection*{Literatur Terkait (2022--2025)}
+\begin{enumerate}[noitemsep,topsep=2pt]
 
-Tuliskan \textbf{judul jurnal, penulis jurnal, tahun jurnal terbit, penjelasan isi jurnal, metode penelitian, hasil penelitian \& pengujian}. \par
-\begin{enumerate}[noitemsep]
-	\item Sistem Informasi Pendaftaran Haji dan Umroh Di PT Multazam Sriwijaya Barakah Palembang Menggunakan Metode Rapid Application Development. \blindtext
-	\item Sistem Informasi Umroh Di PT XYZ Lampung Menggunakan Metode Rapid Application Development. \blindtext
+\item \textbf{Robust Speech Recognition via Large-Scale Weak Supervision} \cite{radford2023whisper}. Radford, Kim, Xu, Brockman, McLeavey, Sutskever (2023).
+
+\textbf{Masalah:} Bagaimana membangun model ASR multibahasa yang \textit{robust} dan mampu \textit{zero-shot} pada beragam kondisi tanpa \textit{fine-tuning} dataset spesifik.
+
+\textbf{Metode:} Pra-latih \textit{Whisper} pada $\sim$680{,}000 jam data multibahasa/multitugas \textit{weak supervision}.
+
+\textbf{Hasil/Pengujian:} Kinerja kuat di berbagai benchmark ASR/terjemahan wicara dalam skenario \textit{zero-shot}.
+
+\textbf{Analisis:} \textbf{(+)} Fondasi kokoh untuk adaptasi ke bahasa lokal. \textbf{(--)} Bahasa/dialek yang under-represented masih memunculkan kesalahan.
+
+\textbf{Perbandingan:} Menjadi dasar untuk \textbf{adaptasi} ke Minangkabau melalui \textit{fine-tuning} (Whisper Small) pada penelitian ini.
+
+\item \textbf{Exploration of Whisper Fine-Tuning Strategies for Low-Resource ASR} \cite{liu2024exploration}. Liu, Yang, Qu (2024).
+
+\textbf{Masalah:} Strategi \textit{fine-tuning} Whisper yang paling efektif untuk skenario data terbatas belum dikaji komprehensif.
+
+\textbf{Metode:} Studi komparatif beberapa strategi (mis.\ \textit{full fine-tuning}, \textit{partial/freezing}, \textit{re-init layer atas}, \textit{adapters}, PEFT/LoRA) pada banyak bahasa \textit{low-resource}.
+
+\textbf{Hasil/Pengujian:} Semua strategi menurunkan WER; terdapat \textit{trade-off} akurasi vs efisiensi (VRAM/waktu latih).
+
+\textbf{Analisis:} \textbf{(+)} Panduan praktis memilih strategi berdasar keterbatasan data/komputasi. \textbf{(--)} Tidak mendalami satu bahasa/dialek spesifik secara longitudinal.
+
+\textbf{Perbandingan:} Skripsi ini akan membandingkan \textbf{full FT} vs \textbf{LoRA} pada Whisper Small untuk Minangkabau.
+
+\item \textbf{Fine-tuning Whisper on Low-Resource Languages for Real-World Applications} \cite{timmel2024finetune}. Timmel, Paonessa, Kakooee, Vogel, Perruchoud (2024).
+
+\textbf{Masalah:} Kekurangan korpus \textit{long-form} membuat model kehilangan kemampuan segmentasi/\textit{timestamping} saat hanya dilatih pada kalimat pendek.
+
+\textbf{Metode:} Menyusun ulang data kalimat pendek menjadi korpus audio \textit{long-form} sintetis (kasus Swiss German), lalu \textit{fine-tune} Whisper.
+
+\textbf{Hasil/Pengujian:} Peningkatan signifikan pada aplikasi dunia nyata (percakapan panjang); kemampuan segmentasi tetap terjaga.
+
+\textbf{Analisis:} \textbf{(+)} Solusi praktis ketika \textit{long-form} asli minim. \textbf{(--)} Diverifikasi pada Swiss German; butuh validasi lintas bahasa daerah lain.
+
+\textbf{Perbandingan:} Relevan untuk Minangkabau bila data \textit{long-form} kurang; dapat meniru strategi penyusunan \textit{long-form} sintetis.
+
+\item \textbf{Towards Efficiently Whisper Fine-tuning with Monotonic Alignments} \cite{zhuang2025monotonic}. Zhuang, Wei, Fang, Cheng, Wang, Xiao (2025).
+
+\textbf{Masalah:} \textit{Fine-tuning} standar tidak mengoptimalkan keselarasan monotonic audio$\to$teks secara eksplisit.
+
+\textbf{Metode:} Tambah \textit{soft monotonic alignment loss} saat \textit{fine-tuning} Whisper, tanpa mengubah arsitektur.
+
+\textbf{Hasil/Pengujian:} Penurunan WER konsisten pada beberapa tugas ASR multibahasa; perbaikan juga pada \textit{speech translation}.
+
+\textbf{Analisis:} \textbf{(+)} Peningkatan akurasi dengan overhead kecil. \textbf{(--)} Perlu setel \textit{loss weight}; dampak di \textit{very low-resource} perlu studi lanjut.
+
+\textbf{Perbandingan:} Menjadi opsi \textbf{pengembangan} jika performa baseline Minangkabau belum memadai.
+
+\item \textbf{Indonesian Automatic Speech Recognition with XLSR-53} \cite{arisaputra2022xlsr53}. Arisaputra, Zahra (2022).
+
+\textbf{Masalah:} Mencapai WER kompetitif Bahasa Indonesia dengan data terbatas.
+
+\textbf{Metode:} \textit{Fine-tuning} XLSR-53 (${\sim}24 jam) + \textit{language model} (KenLM 4-gram) pada decoding.
+
+\textbf{Hasil/Pengujian:} WER $\sim$20\% $\to$ $\sim$12\% dengan LM pada \textit{test set} publik.
+
+\textbf{Analisis:} \textbf{(+)} Bukti kuat \textit{transfer learning} multibahasa. \textbf{(--)} Fokus BI baku; tidak membahas dialek/daerah.
+
+\textbf{Perbandingan:} Menjadi pembanding non-Whisper; mendukung hipotesis bahwa model pra-latih multibahasa + FT efektif untuk bahasa Indonesia/daerah.
+
+\item \textbf{Breaking the Transcription Bottleneck: Fine-tuning ASR Models for Extremely Low-Resource Fieldwork Languages} \cite{liang2025fieldmatters}. Liang, Levow (2025).
+
+\textbf{Masalah:} Transkripsi bahasa yang sangat minim data (bahkan $<$1 jam) dalam konteks linguistik lapangan.
+
+\textbf{Metode:} Bandingkan \textbf{MMS} vs \textbf{XLS-R} di 5 bahasa sangat \textit{low-resource} pada berbagai skala data.
+
+\textbf{Hasil/Pengujian:} MMS unggul pada $<$1 jam; paritas dengan XLS-R saat data bertambah ($\gtrsim$1 jam).
+
+\textbf{Analisis:} \textbf{(+)} Panduan pemilihan model sesuai ketersediaan data. \textbf{(--)} Spesifik MMS/XLS-R; bukan Whisper.
+
+\textbf{Perbandingan:} Memberi konteks batas bawah data; skripsi ini tetap memfokuskan Whisper Small + FT untuk Minangkabau.
+
 \end{enumerate}
 
-Tabel ringkasan tinjauan pustaka ditulis setelah penjelasan masing-masing jurnal. \par
-\begin{longtable}{| b{0.05\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.15\textwidth}|p{0.25\textwidth}|} % Longtable berguna agar tabel dapat terpotong di halaman baru
-	\caption{Literasi Penelitian Terdahulu}
-	\label{table:2.literasi}\\
-	\hline
-	\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil} \\
-	\hline
-	\endfirsthead % Header tabel untuk halaman pertama
-	\hline
-	\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil} \\
-	\hline
-	\endhead % Header tabel untuk halaman selanjutnya (repeat header row)
-	1. & Sistem Informasi Pendaftaran Haji dan Umroh Di PT Multazam Sriwijaya Barakah Palembang Menggunakan Metode Rapid Application Development & Belum adanya sistem untuk pendaftaran haji \& umrah & Rapid Application Development & Sistem Informasi Pendaftaran Haji dan Umroh di PT Multazam Sriwijaya Barakah Palembang\\ 
-	\hline
-	2. & Sistem Informasi Umroh Di PT XYZ Lampung Menggunakan Metode Rapid Application Development & Belum adanya sistem untuk pendaftaran haji \& umrah & Rapid Application Development & Sistem Informasi Pendaftaran Umroh di PT XYZ Lampung\\ 
-	\hline
-	3. & Sistem Informasi Umroh Di PT XYZ Lampung Menggunakan Metode Rapid Application Development & Belum adanya sistem untuk pendaftaran haji \& umrah & Rapid Application Development & Sistem Informasi Pendaftaran Umroh di PT XYZ Lampung\\ 
-	\hline
-\end{longtable}
+\subsection*{Rangkuman \& Peluang Pengembangan}
+Literatur terbaru menegaskan bahwa: (i) pra-latih skala besar \cite{radford2023whisper} memberi fondasi kuat, (ii) pemilihan strategi FT harus menimbang akurasi vs efisiensi \cite{liu2024exploration}, (iii) rekayasa korpus \textit{long-form} membantu aplikasi dunia nyata \cite{timmel2024finetune}, (iv) modifikasi objektif (\textit{alignment loss}) dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}, dan (v) pembelajaran multibahasa dapat ditransfer ke bahasa lokal/daerah \cite{arisaputra2022xlsr53}. Untuk penelitian ini, peluang pengembangan mencakup: (a) komparasi \textbf{full FT vs LoRA} pada Whisper Small (efisiensi VRAM), (b) penyusunan \textbf{korpus long-form sintetis} Minangkabau jika data panjang minim, (c) eksplorasi \textbf{alignment-based loss} dan/atau \textbf{language model} pada decoding untuk penurunan WER lanjutan.
+
+{\small
+\setlength{\tabcolsep}{4pt}% padding kolom lebih rapat
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}m{0.045\textwidth}|Y|Y|Y|Y|}
+\caption{Ringkasan Literasi Penelitian Terdahulu (2022--2025)}
+\label{table:2.literasi}\\
+\hline
+\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil (ringkas)}\\
+\hline
+\endfirsthead
+\hline
+\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil (ringkas)}\\
+\hline
+\endhead
+1 &
+\textit{Robust Speech Recognition via Large-Scale Weak Supervision} \cite{radford2023whisper} &
+Generalisasi \textit{zero-shot} &
+Pra-latih $\sim$680k jam multibahasa/
+multitugas &
+Robust di banyak benchmark; dasar adaptasi lokal \\
+\hline
+2 &
+\textit{Exploration of Whisper Fine-Tuning Strategies for Low-Resource ASR} \cite{liu2024exploration} &
+Strategi FT untuk \textit{low-resource} &
+Bandingkan full/partial
+/adapters/LoRA &
+Semua turunkan WER; ada \textit{trade-off} akurasi vs efisiensi \\
+\hline
+3 &
+\textit{Fine-tuning Whisper on Low-Resource Languages for Real-World Applications} \cite{timmel2024finetune} &
+Minim \textit{long-form} $\to$ hilang segmentasi &
+Susun kalimat $\to$ \textit{long-form} sintetis + FT &
+SOTA Swiss German; segmentasi/
+\textit{timestamping} tetap baik \\
+\hline
+4 &
+\textit{Towards Efficiently Whisper Fine-tuning with Monotonic Alignments} \cite{zhuang2025monotonic} &
+Alignment tak dioptimalkan &
+Tambah \textit{monotonic alignment loss} &
+WER turun konsisten tanpa ubah arsitektur \\
+\hline
+5 &
+\textit{Indonesian Automatic Speech Recognition with XLSR-53} \cite{arisaputra2022xlsr53} &
+ASR Indonesia data terbatas &
+FT XLSR-53 + LM 4-gram &
+WER $\sim$20\% $\to$ $\sim$12\% (dengan LM) \\
+\hline
+6 &
+\textit{Breaking the Transcription Bottleneck} \cite{liang2025fieldmatters} &
+Sangat minim data ({$<\!$}1 jam) &
+Benchmark MMS vs.\ XLS\textendash R &
+MMS unggul {$<\!$}1 jam; paritas saat data bertambah \\
+\hline
+\end{tabularx}
+}
 
 \section{Dasar Teori} \label{II.Teori}
-Berisi teori/konsep yang berkaitan/digunakan dalam tugas akhir yang dikerjakan. Gunakanlah data melalui buku/jurnal referensi, publikasi tugas akhir, penelitian, buku, dan informasi web yang dapat dipertanggungjawabkan, hindari penggunaan dasar teori melalui tautan Wikipedia, surat kabar, atau portal berita, yang dapat memiliki isi yang tidak bersifat fakta. \par
+Bagian ini membahas konsep inti yang mendasari pengembangan \textit{Automatic Speech Recognition} (ASR) modern (2020–2025), dengan fokus pada adaptasi Whisper untuk Bahasa Minangkabau. Uraian dimulai dari formulasi umum ASR, representasi fitur akustik, arsitektur Transformer modern, strategi \textit{fine-tuning} pada skenario \textit{low-resource}, decoding dengan bantuan model bahasa, hingga metrik evaluasi.
 
-\subsection{Teori 1} \label{II.Teori1}
-Berikut adalah contoh penyisipan tabel menggunakan \verb|\begin{longtable}{}|: \par
-	
-	\begin{longtable}{|c|c|c|c|}
-		\caption{Contoh Tabel}
-		\label{table:2.contoh}\\
-		\hline
-		Col1 & Col2 & Col2 & Col3 \\
-		\hline
-		\endhead
-		1 & 6 & 87837 & 787 \\ 
-		\hline
-		2 & 7 & 78 & 5415 \\
-		\hline
-		3 & 545 & 778 & 7507 \\
-		\hline
-		4 & 545 & 18744 & 7560 \\
-		\hline
-		5 & 88 & 788 & 6344 \\
-		\hline
-	\end{longtable}
+% ---------- 2.1 Formulasi umum ASR ----------
+\subsection{Formulasi Umum ASR}
+ASR memetakan fitur akustik $X$ menjadi urutan token teks $y=(y_1,\dots,y_T)$ dengan memaksimalkan probabilitas posterior.
 
-\subsubsection{Subsubbab} \label{II.Teori1.1}
-Berikut adalah contoh subsubbab. Ini adalah level subbab maksimal dalam laporan Tugas Akhir, dan tidak boleh lebih dalam. \par
+\begin{eqfloat}
+\caption{Objektif umum ASR: pemilihan urutan hipotesis terbaik}
+\label{eq:asr-objective}
+\begin{equation}
+\hat{y} \;=\; \arg\max_{y}\; P_\theta\!\left(y\,\middle|\,X\right).
+\end{equation}
+\end{eqfloat}
 
-Gambar \ref{fig:2.contoh} adalah contoh Gambar yang diambil dari internet yang harus dicantumkan sumbernya dan memiliki lisensi Creative Common. Jika gambar adalah milik peneliti lain atau tidak dibuat atau diambil sendiri maka peneliti wajib meminta izin kepada peneliti lain tersebut untuk mencantumkan gambar. Gunakan \verb|\begin{figure}| untuk memasukkan gambar. Gunakan \verb|\caption{[nama caption]}| untuk memberikan caption gambar. Nomor caption akan diurutkan secara otomatis. Jangan lupa untuk melabeli setiap gambar dengan \verb|\label{[nama label]}|, agar bisa direferensi menggunakan \verb|\ref{[nama label]}| \par
-\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
-	\centering
-	\includegraphics[width=0.6\textwidth]{figure/keyboard.jpg}
-	\caption{Contoh gambar dan caption}
-	\label{fig:2.contoh}
-	{\footnotesize Sumber: Contoh} % Untuk memberikan sumber
-\end{figure}
+Persamaan~\ref{eq:asr-objective} adalah target inferensi untuk model \textit{encoder–decoder} modern seperti Conformer dan Whisper \cite{gulati2020conformer,radford2023whisper}.
 
-\subsection{Teori 2} \label{II.teori2}
-Untuk membuat sebuah rumus persamaan, gunakan kode \verb|\begin{equationcaptioned}| seperti dibawah: \par
-	
-\begin{equationcaptioned}[eq:2.sederhana]{
-	x + 1 = 2
-}{
-	Rumus sederhana % Caption rumus
-}
-\end{equationcaptioned}
+% ---------- 2.2 Representasi akustik ----------
+\subsection{Representasi Akustik (Log–Mel Spectrogram)}
+Sebagian besar sistem terkini (termasuk Whisper) mengonsumsi \textit{log–Mel spectrogram}.
 
-Teks caption rumus tidak akan muncul di teks, tetapi akan muncul di Daftar Rumus. \par
+\begin{eqfloat}
+\caption{Pipeline komputasi log–Mel spectrogram}
+\label{eq:logmel}
+\begin{equation}
+\begin{aligned}
+S(k,m) &= \mathrm{STFT}\{s[n]\},\\
+E(k,m) &= |S(k,m)|^2,\\
+M(f,m) &= \mathrm{MelFilterbank}\!\left(E(k,m)\right),\\
+X(f,m) &= \log\!\left(M(f,m)+\epsilon\right).
+\end{aligned}
+\end{equation}
+\end{eqfloat}
 
-\begin{equationcaptioned}[eq:2.mae]{
-    MAE = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|
-}{
-    Mean Absolute Error (MAE)
-}
-\end{equationcaptioned}
+Persamaan~\ref{eq:logmel} memetakan sinyal waktu $s[n]$ ke fitur $X$ yang lebih stabil terhadap variasi energi dan sesuai untuk encoder Transformer \cite{radford2023whisper}.
 
-Berikut adalah contoh penulisan persamaan yang lebih kompleks, yaitu persamaan distribusi normal. \par
+% ---------- 2.3 Arsitektur Transformer modern ----------
+\subsection{Arsitektur Transformer Modern untuk ASR (2020–2025)}
+\textbf{Conformer} menggabungkan konvolusi (lokal) dan \textit{self-attention} (global), efektif untuk ketergantungan pendek–panjang \cite{gulati2020conformer}.  
+Pada jalur pra-latih \textit{self-supervised}, \textbf{wav2vec\,2.0} \cite{baevski2020wav2vec2}, \textbf{XLS-R} \cite{conneau2021xlsr}, dan \textbf{WavLM} \cite{chen2022wavlm} menyediakan representasi akustik lintas-bahasa yang kuat untuk diadaptasi dengan transkrip terbatas.
 
-\begin{equationcaptioned}[eq:2.mae]{
-		P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
-	}{
-		Distribusi Normal
-	}
-\end{equationcaptioned}
+\begin{eqfloat}
+\caption{Skor perhatian (scaled dot-product) pada Transformer}
+\label{eq:attn}
+\begin{equation}
+\mathrm{Attention}(Q,K,V)\;=\;\mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)\!V .
+\end{equation}
+\end{eqfloat}
 
-Jika menuliskan banyak persamaan secara berurutan, gunakan  \verb|\begin{split}|: \par
+% ---------- 2.4 Model Whisper ----------
+\subsection{Model Whisper}
+Whisper adalah \textit{encoder–decoder} Transformer multibahasa yang dipra-latih $\sim$680k jam \cite{radford2023whisper}. Pada adaptasi, digunakan kerugian \textit{cross-entropy} autoregresif:
 
-\begin{equationcaptioned}[eq:2.mae]{
-		\begin{split} 
-			2x - 5y &=  8 \\ 
-			3x + 9y &=  -12
-		\end{split}
-	}{
-		Sistem persamaan linier
-	}
-\end{equationcaptioned}
+\begin{eqfloat}
+\caption{Fungsi kerugian \textit{cross-entropy} untuk decoding autoregresif}
+\label{eq:ce}
+\begin{equation}
+\mathcal{L}_{\mathrm{CE}} \;=\; -\sum_{t=1}^{T}\log P_\theta\!\left(y_t \,\middle|\, y_{<t}, X\right).
+\end{equation}
+\end{eqfloat}
+
+Whisper memakai BPE multibahasa dan token kontrol (bahasa, modus tugas) untuk mengondisikan output \cite{radford2023whisper}.
+
+% ---------- 2.5 Fine-tuning low-resource ----------
+\subsection{Strategi Fine-Tuning pada Skenario Low-Resource}
+\paragraph{Fine-tuning penuh.}
+Seluruh parameter dioptimasi dengan \textit{learning rate} kecil; akurat namun berbiaya VRAM/waktu lebih tinggi.
+
+\paragraph{Parameter-Efficient Fine-Tuning (LoRA).}
+LoRA menambah pembaruan ber-rank rendah pada proyeksi linear (mis.\ di modul atensi) tanpa memodifikasi bobot pra-latih utama.
+
+\begin{eqfloat}
+\caption{Formulasi LoRA untuk pembaruan ber-rank rendah}
+\label{eq:lora}
+\begin{equation}
+W' \;=\; W + \Delta W,\qquad 
+\Delta W \;=\; B A,\quad
+A\!\in\!\mathbb{R}^{r\times k},\; B\!\in\!\mathbb{R}^{d\times r},\; r\ll\min(d,k).
+\end{equation}
+\end{eqfloat}
+
+Studi 2024 menunjukkan semua strategi (penuh, \textit{partial freeze}, adapter, LoRA) menurunkan WER; pemilihan bergantung data dan sumber daya \cite{liu2024exploration}.
+
+\paragraph{Kendala Alignment Monotonik.}
+Untuk ASR, keselarasan audio$\rightarrow$teks cenderung monotonik; menambahkan penalti alignment saat \textit{fine-tuning} terbukti menurunkan WER (2025) \cite{zhuang2025monotonic}.
+
+\begin{eqfloat}
+\caption{Regularisasi \textit{monotonic alignment} (contoh: KL terhadap topeng monotonic)}
+\label{eq:mono}
+\begin{equation}
+\mathcal{L}_{\mathrm{mono}} \;=\;
+\mathrm{KL}\!\left(A \;\middle\|\; M_{\mathrm{mono}}\right)
+\;=\; \sum_{i,j} A_{ij}\,\log\!\frac{A_{ij}}{(M_{\mathrm{mono}})_{ij}},
+\end{equation}
+\end{eqfloat}
+
+dengan $A$ matriks atensi dan $M_{\mathrm{mono}}$ topeng yang menegakkan urutan temporal (definisi spesifik mengikuti rancangan eksperimen).
+
+% ---------- 2.6 Decoding + LM ----------
+\subsection{Decoding dan Integrasi Model Bahasa}
+Pada \textit{beam search}, skor akustik dari Whisper dapat dipadukan dengan LM eksternal (\textit{shallow fusion}) untuk menurunkan WER pada data terbatas (lihat bukti 2024 untuk bahasa under-represented).
+
+\begin{eqfloat}
+\caption{Skor gabungan \textit{shallow fusion} untuk decoding}
+\label{eq:sf}
+\begin{equation}
+\mathrm{score}(y\mid X) \;=\; 
+\log P_\theta(y\mid X) \;+\; \lambda\,\log P_{\mathrm{LM}}(y) \;+\; \beta\,|y| ,
+\end{equation}
+\end{eqfloat}
+
+dengan $\lambda,\beta$ hiperparameter dan $|y|$ penalti panjang.
+
+% ---------- 2.7 Metrik evaluasi ----------
+\subsection{Metrik Evaluasi}
+\begin{eqfloat}
+\caption{Word Error Rate (WER)}
+\label{eq:wer}
+\begin{equation}
+\mathrm{WER} \;=\; \frac{S + D + I}{N}\times 100\% ,
+\end{equation}
+\end{eqfloat}
+
+\begin{eqfloat}
+\caption{Character Error Rate (CER)}
+\label{eq:cer}
+\begin{equation}
+\mathrm{CER} \;=\; \frac{S_c + D_c + I_c}{N_c}\times 100\% .
+\end{equation}
+\end{eqfloat}
+
+$S,D,I$ adalah jumlah \textit{substitution}, \textit{deletion}, \textit{insertion} terhadap $N$ kata referensi; subskrip $_c$ untuk level karakter. CER sering lebih stabil pada bahasa dengan variasi ejaan atau morfologi kaya (praktik 2020–2025).
+
+% ---------- 2.8 Keterkaitan ----------
+\subsection{Keterkaitan dengan Penelitian Ini}
+(1) Fondasi pra-latih skala besar \cite{baevski2020wav2vec2,conneau2021xlsr,chen2022wavlm,radford2023whisper} memotivasi adaptasi Whisper Small di skenario data terbatas.  
+(2) Komparasi \textbf{full fine-tuning} vs \textbf{LoRA} akan mengevaluasi \textit{trade-off} akurasi–VRAM \cite{liu2024exploration}.  
+(3) Jika baseline belum memadai, regularisasi \textbf{alignment monotonik} (Persamaan~\ref{eq:mono}) dapat dieksplorasi \cite{zhuang2025monotonic}.  
+(4) \textbf{Shallow fusion} (Persamaan~\ref{eq:sf}) dan augmentasi sederhana akan dipertimbangkan untuk menekan WER pada Minangkabau.
+
