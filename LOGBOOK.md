@@ -33,3 +33,12 @@
 |:----------: | -------------- |
 | 1 Oktober 2025 | Mencoba melakukan train |
 | 7 Oktober 2025 | Mulai menuliskan BAB 1. Latar Belakang Penelitian |
+| 24 Oktober 2025 | Revisi Bab 1 |
+
+# November 2025
+| DATE | TASK |
+|:----------: | -------------- |
+| 3 November 2025 | Mulai menulis BAB 2. Tinjauan Pustaka |
+| 11 November 2025 | BAB 2 Selesai namun masih sangat kasar, butuh konsultasi terkait artikel pembanding |
+| 11 November 2025 | Mencoba menghubungi pihak Ikatan Keluarga Minang ITERA untuk meminta tolong membuat dataset |
+| 17 November 2025 | Dataset yang terkumpul baru 2, Target adalah 50 | 
