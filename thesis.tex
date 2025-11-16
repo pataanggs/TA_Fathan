@@ -18,7 +18,7 @@
 %--------------------------------------------------------------------%
 
 % Set jenis dokumen Tugas Akhir
-\documentclass[article]{report} % Untuk versi perpustakaan
+\documentclass{report} % Untuk versi perpustakaan
 \usepackage[paperwidth=155mm, % Setting layout kertas UNESCO (155 x 230 mm)
 			paperheight=230mm,
 			top=2cm, 
@@ -31,6 +31,7 @@
 			{geometry} 
 
 \input{config/config.sty} % Import konfigurasi laporan
+\usepackage{csquotes} % Required for biblatex with babel/polyglossia
 \bibliography{references.bib} % Import list Daftar Pustaka
 
 \begin{document}

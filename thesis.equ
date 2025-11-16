@@ -1,0 +1,9 @@
+\contentsline {myequations}{\numberline {Rumus~2.0}Objektif umum ASR: pemilihan urutan hipotesis terbaik}{16}{eqfloat.caption.19}%
+\contentsline {myequations}{\numberline {Rumus~2.1}Pipeline komputasi log–Mel spectrogram}{16}{eqfloat.caption.20}%
+\contentsline {myequations}{\numberline {Rumus~2.2}Skor perhatian (scaled dot-product) pada Transformer}{16}{eqfloat.caption.21}%
+\contentsline {myequations}{\numberline {Rumus~2.3}Fungsi kerugian \textit {cross-entropy} untuk decoding autoregresif}{17}{eqfloat.caption.22}%
+\contentsline {myequations}{\numberline {Rumus~2.4}Formulasi LoRA untuk pembaruan ber-rank rendah}{17}{eqfloat.caption.23}%
+\contentsline {myequations}{\numberline {Rumus~2.5}Regularisasi \textit {monotonic alignment} (contoh: KL terhadap topeng monotonic)}{17}{eqfloat.caption.24}%
+\contentsline {myequations}{\numberline {Rumus~2.6}Skor gabungan \textit {shallow fusion} untuk decoding}{18}{eqfloat.caption.25}%
+\contentsline {myequations}{\numberline {Rumus~2.7}Word Error Rate (WER)}{18}{eqfloat.caption.26}%
+\contentsline {myequations}{\numberline {Rumus~2.8}Character Error Rate (CER)}{18}{eqfloat.caption.27}%

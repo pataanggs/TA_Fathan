@@ -108,20 +108,22 @@
   listname={Daftar Persamaan},% judul list
   name={Persamaan}            % nama caption di bawah rumus
 ]{eqfloat}
+% Pemanggilan daftar persamaan: \listof{eqfloat}{Daftar Persamaan}
 
 % Penomoran persamaan per section (subbab)
 \usepackage{chngcntr}
 \counterwithin{equation}{section}
-\DeclareFloatingEnvironment[
-  fileext=loe,                % ekstensi aux utk daftar
-  listname={Daftar Persamaan},% judul list
-  name={Persamaan}            % nama caption di bawah rumus
-]{eqfloat}
-% Pemanggilan daftar persamaan: \listof{eqfloat}{Daftar Persamaan}
 
-% (opsional) penomoran persamaan per subbab:
-\usepackage{chngcntr}
-\counterwithin{equation}{section}
+% Hook untuk menambahkan caption eqfloat ke daftar myequations
+\usepackage{etoolbox}
+\AtBeginEnvironment{eqfloat}{%
+  \let\oldeqfloatcaption\caption
+  \def\caption#1{%
+    \oldeqfloatcaption{#1}%
+    \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}%
+  }%
+}
+
 
 
 \captionsetup[figure]{font=footnotesize} % Mengatur caption gambar ke 10pt (footnotesize)
