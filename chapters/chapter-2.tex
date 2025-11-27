@@ -179,12 +179,12 @@ Penelitian terbaru menunjukkan bahwa pendekatan \textit{transfer learning} dari 
 
 Model \textit{pre-trained} multibahasa seperti wav2vec 2.0 \cite{baevski2020wav2vec2}, XLS-R \cite{conneau2021xlsr}, HuBERT \cite{hsu2021hubert}, WavLM \cite{chen2022wavlm}, dan Whisper \cite{radford2023whisper} telah menunjukkan kemampuan luar biasa dalam \textit{transfer learning} untuk ASR. Model-model ini dilatih pada ratusan ribu jam data audio multibahasa, memungkinkan mereka mempelajari representasi akustik dan linguistik yang generik dan dapat ditransfer ke bahasa-bahasa baru.
 
-Whisper, yang dikembangkan oleh OpenAI, merupakan model ASR \textit{end-to-end} berbasis \textit{Transformer encoder-decoder} yang dilatih pada 680,000 jam data audio multibahasa dalam paradigma \textit{weak supervision} \cite{radford2023whisper}. Keunggulan utama Whisper adalah kemampuan \textit{zero-shot} yang kuat pada berbagai bahasa dan kondisi audio, menjadikannya kandidat ideal untuk adaptasi ke bahasa \textit{low-resource} melalui \textit{fine-tuning}.
-
-\subsection{Arsitektur Whisper}
+\subsection{Whisper dan Arsitekturnya}
 \label{II.Whisper}
 
-Whisper menggunakan arsitektur \textit{Transformer} \cite{vaswani2017attention} dalam konfigurasi \textit{encoder-decoder} yang telah terbukti efektif untuk tugas sekuens-ke-sekuens. Arsitektur ini terdiri dari dua komponen utama: \textit{encoder} yang memproses representasi audio dan \textit{decoder} yang menghasilkan transkrip teks.
+Whisper adalah model \textit{general-purpose speech recognition} yang dilatih pada dataset audio berskala besar yang beragam. Berbeda dengan model ASR konvensional yang umumnya dilatih pada dataset terkurasi, Whisper dilatih menggunakan pendekatan \textit{weakly supervised} pada 680.000 jam data audio multibahasa dan multitugas yang dikumpulkan dari internet \cite{radford2023whisper}. Skala data yang masif dan keragaman sumber data ini memberikan Whisper kemampuan \textit{robustness} yang tinggi terhadap berbagai aksen, kebisingan latar belakang, dan bahasa teknis, serta memungkinkannya melakukan transkripsi dalam berbagai bahasa maupun terjemahan ke dalam bahasa Inggris.
+
+Secara arsitektural, Whisper menggunakan model \textit{Transformer} \cite{vaswani2017attention} dalam konfigurasi \textit{encoder-decoder} yang telah terbukti efektif untuk tugas sekuens-ke-sekuens. Arsitektur ini terdiri dari dua komponen utama: \textit{encoder} yang memproses representasi audio dan \textit{decoder} yang menghasilkan transkrip teks.
 
 \begin{figure}[H]
 \centering
@@ -192,6 +192,35 @@ Whisper menggunakan arsitektur \textit{Transformer} \cite{vaswani2017attention} 
 \caption{Arsitektur dan \textit{Multitask Training Format} Whisper}
 \label{fig:2.whisper_arch}
 \end{figure}
+
+\subsubsection{Varian Model dan Parameter}
+
+Whisper tersedia dalam berbagai ukuran model yang menawarkan keseimbangan berbeda antara akurasi dan kebutuhan sumber daya komputasi. OpenAI merilis lima ukuran model utama: \textit{Tiny}, \textit{Base}, \textit{Small}, \textit{Medium}, dan \textit{Large}, serta varian \textit{Turbo} yang dioptimalkan untuk kecepatan. Pemilihan ukuran model sangat bergantung pada ketersediaan memori GPU (VRAM) dan kebutuhan kecepatan inferensi.
+
+Tabel \ref{table:2.whisper_models} menyajikan perbandingan spesifikasi teknis untuk setiap varian model Whisper. Model \textit{English-only} (berakhiran \texttt{.en}) dilatih khusus pada data bahasa Inggris, sedangkan model \textit{Multilingual} dilatih pada data multibahasa termasuk bahasa Indonesia.
+
+{\small
+\setlength{\tabcolsep}{4pt}
+\begin{table}[H]
+\centering
+\caption{Spesifikasi dan Kebutuhan Sumber Daya Varian Model Whisper}
+\label{table:2.whisper_models}
+\begin{tabularx}{\textwidth}{|l|c|c|c|c|c|}
+\hline
+\textbf{Size} & \textbf{Parameters} & \textbf{English-only} & \textbf{Multilingual} & \textbf{VRAM} & \textbf{Relative Speed} \\
+\hline
+Tiny & 39 M & tiny.en & tiny & $\sim$1 GB & $\sim$10x \\
+Base & 74 M & base.en & base & $\sim$1 GB & $\sim$7x \\
+Small & 244 M & small.en & small & $\sim$2 GB & $\sim$4x \\
+Medium & 769 M & medium.en & medium & $\sim$5 GB & $\sim$2x \\
+Large & 1550 M & N/A & large & $\sim$10 GB & 1x \\
+Turbo & 809 M & N/A & turbo & $\sim$6 GB & $\sim$8x \\
+\hline
+\end{tabularx}
+\end{table}
+}
+
+Dalam penelitian ini, model \textbf{Whisper Small} dipilih sebagai basis untuk \textit{fine-tuning}. Dengan 244 juta parameter, Whisper Small menawarkan keseimbangan optimal: cukup kompleks untuk menangkap nuansa bahasa Minangkabau, namun tetap efisien untuk dilatih pada GPU dengan VRAM terbatas dibandingkan model Medium atau Large yang membutuhkan sumber daya jauh lebih besar.
 
 \subsubsection{Encoder}
 
