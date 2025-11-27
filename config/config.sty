@@ -13,6 +13,8 @@
 
 % Import package penting
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp} % For additional text symbols including quotes
 \usepackage{subcaption} % Paket untuk mengatur gambar berdampingan
 \usepackage{graphicx}
 \usepackage{titling}
@@ -63,6 +65,16 @@
 
 % Format tanggal
 \usepackage[style=ddmmyyyy,datesep=-]{datetime2}
+
+% csquotes must be loaded before biblatex
+% Use simple quote style compatible with all fonts
+\usepackage[autostyle=false]{csquotes}
+\newcommand{\openquote}{``}
+\newcommand{\closequote}{''}
+\DeclareQuoteStyle{custom}
+  {\openquote}{\closequote}
+  {`}{'}
+\setquotestyle{custom}
 
 % Format citation
 \usepackage[backend=bibtex,citestyle=ieee]{biblatex} % Untuk bisa jalan di Texstudio, harus backend=bibtex

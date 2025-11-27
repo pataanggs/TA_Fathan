@@ -1,3 +1,7 @@
+% ============================================================================
+% WHISPER AND FINE-TUNING (Core Papers)
+% ============================================================================
+
 @article{radford2023whisper,
   title   = {Robust Speech Recognition via Large-Scale Weak Supervision},
   author  = {Radford, Alec and Kim, Jong Wook and Xu, Tao and Brockman, Greg and McLeavey, Christine and Sutskever, Ilya},
@@ -25,6 +29,25 @@
   year    = {2024},
   url     = {https://arxiv.org/abs/2412.15726}
 }
+
+@article{song2024lorawhisper,
+  title   = {LoRA-Whisper: Parameter-Efficient and Extensible Multilingual ASR},
+  author  = {Song, Zheshu and Zhuo, Jianheng and Yang, Yifan and Ma, Ziyang and Zhang, Shixiong and Chen, Xie},
+  journal = {arXiv preprint arXiv:2406.06619},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2406.06619}
+}
+
+@inproceedings{zhuang2025monotonic,
+  title     = {Towards Efficiently Whisper Fine-tuning with Monotonic Alignments},
+  author    = {Zhuang, Ziyang and Wei, Tao and Fang, Ming and Cheng, Ning and Wang, Shaojun and Xiao, Jing},
+  booktitle = {Proceedings of Interspeech 2025},
+  year      = {2025}
+}
+
+% ============================================================================
+% LOW-RESOURCE ASR
+% ============================================================================
 
 @article{pillai2024multistage,
   title   = {Multistage Fine-Tuning Strategies for Automatic Speech Recognition in Low-Resource Languages},
@@ -62,26 +85,10 @@
   url       = {https://arxiv.org/abs/2409.16954}
 }
 
-@article{song2024lorawhisper,
-  title   = {LoRA-Whisper: Parameter-Efficient and Extensible Multilingual ASR},
-  author  = {Song, Zheshu and Zhuo, Jianheng and Yang, Yifan and Ma, Ziyang and Zhang, Shixiong and Chen, Xie},
-  journal = {arXiv preprint arXiv:2406.06619},
-  year    = {2024},
-  url     = {https://arxiv.org/abs/2406.06619}
-}
-
-@article{banerjee2024unitedmedasr,
-  title   = {High-Precision Medical Speech Recognition through Synthetic Data and Semantic Correction: UNITED-MEDASR},
-  author  = {Banerjee, Sourav and Agarwal, Ayushi and Ghosh, Promila},
-  journal = {arXiv preprint arXiv:2412.00055},
-  year    = {2024},
-  url     = {https://arxiv.org/abs/2412.00055}
-}
-
-@inproceedings{zhuang2025monotonic,
-  title     = {Towards Efficiently Whisper Fine-tuning with Monotonic Alignments},
-  author    = {Zhuang, Ziyang and Wei, Tao and Fang, Ming and Cheng, Ning and Wang, Shaojun and Xiao, Jing},
-  booktitle = {Proceedings of Interspeech 2025},
+@inproceedings{liang2025fieldmatters,
+  title     = {Breaking the Transcription Bottleneck: Fine-tuning ASR Models for Extremely Low-Resource Fieldwork Languages},
+  author    = {Liang, Siyu and Levow, Gina-Anne},
+  booktitle = {Proceedings of the Workshop on FieldMatters (ACL 2025)},
   year      = {2025}
 }
 
@@ -97,12 +104,21 @@
   url     = {https://www.iieta.org/journals/isi/paper/10.18280/isi.270604}
 }
 
-@inproceedings{liang2025fieldmatters,
-  title     = {Breaking the Transcription Bottleneck: Fine-tuning ASR Models for Extremely Low-Resource Fieldwork Languages},
-  author    = {Liang, Siyu and Levow, Gina-Anne},
-  booktitle = {Proceedings of the Workshop on FieldMatters (ACL 2025)},
-  year      = {2025}
+% ============================================================================
+% DOMAIN-SPECIFIC ASR
+% ============================================================================
+
+@article{banerjee2024unitedmedasr,
+  title   = {High-Precision Medical Speech Recognition through Synthetic Data and Semantic Correction: UNITED-MEDASR},
+  author  = {Banerjee, Sourav and Agarwal, Ayushi and Ghosh, Promila},
+  journal = {arXiv preprint arXiv:2412.00055},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2412.00055}
 }
+
+% ============================================================================
+% PRE-TRAINED MODELS
+% ============================================================================
 
 @inproceedings{baevski2020wav2vec2,
   title     = {wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations},
@@ -112,17 +128,9 @@
   url       = {https://arxiv.org/abs/2006.11477}
 }
 
-@inproceedings{gulati2020conformer,
-  title     = {Conformer: Convolution-augmented Transformer for Speech Recognition},
-  author    = {Gulati, Anmol and Qin, James and Chiu, Chung-Cheng and others},
-  booktitle = {Interspeech},
-  year      = {2020},
-  url       = {https://arxiv.org/abs/2005.08100}
-}
-
 @article{conneau2021xlsr,
   title   = {Unsupervised Cross-Lingual Representation Learning for Speech Recognition (XLS-R)},
-  author  = {Conneau, Alexis and Baevski, Alexei and others},
+  author  = {Conneau, Alexis and Baevski, Alexei and Rotatanu, Tatiana and Yih, Scott and Tomasello, Paden and Joulin, Armand and Jegou, Herve and Grave, Edouard and Babu, Arun and Lakhotia, Kushal and Zhou, Yuhao and Hsu, Wei-Ning and Gupta, Abdelrahman and Mohamed, Abdelrahman and Auli, Michael},
   journal = {arXiv preprint arXiv:2111.09296},
   year    = {2021},
   url     = {https://arxiv.org/abs/2111.09296}
@@ -130,17 +138,248 @@
 
 @article{chen2022wavlm,
   title   = {WavLM: Large-Scale Self-Supervised Pre-Training for Full Stack Speech Processing},
-  author  = {Chen, Sanyuan and Chen, Chengyi and Wu, Yu and others},
-  journal = {IEEE J. Sel. Topics Signal Process.},
+  author  = {Chen, Sanyuan and Chen, Chengyi and Wu, Yu and Liu, Shujie and Chen, Zhuo and Li, Jinyu and Kanda, Naoyuki and Yoshioka, Takuya and Xiao, Xiong and Wu, Ji and Long, Jian and Zhou, Shuo and Wang, Yanmin and Lu, Yao and Liu, Jinzhu and Shou, Tengchao and Zhao, Sheng and Xue, Long and Zhou, Shujie and Cui, Xiaofei and Wei, Furu and Ma, Jinyu and others},
+  journal = {IEEE Journal of Selected Topics in Signal Processing},
+  volume  = {16},
+  number  = {6},
+  pages   = {1505--1518},
   year    = {2022},
   doi     = {10.1109/JSTSP.2022.3188113},
   url     = {https://arxiv.org/abs/2110.13900}
 }
 
+@article{hsu2021hubert,
+  title   = {HuBERT: Self-Supervised Speech Representation Learning by Masked Prediction of Hidden Units},
+  author  = {Hsu, Wei-Ning and Bolte, Benjamin and Tsai, Yao-Hung Hubert and Lakhotia, Kushal and Salakhutdinov, Ruslan and Mohamed, Abdelrahman},
+  journal = {IEEE/ACM Transactions on Audio, Speech, and Language Processing},
+  volume  = {29},
+  pages   = {3451--3460},
+  year    = {2021},
+  url     = {https://arxiv.org/abs/2106.07447}
+}
+
+% ============================================================================
+% TRANSFORMER AND ATTENTION
+% ============================================================================
+
+@article{vaswani2017attention,
+  title   = {Attention is All You Need},
+  author  = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  journal = {Advances in Neural Information Processing Systems},
+  volume  = {30},
+  year    = {2017},
+  url     = {https://arxiv.org/abs/1706.03762}
+}
+
+@inproceedings{gulati2020conformer,
+  title     = {Conformer: Convolution-augmented Transformer for Speech Recognition},
+  author    = {Gulati, Anmol and Qin, James and Chiu, Chung-Cheng and Parmar, Niki and Zhang, Yu and Yu, Jiahui and Han, Wei and Wang, Shibo and Zhang, Zhengdong and Wu, Yonghui and Pang, Ruoming},
+  booktitle = {Interspeech},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2005.08100}
+}
+
+@article{bahdanau2015attention,
+  title   = {Neural Machine Translation by Jointly Learning to Align and Translate},
+  author  = {Bahdanau, Dzmitry and Cho, Kyunghyun and Bengio, Yoshua},
+  journal = {arXiv preprint arXiv:1409.0473},
+  year    = {2015},
+  url     = {https://arxiv.org/abs/1409.0473}
+}
+
+@article{ba2016layernorm,
+  title   = {Layer Normalization},
+  author  = {Ba, Jimmy Lei and Kiros, Jamie Ryan and Hinton, Geoffrey E},
+  journal = {arXiv preprint arXiv:1607.06450},
+  year    = {2016},
+  url     = {https://arxiv.org/abs/1607.06450}
+}
+
+% ============================================================================
+% FINE-TUNING METHODS
+% ============================================================================
+
 @article{hu2022lora,
   title   = {LoRA: Low-Rank Adaptation of Large Language Models},
-  author  = {Hu, Edward J. and Shen, Yelong and others},
+  author  = {Hu, Edward J. and Shen, Yelong and Wallis, Phillip and Allen-Zhu, Zeyuan and Li, Yuanzhi and Wang, Shean and Wang, Lu and Chen, Weizhu},
   journal = {arXiv preprint arXiv:2106.09685},
   year    = {2022},
   url     = {https://arxiv.org/abs/2106.09685}
+}
+
+@article{pan2010transfer,
+  title     = {A Survey on Transfer Learning},
+  author    = {Pan, Sinno Jialin and Yang, Qiang},
+  journal   = {IEEE Transactions on Knowledge and Data Engineering},
+  volume    = {22},
+  number    = {10},
+  pages     = {1345--1359},
+  year      = {2010},
+  publisher = {IEEE},
+  doi       = {10.1109/TKDE.2009.191}
+}
+
+@article{loshchilov2019adamw,
+  title   = {Decoupled Weight Decay Regularization},
+  author  = {Loshchilov, Ilya and Hutter, Frank},
+  journal = {arXiv preprint arXiv:1711.05101},
+  year    = {2019},
+  url     = {https://arxiv.org/abs/1711.05101}
+}
+
+% ============================================================================
+% DATA AUGMENTATION
+% ============================================================================
+
+@article{park2019specaugment,
+  title   = {SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition},
+  author  = {Park, Daniel S and Chan, William and Zhang, Yu and Chiu, Chung-Cheng and Zoph, Barret and Cubuk, Ekin D and Le, Quoc V},
+  journal = {arXiv preprint arXiv:1904.08779},
+  year    = {2019},
+  url     = {https://arxiv.org/abs/1904.08779}
+}
+
+@inproceedings{ko2015audio,
+  title     = {Audio Augmentation for Speech Recognition},
+  author    = {Ko, Tom and Peddinti, Vijayaditya and Povey, Daniel and Khudanpur, Sanjeev},
+  booktitle = {Sixteenth Annual Conference of the International Speech Communication Association},
+  year      = {2015}
+}
+
+% ============================================================================
+% REGULARIZATION
+% ============================================================================
+
+@inproceedings{szegedy2016rethinking,
+  title     = {Rethinking the Inception Architecture for Computer Vision},
+  author    = {Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jon and Wojna, Zbigniew},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
+  pages     = {2818--2826},
+  year      = {2016}
+}
+
+% ============================================================================
+% TOKENIZATION
+% ============================================================================
+
+@article{sennrich2016bpe,
+  title   = {Neural Machine Translation of Rare Words with Subword Units},
+  author  = {Sennrich, Rico and Haddow, Barry and Birch, Alexandra},
+  journal = {arXiv preprint arXiv:1508.07909},
+  year    = {2016},
+  url     = {https://arxiv.org/abs/1508.07909}
+}
+
+% ============================================================================
+% ASR FOUNDATIONS
+% ============================================================================
+
+@article{juang2005history,
+  title   = {Automatic Speech Recognition--A Brief History of the Technology Development},
+  author  = {Juang, Biing-Hwang and Rabiner, Lawrence R},
+  journal = {Georgia Institute of Technology. Atlanta Rutgers University and the University of California. Santa Barbara},
+  volume  = {1},
+  pages   = {67},
+  year    = {2005}
+}
+
+@article{rabiner1989hmm,
+  title     = {A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition},
+  author    = {Rabiner, Lawrence R},
+  journal   = {Proceedings of the IEEE},
+  volume    = {77},
+  number    = {2},
+  pages     = {257--286},
+  year      = {1989},
+  publisher = {IEEE},
+  doi       = {10.1109/5.18626}
+}
+
+% ============================================================================
+% END-TO-END ASR
+% ============================================================================
+
+@inproceedings{graves2013deep,
+  title        = {Speech Recognition with Deep Recurrent Neural Networks},
+  author       = {Graves, Alex and Mohamed, Abdel-rahman and Hinton, Geoffrey},
+  booktitle    = {2013 IEEE International Conference on Acoustics, Speech and Signal Processing},
+  pages        = {6645--6649},
+  year         = {2013},
+  organization = {IEEE},
+  doi          = {10.1109/ICASSP.2013.6638947}
+}
+
+@inproceedings{graves2006ctc,
+  title     = {Connectionist Temporal Classification: Labelling Unsegmented Sequence Data with Recurrent Neural Networks},
+  author    = {Graves, Alex and Fern{\'a}ndez, Santiago and Gomez, Faustino and Schmidhuber, J{\"u}rgen},
+  booktitle = {Proceedings of the 23rd International Conference on Machine Learning},
+  pages     = {369--376},
+  year      = {2006},
+  doi       = {10.1145/1143844.1143891}
+}
+
+@article{graves2012transducer,
+  title   = {Sequence Transduction with Recurrent Neural Networks},
+  author  = {Graves, Alex},
+  journal = {arXiv preprint arXiv:1211.3711},
+  year    = {2012},
+  url     = {https://arxiv.org/abs/1211.3711}
+}
+
+@inproceedings{chan2016listen,
+  title        = {Listen, Attend and Spell: A Neural Network for Large Vocabulary Conversational Speech Recognition},
+  author       = {Chan, William and Jaitly, Navdeep and Le, Quoc and Vinyals, Oriol},
+  booktitle    = {2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages        = {4960--4964},
+  year         = {2016},
+  organization = {IEEE},
+  doi          = {10.1109/ICASSP.2016.7472621}
+}
+
+@article{hinton2012dnn,
+  title     = {Deep Neural Networks for Acoustic Modeling in Speech Recognition: The Shared Views of Four Research Groups},
+  author    = {Hinton, Geoffrey and Deng, Li and Yu, Dong and Dahl, George E and Mohamed, Abdel-rahman and Jaitly, Navdeep and Senior, Andrew and Vanhoucke, Vincent and Nguyen, Patrick and Sainath, Tara N and others},
+  journal   = {IEEE Signal Processing Magazine},
+  volume    = {29},
+  number    = {6},
+  pages     = {82--97},
+  year      = {2012},
+  publisher = {IEEE},
+  doi       = {10.1109/MSP.2012.2205597}
+}
+
+% ============================================================================
+% ACTIVATION FUNCTIONS
+% ============================================================================
+
+@article{hendrycks2016gelu,
+  title   = {Gaussian Error Linear Units (GELUs)},
+  author  = {Hendrycks, Dan and Gimpel, Kevin},
+  journal = {arXiv preprint arXiv:1606.08415},
+  year    = {2016},
+  url     = {https://arxiv.org/abs/1606.08415}
+}
+
+% ============================================================================
+% ADDITIONAL REFERENCES (if needed for discussion)
+% ============================================================================
+
+@article{hochreiter1997lstm,
+  title     = {Long Short-Term Memory},
+  author    = {Hochreiter, Sepp and Schmidhuber, J{\"u}rgen},
+  journal   = {Neural Computation},
+  volume    = {9},
+  number    = {8},
+  pages     = {1735--1780},
+  year      = {1997},
+  publisher = {MIT Press},
+  doi       = {10.1162/neco.1997.9.8.1735}
+}
+
+@article{cho2014gru,
+  title   = {Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation},
+  author  = {Cho, Kyunghyun and van Merri{\"e}nboer, Bart and Gulcehre, Caglar and Bahdanau, Dzmitry and Bougares, Fethi and Schwenk, Holger and Bengio, Yoshua},
+  journal = {arXiv preprint arXiv:1406.1078},
+  year    = {2014},
+  url     = {https://arxiv.org/abs/1406.1078}
 }

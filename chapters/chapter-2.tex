@@ -2,280 +2,337 @@
 \chapter{TINJAUAN PUSTAKA} \label{Bab II}
 
 \section{Tinjauan Pustaka} \label{II.Tinjauan}
-Bagian ini membahas penelitian terdahulu yang relevan dengan topik \textit{fine-tuning} Whisper dan Automatic Speech Recognition (ASR) untuk bahasa \textit{low-resource}. Pembahasan disusun secara sistematis dengan: (i) masalah yang diangkat, (ii) metode yang digunakan, (iii) hasil/pengujian, (iv) analisis kelebihan/keterbatasan, serta (v) perbandingan dengan penelitian yang dikerjakan pada skripsi ini (Whisper Small untuk Bahasa Minangkabau). 
 
-\subsection*{Literatur Terkait (2022--2025)}
-\begin{enumerate}[noitemsep,topsep=2pt]
-
-\item \textbf{Robust Speech Recognition via Large-Scale Weak Supervision} \cite{radford2023whisper}. Radford, Kim, Xu, Brockman, McLeavey, Sutskever (2023).
-
-\textbf{Masalah:} Bagaimana membangun model ASR multibahasa yang \textit{robust} dan mampu \textit{zero-shot} pada beragam kondisi tanpa \textit{fine-tuning} dataset spesifik.
-
-\textbf{Metode:} Pra-latih \textit{Whisper} pada $\sim$680{,}000 jam data multibahasa/multitugas \textit{weak supervision}.
-
-\textbf{Hasil/Pengujian:} Kinerja kuat di berbagai benchmark ASR/terjemahan wicara dalam skenario \textit{zero-shot}.
-
-\textbf{Analisis:} \textbf{(+)} Fondasi kokoh untuk adaptasi ke bahasa lokal. \textbf{(--)} Bahasa/dialek yang under-represented masih memunculkan kesalahan.
-
-\textbf{Perbandingan:} Menjadi dasar untuk \textbf{adaptasi} ke Minangkabau melalui \textit{fine-tuning} (Whisper Small) pada penelitian ini.
-
-\item \textbf{Exploration of Whisper Fine-Tuning Strategies for Low-Resource ASR} \cite{liu2024exploration}. Liu, Yang, Qu (2024).
-
-\textbf{Masalah:} Strategi \textit{fine-tuning} Whisper yang paling efektif untuk skenario data terbatas belum dikaji komprehensif.
-
-\textbf{Metode:} Studi komparatif beberapa strategi (mis.\ \textit{full fine-tuning}, \textit{partial/freezing}, \textit{re-init layer atas}, \textit{adapters}, PEFT/LoRA) pada banyak bahasa \textit{low-resource}.
-
-\textbf{Hasil/Pengujian:} Semua strategi menurunkan WER; terdapat \textit{trade-off} akurasi vs efisiensi (VRAM/waktu latih).
-
-\textbf{Analisis:} \textbf{(+)} Panduan praktis memilih strategi berdasar keterbatasan data/komputasi. \textbf{(--)} Tidak mendalami satu bahasa/dialek spesifik secara longitudinal.
-
-\textbf{Perbandingan:} Skripsi ini akan membandingkan \textbf{full FT} vs \textbf{LoRA} pada Whisper Small untuk Minangkabau.
-
-\item \textbf{Fine-tuning Whisper on Low-Resource Languages for Real-World Applications} \cite{timmel2024finetune}. Timmel, Paonessa, Kakooee, Vogel, Perruchoud (2024).
-
-\textbf{Masalah:} Kekurangan korpus \textit{long-form} membuat model kehilangan kemampuan segmentasi/\textit{timestamping} saat hanya dilatih pada kalimat pendek.
-
-\textbf{Metode:} Menyusun ulang data kalimat pendek menjadi korpus audio \textit{long-form} sintetis (kasus Swiss German), lalu \textit{fine-tune} Whisper.
-
-\textbf{Hasil/Pengujian:} Peningkatan signifikan pada aplikasi dunia nyata (percakapan panjang); kemampuan segmentasi tetap terjaga.
-
-\textbf{Analisis:} \textbf{(+)} Solusi praktis ketika \textit{long-form} asli minim. \textbf{(--)} Diverifikasi pada Swiss German; butuh validasi lintas bahasa daerah lain.
-
-\textbf{Perbandingan:} Relevan untuk Minangkabau bila data \textit{long-form} kurang; dapat meniru strategi penyusunan \textit{long-form} sintetis.
-
-\item \textbf{Towards Efficiently Whisper Fine-tuning with Monotonic Alignments} \cite{zhuang2025monotonic}. Zhuang, Wei, Fang, Cheng, Wang, Xiao (2025).
-
-\textbf{Masalah:} \textit{Fine-tuning} standar tidak mengoptimalkan keselarasan monotonic audio$\to$teks secara eksplisit.
-
-\textbf{Metode:} Tambah \textit{soft monotonic alignment loss} saat \textit{fine-tuning} Whisper, tanpa mengubah arsitektur.
-
-\textbf{Hasil/Pengujian:} Penurunan WER konsisten pada beberapa tugas ASR multibahasa; perbaikan juga pada \textit{speech translation}.
-
-\textbf{Analisis:} \textbf{(+)} Peningkatan akurasi dengan overhead kecil. \textbf{(--)} Perlu setel \textit{loss weight}; dampak di \textit{very low-resource} perlu studi lanjut.
-
-\textbf{Perbandingan:} Menjadi opsi \textbf{pengembangan} jika performa baseline Minangkabau belum memadai.
-
-\item \textbf{Indonesian Automatic Speech Recognition with XLSR-53} \cite{arisaputra2022xlsr53}. Arisaputra, Zahra (2022).
-
-\textbf{Masalah:} Mencapai WER kompetitif Bahasa Indonesia dengan data terbatas.
-
-\textbf{Metode:} \textit{Fine-tuning} XLSR-53 ($\sim$24 jam) + \textit{language model} (KenLM 4-gram) pada decoding.
-
-\textbf{Hasil/Pengujian:} WER $\sim$20\% $\to$ $\sim$12\% dengan LM pada \textit{test set} publik.
-
-\textbf{Analisis:} \textbf{(+)} Bukti kuat \textit{transfer learning} multibahasa. \textbf{(--)} Fokus BI baku; tidak membahas dialek/daerah.
-
-\textbf{Perbandingan:} Menjadi pembanding non-Whisper; mendukung hipotesis bahwa model pra-latih multibahasa + FT efektif untuk bahasa Indonesia/daerah.
-
-\item \textbf{Breaking the Transcription Bottleneck: Fine-tuning ASR Models for Extremely Low-Resource Fieldwork Languages} \cite{liang2025fieldmatters}. Liang, Levow (2025).
-
-\textbf{Masalah:} Transkripsi bahasa yang sangat minim data (bahkan $<$1 jam) dalam konteks linguistik lapangan.
-
-\textbf{Metode:} Bandingkan \textbf{MMS} vs \textbf{XLS-R} di 5 bahasa sangat \textit{low-resource} pada berbagai skala data.
-
-\textbf{Hasil/Pengujian:} MMS unggul pada $<$1 jam; paritas dengan XLS-R saat data bertambah ($\gtrsim$1 jam).
-
-\textbf{Analisis:} \textbf{(+)} Panduan pemilihan model sesuai ketersediaan data. \textbf{(--)} Spesifik MMS/XLS-R; bukan Whisper.
-
-\textbf{Perbandingan:} Memberi konteks batas bawah data; skripsi ini tetap memfokuskan Whisper Small + FT untuk Minangkabau.
-
-\end{enumerate}
-
-\subsection*{Rangkuman \& Peluang Pengembangan}
-Literatur terbaru menegaskan bahwa: (i) pra-latih skala besar \cite{radford2023whisper} memberi fondasi kuat, (ii) pemilihan strategi FT harus menimbang akurasi vs efisiensi \cite{liu2024exploration}, (iii) rekayasa korpus \textit{long-form} membantu aplikasi dunia nyata \cite{timmel2024finetune}, (iv) modifikasi objektif (\textit{alignment loss}) dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}, dan (v) pembelajaran multibahasa dapat ditransfer ke bahasa lokal/daerah \cite{arisaputra2022xlsr53}. Untuk penelitian ini, peluang pengembangan mencakup: (a) komparasi \textbf{full FT vs LoRA} pada Whisper Small (efisiensi VRAM), (b) penyusunan \textbf{korpus long-form sintetis} Minangkabau jika data panjang minim, (c) eksplorasi \textbf{alignment-based loss} dan/atau \textbf{language model} pada decoding untuk penurunan WER lanjutan.
+Bagian ini mengulas penelitian-penelitian terdahulu yang relevan dengan topik \textit{fine-tuning} Whisper dan \textit{Automatic Speech Recognition} (ASR) untuk bahasa \textit{low-resource}. Setiap penelitian dianalisis secara kritis untuk mengidentifikasi kontribusi utama, keterbatasan, serta relevansinya dengan penelitian ini yang berfokus pada adaptasi Whisper Small untuk bahasa Minangkabau.
 
 {\small
-\setlength{\tabcolsep}{4pt}% padding kolom lebih rapat
-\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}m{0.045\textwidth}|Y|Y|Y|Y|}
-\caption{Ringkasan Literasi Penelitian Terdahulu (2022--2025)}
+\setlength{\tabcolsep}{4pt}
+{\renewcommand\tabularxcolumn[1]{p{#1}}
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.05\textwidth}|X|X|X|X|}
+\caption{Ringkasan Penelitian Terdahulu (2022--2025)}
 \label{table:2.literasi}\\
 \hline
-\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil (ringkas)}\\
+\textbf{No.} & 
+\textbf{Penelitian \& Penulis} & 
+\textbf{Fokus Masalah} & 
+\textbf{Pendekatan \& Kontribusi} & 
+\textbf{Temuan Utama \& Relevansi}\\
 \hline
 \endfirsthead
+
 \hline
-\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil (ringkas)}\\
+\textbf{No.} & 
+\textbf{Penelitian \& Penulis} & 
+\textbf{Fokus Masalah} & 
+\textbf{Pendekatan \& Kontribusi} & 
+\textbf{Temuan Utama \& Relevansi}\\
 \hline
 \endhead
-1 &
-\textit{Robust Speech Recognition via Large-Scale Weak Supervision} \cite{radford2023whisper} &
-Generalisasi \textit{zero-shot} &
-Pra-latih $\sim$680k jam multibahasa/
-multitugas &
-Robust di banyak benchmark; dasar adaptasi lokal \\
+
+1 & 
+\textit{Robust Speech Recognition via Large-Scale Weak Supervision} 
+
+Radford et al. \cite{radford2023whisper} (2023) & 
+
+Membangun ASR multibahasa yang \textit{robust} dengan kemampuan generalisasi \textit{zero-shot} tanpa \textit{fine-tuning} spesifik & 
+
+Pelatihan Whisper pada $\sim$680k jam data audio multibahasa dengan paradigma \textit{weak supervision}; arsitektur \textit{Transformer encoder-decoder} & 
+
+Kinerja kuat di berbagai \textit{benchmark} ASR; fondasi untuk adaptasi bahasa \textit{low-resource}; keterbatasan pada bahasa \textit{under-represented} memotivasi \textit{fine-tuning} untuk Minangkabau \\
 \hline
-2 &
-\textit{Exploration of Whisper Fine-Tuning Strategies for Low-Resource ASR} \cite{liu2024exploration} &
-Strategi FT untuk \textit{low-resource} &
-Bandingkan full/partial
-/adapters/LoRA &
-Semua turunkan WER; ada \textit{trade-off} akurasi vs efisiensi \\
+
+2 & 
+\textit{Exploration of Whisper Fine-Tuning Strategies for Low-Resource ASR}
+
+Liu, Yang, \& Qu \cite{liu2024exploration} (2024) & 
+
+Identifikasi strategi \textit{fine-tuning} Whisper yang paling efektif untuk bahasa \textit{low-resource} & 
+
+Studi komparatif \textit{full fine-tuning}, \textit{partial fine-tuning}, \textit{adapters}, dan PEFT (LoRA) pada berbagai bahasa \textit{low-resource} & 
+
+Semua strategi menurunkan WER; \textit{trade-off} jelas antara akurasi dan efisiensi; panduan praktis untuk pemilihan strategi; basis untuk perbandingan \textit{full FT} vs LoRA pada Minangkabau \\
 \hline
-3 &
-\textit{Fine-tuning Whisper on Low-Resource Languages for Real-World Applications} \cite{timmel2024finetune} &
-Minim \textit{long-form} $\to$ hilang segmentasi &
-Susun kalimat $\to$ \textit{long-form} sintetis + FT &
-SOTA Swiss German; segmentasi/
-\textit{timestamping} tetap baik \\
+
+3 & 
+\textit{Fine-tuning Whisper on Low-Resource Languages for Real-World Applications}
+
+Timmel et al. \cite{timmel2024finetune} (2024) & 
+
+Model kehilangan kemampuan segmentasi dan \textit{timestamping} saat dilatih hanya pada kalimat pendek & 
+
+Rekonstruksi korpus \textit{long-form} sintetis dari data kalimat pendek; evaluasi pada Swiss German & 
+
+SOTA untuk Swiss German; segmentasi dan \textit{timestamping} tetap terjaga; relevan untuk Minangkabau jika data \textit{long-form} terbatas \\
 \hline
-4 &
-\textit{Towards Efficiently Whisper Fine-tuning with Monotonic Alignments} \cite{zhuang2025monotonic} &
-Alignment tak dioptimalkan &
-Tambah \textit{monotonic alignment loss} &
-WER turun konsisten tanpa ubah arsitektur \\
+
+4 & 
+\textit{Towards Efficiently Whisper Fine-tuning with Monotonic Alignments}
+
+Zhuang et al. \cite{zhuang2025monotonic} (2025) & 
+
+\textit{Fine-tuning} standar tidak mengoptimalkan keselarasan monotonic audio-teks secara eksplisit & 
+
+Penambahan \textit{soft monotonic alignment loss} tanpa modifikasi arsitektur model & 
+
+WER turun konsisten pada ASR multibahasa dan \textit{speech translation}; overhead minimal; opsi pengembangan potensial untuk Minangkabau \\
 \hline
-5 &
-\textit{Indonesian Automatic Speech Recognition with XLSR-53} \cite{arisaputra2022xlsr53} &
-ASR Indonesia data terbatas &
-FT XLSR-53 + LM 4-gram &
-WER $\sim$20\% $\to$ $\sim$12\% (dengan LM) \\
+
+5 & 
+\textit{Indonesian Automatic Speech Recognition with XLSR-53}
+
+Arisaputra \& Zahra \cite{arisaputra2022xlsr53} (2022) & 
+
+Mencapai akurasi ASR kompetitif untuk bahasa Indonesia dengan data terbatas & 
+
+\textit{Fine-tuning} XLSR-53 ($\sim$24 jam) dikombinasikan dengan \textit{language model} 4-gram (KenLM) pada \textit{decoding} & 
+
+WER turun drastis dari $\sim$20\% ke $\sim$12\% dengan LM; bukti \textit{transfer learning} multibahasa efektif; mendukung hipotesis untuk bahasa daerah seperti Minangkabau \\
 \hline
-6 &
-\textit{Breaking the Transcription Bottleneck} \cite{liang2025fieldmatters} &
-Sangat minim data ({$<\!$}1 jam) &
-Benchmark MMS vs.\ XLS\textendash R &
-MMS unggul {$<\!$}1 jam; paritas saat data bertambah \\
+
+6 & 
+\textit{Breaking the Transcription Bottleneck: ASR for Extremely Low-Resource Languages}
+
+Liang \& Levow \cite{liang2025fieldmatters} (2025) & 
+
+Transkripsi bahasa dengan data sangat minimal ($<$1 jam) dalam konteks linguistik lapangan & 
+
+\textit{Benchmark} MMS vs.\ XLS-R pada 5 bahasa sangat \textit{low-resource} dengan berbagai skala data & 
+
+MMS unggul pada $<$1 jam data; paritas dengan XLS-R saat data bertambah; memberikan konteks batas bawah data untuk \textit{fine-tuning} efektif \\
 \hline
+
 \end{tabularx}
 }
+}
 
-\section{Dasar Teori} \label{II.Teori}
-Bagian ini membahas konsep inti yang mendasari pengembangan \textit{Automatic Speech Recognition} (ASR) modern (2020–2025), dengan fokus pada adaptasi Whisper untuk Bahasa Minangkabau. Uraian dimulai dari formulasi umum ASR, representasi fitur akustik, arsitektur Transformer modern, strategi \textit{fine-tuning} pada skenario \textit{low-resource}, decoding dengan bantuan model bahasa, hingga metrik evaluasi.
+\subsection{Model Whisper dan Fondasi Teoritis}
 
-% ---------- 2.1 Formulasi umum ASR ----------
-\subsection{Formulasi Umum ASR}
-ASR memetakan fitur akustik $X$ menjadi urutan token teks $y=(y_1,\dots,y_T)$ dengan memaksimalkan probabilitas posterior.
+Radford et al. \cite{radford2023whisper} memperkenalkan Whisper, model ASR multibahasa yang dilatih pada sekitar 680,000 jam data audio dengan paradigma \textit{weak supervision}. Penelitian ini menjawab tantangan fundamental dalam membangun sistem ASR yang \textit{robust} dan mampu melakukan generalisasi \textit{zero-shot} pada berbagai bahasa dan kondisi audio tanpa memerlukan \textit{fine-tuning} pada dataset spesifik. Whisper menggunakan arsitektur \textit{Transformer encoder-decoder} yang dilatih pada tugas-tugas multibahasa, termasuk transkripsi dan translasi ucapan. Evaluasi komprehensif menunjukkan bahwa Whisper mencapai kinerja yang kuat di berbagai \textit{benchmark} ASR dan translasi wicara dalam skenario \textit{zero-shot}, membuktikan kemampuan generalisasi lintas bahasa yang luar biasa.
 
-\begin{eqfloat}[H]
-\caption{Objektif umum ASR: pemilihan urutan hipotesis terbaik}
-\label{eq:asr-objective}
+Meskipun Whisper menyediakan fondasi yang kokoh untuk adaptasi ke bahasa lokal, penelitian ini juga mengidentifikasi keterbatasan penting: bahasa dan dialek yang kurang terwakili dalam data pelatihan (\textit{under-represented languages}) masih menghasilkan tingkat kesalahan yang relatif tinggi. Temuan ini memotivasi kebutuhan untuk \textit{fine-tuning} model pada bahasa-bahasa \textit{low-resource} seperti Minangkabau. Dalam konteks penelitian ini, Whisper menjadi model dasar yang akan diadaptasi melalui \textit{fine-tuning} dengan strategi yang efisien untuk meningkatkan akurasi pada bahasa target.
+
+\subsection{Strategi Fine-Tuning untuk Bahasa Low-Resource}
+
+Liu, Yang, dan Qu \cite{liu2024exploration} melakukan studi komparatif komprehensif terhadap berbagai strategi \textit{fine-tuning} Whisper pada skenario data terbatas. Penelitian ini mengeksplorasi pendekatan yang beragam, termasuk \textit{full fine-tuning} (melatih seluruh parameter model), \textit{partial fine-tuning} dengan \textit{freezing} sebagian lapisan, \textit{re-initialization} lapisan atas, penggunaan \textit{adapters}, serta metode \text{Parameter-Efficient Fine-Tuning} (PEFT) seperti LoRA. Evaluasi dilakukan pada berbagai bahasa \textit{low-resource} untuk mengidentifikasi pola umum yang dapat dijadikan panduan praktis.
+
+Hasil penelitian menunjukkan bahwa semua strategi yang diuji mampu menurunkan \textit{Word Error Rate} (WER) dibandingkan model dasar, namun terdapat \textit{trade-off} yang jelas antara akurasi dan efisiensi komputasi. \textit{Full fine-tuning} cenderung menghasilkan akurasi tertinggi tetapi memerlukan memori GPU yang besar dan waktu pelatihan yang lama, sementara metode PEFT seperti LoRA menawarkan efisiensi signifikan dengan penurunan akurasi yang minimal. Keunggulan penelitian ini terletak pada panduan praktis untuk memilih strategi berdasarkan keterbatasan data dan sumber daya komputasi yang tersedia. Namun, keterbatasannya adalah fokus yang luas tanpa analisis mendalam pada satu bahasa atau dialek spesifik secara longitudinal.
+
+Penelitian ini memberikan kontribusi penting sebagai dasar pemilihan strategi untuk bahasa Minangkabau. Dalam skripsi ini, perbandingan langsung antara \textit{full fine-tuning} dan LoRA pada Whisper Small akan dilakukan untuk mengidentifikasi strategi yang paling sesuai dalam konteks bahasa Minangkabau, dengan mempertimbangkan keterbatasan data dan infrastruktur komputasi yang tersedia.
+
+\subsection{Adaptasi untuk Aplikasi Dunia Nyata}
+
+Timmel et al. \cite{timmel2024finetune} mengangkat isu praktis penting dalam \textit{fine-tuning} Whisper untuk bahasa \textit{low-resource}, khususnya Swiss German. Penelitian ini mengidentifik asi bahwa kekurangan korpus audio \textit{long-form} (rekaman panjang kontinu) menyebabkan model kehilangan kemampuan segmentasi dan \textit{timestamping} ketika hanya dilatih pada kalimat-kalimat pendek yang terisolasi. Untuk mengatasi masalah ini, peneliti mengembangkan metode untuk menyusun ulang data kalimat pendek menjadi korpus audio \textit{long-form} sintetis, kemudian melakukan \textit{fine-tuning} Whisper pada data yang telah direkonstruksi tersebut.
+
+Hasil evaluasi menunjukkan peningkatan signifikan pada aplikasi dunia nyata, terutama dalam menangani percakapan panjang dan kontinu, sementara kemampuan segmentasi dan \textit{timestamping} tetap terjaga dengan baik. Pendekatan ini mencapai \textit{state-of-the-art} untuk Swiss German dan memberikan solusi praktis ketika data \textit{long-form} asli sangat terbatas. Namun, validasi lintas bahasa daerah lain masih diperlukan untuk memastikan generalisasi metode ini.
+
+Relevansi penelitian ini terhadap bahasa Minangkabau sangat tinggi, terutama jika dataset yang tersedia dari LibriVox Indonesia memiliki keterbatasan dalam bentuk \textit{long-form}. Strategi penyusunan korpus \textit{long-form} sintetis dapat diadopsi sebagai bagian dari \textit{preprocessing} data untuk meningkatkan kemampuan model dalam menangani konteks yang lebih panjang dan kompleks.
+
+\subsection{Optimisasi Proses Fine-Tuning}
+
+Zhuang et al. \cite{zhuang2025monotonic} mengusulkan pendekatan inovatif untuk meningkatkan efisiensi \textit{fine-tuning} Whisper dengan menambahkan \textit{soft monotonic alignment loss} selama proses pelatihan. Penelitian ini didasarkan pada observasi bahwa \textit{fine-tuning} standar tidak secara eksplisit mengoptimalkan keselarasan monotonic antara sekuens audio dan teks, yang seharusnya merupakan karakteristik alamiah dalam transkripsi ucapan. Dengan menambahkan \textit{loss function} tambahan yang mendorong alignment monotonic tanpa mengubah arsitektur model, peneliti mencapai penurunan WER yang konsisten pada berbagai tugas ASR multibahasa, serta perbaikan pada tugas \textit{speech translation}.
+
+Keunggulan pendekatan ini adalah peningkatan akurasi dengan \textit{computational overhead} yang minimal, karena tidak memerlukan modifikasi arsitektur atau penambahan parameter yang signifikan. Namun, metode ini memerlukan penyetelan \textit{weight} untuk \textit{loss function} tambahan, dan dampaknya pada bahasa yang sangat \textit{low-resource} (dengan data sangat terbatas) masih memerlukan studi lanjutan. Dalam konteks penelitian ini, metode \textit{monotonic alignment} menjadi opsi pengembangan potensial jika performa \textit{baseline fine-tuning} untuk bahasa Minangkabau belum mencapai tingkat yang memadai.
+
+\subsection{Transfer Learning Multibahasa}
+
+Arisaputra dan Zahra \cite{arisaputra2022xlsr53} mendemonstrasikan efektivitas \textit{transfer learning} untuk ASR bahasa Indonesia dengan data terbatas menggunakan model XLSR-53. Penelitian ini melakukan \textit{fine-tuning} XLSR-53 pada sekitar 24 jam data audio bahasa Indonesia, dikombinasikan dengan \textit{language model} berbasis KenLM 4-gram pada tahap \textit{decoding} untuk meningkatkan akurasi transkrip. Hasil eksperimen menunjukkan penurunan WER yang dramatis dari sekitar 20\% menjadi 12\% dengan penambahan \textit{language model}, membuktikan bahwa pendekatan \textit{transfer learning} dari model \textit{pre-trained} multibahasa sangat efektif untuk bahasa Indonesia.
+
+Meskipun penelitian ini berfokus pada bahasa Indonesia baku dan tidak membahas dialek atau bahasa daerah, temuan ini memberikan bukti kuat bahwa representasi multibahasa yang dipelajari oleh model seperti XLSR dapat ditransfer ke bahasa Indonesia dengan efektif. Sebagai perbandingan non-Whisper, penelitian ini mendukung hipotesis bahwa model \textit{pre-trained} multibahasa yang dikombinasikan dengan \textit{fine-tuning} merupakan pendekatan yang viabel untuk bahasa Indonesia dan bahasa daerah seperti Minangkabau.
+
+\subsection{ASR untuk Bahasa dengan Data Sangat Terbatas}
+
+Liang dan Levow \cite{liang2025fieldmatters} mengeksplorasi tantangan transkripsi untuk bahasa-bahasa yang memiliki data sangat minimal, bahkan kurang dari 1 jam audio, dalam konteks penelitian linguistik lapangan (\textit{fieldwork linguistics}). Penelitian ini membandingkan performa model MMS (\textit{Massively Multilingual Speech}) dan XLS-R pada 5 bahasa yang sangat \textit{low-resource} dengan berbagai skala data. Hasil evaluasi menunjukkan bahwa MMS unggul ketika data pelatihan sangat terbatas (kurang dari 1 jam), sementara performa kedua model mencapai paritas ketika data bertambah (lebih dari 1 jam).
+
+Temuan ini memberikan panduan praktis untuk pemilihan arsitektur model berdasarkan ketersediaan data, meskipun fokus penelitian ini adalah pada MMS dan XLS-R, bukan Whisper. Meskipun demikian, penelitian ini memberikan konteks penting tentang batas bawah data yang diperlukan untuk \textit{fine-tuning} yang efektif. Dalam penelitian ini, meskipun dataset Minangkabau dari LibriVox Indonesia relatif terbatas, fokus tetap pada Whisper Small yang telah terbukti memiliki kemampuan \textit{transfer learning} yang kuat, dengan eksplorasi strategi \textit{fine-tuning} yang efisien melalui perbandingan \textit{full fine-tuning} dan LoRA.
+
+\subsection{Sintesis dan Posisi Penelitian}
+
+Tinjauan terhadap literatur terbaru mengungkapkan beberapa temuan penting yang menjadi landasan penelitian ini. Pertama, pelatihan skala besar dengan paradigma \textit{weak supervision} seperti yang dilakukan pada Whisper \cite{radford2023whisper} memberikan fondasi representasi multibahasa yang kuat untuk adaptasi bahasa \textit{low-resource}. Kedua, pemilihan strategi \textit{fine-tuning} harus mempertimbangkan \textit{trade-off} antara akurasi dan efisiensi komputasi \cite{liu2024exploration}, di mana metode seperti LoRA menawarkan alternatif yang efisien dibandingkan \textit{full fine-tuning}. Ketiga, rekayasa korpus \textit{long-form} dapat membantu mempertahankan kemampuan segmentasi dan \textit{timestamping} untuk aplikasi dunia nyata \cite{timmel2024finetune}. Keempat, modifikasi fungsi objektif seperti \textit{monotonic alignment loss} dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}. Kelima, pembelajaran multibahasa dapat ditransfer secara efektif ke bahasa lokal dan daerah \cite{arisaputra2022xlsr53}.
+
+Berdasarkan temuan-temuan tersebut, penelitian ini mengidentifikasi beberapa peluang pengembangan. Pertama, perbandingan sistematis antara \textit{full fine-tuning} dan LoRA pada Whisper Small untuk bahasa Minangkabau akan memberikan \textit{insights} praktis tentang efisiensi penggunaan memori GPU tanpa mengorbankan akurasi secara signifikan. Kedua, jika data \textit{long-form} Minangkabau terbatas, penyusunan korpus \textit{long-form} sintetis dapat diadopsi untuk meningkatkan kemampuan model dalam konteks yang lebih panjang. Ketiga, eksplorasi \textit{alignment-based loss} dan/atau integrasi \textit{language model} pada tahap \textit{decoding} dapat menjadi strategi lanjutan untuk penurunan WER lebih lanjut.
+
+
+
+\section{Dasar Teori}\label{II.Dasar Teori}
+
+Bagian ini menjelaskan landasan teoritis yang mendukung metodologi penelitian pada Bab III. Pembahasan disusun secara hierarkis dari konsep umum hingga spesifik: (i) \textit{Automatic Speech Recognition} (ASR) dan tantangan bahasa \textit{low-resource}, (ii) \textit{transfer learning} dan model \textit{pre-trained}, (iii) arsitektur Whisper, (iv) strategi \textit{fine-tuning} (\textit{Full} dan LoRA), (v) metrik evaluasi ASR, serta (vi) \textit{preprocessing} data audio dan teks.
+
+\subsection{Automatic Speech Recognition (ASR)}
+\label{II.ASR}
+
+\textit{Automatic Speech Recognition} (ASR) adalah teknologi yang mengkonversi sinyal audio ucapan manusia menjadi teks tertulis secara otomatis \cite{radford2023whisper}. Sistem ASR modern menggunakan pendekatan \textit{deep learning} yang memanfaatkan arsitektur jaringan saraf untuk mempelajari pola kompleks dalam data audio. Perkembangan ASR telah mengalami evolusi signifikan, dari sistem berbasis \textit{Hidden Markov Model} (HMM) hingga arsitektur \textit{end-to-end} berbasis \textit{Transformer} \cite{vaswani2017attention} yang mampu memodelkan hubungan jarak jauh dalam sekuens audio.
+
+Tantangan utama dalam ASR adalah variabilitas tinggi dalam ucapan manusia yang dipengaruhi oleh faktor-faktor seperti aksen, dialek, kecepatan bicara, \textit{background noise}, dan karakteristik \textit{speaker} individual. Untuk bahasa dengan sumber daya tinggi seperti bahasa Inggris, ketersediaan dataset besar (ribuan jam audio teranotasi) memungkinkan model mencapai akurasi tinggi. Namun, untuk bahasa daerah \textit{low-resource} seperti Minangkabau, minimnya dataset merupakan hambatan signifikan \cite{liu2024exploration}.
+
+\subsubsection{Bahasa Low-Resource dan Tantangannya}
+
+Bahasa \textit{low-resource} didefinisikan sebagai bahasa dengan keterbatasan data teranotasi yang tersedia untuk pelatihan model ASR \cite{liang2025fieldmatters}. Tantangan spesifik bahasa \textit{low-resource} meliputi: (i) kurangnya korpus audio-transkrip berkualitas tinggi, (ii) minimnya keberagaman \textit{speaker} dan konteks penggunaan dalam dataset, (iii) keterbatasan sumber daya komputasi untuk pengumpulan data skala besar, dan (iv) variasi dialek yang tidak tercakup dalam data yang tersedia \cite{timmel2024finetune, gete2025whispering}.
+
+Penelitian terbaru menunjukkan bahwa pendekatan \textit{transfer learning} dari model \textit{pre-trained} multibahasa dapat mengatasi keterbatasan data pada bahasa \textit{low-resource} \cite{arisaputra2022xlsr53, li2024improving}. Model yang telah dilatih pada bahasa-bahasa dengan sumber daya tinggi dapat di-adaptasi ke bahasa target dengan jumlah data yang relatif sedikit, memanfaatkan representasi linguistik dan akustik yang telah dipelajari dari bahasa-bahasa lain.
+
+\subsection{Transfer Learning dan Model Pre-Trained}
+\label{II.TransferLearning}
+
+\textit{Transfer learning} adalah paradigma \textit{machine learning} di mana pengetahuan yang dipelajari dari satu domain (\textit{source domain}) ditransfer ke domain lain (\textit{target domain}) untuk meningkatkan performa dengan data pelatihan yang terbatas \cite{pan2010transfer}. Dalam konteks ASR, \textit{transfer learning} memungkinkan model yang telah dilatih pada bahasa-bahasa dengan sumber daya tinggi untuk diadaptasi ke bahasa \textit{low-resource} melalui proses \textit{fine-tuning}.
+
+\subsubsection{Model Pre-Trained untuk ASR}
+
+Model \textit{pre-trained} multibahasa seperti wav2vec 2.0 \cite{baevski2020wav2vec2}, XLS-R \cite{conneau2021xlsr}, HuBERT \cite{hsu2021hubert}, WavLM \cite{chen2022wavlm}, dan Whisper \cite{radford2023whisper} telah menunjukkan kemampuan luar biasa dalam \textit{transfer learning} untuk ASR. Model-model ini dilatih pada ratusan ribu jam data audio multibahasa, memungkinkan mereka mempelajari representasi akustik dan linguistik yang generik dan dapat ditransfer ke bahasa-bahasa baru.
+
+Whisper, yang dikembangkan oleh OpenAI, merupakan model ASR \textit{end-to-end} berbasis \textit{Transformer encoder-decoder} yang dilatih pada 680,000 jam data audio multibahasa dalam paradigma \textit{weak supervision} \cite{radford2023whisper}. Keunggulan utama Whisper adalah kemampuan \textit{zero-shot} yang kuat pada berbagai bahasa dan kondisi audio, menjadikannya kandidat ideal untuk adaptasi ke bahasa \textit{low-resource} melalui \textit{fine-tuning}.
+
+\subsection{Arsitektur Whisper}
+\label{II.Whisper}
+
+Whisper menggunakan arsitektur \textit{Transformer} \cite{vaswani2017attention} dalam konfigurasi \textit{encoder-decoder} yang telah terbukti efektif untuk tugas sekuens-ke-sekuens. Arsitektur ini terdiri dari dua komponen utama: \textit{encoder} yang memproses representasi audio dan \textit{decoder} yang menghasilkan transkrip teks.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figure/Whisper_Architecture.pdf}
+\caption{Arsitektur dan \textit{Multitask Training Format} Whisper}
+\label{fig:2.whisper_arch}
+\end{figure}
+
+\subsubsection{Encoder}
+
+\textit{Encoder} Whisper menerima input berupa representasi \textit{log-Mel spectrogram} dari audio dengan 80 dimensi frekuensi. Spektrogram dihitung dengan \textit{window size} 25ms dan \textit{hop length} 10ms, menghasilkan 100 frame per detik audio. Input ini diproses melalui beberapa lapisan \textit{Transformer encoder} yang menggunakan mekanisme \textit{multi-head self-attention} \cite{bahdanau2015attention} untuk menangkap dependensi temporal jarak jauh dalam sekuens audio.
+
+Setiap lapisan \textit{encoder} terdiri dari dua sublapisan utama: (i) \textit{multi-head self-attention} yang memungkinkan model memperhatikan bagian-bagian berbeda dari input audio secara paralel, dan (ii) \textit{feed-forward network} (FFN) yang menerapkan transformasi non-linear pada representasi. Kedua sublapisan ini dilengkapi dengan \textit{residual connections} dan \textit{layer normalization} \cite{ba2016layernorm} untuk stabilitas pelatihan.
+
+\subsubsection{Decoder}
+
+\textit{Decoder} Whisper adalah \textit{autoregressive Transformer decoder} yang menghasilkan transkrip teks secara sekuensial, satu \textit{token} pada satu waktu. \textit{Decoder} menggunakan \textit{masked self-attention} untuk mencegah model melihat \textit{token} masa depan selama pelatihan, serta \textit{cross-attention} untuk memperhatikan representasi audio dari \textit{encoder}.
+
+Proses generasi teks dimulai dengan \textit{token} khusus yang mengindikasikan bahasa target dan tugas yang akan dilakukan (\textit{transcription} atau \textit{translation}). \textit{Decoder} kemudian secara berulang memprediksi \textit{token} berikutnya berdasarkan \textit{token}-\textit{token} sebelumnya dan representasi audio, hingga \textit{token} akhir sekuens diprediksi.
+
+\subsubsection{Whisper Small}
+
+Whisper tersedia dalam berbagai ukuran model, dari \textit{Tiny} (39M parameter) hingga \textit{Large} (1550M parameter). Whisper Small, dengan 244 juta parameter, menawarkan keseimbangan optimal antara performa dan efisiensi komputasi \cite{liu2024exploration}. Arsitektur Whisper Small terdiri dari 12 lapisan \textit{encoder} dan 12 lapisan \textit{decoder}, dengan dimensi \textit{hidden state} 768 dan 12 \textit{attention heads} per lapisan. Ukuran \textit{vocabulary} adalah 51,864 \textit{tokens} yang mencakup representasi karakter dan \textit{subword} untuk berbagai bahasa.
+
+\subsection{Fine-Tuning: Konsep dan Strategi}
+\label{II.FineTuning}
+
+\textit{Fine-tuning} adalah proses adaptasi model \textit{pre-trained} ke tugas atau domain spesifik dengan melanjutkan pelatihan pada dataset target yang lebih kecil \cite{pan2010transfer}. Dalam konteks ASR untuk bahasa \textit{low-resource}, \textit{fine-tuning} memungkinkan model yang telah dilatih pada bahasa-bahasa lain untuk disesuaikan dengan karakteristik linguistik dan akustik bahasa target.
+
+\subsubsection{Full Fine-Tuning}
+
+\textit{Full fine-tuning} adalah pendekatan tradisional di mana seluruh parameter model (atau sebagian besar parameter, kecuali lapisan ekstraksi fitur yang sering di-\textit{freeze}) di-\textit{update} selama proses pelatihan pada dataset target \cite{liu2024exploration}. Pendekatan ini memberikan fleksibilitas maksimal bagi model untuk beradaptasi dengan bahasa target, tetapi memerlukan sumber daya komputasi yang signifikan karena gradien harus dihitung dan parameter harus di-\textit{update} untuk seluruh jaringan.
+
+Keuntungan \textit{full fine-tuning} adalah potensi akurasi maksimal karena semua parameter dapat disesuaikan dengan data target. Namun, keterbatasannya termasuk: (i) kebutuhan memori GPU yang besar untuk menyimpan gradien dan \textit{optimizer states} untuk semua parameter, (ii) waktu pelatihan yang lebih lama, dan (iii) risiko \textit{overfitting} pada dataset kecil jika tidak diterapkan regularisasi yang memadai.
+
+\subsubsection{Parameter-Efficient Fine-Tuning (PEFT)}
+
+\textit{Parameter-Efficient Fine-Tuning} (PEFT) adalah keluarga metode yang bertujuan mengurangi jumlah parameter yang dilatih selama \textit{fine-tuning} sambil mempertahankan performa yang sebanding dengan \textit{full fine-tuning} \cite{hu2022lora}. PEFT sangat relevan untuk skenario \textit{low-resource} di mana sumber daya komputasi terbatas.
+
+Metode PEFT bekerja dengan membekukan (\textit{freeze}) sebagian besar atau seluruh parameter model \textit{pre-trained}, dan hanya melatih sebagian kecil parameter tambahan yang diinjeksikan ke dalam arsitektur. Pendekatan ini secara drastis mengurangi kebutuhan memori dan waktu pelatihan sambil tetap memungkinkan adaptasi yang efektif ke tugas target.
+
+\subsubsection{LoRA (Low-Rank Adaptation)}
+
+LoRA (\textit{Low-Rank Adaptation}) \cite{hu2022lora} adalah teknik PEFT yang sangat efisien untuk \textit{fine-tuning} model \textit{Transformer} besar. LoRA didasarkan pada hipotesis bahwa perubahan parameter (\textit{weight updates}) selama \textit{fine-tuning} memiliki dimensi intrinsik yang rendah. Artinya, adaptasi model ke tugas baru dapat diaproksimasi dengan baik menggunakan matriks \textit{low-rank}.
+
+Secara teknis, untuk setiap matriks \textit{weight} $W \in \mathbb{R}^{d \times k}$ dalam lapisan model (misalnya, proyeksi \textit{query}, \textit{key}, atau \textit{value} dalam \textit{attention}), LoRA menambahkan matriks \textit{low-rank} $\Delta W = BA$, di mana $B \in \mathbb{R}^{d \times r}$ dan $A \in \mathbb{R}^{r \times k}$, dengan $r \ll \min(d,k)$. Selama \textit{inference}, output dihitung sebagai:
+
+\vspace{1cm}
 \begin{equation}
-\hat{y} \;=\; \arg\max_{y}\; P_\theta\!\left(y\,\middle|\,X\right).
-\end{equation}
-\end{eqfloat}
-
-Persamaan~\ref{eq:asr-objective} adalah target inferensi untuk model \textit{encoder–decoder} modern seperti Conformer dan Whisper \cite{gulati2020conformer,radford2023whisper}.
-
-% ---------- 2.2 Representasi akustik ----------
-\subsection{Representasi Akustik (Log–Mel Spectrogram)}
-Sebagian besar sistem terkini (termasuk Whisper) mengonsumsi \textit{log–Mel spectrogram}.
-
-\begin{eqfloat}[H]
-\caption{Pipeline komputasi log–Mel spectrogram}
-\label{eq:logmel}
-\begin{equation}
-\begin{aligned}
-S(k,m) &= \mathrm{STFT}\{s[n]\},\\
-E(k,m) &= |S(k,m)|^2,\\
-M(f,m) &= \mathrm{MelFilterbank}\!\left(E(k,m)\right),\\
-X(f,m) &= \log\!\left(M(f,m)+\epsilon\right).
-\end{aligned}
-\end{equation}
-\end{eqfloat}
-
-Persamaan~\ref{eq:logmel} memetakan sinyal waktu $s[n]$ ke fitur $X$ yang lebih stabil terhadap variasi energi dan sesuai untuk encoder Transformer \cite{radford2023whisper}.
-
-% ---------- 2.3 Arsitektur Transformer modern ----------
-\subsection{Arsitektur Transformer Modern untuk ASR (2020–2025)}
-\textbf{Conformer} menggabungkan konvolusi (lokal) dan \textit{self-attention} (global), efektif untuk ketergantungan pendek–panjang \cite{gulati2020conformer}.  
-Pada jalur pra-latih \textit{self-supervised}, \textbf{wav2vec\,2.0} \cite{baevski2020wav2vec2}, \textbf{XLS-R} \cite{conneau2021xlsr}, dan \textbf{WavLM} \cite{chen2022wavlm} menyediakan representasi akustik lintas-bahasa yang kuat untuk diadaptasi dengan transkrip terbatas.
-
-\begin{eqfloat}[H]
-\caption{Skor perhatian (scaled dot-product) pada Transformer}
-\label{eq:attn}
-\begin{equation}
-\mathrm{Attention}(Q,K,V)\;=\;\mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)\!V .
-\end{equation}
-\end{eqfloat}
-
-% ---------- 2.4 Model Whisper ----------
-\subsection{Model Whisper}
-Whisper adalah \textit{encoder–decoder} Transformer multibahasa yang dipra-latih $\sim$680k jam \cite{radford2023whisper}. Pada adaptasi, digunakan kerugian \textit{cross-entropy} autoregresif:
-
-\begin{eqfloat}[H]
-\caption{Fungsi kerugian \textit{cross-entropy} untuk decoding autoregresif}
-\label{eq:ce}
-\begin{equation}
-\mathcal{L}_{\mathrm{CE}} \;=\; -\sum_{t=1}^{T}\log P_\theta\!\left(y_t \,\middle|\, y_{<t}, X\right).
-\end{equation}
-\end{eqfloat}
-
-Whisper memakai BPE multibahasa dan token kontrol (bahasa, modus tugas) untuk mengondisikan output \cite{radford2023whisper}.
-
-% ---------- 2.5 Fine-tuning low-resource ----------
-\subsection{Strategi Fine-Tuning pada Skenario Low-Resource}
-\paragraph{Fine-tuning penuh.}
-Seluruh parameter dioptimasi dengan \textit{learning rate} kecil; akurat namun berbiaya VRAM/waktu lebih tinggi.
-
-\paragraph{Parameter-Efficient Fine-Tuning (LoRA).}
-LoRA menambah pembaruan ber-rank rendah pada proyeksi linear (mis.\ di modul atensi) tanpa memodifikasi bobot pra-latih utama.
-
-\begin{eqfloat}[H]
-\caption{Formulasi LoRA untuk pembaruan ber-rank rendah}
 \label{eq:lora}
-\begin{equation}
-W' \;=\; W + \Delta W,\qquad 
-\Delta W \;=\; B A,\quad
-A\!\in\!\mathbb{R}^{r\times k},\; B\!\in\!\mathbb{R}^{d\times r},\; r\ll\min(d,k).
+h = Wx + \Delta Wx = Wx + BAx
 \end{equation}
-\end{eqfloat}
+\myequations{Formula LoRA (Low-Rank Adaptation)}
+\vspace{1cm}
 
-Studi 2024 menunjukkan semua strategi (penuh, \textit{partial freeze}, adapter, LoRA) menurunkan WER; pemilihan bergantung data dan sumber daya \cite{liu2024exploration}.
+Parameter asli $W$ tetap \textit{frozen}, dan hanya matriks $A$ dan $B$ yang dilatih. Jumlah parameter \textit{trainable} per lapisan adalah $r \times (d + k)$, yang jauh lebih kecil dari $d \times k$ parameter asli. Untuk Whisper Small dengan $r=8$, LoRA hanya melatih $\sim$0.24\% dari total parameter model \cite{song2024lorawhisper}, menghasilkan penghematan memori dan waktu pelatihan yang signifikan.
 
-\paragraph{Kendala Alignment Monotonik.}
-Untuk ASR, keselarasan audio$\rightarrow$teks cenderung monotonik; menambahkan penalti alignment saat \textit{fine-tuning} terbukti menurunkan WER (2025) \cite{zhuang2025monotonic}.
+LoRA juga memiliki keunggulan praktis: (i) dapat dengan mudah di-\textit{merge} dengan model dasar untuk \textit{inference} tanpa overhead latensi, (ii) memungkinkan \textit{multi-task learning} dengan menyimpan beberapa set matriks LoRA untuk tugas berbeda, dan (iii) mengurangi risiko \textit{overfitting} karena parameter yang dilatih jauh lebih sedikit.
 
-\begin{eqfloat}[H]
-\caption{Regularisasi \textit{monotonic alignment} (contoh: KL terhadap topeng monotonic)}
-\label{eq:mono}
+\subsection{Metrik Evaluasi ASR}
+\label{II.Metrics}
+
+Evaluasi performa model ASR dilakukan menggunakan metrik yang mengukur akurasi transkrip yang dihasilkan dibandingkan dengan transkrip referensi. Dua metrik utama yang digunakan adalah \textit{Word Error Rate} (WER) dan \textit{Character Error Rate} (CER).
+
+\subsubsection{Word Error Rate (WER)}
+
+\textit{Word Error Rate} (WER) adalah metrik standar untuk evaluasi ASR yang mengukur \textit{edit distance} pada level kata antara transkrip hipotesis (\\textit{hypothesis}, output model) dan transkrip referensi (\textit{reference}, \textit{ground truth}) \cite{radford2023whisper}. WER dihitung sebagai:
+
+\vspace{1cm}
 \begin{equation}
-\mathcal{L}_{\mathrm{mono}} \;=\;
-\mathrm{KL}\!\left(A \;\middle\|\; M_{\mathrm{mono}}\right)
-\;=\; \sum_{i,j} A_{ij}\,\log\!\frac{A_{ij}}{(M_{\mathrm{mono}})_{ij}},
-\end{equation}
-\end{eqfloat}
-
-dengan $A$ matriks atensi dan $M_{\mathrm{mono}}$ topeng yang menegakkan urutan temporal (definisi spesifik mengikuti rancangan eksperimen).
-
-% ---------- 2.6 Decoding + LM ----------
-\subsection{Decoding dan Integrasi Model Bahasa}
-Pada \textit{beam search}, skor akustik dari Whisper dapat dipadukan dengan LM eksternal (\textit{shallow fusion}) untuk menurunkan WER pada data terbatas (lihat bukti 2024 untuk bahasa under-represented).
-
-\begin{eqfloat}[H]
-\caption{Skor gabungan \textit{shallow fusion} untuk decoding}
-\label{eq:sf}
-\begin{equation}
-\mathrm{score}(y\mid X) \;=\; 
-\log P_\theta(y\mid X) \;+\; \lambda\,\log P_{\mathrm{LM}}(y) \;+\; \beta\,|y| ,
-\end{equation}
-\end{eqfloat}
-
-dengan $\lambda,\beta$ hiperparameter dan $|y|$ penalti panjang.
-
-% ---------- 2.7 Metrik evaluasi ----------
-\subsection{Metrik Evaluasi}
-\begin{eqfloat}[H]
-\caption{Word Error Rate (WER)}
 \label{eq:wer}
-\begin{equation}
-\mathrm{WER} \;=\; \frac{S + D + I}{N}\times 100\% ,
+\text{WER} = \frac{S + D + I}{N} \times 100\%
 \end{equation}
-\end{eqfloat}
+\myequations{Formula WER (Word Error Rate)}
+\vspace{1cm}
 
-\begin{eqfloat}[H]
-\caption{Character Error Rate (CER)}
-\label{eq:cer}
-\begin{equation}
-\mathrm{CER} \;=\; \frac{S_c + D_c + I_c}{N_c}\times 100\% .
-\end{equation}
-\end{eqfloat}
+di mana $S$ adalah jumlah substitusi (kata yang salah diganti), $D$ adalah jumlah penghapusan (kata yang hilang dalam hipotesis), $I$ adalah jumlah penyisipan (kata tambahan dalam hipotesis), dan $N$ adalah total kata dalam referensi. WER dinyatakan dalam persentase, di mana nilai lebih rendah menunjukkan akurasi lebih tinggi (0\% berarti sempurna, 100\% atau lebih berarti kinerja sangat buruk).
 
-dengan $S,D,I$ adalah jumlah \textit{substitution}, \textit{deletion}, \textit{insertion} terhadap $N$ kata referensi; subskrip $_c$ untuk level karakter. CER sering lebih stabil pada bahasa dengan variasi ejaan atau morfologi kaya (praktik 2020–2025).
+\subsubsection{Character Error Rate (CER)}
 
-% ---------- 2.8 Keterkaitan ----------
-\subsection{Keterkaitan dengan Penelitian Ini}
-(1) Fondasi pra-latih skala besar \cite{baevski2020wav2vec2,conneau2021xlsr,chen2022wavlm,radford2023whisper} memotivasi adaptasi Whisper Small di skenario data terbatas.  
-(2) Komparasi \textbf{full fine-tuning} vs \textbf{LoRA} akan mengevaluasi \textit{trade-off} akurasi–VRAM \cite{liu2024exploration}.  
-(3) Jika baseline belum memadai, regularisasi \textbf{alignment monotonik} (Persamaan~\ref{eq:mono}) dapat dieksplorasi \cite{zhuang2025monotonic}.  
-(4) \textbf{Shallow fusion} (Persamaan~\ref{eq:sf}) dan augmentasi sederhana akan dipertimbangkan untuk menekan WER pada Minangkabau.
+\textit{Character Error Rate} (CER) mengukur \textit{edit distance} pada level karakter, dihitung dengan formula yang sama dengan WER tetapi operasi substitusi, penghapusan, dan penyisipan diterapkan pada karakter individual. CER lebih sensitif terhadap kesalahan fonetik dan memberikan perspektif komplementer terhadap WER, terutama untuk bahasa dengan sistem penulisan yang kompleks atau ketika kesalahan parsial dalam kata perlu dipertimbangkan.
 
+Kedua metrik ini penting karena memberikan informasi yang berbeda: WER mengukur akurasi semantik pada level kata (lebih penting untuk pemahaman makna), sementara CER memberikan granularitas lebih tinggi dan berguna untuk mengidentifikasi pola kesalahan fonetik spesifik.
+
+\subsection{Data Preprocessing untuk ASR}
+\label{II.Preprocessing}
+
+\textit{Preprocessing} data adalah tahap kritis dalam pengembangan sistem ASR yang memastikan data input konsisten, berkualitas tinggi, dan kompatibel dengan persyaratan model \cite{park2019specaugment}.
+
+\subsubsection{Audio Preprocessing}
+
+Audio \textit{preprocessing} mencakup beberapa operasi penting:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Resampling}: Konversi \textit{sampling rate} audio ke frekuensi standar yang digunakan oleh model (16 kHz untuk Whisper). Resampling memastikan konsistensi temporal audio dan kompatibilitas dengan arsitektur model.
+    
+    \item \textbf{Normalisasi Amplitudo}: Standarisasi volume audio di seluruh dataset untuk menghindari bias model terhadap audio dengan volume tertentu. Normalisasi dapat dilakukan dengan teknik seperti \textit{peak normalization} atau \textit{RMS normalization}.
+    
+    \item \textbf{Segmentasi}: Pemotongan audio panjang menjadi segmen dengan durasi yang sesuai untuk pelatihan (biasanya 10-30 detik). Segmentasi meningkatkan efisiensi pelatihan dan mengurangi penggunaan memori.
+    
+    \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir klip audio, sehingga model fokus pada bagian yang mengandung informasi linguistik.
+    
+    \item \textbf{Quality Filtering}: Penyaringan klip dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau distorsi signifikan untuk memastikan hanya data berkualitas tinggi yang digunakan dalam pelatihan.
+\end{enumerate}
+
+\subsubsection{Text Preprocessing}
+
+Transkrip teks juga memerlukan standardisasi:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Normalisasi Huruf}: Konversi teks ke huruf kecil atau format konsisten lainnya untuk mengurangi variabilitas yang tidak relevan.
+    
+    \item \textbf{Normalisasi Tanda Baca}: Standarisasi penggunaan tanda baca di seluruh dataset.
+    
+    \item \textbf{Normalisasi Angka}: Konversi representasi numerik menjadi bentuk kata yang sesuai dengan cara angka diucapkan dalam bahasa target.
+    
+    \item \textbf{Normalisasi Whitespace}: Pembersihan spasi berlebih dan karakter \textit{whitespace} lainnya.
+\end{enumerate}
+
+\subsubsection{Data Augmentation}
+
+\textit{Data augmentation} adalah teknik untuk meningkatkan keberagaman dan ukuran dataset pelatihan secara artifisial, yang sangat bermanfaat dalam skenario \textit{low-resource}. Teknik augmentasi untuk ASR meliputi:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{SpecAugment} \cite{park2019specaugment}: Augmentasi pada representasi spektrogram dengan menerapkan \textit{masking} pada dimensi waktu dan frekuensi. Teknik ini memaksa model menjadi lebih \textit{robust} terhadap variasi lokal dalam spektrum audio.
+    
+    \item \textbf{Speed Perturbation} \cite{ko2015audio}: Variasi kecepatan audio dengan faktor tertentu (misalnya, 0.9, 1.0, 1.1) untuk mensimulasikan variasi kecepatan bicara alami.
+    
+    \item \textbf{Noise Injection}: Penambahan \textit{background noise} dengan SNR tertentu untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam.
+\end{enumerate}
+
+\subsection{Regularisasi dan Optimisasi}
+\label{II.Regularization}
+
+Untuk mencegah \textit{overfitting} pada dataset kecil dan memastikan konvergensi pelatihan yang stabil, berbagai teknik regularisasi dan optimisasi diterapkan.
+
+\subsubsection{Regularisasi}
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Dropout}: Teknik regularisasi yang secara acak men-\textit{drop} neuron selama pelatihan untuk mengurangi \textit{co-adaptation} dan meningkatkan generalisasi.
+    
+    \item \textbf{Label Smoothing}: Teknik yang menghaluskan distribusi target saat pelatihan untuk mencegah \textit{overconfidence} pada prediksi dan meningkatkan kalibrasi model.
+    
+    \item \textbf{Gradient Clipping}: Pembatasan norma gradien untuk mencegah \textit{exploding gradients} selama \textit{backpropagation}.
+    
+    \item \textbf{Early Stopping}: Menghentikan pelatihan ketika performa pada \textit{validation set} tidak lagi meningkat, mencegah \textit{overfitting} pada \textit{training set}.
+\end{enumerate}
+
+\subsubsection{Optimisasi}
+
+\textbf{AdamW} \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan secara luas untuk \textit{fine-tuning} model \textit{Transformer}. AdamW adalah varian dari Adam yang memisahkan \textit{weight decay} dari optimisasi gradien, menghasilkan regularisasi yang lebih efektif. AdamW menggunakan \textit{adaptive learning rates} per-parameter berdasarkan estimasi momen pertama dan kedua dari gradien, memungkinkan konvergensi cepat sambil mempertahankan stabilitas pelatihan.

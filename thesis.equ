@@ -1,9 +1,11 @@
-\contentsline {myequations}{\numberline {Rumus~2.0}Objektif umum ASR: pemilihan urutan hipotesis terbaik}{16}{eqfloat.caption.19}%
-\contentsline {myequations}{\numberline {Rumus~2.1}Pipeline komputasi log–Mel spectrogram}{16}{eqfloat.caption.20}%
-\contentsline {myequations}{\numberline {Rumus~2.2}Skor perhatian (scaled dot-product) pada Transformer}{16}{eqfloat.caption.21}%
-\contentsline {myequations}{\numberline {Rumus~2.3}Fungsi kerugian \textit {cross-entropy} untuk decoding autoregresif}{17}{eqfloat.caption.22}%
-\contentsline {myequations}{\numberline {Rumus~2.4}Formulasi LoRA untuk pembaruan ber-rank rendah}{17}{eqfloat.caption.23}%
-\contentsline {myequations}{\numberline {Rumus~2.5}Regularisasi \textit {monotonic alignment} (contoh: KL terhadap topeng monotonic)}{17}{eqfloat.caption.24}%
-\contentsline {myequations}{\numberline {Rumus~2.6}Skor gabungan \textit {shallow fusion} untuk decoding}{18}{eqfloat.caption.25}%
-\contentsline {myequations}{\numberline {Rumus~2.7}Word Error Rate (WER)}{18}{eqfloat.caption.26}%
-\contentsline {myequations}{\numberline {Rumus~2.8}Character Error Rate (CER)}{18}{eqfloat.caption.27}%
+\contentsline {myequations}{\numberline {Rumus~2.1}Formula LoRA (Low-Rank Adaptation)}{25}{equation.2.2.1}%
+\contentsline {myequations}{\numberline {Rumus~2.2}Formula WER (Word Error Rate)}{26}{equation.2.2.2}%
+\contentsline {myequations}{\numberline {Rumus~3.1}Definisi WER (Word Error Rate)}{54}{equation.3.5.1}%
+\contentsline {myequations}{\numberline {Rumus~3.2}Contoh Perhitungan WER}{55}{equation.3.5.2}%
+\contentsline {myequations}{\numberline {Rumus~3.3}Definisi CER (Character Error Rate)}{55}{equation.3.5.3}%
+\contentsline {myequations}{\numberline {Rumus~3.4}Contoh Perhitungan CER}{56}{equation.3.5.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5}Formula Parameter LoRA}{56}{equation.3.5.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6}Parameter LoRA Per Projection}{57}{equation.3.5.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{57}{equation.3.5.7}%
+\contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA}{57}{equation.3.5.8}%
+\contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{57}{equation.3.5.9}%
