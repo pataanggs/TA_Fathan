@@ -5,9 +5,10 @@
 
 Bagian ini mengulas penelitian-penelitian terdahulu yang relevan dengan topik \textit{fine-tuning} Whisper dan \textit{Automatic Speech Recognition} (ASR) untuk bahasa \textit{low-resource}. Setiap penelitian dianalisis secara kritis untuk mengidentifikasi kontribusi utama, keterbatasan, serta relevansinya dengan penelitian ini yang berfokus pada adaptasi Whisper Small untuk bahasa Minangkabau.
 
+
 {\small
 \setlength{\tabcolsep}{4pt}
-{\renewcommand\tabularxcolumn[1]{p{#1}}
+{\renewcommand\tabularxcolumn[1]{>{\RaggedRight\arraybackslash}p{#1}}
 \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.05\textwidth}|X|X|X|X|}
 \caption{Ringkasan Penelitian Terdahulu (2022--2025)}
 \label{table:2.literasi}\\
@@ -50,7 +51,7 @@ Identifikasi strategi \textit{fine-tuning} Whisper yang paling efektif untuk bah
 
 Studi komparatif \textit{full fine-tuning}, \textit{partial fine-tuning}, \textit{adapters}, dan PEFT (LoRA) pada berbagai bahasa \textit{low-resource} & 
 
-Semua strategi menurunkan WER; \textit{trade-off} jelas antara akurasi dan efisiensi; panduan praktis untuk pemilihan strategi; basis untuk perbandingan \textit{full FT} vs LoRA pada Minangkabau \\
+Semua strategi menurunkan WER; \textit{trade-off} jelas antara akurasi dan efisiensi; panduan praktis untuk pemilihan strategi; basis untuk perbandingan \textit{Freeze Encoder} vs LoRA pada Minangkabau \\
 \hline
 
 3 & 
@@ -117,7 +118,7 @@ Liu, Yang, dan Qu \cite{liu2024exploration} melakukan studi komparatif komprehen
 
 Hasil penelitian menunjukkan bahwa semua strategi yang diuji mampu menurunkan \textit{Word Error Rate} (WER) dibandingkan model dasar, namun terdapat \textit{trade-off} yang jelas antara akurasi dan efisiensi komputasi. \textit{Full fine-tuning} cenderung menghasilkan akurasi tertinggi tetapi memerlukan memori GPU yang besar dan waktu pelatihan yang lama, sementara metode PEFT seperti LoRA menawarkan efisiensi signifikan dengan penurunan akurasi yang minimal. Keunggulan penelitian ini terletak pada panduan praktis untuk memilih strategi berdasarkan keterbatasan data dan sumber daya komputasi yang tersedia. Namun, keterbatasannya adalah fokus yang luas tanpa analisis mendalam pada satu bahasa atau dialek spesifik secara longitudinal.
 
-Penelitian ini memberikan kontribusi penting sebagai dasar pemilihan strategi untuk bahasa Minangkabau. Dalam skripsi ini, perbandingan langsung antara \textit{full fine-tuning} dan LoRA pada Whisper Small akan dilakukan untuk mengidentifikasi strategi yang paling sesuai dalam konteks bahasa Minangkabau, dengan mempertimbangkan keterbatasan data dan infrastruktur komputasi yang tersedia.
+Penelitian ini memberikan kontribusi penting sebagai dasar pemilihan strategi untuk bahasa Minangkabau. Dalam skripsi ini, perbandingan langsung antara \textit{Freeze Encoder} dan LoRA pada Whisper Small akan dilakukan untuk mengidentifikasi strategi yang paling sesuai dalam konteks bahasa Minangkabau, dengan mempertimbangkan keterbatasan data dan infrastruktur komputasi yang tersedia.
 
 \subsection{Adaptasi untuk Aplikasi Dunia Nyata}
 
@@ -143,13 +144,13 @@ Meskipun penelitian ini berfokus pada bahasa Indonesia baku dan tidak membahas d
 
 Liang dan Levow \cite{liang2025fieldmatters} mengeksplorasi tantangan transkripsi untuk bahasa-bahasa yang memiliki data sangat minimal, bahkan kurang dari 1 jam audio, dalam konteks penelitian linguistik lapangan (\textit{fieldwork linguistics}). Penelitian ini membandingkan performa model MMS (\textit{Massively Multilingual Speech}) dan XLS-R pada 5 bahasa yang sangat \textit{low-resource} dengan berbagai skala data. Hasil evaluasi menunjukkan bahwa MMS unggul ketika data pelatihan sangat terbatas (kurang dari 1 jam), sementara performa kedua model mencapai paritas ketika data bertambah (lebih dari 1 jam).
 
-Temuan ini memberikan panduan praktis untuk pemilihan arsitektur model berdasarkan ketersediaan data, meskipun fokus penelitian ini adalah pada MMS dan XLS-R, bukan Whisper. Meskipun demikian, penelitian ini memberikan konteks penting tentang batas bawah data yang diperlukan untuk \textit{fine-tuning} yang efektif. Dalam penelitian ini, meskipun dataset Minangkabau dari LibriVox Indonesia relatif terbatas, fokus tetap pada Whisper Small yang telah terbukti memiliki kemampuan \textit{transfer learning} yang kuat, dengan eksplorasi strategi \textit{fine-tuning} yang efisien melalui perbandingan \textit{full fine-tuning} dan LoRA.
+Temuan ini memberikan panduan praktis untuk pemilihan arsitektur model berdasarkan ketersediaan data, meskipun fokus penelitian ini adalah pada MMS dan XLS-R, bukan Whisper. Meskipun demikian, penelitian ini memberikan konteks penting tentang batas bawah data yang diperlukan untuk \textit{fine-tuning} yang efektif. Dalam penelitian ini, meskipun dataset Minangkabau dari LibriVox Indonesia relatif terbatas, fokus tetap pada Whisper Small yang telah terbukti memiliki kemampuan \textit{transfer learning} yang kuat, dengan eksplorasi strategi \textit{fine-tuning} yang efisien melalui perbandingan \textit{Freeze Encoder} dan LoRA.
 
 \subsection{Sintesis dan Posisi Penelitian}
 
-Tinjauan terhadap literatur terbaru mengungkapkan beberapa temuan penting yang menjadi landasan penelitian ini. Pertama, pelatihan skala besar dengan paradigma \textit{weak supervision} seperti yang dilakukan pada Whisper \cite{radford2023whisper} memberikan fondasi representasi multibahasa yang kuat untuk adaptasi bahasa \textit{low-resource}. Kedua, pemilihan strategi \textit{fine-tuning} harus mempertimbangkan \textit{trade-off} antara akurasi dan efisiensi komputasi \cite{liu2024exploration}, di mana metode seperti LoRA menawarkan alternatif yang efisien dibandingkan \textit{full fine-tuning}. Ketiga, rekayasa korpus \textit{long-form} dapat membantu mempertahankan kemampuan segmentasi dan \textit{timestamping} untuk aplikasi dunia nyata \cite{timmel2024finetune}. Keempat, modifikasi fungsi objektif seperti \textit{monotonic alignment loss} dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}. Kelima, pembelajaran multibahasa dapat ditransfer secara efektif ke bahasa lokal dan daerah \cite{arisaputra2022xlsr53}.
+Tinjauan terhadap literatur terbaru mengungkapkan beberapa temuan penting yang menjadi landasan penelitian ini. Pertama, pelatihan skala besar dengan paradigma \textit{weak supervision} seperti yang dilakukan pada Whisper \cite{radford2023whisper} memberikan fondasi representasi multibahasa yang kuat untuk adaptasi bahasa \textit{low-resource}. Kedua, pemilihan strategi \textit{fine-tuning} harus mempertimbangkan \textit{trade-off} antara akurasi dan efisiensi komputasi \cite{liu2024exploration}, di mana metode seperti LoRA menawarkan alternatif yang efisien dibandingkan melatih lebih banyak parameter. Ketiga, rekayasa korpus \textit{long-form} dapat membantu mempertahankan kemampuan segmentasi dan \textit{timestamping} untuk aplikasi dunia nyata \cite{timmel2024finetune}. Keempat, modifikasi fungsi objektif seperti \textit{monotonic alignment loss} dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}. Kelima, pembelajaran multibahasa dapat ditransfer secara efektif ke bahasa lokal dan daerah \cite{arisaputra2022xlsr53}.
 
-Berdasarkan temuan-temuan tersebut, penelitian ini mengidentifikasi beberapa peluang pengembangan. Pertama, perbandingan sistematis antara \textit{full fine-tuning} dan LoRA pada Whisper Small untuk bahasa Minangkabau akan memberikan \textit{insights} praktis tentang efisiensi penggunaan memori GPU tanpa mengorbankan akurasi secara signifikan. Kedua, jika data \textit{long-form} Minangkabau terbatas, penyusunan korpus \textit{long-form} sintetis dapat diadopsi untuk meningkatkan kemampuan model dalam konteks yang lebih panjang. Ketiga, eksplorasi \textit{alignment-based loss} dan/atau integrasi \textit{language model} pada tahap \textit{decoding} dapat menjadi strategi lanjutan untuk penurunan WER lebih lanjut.
+Berdasarkan temuan-temuan tersebut, penelitian ini mengidentifikasi beberapa peluang pengembangan. Pertama, perbandingan sistematis antara \textit{Freeze Encoder} dan LoRA pada Whisper Small untuk bahasa Minangkabau akan memberikan \textit{insights} praktis tentang efisiensi penggunaan memori GPU tanpa mengorbankan akurasi secara signifikan. Kedua, jika data \textit{long-form} Minangkabau terbatas, penyusunan korpus \textit{long-form} sintetis dapat diadopsi untuk meningkatkan kemampuan model dalam konteks yang lebih panjang. Ketiga, eksplorasi \textit{alignment-based loss} dan/atau integrasi \textit{language model} pada tahap \textit{decoding} dapat menjadi strategi lanjutan untuk penurunan WER lebih lanjut.
 
 
 
@@ -188,7 +189,7 @@ Secara arsitektural, Whisper menggunakan model \textit{Transformer} \cite{vaswan
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\textwidth]{figure/Whisper_Architecture.pdf}
+\includegraphics[angle=-90, width=1\textwidth]{figure/Whisper_Architecture.pdf}
 \caption{Arsitektur dan \textit{Multitask Training Format} Whisper}
 \label{fig:2.whisper_arch}
 \end{figure}
@@ -248,6 +249,21 @@ Whisper tersedia dalam berbagai ukuran model, dari \textit{Tiny} (39M parameter)
 \textit{Full fine-tuning} adalah pendekatan tradisional di mana seluruh parameter model (atau sebagian besar parameter, kecuali lapisan ekstraksi fitur yang sering di-\textit{freeze}) di-\textit{update} selama proses pelatihan pada dataset target \cite{liu2024exploration}. Pendekatan ini memberikan fleksibilitas maksimal bagi model untuk beradaptasi dengan bahasa target, tetapi memerlukan sumber daya komputasi yang signifikan karena gradien harus dihitung dan parameter harus di-\textit{update} untuk seluruh jaringan.
 
 Keuntungan \textit{full fine-tuning} adalah potensi akurasi maksimal karena semua parameter dapat disesuaikan dengan data target. Namun, keterbatasannya termasuk: (i) kebutuhan memori GPU yang besar untuk menyimpan gradien dan \textit{optimizer states} untuk semua parameter, (ii) waktu pelatihan yang lebih lama, dan (iii) risiko \textit{overfitting} pada dataset kecil jika tidak diterapkan regularisasi yang memadai.
+
+\subsubsection{Freeze Encoder Fine-Tuning}
+
+\textit{Freeze Encoder Fine-Tuning} adalah strategi \textit{fine-tuning} yang membekukan (\textit{freeze}) seluruh parameter \textit{encoder} dan hanya melatih parameter \textit{decoder} dalam arsitektur \textit{encoder-decoder} seperti Whisper \cite{liu2024exploration}. Pendekatan ini didasarkan pada hipotesis bahwa representasi akustik yang telah dipelajari \textit{encoder} dari data \textit{pre-training} multibahasa bersifat universal dan dapat digunakan langsung untuk bahasa target, sementara \textit{decoder} perlu diadaptasi untuk mempelajari pola linguistik spesifik bahasa target.
+
+Dalam konteks Whisper Small, strategi ini membekukan 12 lapisan \textit{encoder} Transformer ($\sim$122M parameter) dan hanya melatih 12 lapisan \textit{decoder} Transformer ($\sim$122M parameter), sehingga mengurangi jumlah parameter yang di-\textit{update} menjadi sekitar 50\% dari total parameter model. Pendekatan ini menawarkan beberapa keuntungan untuk skenario \textit{extremely low-resource}:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Mengurangi Risiko Overfitting}: Dengan hanya melatih \textit{decoder}, model mempertahankan representasi akustik yang telah dipelajari dari 680,000 jam data \textit{pre-training}, mengurangi risiko \textit{overfitting} pada dataset kecil
+    \item \textbf{Efisiensi Komputasi}: Kebutuhan memori GPU dan waktu pelatihan berkurang signifikan dibandingkan \textit{full fine-tuning} karena gradien hanya dihitung untuk separuh parameter
+    \item \textbf{Transfer Learning Optimal}: Memanfaatkan representasi akustik universal dari \textit{encoder} sambil mengadaptasi komponen linguistik (\textit{decoder}) untuk bahasa target
+    \item \textbf{Stabilitas Training}: Dengan \textit{encoder} yang tetap stabil, pelatihan cenderung lebih stabil dan konvergen lebih cepat
+\end{itemize}
+
+Keterbatasan strategi ini adalah model hanya dapat beradaptasi pada level linguistik melalui \textit{decoder}, sehingga jika bahasa target memiliki karakteristik akustik yang sangat berbeda dari bahasa-bahasa dalam data \textit{pre-training}, performa mungkin tidak optimal. Namun, untuk bahasa-bahasa yang masih memiliki kemiripan akustik dengan bahasa-bahasa dalam dataset \textit{pre-training} Whisper (seperti bahasa Minangkabau yang berkaitan dengan bahasa Indonesia), strategi ini terbukti efektif \cite{liu2024exploration}.
 
 \subsubsection{Parameter-Efficient Fine-Tuning (PEFT)}
 

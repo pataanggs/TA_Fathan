@@ -9,7 +9,7 @@ Pada penelitian ini, alur dirancang untuk memastikan setiap tahapan pemrosesan d
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.1\textwidth]{figure/Alur_Penelitian.pdf}
+\includegraphics[angle=-90,width=1.1\textwidth]{figure/Alur_Penelitian.pdf}
 \caption{Alur Penelitian Fine-Tuning Whisper untuk ASR Bahasa Minangkabau}
 \label{fig:3.alur}
 \end{figure}
@@ -49,7 +49,7 @@ Proses studi literatur dilaksanakan melalui tahapan-tahapan berikut:
     \item \textit{Review} paper ilmiah terkait Whisper dan strategi \textit{fine-tuning} dari jurnal internasional bereputasi (\textit{e.g.}, ICASSP, Interspeech, ACL) dan \textit{conference proceedings} di bidang \textit{speech processing}
     \item Analisis mendalam terhadap penelitian terdahulu tentang ASR untuk bahasa Indonesia dan bahasa daerah Nusantara, dengan fokus pada metodologi, dataset yang digunakan, dan hasil yang dicapai
     \item Studi dokumentasi teknis OpenAI Whisper dan ekosistem Hugging Face Transformers \textit{library}, termasuk \textit{API reference}, \textit{model cards}, dan \textit{best practices} untuk \textit{fine-tuning}
-    \item Eksplorasi metode \textit{fine-tuning} yang tersedia, membandingkan karakteristik \textit{full fine-tuning} dengan pendekatan PEFT seperti LoRA, Adapter, dan Prefix-Tuning
+    \item Eksplorasi metode \textit{fine-tuning} yang tersedia, membandingkan karakteristik \textit{Freeze Encoder} dengan pendekatan PEFT seperti LoRA, Adapter, dan Prefix-Tuning
     \item Pemahaman mendalam tentang metrik evaluasi ASR, khususnya \textit{Word Error Rate} (WER) dan \textit{Character Error Rate} (CER), termasuk interpretasi dan keterbatasannya
 \end{enumerate}
 
@@ -95,6 +95,9 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
     \item \textbf{Normalization}: Normalisasi \textit{amplitude} audio untuk memastikan konsistensi volume di seluruh dataset, menghindari bias model terhadap audio dengan volume tertentu
     \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir setiap \textit{clip}, sehingga model tidak perlu memproses bagian audio yang tidak mengandung informasi linguistik
     \item \textbf{Quality Check}: Penyaringan \textit{clips} dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau mengandung distorsi signifikan, untuk memastikan hanya data berkualitas tinggi yang digunakan dalam \textit{training}
+    \item \textbf{SpecAugment}: Teknik \textit{augmentation} pada representasi spektrogram dengan menerapkan \textit{time masking} (T=70) dan \textit{frequency masking} (F=27) untuk meningkatkan invariansi temporal dan frekuensi, diterapkan selama \textit{training} untuk meningkatkan \textit{robustness} model
+    \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik
+    \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam dan meningkatkan generalisasi pada skenario \textit{low-resource}
 \end{enumerate}
 
 \subsubsection{Text Preprocessing}
@@ -170,7 +173,7 @@ Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berik
     \item \textbf{Frozen Components}: Seluruh 12 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
     \item \textbf{Trainable Components}: Seluruh 12 lapisan \textit{decoder} Transformer ($\sim$122M parameter)
     \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.01 untuk regularisasi
-    \item \textbf{Learning Rate}: $1 \times 10^{-5}$ (lebih rendah dari \textit{full fine-tuning} karena hanya melatih \textit{decoder})
+    \item \textbf{Learning Rate}: $1 \times 10^{-5}$ (disesuaikan untuk melatih \textit{decoder} dengan stabil)
     \item \textbf{Batch Size}: 8-16 sampel per \textit{batch}, disesuaikan dengan memori GPU
     \item \textbf{Epochs}: 20-30 \textit{epochs} dengan mekanisme \textit{early stopping} untuk mencegah \textit{overfitting}
     \item \textbf{Loss Function}: \textit{Cross-entropy loss} standar untuk tugas klasifikasi sekuens
@@ -188,21 +191,11 @@ Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \t
         \item \textit{Dropout}: 0.1 (regularisasi pada LoRA \textit{layers})
         \item \textit{Target modules}: \textit{Query} dan \textit{Value projections} dalam \textit{attention layers}, yang merupakan komponen paling kritis untuk adaptasi
     \end{itemize}
-    \item \textbf{Trainable Parameters}: $\sim$2\% dari total parameter ($\sim$5 juta parameter), drastis lebih sedikit dibanding \textit{Full Fine-Tuning}
+    \item \textbf{Trainable Parameters}: $\sim$2\% dari total parameter ($\sim$5 juta parameter), drastis lebih sedikit dibanding \textit{Freeze Encoder}
     \item \textbf{Optimizer}: AdamW dengan \textit{weight decay} 0.01
-    \item \textbf{Learning Rate}: $5 \times 10^{-4}$ (lebih tinggi dibanding \textit{Full FT} karena hanya melatih sebagian kecil parameter pada \textit{frozen base model})
+    \item \textbf{Learning Rate}: $5 \times 10^{-4}$ (lebih tinggi dibanding \textit{Freeze Encoder} karena hanya melatih sebagian kecil parameter pada \textit{frozen base model})
     \item \textbf{Batch Size}: 16 sampel per \textit{batch}
     \item \textbf{Epochs}: 10-15 \textit{epochs} dengan \textit{early stopping} (\textit{patience}=5)
-\end{enumerate}
-
-\subsubsection{Data Augmentation}
-
-Untuk meningkatkan \textit{robustness} model pada skenario \textit{low-resource} dan mencegah \textit{overfitting} pada dataset yang relatif kecil, diterapkan beberapa teknik \textit{data augmentation} pada data audio selama \textit{training}:
-
-\begin{enumerate}[noitemsep]
-    \item \textbf{SpecAugment}: Teknik \textit{augmentation} pada representasi spektrogram dengan menerapkan \textit{time masking} (T=70) dan \textit{frequency masking} (F=27) untuk meningkatkan invariansi temporal dan frekuensi
-    \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami
-    \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam
 \end{enumerate}
 
 \subsubsection{Regularization}
@@ -221,7 +214,7 @@ Selain \textit{data augmentation}, beberapa teknik \textit{regularization} juga 
 
 Proses \textit{training} dilakukan dengan protokol \textit{monitoring} yang ketat dan sistematis untuk memastikan konvergensi yang optimal serta mendeteksi potensi masalah sejak dini. \textit{Monitoring} yang komprehensif sangat penting dalam penelitian ini mengingat kompleksitas model Whisper dan sifat dataset yang \textit{low-resource}. Tanpa \textit{monitoring} yang tepat, berbagai masalah seperti \textit{overfitting}, konvergensi yang lambat, atau konfigurasi \textit{hyperparameter} yang tidak optimal dapat tidak terdeteksi dan menghasilkan model dengan performa suboptimal. Oleh karena itu, strategi \textit{monitoring} dirancang untuk memberikan visibilitas penuh terhadap seluruh aspek proses \textit{training}, dari metrik performa hingga penggunaan sumber daya komputasi.
 
-Infrastruktur \textit{training} menggunakan RunPod \textit{Cloud GPU Service} dengan NVIDIA GeForce RTX 4090 (24 GB VRAM), yang menyediakan performa komputasi tinggi untuk \textit{fine-tuning} model berukuran menengah seperti Whisper Small. Seluruh proses \textit{training} untuk kedua strategi (\textit{Full Fine-Tuning} dan LoRA) dilakukan pada infrastruktur yang sama untuk memastikan perbandingan yang adil. Metrik-metrik kunci dicatat secara otomatis menggunakan \textit{logging framework} yang terintegrasi, dan \textit{checkpointing} dilakukan secara berkala untuk menyimpan \textit{state} model terbaik.
+Infrastruktur \textit{training} menggunakan RunPod \textit{Cloud GPU Service} dengan NVIDIA GeForce RTX 4090 (24 GB VRAM), yang menyediakan performa komputasi tinggi untuk \textit{fine-tuning} model berukuran menengah seperti Whisper Small. Seluruh proses \textit{training} untuk kedua strategi (\textit{Freeze Encoder} dan LoRA) dilakukan pada infrastruktur yang sama untuk memastikan perbandingan yang adil. Metrik-metrik kunci dicatat secara otomatis menggunakan \textit{logging framework} yang terintegrasi, dan \textit{checkpointing} dilakukan secara berkala untuk menyimpan \textit{state} model terbaik.
 
 Protokol \textit{training} dan \textit{monitoring} yang diterapkan mencakup aspek-aspek berikut:
 
@@ -230,7 +223,7 @@ Protokol \textit{training} dan \textit{monitoring} yang diterapkan mencakup aspe
     \item \textit{Logging} metrik setiap 100 \textit{steps}: \textit{training loss}, \textit{learning rate} saat ini, dan waktu komputasi per \textit{batch}, untuk memantau progres \textit{training} secara real-time
     \item Evaluasi pada \textit{validation set} setiap \textit{epoch}: perhitungan WER, CER, dan \textit{validation loss} untuk memantau kemampuan generalisasi model
     \item \textit{Checkpoint} model terbaik berdasarkan \textit{lowest validation} WER, memastikan model yang disimpan adalah yang paling optimal untuk tugas ASR bahasa Minangkabau
-    \item \textit{Tracking training time} dan penggunaan memori GPU untuk analisis efisiensi komputasi, terutama penting untuk membandingkan \textit{Full Fine-Tuning} dengan LoRA
+    \item \textit{Tracking training time} dan penggunaan memori GPU untuk analisis efisiensi komputasi, terutama penting untuk membandingkan \textit{Freeze Encoder} dengan LoRA
     \item Visualisasi \textit{learning curves} (\textit{loss}, WER, CER vs \textit{epochs}) menggunakan \textit{TensorBoard} atau \textit{Weights \& Biases} untuk analisis visual terhadap konvergensi model
 \end{enumerate}
 
@@ -301,7 +294,7 @@ Alat-alat yang digunakan dalam penelitian ini meliputi perangkat keras dan peran
         \item vCPU: 8 \textit{virtual cores}
         \item Storage: 80 GB \textit{disk space}
         \item Container: \texttt{runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404}
-        \item Fungsi: \textit{Training} model \textit{Full Fine-Tuning} dan LoRA dengan akselerasi GPU
+        \item Fungsi: \textit{Training} model \textit{Freeze Encoder} dan LoRA dengan akselerasi GPU
     \end{itemize}
 \end{enumerate}
 
@@ -386,7 +379,7 @@ Pengembangan sistem ASR bahasa Minangkabau mengikuti alur yang sistematis sepert
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.2\textwidth]{figure/Development_Flow.pdf}
+\includegraphics[angle=-90, width=1.2\textwidth]{figure/Development_Flow.pdf}
 \caption{Alur Pengembangan Sistem}
 \label{fig:3.alur_dev}
 \end{figure}
@@ -672,5 +665,5 @@ Whisper Small memiliki:
 \vspace{0.2cm}
 
 \noindent
-Ini menunjukkan bahwa LoRA hanya melatih $\sim$0.24\% dari total parameters Whisper Small, sangat efisien dibanding full fine-tuning.
+Ini menunjukkan bahwa LoRA hanya melatih $\sim$0.24\% dari total parameters Whisper Small, sangat efisien dibanding \textit{Freeze Encoder}.
 
