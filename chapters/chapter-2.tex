@@ -3,7 +3,7 @@
 
 \section{Tinjauan Pustaka} \label{II.Tinjauan}
 
-Bagian ini mengulas penelitian-penelitian terdahulu yang relevan dengan topik \textit{fine-tuning} Whisper dan \textit{Automatic Speech Recognition} (ASR) untuk bahasa \textit{low-resource}. Setiap penelitian dianalisis secara kritis untuk mengidentifikasi kontribusi utama, keterbatasan, serta relevansinya dengan penelitian ini yang berfokus pada adaptasi Whisper Small untuk bahasa Minangkabau.
+Bagian ini mengulas penelitian-penelitian terdahulu yang relevan dengan topik \textit{fine-tuning} Whisper dan \textit{Automatic Speech Recognition} (ASR) untuk bahasa \textit{low-resource}. Setiap penelitian dianalisis secara kritis untuk mengidentifikasi kontribusi utama, keterbatasan, serta relevansinya dengan penelitian ini yang berfokus pada adaptasi Whisper Base untuk bahasa Minangkabau.
 
 
 {\small
@@ -118,7 +118,7 @@ Liu, Yang, dan Qu \cite{liu2024exploration} melakukan studi komparatif komprehen
 
 Hasil penelitian menunjukkan bahwa semua strategi yang diuji mampu menurunkan \textit{Word Error Rate} (WER) dibandingkan model dasar, namun terdapat \textit{trade-off} yang jelas antara akurasi dan efisiensi komputasi. \textit{Full fine-tuning} cenderung menghasilkan akurasi tertinggi tetapi memerlukan memori GPU yang besar dan waktu pelatihan yang lama, sementara metode PEFT seperti LoRA menawarkan efisiensi signifikan dengan penurunan akurasi yang minimal. Keunggulan penelitian ini terletak pada panduan praktis untuk memilih strategi berdasarkan keterbatasan data dan sumber daya komputasi yang tersedia. Namun, keterbatasannya adalah fokus yang luas tanpa analisis mendalam pada satu bahasa atau dialek spesifik secara longitudinal.
 
-Penelitian ini memberikan kontribusi penting sebagai dasar pemilihan strategi untuk bahasa Minangkabau. Dalam skripsi ini, perbandingan langsung antara \textit{Freeze Encoder} dan LoRA pada Whisper Small akan dilakukan untuk mengidentifikasi strategi yang paling sesuai dalam konteks bahasa Minangkabau, dengan mempertimbangkan keterbatasan data dan infrastruktur komputasi yang tersedia.
+Penelitian ini memberikan kontribusi penting sebagai dasar pemilihan strategi untuk bahasa Minangkabau. Dalam skripsi ini, perbandingan langsung antara \textit{Freeze Encoder} dan LoRA pada Whisper Base akan dilakukan untuk mengidentifikasi strategi yang paling sesuai dalam konteks bahasa Minangkabau, dengan mempertimbangkan keterbatasan data dan infrastruktur komputasi yang tersedia.
 
 \subsection{Adaptasi untuk Aplikasi Dunia Nyata}
 
@@ -144,13 +144,13 @@ Meskipun penelitian ini berfokus pada bahasa Indonesia baku dan tidak membahas d
 
 Liang dan Levow \cite{liang2025fieldmatters} mengeksplorasi tantangan transkripsi untuk bahasa-bahasa yang memiliki data sangat minimal, bahkan kurang dari 1 jam audio, dalam konteks penelitian linguistik lapangan (\textit{fieldwork linguistics}). Penelitian ini membandingkan performa model MMS (\textit{Massively Multilingual Speech}) dan XLS-R pada 5 bahasa yang sangat \textit{low-resource} dengan berbagai skala data. Hasil evaluasi menunjukkan bahwa MMS unggul ketika data pelatihan sangat terbatas (kurang dari 1 jam), sementara performa kedua model mencapai paritas ketika data bertambah (lebih dari 1 jam).
 
-Temuan ini memberikan panduan praktis untuk pemilihan arsitektur model berdasarkan ketersediaan data, meskipun fokus penelitian ini adalah pada MMS dan XLS-R, bukan Whisper. Meskipun demikian, penelitian ini memberikan konteks penting tentang batas bawah data yang diperlukan untuk \textit{fine-tuning} yang efektif. Dalam penelitian ini, meskipun dataset Minangkabau dari LibriVox Indonesia relatif terbatas, fokus tetap pada Whisper Small yang telah terbukti memiliki kemampuan \textit{transfer learning} yang kuat, dengan eksplorasi strategi \textit{fine-tuning} yang efisien melalui perbandingan \textit{Freeze Encoder} dan LoRA.
+Temuan ini memberikan panduan praktis untuk pemilihan arsitektur model berdasarkan ketersediaan data, meskipun fokus penelitian ini adalah pada MMS dan XLS-R, bukan Whisper. Meskipun demikian, penelitian ini memberikan konteks penting tentang batas bawah data yang diperlukan untuk \textit{fine-tuning} yang efektif. Dalam penelitian ini, meskipun dataset Minangkabau dari LibriVox Indonesia relatif terbatas, fokus tetap pada Whisper Base yang telah terbukti memiliki kemampuan \textit{transfer learning} yang kuat, dengan eksplorasi strategi \textit{fine-tuning} yang efisien melalui perbandingan \textit{Freeze Encoder} dan LoRA.
 
 \subsection{Sintesis dan Posisi Penelitian}
 
 Tinjauan terhadap literatur terbaru mengungkapkan beberapa temuan penting yang menjadi landasan penelitian ini. Pertama, pelatihan skala besar dengan paradigma \textit{weak supervision} seperti yang dilakukan pada Whisper \cite{radford2023whisper} memberikan fondasi representasi multibahasa yang kuat untuk adaptasi bahasa \textit{low-resource}. Kedua, pemilihan strategi \textit{fine-tuning} harus mempertimbangkan \textit{trade-off} antara akurasi dan efisiensi komputasi \cite{liu2024exploration}, di mana metode seperti LoRA menawarkan alternatif yang efisien dibandingkan melatih lebih banyak parameter. Ketiga, rekayasa korpus \textit{long-form} dapat membantu mempertahankan kemampuan segmentasi dan \textit{timestamping} untuk aplikasi dunia nyata \cite{timmel2024finetune}. Keempat, modifikasi fungsi objektif seperti \textit{monotonic alignment loss} dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}. Kelima, pembelajaran multibahasa dapat ditransfer secara efektif ke bahasa lokal dan daerah \cite{arisaputra2022xlsr53}.
 
-Berdasarkan temuan-temuan tersebut, penelitian ini mengidentifikasi beberapa peluang pengembangan. Pertama, perbandingan sistematis antara \textit{Freeze Encoder} dan LoRA pada Whisper Small untuk bahasa Minangkabau akan memberikan \textit{insights} praktis tentang efisiensi penggunaan memori GPU tanpa mengorbankan akurasi secara signifikan. Kedua, jika data \textit{long-form} Minangkabau terbatas, penyusunan korpus \textit{long-form} sintetis dapat diadopsi untuk meningkatkan kemampuan model dalam konteks yang lebih panjang. Ketiga, eksplorasi \textit{alignment-based loss} dan/atau integrasi \textit{language model} pada tahap \textit{decoding} dapat menjadi strategi lanjutan untuk penurunan WER lebih lanjut.
+Berdasarkan temuan-temuan tersebut, penelitian ini mengidentifikasi beberapa peluang pengembangan. Pertama, perbandingan sistematis antara \textit{Freeze Encoder} dan LoRA pada Whisper Base untuk bahasa Minangkabau akan memberikan \textit{insights} praktis tentang efisiensi penggunaan memori GPU tanpa mengorbankan akurasi secara signifikan. Kedua, jika data \textit{long-form} Minangkabau terbatas, penyusunan korpus \textit{long-form} sintetis dapat diadopsi untuk meningkatkan kemampuan model dalam konteks yang lebih panjang. Ketiga, eksplorasi \textit{alignment-based loss} dan/atau integrasi \textit{language model} pada tahap \textit{decoding} dapat menjadi strategi lanjutan untuk penurunan WER lebih lanjut.
 
 
 
@@ -221,7 +221,7 @@ Turbo & 809 M & N/A & turbo & $\sim$6 GB & $\sim$8x \\
 \end{table}
 }
 
-Dalam penelitian ini, model \textbf{Whisper Small} dipilih sebagai basis untuk \textit{fine-tuning}. Dengan 244 juta parameter, Whisper Small menawarkan keseimbangan optimal: cukup kompleks untuk menangkap nuansa bahasa Minangkabau, namun tetap efisien untuk dilatih pada GPU dengan VRAM terbatas dibandingkan model Medium atau Large yang membutuhkan sumber daya jauh lebih besar.
+Dalam penelitian ini, model \textbf{Whisper Base} dipilih sebagai basis untuk \textit{fine-tuning}. Dengan 74 juta parameter, Whisper Base menawarkan keseimbangan optimal untuk skenario \textit{extremely low-resource}: cukup kompleks untuk menang kap nuansa bahasa Minangkabau, namun tidak terlalu besar sehingga risiko overfitting pada dataset 1.3 jam dapat diminimalkan dibandingkan varian Small (244M) atau Medium (769M) yang membutuhkan dataset jauh lebih besar.
 
 \subsubsection{Encoder}
 
@@ -235,9 +235,9 @@ Setiap lapisan \textit{encoder} terdiri dari dua sublapisan utama: (i) \textit{m
 
 Proses generasi teks dimulai dengan \textit{token} khusus yang mengindikasikan bahasa target dan tugas yang akan dilakukan (\textit{transcription} atau \textit{translation}). \textit{Decoder} kemudian secara berulang memprediksi \textit{token} berikutnya berdasarkan \textit{token}-\textit{token} sebelumnya dan representasi audio, hingga \textit{token} akhir sekuens diprediksi.
 
-\subsubsection{Whisper Small}
+\subsubsection{Whisper Base}
 
-Whisper tersedia dalam berbagai ukuran model, dari \textit{Tiny} (39M parameter) hingga \textit{Large} (1550M parameter). Whisper Small, dengan 244 juta parameter, menawarkan keseimbangan optimal antara performa dan efisiensi komputasi \cite{liu2024exploration}. Arsitektur Whisper Small terdiri dari 12 lapisan \textit{encoder} dan 12 lapisan \textit{decoder}, dengan dimensi \textit{hidden state} 768 dan 12 \textit{attention heads} per lapisan. Ukuran \textit{vocabulary} adalah 51,864 \textit{tokens} yang mencakup representasi karakter dan \textit{subword} untuk berbagai bahasa.
+Whisper tersedia dalam berbagai ukuran model, dari \textit{Tiny} (39M parameter) hingga \textit{Large} (1550M parameter). Whisper Base, dengan 74 juta parameter, menawarkan keseimbangan optimal antara performa dan efisiensi komputasi untuk skenario \textit{extremely low-resource} \cite{liu2024exploration}. Arsitektur Whisper Base terdiri dari 6 lapisan \textit{encoder} dan 6 lapisan \textit{decoder}, dengan dimensi \textit{hidden state} 512 dan 8 \textit{attention heads} per lapisan. Ukuran \textit{vocabulary} adalah 51,864 \textit{tokens} yang mencakup representasi karakter dan \textit{subword} untuk berbagai bahasa.
 
 \subsection{Fine-Tuning: Konsep dan Strategi}
 \label{II.FineTuning}
@@ -254,7 +254,7 @@ Keuntungan \textit{full fine-tuning} adalah potensi akurasi maksimal karena semu
 
 \textit{Freeze Encoder Fine-Tuning} adalah strategi \textit{fine-tuning} yang membekukan (\textit{freeze}) seluruh parameter \textit{encoder} dan hanya melatih parameter \textit{decoder} dalam arsitektur \textit{encoder-decoder} seperti Whisper \cite{liu2024exploration}. Pendekatan ini didasarkan pada hipotesis bahwa representasi akustik yang telah dipelajari \textit{encoder} dari data \textit{pre-training} multibahasa bersifat universal dan dapat digunakan langsung untuk bahasa target, sementara \textit{decoder} perlu diadaptasi untuk mempelajari pola linguistik spesifik bahasa target.
 
-Dalam konteks Whisper Small, strategi ini membekukan 12 lapisan \textit{encoder} Transformer ($\sim$122M parameter) dan hanya melatih 12 lapisan \textit{decoder} Transformer ($\sim$122M parameter), sehingga mengurangi jumlah parameter yang di-\textit{update} menjadi sekitar 50\% dari total parameter model. Pendekatan ini menawarkan beberapa keuntungan untuk skenario \textit{extremely low-resource}:
+Dalam konteks Whisper Base, strategi ini membekukan 6 lapisan \textit{encoder} Transformer ($\sim$37M parameter) dan hanya melatih 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter), sehingga mengurangi jumlah parameter yang di-\textit{update} menjadi sekitar 50\% dari total parameter model. Pendekatan ini menawarkan beberapa keuntungan untuk skenario \textit{extremely low-resource}:
 
 \begin{itemize}[noitemsep]
     \item \textbf{Mengurangi Risiko Overfitting}: Dengan hanya melatih \textit{decoder}, model mempertahankan representasi akustik yang telah dipelajari dari 680,000 jam data \textit{pre-training}, mengurangi risiko \textit{overfitting} pada dataset kecil
@@ -285,7 +285,7 @@ h = Wx + \Delta Wx = Wx + BAx
 \myequations{Formula LoRA (Low-Rank Adaptation)}
 \vspace{1cm}
 
-Parameter asli $W$ tetap \textit{frozen}, dan hanya matriks $A$ dan $B$ yang dilatih. Jumlah parameter \textit{trainable} per lapisan adalah $r \times (d + k)$, yang jauh lebih kecil dari $d \times k$ parameter asli. Untuk Whisper Small dengan $r=8$, LoRA hanya melatih $\sim$0.24\% dari total parameter model \cite{song2024lorawhisper}, menghasilkan penghematan memori dan waktu pelatihan yang signifikan.
+Parameter asli $W$ tetap \textit{frozen}, dan hanya matriks $A$ dan $B$ yang dilatih. Jumlah parameter \textit{trainable} per lapisan adalah $r \times (d + k)$, yang jauh lebih kecil dari $d \times k$ parameter asli. Untuk Whisper Base dengan $r=8$ dan $d=512$, LoRA hanya melatih $\sim$0.27\% dari total parameter model, menghasilkan penghematan memori dan waktu pelatihan yang signifikan.
 
 LoRA juga memiliki keunggulan praktis: (i) dapat dengan mudah di-\textit{merge} dengan model dasar untuk \textit{inference} tanpa overhead latensi, (ii) memungkinkan \textit{multi-task learning} dengan menyimpan beberapa set matriks LoRA untuk tugas berbeda, dan (iii) mengurangi risiko \textit{overfitting} karena parameter yang dilatih jauh lebih sedikit.
 
@@ -344,10 +344,11 @@ Transkrip teks juga memerlukan standardisasi:
     
     \item \textbf{Normalisasi Tanda Baca}: Standarisasi penggunaan tanda baca di seluruh dataset.
     
-    \item \textbf{Normalisasi Angka}: Konversi representasi numerik menjadi bentuk kata yang sesuai dengan cara angka diucapkan dalam bahasa target.
-    
     \item \textbf{Normalisasi Whitespace}: Pembersihan spasi berlebih dan karakter \textit{whitespace} lainnya.
 \end{enumerate}
+
+\noindent
+\textbf{Catatan}: Normalisasi angka-ke-kata (\textit{number-to-word normalization}) merupakan langkah opsional yang tergantung pada karakteristik dataset. Jika transkrip dataset sudah menggunakan representasi kata untuk angka yang konsisten dengan audio, konversi ini tidak diperlukan.
 
 \subsubsection{Data Augmentation}
 

@@ -17,7 +17,7 @@ Pada penelitian ini, alur dirancang untuk memastikan setiap tahapan pemrosesan d
 \section{Penjabaran Langkah Penelitian}
 \label{III.Jabar Alur}
 
-Penelitian ini dilakukan secara sistematis melalui beberapa tahapan utama yang saling terkait. Setiap tahapan dirancang untuk memastikan model Whisper Small dapat diadaptasi secara optimal untuk mengenali bahasa Minangkabau. Berikut adalah penjabaran detail dari setiap langkah penelitian yang telah digambarkan pada flowchart di Subbab \ref{III.Alur}.
+Penelitian ini dilakukan secara sistematis melalui beberapa tahapan utama yang saling terkait. Setiap tahapan dirancang untuk memastikan model Whisper Base dapat diadaptasi secara optimal untuk mengenali bahasa Minangkabau. Berikut adalah penjabaran detail dari setiap langkah penelitian yang telah digambarkan pada flowchart di Subbab \ref{III.Alur}.
 
 \subsection{Identifikasi Masalah}
 \label{III.Langkah1}
@@ -58,7 +58,9 @@ Hasil dari studi literatur ini menjadi landasan teoritis yang kokoh dalam memili
 \subsection{Pengumpulan Dataset}
 \label{III.Langkah3}
 
-Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0, yang merupakan koleksi rekaman audio dari buku-buku domain publik dalam berbagai bahasa daerah Indonesia. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{155 segmen audio} dengan durasi rata-rata 30 detik per segmen.
+Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0, yang merupakan koleksi rekaman audio dari buku-buku domain publik dalam berbagai bahasa daerah Indonesia. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{156 file audio} yang sudah \textbf{tersegmentasi} (\textit{pre-segmented}) dengan durasi rata-rata 30 detik per segmen. 
+
+\textbf{Penting untuk dicatat}: Dataset ini diterima dalam kondisi sudah tersegmentasi oleh \textit{maintainer} LibriVox Indonesia, yang telah membagi rekaman pembacaan panjang menjadi klip-klip pendek berdasarkan jeda natural dalam pembacaan. Proses segmentasi ini dilakukan oleh \textit{maintainer}, bukan sebagai bagian dari \textit{preprocessing} penelitian ini. Sebagian besar segmen memiliki durasi yang mendekati batas maksimal input Whisper (30 detik), dengan distribusi durasi berkisar antara 15-35 detik dan median sekitar 28-30 detik.
 
 Pemilihan dataset LibriVox Indonesia sebagai sumber data didasarkan pada beberapa pertimbangan penting. Pertama, LibriVox menyediakan audio dengan kualitas rekaman yang relatif baik karena mengikuti standar produksi \textit{audiobook} dengan \textit{sampling rate} 44.1 kHz. Kedua, setiap audio dilengkapi dengan transkrip teks yang akurat karena dibacakan dari naskah tertulis (teks UDHR), sehingga mengurangi beban anotasi manual dan menjamin akurasi transkrip. Ketiga, dataset ini tersedia secara publik dengan lisensi \textit{Public Domain} (CC-0), memungkinkan penggunaan bebas untuk penelitian akademis. Namun, penting untuk dicatat bahwa dataset terbatas pada domain \textbf{pembacaan formal} (\textit{formal reading}) dari teks legal/deklarasi, sehingga performa model pada percakapan spontan atau konteks informal mungkin berbeda.
 
@@ -72,10 +74,10 @@ Proses pengumpulan dan persiapan dataset mencakup langkah-langkah berikut:
     \item Verifikasi kualitas audio secara teknis untuk setiap segmen: \textit{clear speech}, minimal \textit{background noise}, tidak ada distorsi atau \textit{clipping}
     \item Validasi transkrip teks yang sesuai dengan setiap segmen audio, memastikan akurasi dan kelengkapan transkrip berdasarkan teks UDHR dalam bahasa Minangkabau
     \item Ekstraksi metadata \textit{speaker} (\textit{reader ID}) untuk dokumentasi keberagaman pembicara dalam dataset
-    \item Inventarisasi total durasi audio yang tersedia (155 segmen @ ~30s = ~1.3 jam total)
+    \item Inventarisasi total durasi audio yang tersedia (156 file @ ~30s = ~1.3 jam total)
 \end{enumerate}
 
-Dataset yang berhasil dikumpulkan mencakup rekaman pembacaan UDHR dalam bahasa Minangkabau dengan total 1.3 jam audio (155 segmen). Meskipun terbatas pada satu jenis teks (dokumen deklarasi HAM) dan durasi yang sangat kecil, dataset ini tetap merepresentasikan bahasa Minangkabau formal dan standar. Karakteristik \textit{extremely low-resource} ini membuat penelitian ini mengadopsi pendekatan \textbf{5-Fold Cross-Validation} untuk memaksimalkan penggunaan data dan memperoleh evaluasi yang lebih robust, dengan strategi \textit{transfer learning} yang sangat efisien dari model \textit{pre-trained} Whisper.
+Dataset yang berhasil dikumpulkan mencakup rekaman pembacaan UDHR dalam bahasa Minangkabau dengan total 1.3 jam audio (156 file audio). Meskipun terbatas pada satu jenis teks (dokumen deklarasi HAM) dan durasi yang sangat kecil, dataset ini tetap merepresentasikan bahasa Minangkabau formal dan standar. Karakteristik \textit{extremely low-resource} ini membuat penelitian ini mengadopsi pendekatan \textbf{5-Fold Cross-Validation} untuk memaksimalkan penggunaan data dan memperoleh evaluasi yang lebih robust, dengan strategi \textit{transfer learning} yang sangat efisien dari model \textit{pre-trained} Whisper.
 
 \subsection{Preprocessing Dataset}
 \label{III.Langkah4}
@@ -91,7 +93,13 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
 \begin{enumerate}[noitemsep]
     \item \textbf{Format Conversion}: Konversi format audio dari MP3 (format asli LibriVox Indonesia) ke WAV (\textit{Waveform Audio File Format}). Konversi ini diperlukan karena format MP3 yang terkompresi dengan \textit{lossy compression} memerlukan proses \textit{decoding} tambahan yang dapat membebani komputasi Whisper. Format WAV yang \textit{uncompressed} memungkinkan akses langsung ke data audio mentah (\textit{raw audio samples}), sehingga mengurangi beban komputasi dan mempercepat proses \textit{preprocessing} serta \textit{training}
     \item \textbf{Resampling}: Konversi \textit{sampling rate} audio dari 44.1 kHz (format asli LibriVox Indonesia) ke 16 kHz, yang merupakan spesifikasi standar yang digunakan oleh model Whisper. Konversi ini penting karena model Whisper dilatih dengan data audio pada frekuensi 16 kHz dan akan menghasilkan performa optimal pada \textit{sampling rate} yang sama
-    \item \textbf{Segmentation}: Pemotongan audio panjang menjadi \textit{clips} dengan durasi 10-30 detik untuk meningkatkan efisiensi \textit{training} dan mengurangi penggunaan memori GPU. Segmentasi juga membantu model mempelajari pola dalam konteks yang lebih terfokus
+    \item \textbf{Duration Filtering and Validation}: Dataset LibriVox Indonesia telah menyediakan audio yang sudah tersegmentasi dengan durasi rata-rata 30 detik per segmen. Proses \textit{preprocessing} tidak melakukan pemotongan ulang (\textit{splitting}) terhadap audio, melainkan melakukan \textbf{validasi durasi} dan \textbf{filtering} untuk memastikan semua audio memenuhi batasan teknis Whisper:
+    \begin{itemize}[noitemsep]
+        \item \textbf{Maximum duration}: Whisper memiliki batasan maksimal \textbf{30 detik} untuk input audio. Audio yang melebihi durasi ini (jika ada) akan \textbf{dipotong} (\textit{truncated}) pada detik ke-30 atau \textbf{dibuang} jika informasi penting terpotong
+        \item \textbf{Minimum duration}: Audio yang terlalu pendek ($<$2 detik) akan \textbf{difilter} karena kemungkinan tidak mengandung informasi linguistik yang cukup untuk pembelajaran
+        \item \textbf{No padding}: Audio pendek (2-20 detik) \textbf{tidak} di-\textit{pad} secara artifisial, karena Whisper dapat menangani audio dengan panjang variabel melalui mekanisme \textit{attention masking}
+    \end{itemize}
+    Dengan validasi ini, dataset final yang digunakan untuk pelatihan adalah subset dari 156 file audio asli yang memenuhi kriteria durasi, memastikan kompatibilitas dengan batasan teknis Whisper tanpa kehilangan informasi linguistik yang signifikan
     \item \textbf{Normalization}: Normalisasi \textit{amplitude} audio untuk memastikan konsistensi volume di seluruh dataset, menghindari bias model terhadap audio dengan volume tertentu
     \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir setiap \textit{clip}, sehingga model tidak perlu memproses bagian audio yang tidak mengandung informasi linguistik
     \item \textbf{Quality Check}: Penyaringan \textit{clips} dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau mengandung distorsi signifikan, untuk memastikan hanya data berkualitas tinggi yang digunakan dalam \textit{training}
@@ -107,22 +115,22 @@ Tahap \textit{text preprocessing} bertujuan untuk menstandarkan transkrip teks d
 \begin{enumerate}[noitemsep]
     \item \textbf{Lowercase Conversion}: Konversi semua teks ke huruf kecil untuk mengurangi ukuran \textit{vocabulary} dan menghilangkan perbedaan yang tidak relevan antara kapitalisasi
     \item \textbf{Punctuation Normalization}: Standarisasi tanda baca untuk konsistensi format, termasuk normalisasi tanda kutip, tanda hubung, dan simbol-simbol khusus
-    \item \textbf{Number Normalization}: Konversi representasi numerik menjadi bentuk kata (\textit{e.g.}, "10" $\rightarrow$ "sepuluh", "2025" $\rightarrow$ "dua ribu dua puluh lima") untuk konsistensi dengan bagaimana angka diucapkan dalam bahasa Minangkabau
+    \item \textbf{Number Handling}: Dataset UDHR bahasa Minangkabau tidak mengandung angka numerik (0-9) dalam transkrip, sehingga tidak diperlukan proses \textit{number-to-word normalization}. Transkrip asli sudah bersih dan sesuai dengan audio yang direkam
     \item \textbf{Whitespace Normalization}: Pembersihan spasi berlebih, tab, dan karakter \textit{whitespace} lainnya untuk memastikan format teks yang konsisten
     \item \textbf{Special Character Handling}: Penanganan khusus untuk karakter-karakter yang spesifik dalam bahasa Minangkabau, termasuk diakritik atau simbol yang mungkin muncul dalam transkrip
 \end{enumerate}
 
 \subsubsection{5-Fold Cross-Validation}
 
-Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan \textbf{5-Fold Cross-Validation}. Seluruh 155 segmen audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
+Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan \textbf{5-Fold Cross-Validation}. Seluruh 156 file audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Fold Splitting}: Dataset dibagi menjadi 5 \textit{folds}, masing-masing berisi sekitar 31 audio ($\sim$20\% dari total)
     \item \textbf{Iterative Training}: Pada setiap iterasi (total 5 iterasi):
     \begin{itemize}[noitemsep]
         \item Satu \textit{fold} digunakan sebagai \textit{test set} ($\sim$31 audio, $\sim$0.26 jam)
-        \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} ($\sim$124 audio, $\sim$1.03 jam)
-        \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Small) pada \textit{training set}
+        \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} ($\sim$125 audio, $\sim$1.04 jam)
+        \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Base) pada \textit{training set}
         \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat
     \end{itemize}
     \item \textbf{Aggregation}: Hasil WER dan CER dari 5 iterasi di-\textit{aggregate} untuk menghasilkan metrik final berupa \textit{mean} ± \textit{standard deviation}
@@ -132,25 +140,25 @@ Pendekatan \textit{5-fold cross-validation} memberikan beberapa keuntungan penti
 
 \begin{itemize}[noitemsep]
     \item \textbf{Evaluasi lebih robust}: Setiap audio memiliki kesempatan untuk menjadi bagian dari \textit{test set}, mengurangi bias akibat pembagian data yang tidak representative
-    \item \textbf{Maximum data utilization}: Seluruh 155 audio digunakan untuk \textit{training} DAN \textit{testing}, tidak ada data yang "terbuang"
+    \item \textbf{Maximum data utilization}: Seluruh 156 file audio digunakan untuk \textit{training} DAN \textit{testing}, tidak ada data yang "terbuang"
     \item \textbf{Statistical reliability}: Dengan 5 \textit{folds}, diperoleh 5 nilai WER/CER yang dapat digunakan untuk menghitung \textit{mean} dan \textit{standard deviation}, memberikan gambaran variabilitas performa model
     \item \textbf{Fair comparison}: Kedua strategi (\textit{Freeze Encoder} dan LoRA) dievaluasi pada \textit{folds} yang identik, memastikan perbandingan yang adil
 \end{itemize}
 
 Dengan pendekatan ini, penelitian tidak menggunakan \textit{validation set} terpisah. Monitoring selama \textit{training} dilakukan dengan memantau \textit{training loss} dan menerapkan \textit{early stopping} berbasis penurunan \textit{loss} untuk mencegah \textit{overfitting}.
 
-\subsection{Konfigurasi Model Whisper Small}
+\subsection{Konfigurasi Model Whisper Base}
 \label{III.Langkah5}
 
-Model Whisper Small dipilih sebagai arsitektur \textit{base model} dalam penelitian ini berdasarkan pertimbangan yang cermat terhadap \textit{trade-off} antara performa, efisiensi komputasi, dan kelayakan untuk skenario \textit{low-resource}. Whisper Small, dengan 244 juta parameter, merupakan varian menengah dari keluarga model Whisper yang menawarkan keseimbangan optimal: cukup besar untuk menangkap kompleksitas bahasa tetapi tidak terlalu besar sehingga memerlukan sumber daya komputasi yang tidak realistis untuk \textit{fine-tuning} pada infrastruktur \textit{cloud} yang tersedia seperti RunPod. Pemilihan ini juga didukung oleh studi-studi sebelumnya yang menunjukkan bahwa Whisper Small dapat mencapai performa yang kompetitif pada berbagai tugas ASR, terutama setelah di-\textit{fine-tune} pada bahasa target.
+Model Whisper Base dipilih sebagai arsitektur \textit{base model} dalam penelitian ini berdasarkan pertimbangan yang cermat terhadap \textit{trade-off} antara performa, efisiensi komputasi, dan kelayakan untuk skenario \textit{extremely low-resource}. Whisper Base, dengan 74 juta parameter, merupakan varian yang optimal untuk dataset 1.3 jam: cukup kompleks untuk menangkap pola bahasa, namun tidak terlalu besar sehingga risiko overfitting dapat diminimalkan dibandingkan varian Small (244M) atau Medium (769M). Pemilihan ini juga didukung oleh studi-studi sebelumnya yang menunjukkan bahwa Whisper Base dapat mencapai performa yang kompetitif pada berbagai tugas ASR untuk skenario \textit{low-resource}, terutama setelah di-\textit{fine-tune} pada bahasa target.
 
-Arsitektur Whisper Small menggunakan \textit{encoder-decoder Transformer} dengan konfigurasi yang telah dioptimalkan untuk tugas \textit{speech recognition}. Model ini telah di-\textit{pre-train} pada dataset multibahasa yang sangat besar (680,000 jam audio) sehingga memiliki representasi yang kuat tentang pola akustik dan linguistik lintas bahasa. Karakteristik \textit{pre-trained} ini memungkinkan model untuk di-\textit{transfer} dengan efisien ke bahasa Minangkabau meskipun dengan data \textit{fine-tuning} yang relatif terbatas (10-20 jam). Proses konfigurasi model dilakukan secara sistematis untuk memastikan semua komponen berfungsi dengan benar dan siap untuk tahap \textit{fine-tuning}.
+Arsitektur Whisper Base menggunakan \textit{encoder-decoder Transformer} dengan konfigurasi yang telah dioptimalkan untuk tugas \textit{speech recognition}. Model ini telah di-\textit{pre-train} pada dataset multibahasa yang sangat besar (680,000 jam audio) sehingga memiliki representasi yang kuat tentang pola akustik dan linguistik lintas bahasa. Karakteristik \textit{pre-trained} ini memungkinkan model untuk di-\textit{transfer} dengan efisien ke bahasa Minangkabau meskipun dengan data \textit{fine-tuning} yang relatif terbatas (1.3 jam). Proses konfigurasi model dilakukan secara sistematis untuk memastikan semua komponen berfungsi dengan benar dan siap untuk tahap \textit{fine-tuning}.
 
-Tahap konfigurasi model Whisper Small mencakup beberapa langkah teknis penting:
+Tahap konfigurasi model Whisper Base mencakup beberapa langkah teknis penting:
 
 \begin{enumerate}[noitemsep]
-    \item \textit{Loading pre-trained} Whisper Small (244M \textit{parameters}) dari Hugging Face Model Hub menggunakan \textit{library} Transformers, memastikan model dalam keadaan \textit{pre-trained} yang telah terbukti efektif
-    \item Verifikasi arsitektur model: 12 \textit{encoder layers} dan 12 \textit{decoder layers}, dengan \textit{hidden dimension} (\textit{width}) 768 dan 12 \textit{attention heads} per \textit{layer}, sesuai dengan spesifikasi resmi Whisper Small
+    \item \textit{Loading pre-trained} Whisper Base (74M \textit{parameters}) dari Hugging Face Model Hub menggunakan \textit{library} Transformers, memastikan model dalam keadaan \textit{pre-trained} yang telah terbukti efektif
+    \item Verifikasi arsitektur model: 6 \textit{encoder layers} dan 6 \textit{decoder layers}, dengan \textit{hidden dimension} (\textit{width}) 512 dan 8 \textit{attention heads} per \textit{layer}, sesuai dengan spesifikasi resmi Whisper Base
     \item Inisialisasi \textit{tokenizer} dengan \textit{vocabulary} sebesar 51,864 \textit{tokens}, yang mencakup representasi karakter dan subword untuk berbagai bahasa termasuk kemampuan untuk mengakomodasi bahasa baru
     \item Konfigurasi \textit{feature extractor} untuk menghasilkan representasi \textit{log-Mel spectrogram} dengan 80 dimensi, menggunakan \textit{window size} 25ms dan \textit{hop length} 10ms, yang merupakan parameter standar untuk ekstraksi fitur audio dalam Whisper
     \item \textit{Setup device} (GPU/CPU) untuk \textit{training}, dengan preferensi GPU (NVIDIA GeForce RTX 4090 dengan 24 GB VRAM) untuk mempercepat komputasi matriks dalam proses \textit{fine-tuning}
@@ -159,19 +167,23 @@ Tahap konfigurasi model Whisper Small mencakup beberapa langkah teknis penting:
 \subsection{Implementasi Fine-Tuning}
 \label{III.Langkah6}
 
-Penelitian ini menerapkan pendekatan komparatif dengan membandingkan dua strategi \textit{fine-tuning} yang berbeda: \textit{Freeze Encoder Fine-Tuning} dan \textit{Low-Rank Adaptation} (LoRA). Pemilihan kedua strategi ini didasarkan pada karakteristik yang saling melengkapi dalam konteks \textit{extremely low-resource}. \textit{Freeze Encoder} merupakan pendekatan yang membekukan seluruh \textit{encoder} dan hanya melatih \textit{decoder}, mempertahankan representasi akustik universal yang telah dipelajari selama \textit{pre-training} sambil mengadaptasi komponen linguistik untuk bahasa Minangkabau. Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih sebagian kecil parameter tambahan ($\sim$0.24\% dari total), menawarkan efisiensi komputasi yang maksimal. Implementasi kedua metode dilakukan secara terpisah dan sistematis untuk memastikan perbandingan yang adil dan valid.
+Penelitian ini menerapkan pendekatan komparatif eksperimental dengan membandingkan dua strategi \textit{fine-tuning} yang berbeda: \textbf{Freeze Encoder (Decoder-Only Fine-Tuning)} sebagai pendekatan standar dan \textbf{Low-Rank Adaptation (LoRA)} sebagai pendekatan \textit{parameter-efficient}. Kedua strategi ini dipilih untuk mengevaluasi \textit{trade-off} antara jumlah parameter yang dilatih dan performa pada skenario \textit{extremely low-resource}.
 
-Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$0.24\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Jika LoRA dapat mencapai performa yang mendekati \textit{Freeze Encoder} dengan biaya komputasi yang jauh lebih rendah, maka LoRA menjadi solusi yang lebih praktis dan dapat diskalakan untuk bahasa-bahasa \textit{extremely low-resource} lainnya. Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat dengan pengaturan \textit{hyperparameter} yang dioptimalkan untuk masing-masing pendekatan.
+\textit{Freeze Encoder} melatih seluruh \textit{decoder} (37 juta parameter, sekitar 50\% dari total model) sambil membekukan seluruh \textit{encoder}. Pendekatan ini mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau.
+
+Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih $\sim$0.27\% dari total parameter (sekitar 197 ribu parameter), menawarkan efisiensi komputasi yang maksimal dan regularisasi implisit melalui pembatasan kapasitas model. Dengan membatasi jumlah parameter yang dilatih, LoRA mengurangi risiko \textit{overfitting} pada dataset sangat terbatas.
+
+Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$0.27\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat dengan pengaturan \textit{hyperparameter} yang dioptimalkan untuk masing-masing pendekatan.
 
 \subsubsection{Freeze Encoder Fine-Tuning}
 
-Pada metode \textit{Freeze Encoder}, seluruh parameter \textit{encoder} Whisper Small (yang berfungsi memproses input audio) dibekukan (\textit{frozen}), dan hanya parameter \textit{decoder} (yang menghasilkan teks transkrip) yang di-\textit{update} selama proses \textit{training}. Pendekatan ini sangat sesuai untuk skenario \textit{extremely low-resource} karena mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara hanya mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau. Dengan hanya melatih \textit{decoder} (~122 juta dari 244 juta parameter total), pendekatan ini mengurangi risiko \textit{overfitting} yang sangat tinggi pada dataset 1.3 jam.
+Pada metode \textit{Freeze Encoder (Decoder-Only Fine-Tuning)}, seluruh parameter \textit{encoder} Whisper Base (yang berfungsi memproses input audio) dibekukan (\textit{frozen}), dan hanya parameter \textit{decoder} (yang menghasilkan teks transkrip) yang di-\textit{update} selama proses \textit{training}. Pendekatan ini merupakan strategi standar untuk skenario \textit{low-resource} karena mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara hanya mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau. Dengan hanya melatih \textit{decoder} (~37 juta dari 74 juta parameter total), pendekatan ini lebih efisien dibandingkan melatih seluruh model (\textit{full fine-tuning}).
 
 Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berikut:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Frozen Components}: Seluruh 12 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
-    \item \textbf{Trainable Components}: Seluruh 12 lapisan \textit{decoder} Transformer ($\sim$122M parameter)
+    \item \textbf{Frozen Components}: Seluruh 6 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
+    \item \textbf{Trainable Components}: Seluruh 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter)
     \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.01 untuk regularisasi
     \item \textbf{Learning Rate}: $1 \times 10^{-5}$ (disesuaikan untuk melatih \textit{decoder} dengan stabil)
     \item \textbf{Batch Size}: 8-16 sampel per \textit{batch}, disesuaikan dengan memori GPU
@@ -181,7 +193,7 @@ Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berik
 
 \subsubsection{LoRA Fine-Tuning}
 
-Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada \textit{attention layers}, sementara seluruh parameter \textit{pre-trained} dari Whisper Small tetap \textit{frozen}. Pendekatan ini sangat efisien karena hanya melatih $\sim$2\% dari total parameter (sekitar 5 juta parameter dari 244 juta), namun tetap mampu mencapai performa yang kompetitif. Konfigurasi LoRA \textit{fine-tuning} adalah sebagai berikut:
+Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada \textit{attention layers}, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini sangat efisien karena hanya melatih $\sim$0.27\% dari total parameter (sekitar 197 ribu parameter dari 74 juta), namun tetap mampu mencapai performa yang kompetitif. Konfigurasi LoRA \textit{fine-tuning} adalah sebagai berikut:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{LoRA Configuration}:
@@ -191,11 +203,11 @@ Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \t
         \item \textit{Dropout}: 0.1 (regularisasi pada LoRA \textit{layers})
         \item \textit{Target modules}: \textit{Query} dan \textit{Value projections} dalam \textit{attention layers}, yang merupakan komponen paling kritis untuk adaptasi
     \end{itemize}
-    \item \textbf{Trainable Parameters}: $\sim$2\% dari total parameter ($\sim$5 juta parameter), drastis lebih sedikit dibanding \textit{Freeze Encoder}
+    \item \textbf{Trainable Parameters}: $\sim$0.27\% dari total parameter ($\sim$197 ribu parameter), drastis lebih sedikit dibanding \textit{Freeze Encoder}
     \item \textbf{Optimizer}: AdamW dengan \textit{weight decay} 0.01
     \item \textbf{Learning Rate}: $5 \times 10^{-4}$ (lebih tinggi dibanding \textit{Freeze Encoder} karena hanya melatih sebagian kecil parameter pada \textit{frozen base model})
     \item \textbf{Batch Size}: 16 sampel per \textit{batch}
-    \item \textbf{Epochs}: 10-15 \textit{epochs} dengan \textit{early stopping} (\textit{patience}=5)
+    \item \textbf{Epochs}: 20-30 \textit{epochs} dengan \textit{early stopping} (\textit{patience}=5)
 \end{enumerate}
 
 \subsubsection{Regularization}
@@ -214,13 +226,13 @@ Selain \textit{data augmentation}, beberapa teknik \textit{regularization} juga 
 
 Proses \textit{training} dilakukan dengan protokol \textit{monitoring} yang ketat dan sistematis untuk memastikan konvergensi yang optimal serta mendeteksi potensi masalah sejak dini. \textit{Monitoring} yang komprehensif sangat penting dalam penelitian ini mengingat kompleksitas model Whisper dan sifat dataset yang \textit{low-resource}. Tanpa \textit{monitoring} yang tepat, berbagai masalah seperti \textit{overfitting}, konvergensi yang lambat, atau konfigurasi \textit{hyperparameter} yang tidak optimal dapat tidak terdeteksi dan menghasilkan model dengan performa suboptimal. Oleh karena itu, strategi \textit{monitoring} dirancang untuk memberikan visibilitas penuh terhadap seluruh aspek proses \textit{training}, dari metrik performa hingga penggunaan sumber daya komputasi.
 
-Infrastruktur \textit{training} menggunakan RunPod \textit{Cloud GPU Service} dengan NVIDIA GeForce RTX 4090 (24 GB VRAM), yang menyediakan performa komputasi tinggi untuk \textit{fine-tuning} model berukuran menengah seperti Whisper Small. Seluruh proses \textit{training} untuk kedua strategi (\textit{Freeze Encoder} dan LoRA) dilakukan pada infrastruktur yang sama untuk memastikan perbandingan yang adil. Metrik-metrik kunci dicatat secara otomatis menggunakan \textit{logging framework} yang terintegrasi, dan \textit{checkpointing} dilakukan secara berkala untuk menyimpan \textit{state} model terbaik.
+Infrastruktur \textit{training} menggunakan RunPod \textit{Cloud GPU Service} dengan NVIDIA GeForce RTX 4090 (24 GB VRAM), yang menyediakan performa komputasi tinggi untuk \textit{fine-tuning} model berukuran menengah seperti Whisper Base. Seluruh proses \textit{training} untuk kedua strategi (\textit{Freeze Encoder} dan LoRA) dilakukan pada infrastruktur yang sama untuk memastikan perbandingan yang adil. Metrik-metrik kunci dicatat secara otomatis menggunakan \textit{logging framework} yang terintegrasi, dan \textit{checkpointing} dilakukan secara berkala untuk menyimpan \textit{state} model terbaik.
 
 Protokol \textit{training} dan \textit{monitoring} yang diterapkan mencakup aspek-aspek berikut:
 
 \begin{enumerate}[noitemsep]
     \item \textit{Training} dilakukan pada RunPod dengan akselerasi GPU NVIDIA GeForce RTX 4090 (24 GB VRAM) untuk mempercepat komputasi matriks dalam \textit{backpropagation}
-    \item \textit{Logging} metrik setiap 100 \textit{steps}: \textit{training loss}, \textit{learning rate} saat ini, dan waktu komputasi per \textit{batch}, untuk memantau progres \textit{training} secara real-time
+    \item \textit{Logging} metrik setiap 10 \textit{steps}: \textit{training loss}, \textit{learning rate} saat ini, dan waktu komputasi per \textit{batch}, untuk memantau progres \textit{training} secara real-time (setiap 10 steps memastikan monitoring yang cukup sering untuk dataset kecil dengan ~8 steps per epoch)
     \item Evaluasi pada \textit{validation set} setiap \textit{epoch}: perhitungan WER, CER, dan \textit{validation loss} untuk memantau kemampuan generalisasi model
     \item \textit{Checkpoint} model terbaik berdasarkan \textit{lowest validation} WER, memastikan model yang disimpan adalah yang paling optimal untuk tugas ASR bahasa Minangkabau
     \item \textit{Tracking training time} dan penggunaan memori GPU untuk analisis efisiensi komputasi, terutama penting untuk membandingkan \textit{Freeze Encoder} dengan LoRA
@@ -333,15 +345,15 @@ Bahan-bahan yang digunakan dalam penelitian ini meliputi dataset dan dokumen ref
         \item Sumber: LibriVox Indonesia 1.0 via Hugging Face Datasets (\url{https://huggingface.co/datasets/indonesian-nlp/librivox-indonesia})
         \item Konten: Pembacaan \textit{Universal Declaration of Human Rights} dalam bahasa Minangkabau
         \item Format: Audio \textit{files} MP3 dengan \textit{sampling rate} 44.1 kHz
-        \item Durasi: Total ~1.3 jam (155 audio @ ~30 detik per audio)
-        \item Evaluasi: 5-Fold Cross-Validation (setiap fold: ~124 train, ~31 test)
+        \item Durasi: Total ~1.3 jam (156 file audio @ ~30 detik per audio)
+        \item Evaluasi: 5-Fold Cross-Validation (setiap fold: ~125 train, ~31 test)
         \item Karakteristik: \textit{Extremely low-resource}, domain pembacaan formal (UDHR)
         \item Lisensi: \textit{Public Domain} (CC-0)
     \end{itemize}
     \item \textbf{Model Pre-trained}:
     \begin{itemize}[noitemsep]
-        \item Whisper Small dari OpenAI (via Hugging Face Model Hub)
-        \item Model ID: \texttt{openai/whisper-small}
+        \item Whisper Base dari OpenAI (via Hugging Face Model Hub)
+        \item Model ID: \texttt{openai/whisper-base}
         \item Lisensi: MIT License
     \end{itemize}
     \item \textbf{Dokumen Referensi}:
@@ -394,9 +406,9 @@ Metodologi fine-tuning mengikuti best practices untuk extremely low-resource ASR
 Strategi ini mempertahankan representasi akustik universal dari encoder sambil mengadaptasi decoder untuk bahasa Minangkabau:
 
 \begin{enumerate}[noitemsep]
-    \item Initialize dari pre-trained Whisper Small checkpoint
-    \item \textbf{Freeze Components}: Seluruh encoder layers (12 layers) dan feature extractor tetap frozen
-    \item \textbf{Trainable Components}: Decoder Transformer blocks (12 layers, $\sim$122M parameters)
+    \item Initialize dari pre-trained Whisper Base checkpoint
+    \item \textbf{Freeze Components}: Seluruh encoder layers (6 layers) dan feature extractor tetap frozen
+    \item \textbf{Trainable Components}: Decoder Transformer blocks (6 layers, $\sim$37M parameters)
     \item \textbf{5-Fold Iteration}: Untuk setiap fold k (k=1 hingga 5):
     \begin{itemize}[noitemsep]
         \item Training set: 4 folds ($\sim$124 audio)
@@ -414,8 +426,8 @@ Strategi ini mempertahankan representasi akustik universal dari encoder sambil m
 Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$0.24\% parameters):
 
 \begin{enumerate}[noitemsep]
-    \item Initialize dari pre-trained Whisper Small checkpoint
-    \item \textbf{Freeze Components}: Seluruh base model parameters (244M params)
+    \item Initialize dari pre-trained Whisper Base checkpoint
+    \item \textbf{Freeze Components}: Seluruh base model parameters (74M params)
     \item \textbf{Inject LoRA Adapters}: 
     \begin{itemize}[noitemsep]
         \item Rank r=8, Alpha=16
@@ -470,7 +482,7 @@ Pengujian dilakukan secara sistematis untuk memvalidasi performa model:
 \subsubsection{Comparative Testing}
 
 \begin{enumerate}[noitemsep]
-    \item Perbandingan Base Whisper Small vs Fine-tuned models (mean WER/CER across 5 folds)
+    \item Perbandingan Base Whisper Base vs Fine-tuned models (mean WER/CER across 5 folds)
     \item Perbandingan Freeze Encoder vs LoRA (mean ± std WER/CER dari 5 folds)
     \item Statistical significance testing dengan paired t-test (n=5 folds) untuk WER dan CER
     \item Analysis of variance (ANOVA) jika diperlukan untuk multiple comparisons
@@ -615,13 +627,13 @@ Untuk setiap attention layer dengan projection weight $W \in \mathbb{R}^{d \time
 \noindent
 di mana $r$ adalah rank.
 
-\subsubsection{Contoh Perhitungan untuk Whisper Small}
+\subsubsection{Contoh Perhitungan untuk Whisper Base}
 
-Whisper Small memiliki:
+Whisper Base memiliki:
 \begin{itemize}[noitemsep]
-    \item Total layers: 24 (12 encoder + 12 decoder)
-    \item Hidden dimension ($d$): 768
-    \item Projection dimension ($k$): 768
+    \item Total layers: 12 (6 encoder + 6 decoder)
+    \item Hidden dimension ($d$): 512
+    \item Projection dimension ($k$): 512
     \item LoRA rank ($r$): 8
     \item LoRA applied to: Query dan Value projections (2 per layer)
 \end{itemize}
@@ -631,7 +643,7 @@ Whisper Small memiliki:
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_per_projection}
-\text{Params per projection} = 8 \times (768 + 768) = 8 \times 1536 = 12,288
+\text{Params per projection} = 8 \times (512 + 512) = 8 \times 1024 = 8,192
 \end{equation}
 \myequations{Parameter LoRA Per Projection}
 \vspace{0.2cm}
@@ -639,7 +651,7 @@ Whisper Small memiliki:
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_per_layer}
-\text{Params per layer} = 2 \times 12,288 = 24,576
+\text{Params per layer} = 2 \times 8,192 = 16,384
 \end{equation}
 \myequations{Parameter LoRA Per Layer}
 \vspace{0.2cm}
@@ -649,7 +661,7 @@ Whisper Small memiliki:
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_total}
-\text{Total LoRA params} = 24 \times 24,576 = 589,824 \approx 0.59\text{M}
+\text{Total LoRA params} = 12 \times 16,384 = 196,608 \approx 0.197\text{M}
 \end{equation}
 \myequations{Total Parameter LoRA}
 \vspace{0.2cm}
@@ -659,11 +671,11 @@ Whisper Small memiliki:
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_percentage}
-\text{Percentage} = \frac{589,824}{244,000,000} \times 100\% \approx 0.24\%
+\text{Percentage} = \frac{196,608}{74,000,000} \times 100\% \approx 0.27\%
 \end{equation}
 \myequations{Persentase Parameter LoRA Terhadap Total}
 \vspace{0.2cm}
 
 \noindent
-Ini menunjukkan bahwa LoRA hanya melatih $\sim$0.24\% dari total parameters Whisper Small, sangat efisien dibanding \textit{Freeze Encoder}.
+Ini menunjukkan bahwa LoRA hanya melatih $\sim$0.27\% dari total parameters Whisper Base, sangat efisien dibanding \textit{Freeze Encoder} yang melatih 50\% (37M parameters).
 
