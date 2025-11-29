@@ -9,7 +9,7 @@ Pada penelitian ini, alur dirancang untuk memastikan setiap tahapan pemrosesan d
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{figure/Alur_Penelitian.pdf}
+\includegraphics[width=1.1\textwidth]{figure/Alur_Penelitian.pdf}
 \caption{Alur Penelitian Fine-Tuning Whisper untuk ASR Bahasa Minangkabau}
 \label{fig:3.alur}
 \end{figure}
@@ -26,13 +26,13 @@ Tahap pertama dalam alur penelitian ini adalah identifikasi masalah, yang dilaku
 
 Setelah urgensi masalah teridentifikasi, proses dilanjutkan dengan menganalisis tantangan spesifik yang dihadapi dalam pengembangan ASR untuk bahasa \textit{low-resource} seperti Minangkabau. Hasil analisis menemukan bahwa tantangan utama terletak pada minimnya ketersediaan dataset audio-transkrip berkualitas tinggi yang diperlukan untuk melatih model ASR. Kondisi ini berbeda dengan bahasa-bahasa besar yang memiliki ribuan jam data audio teranotasi. Identifikasi tantangan \textit{low-resource} ini menegaskan kebutuhan akan pendekatan yang efisien, sehingga penelitian ini difokuskan pada pemanfaatan model \textit{pre-trained} seperti Whisper yang telah dilatih pada skala besar dan dapat diadaptasi untuk bahasa target dengan data yang relatif terbatas.
 
-Berdasarkan analisis tersebut, penelitian ini merumuskan \textit{research gap} yang jelas: belum ada penelitian yang secara komprehensif membandingkan strategi \textit{fine-tuning} yang berbeda (\textit{Full Fine-Tuning} vs LoRA) untuk adaptasi Whisper pada bahasa Minangkabau. Identifikasi masalah ini mencakup beberapa aspek kunci berikut:
+Berdasarkan analisis tersebut, penelitian ini merumuskan \textit{research gap} yang jelas: belum ada penelitian yang secara komprehensif membandingkan strategi \textit{fine-tuning} yang berbeda (\textit{Freeze Encoder} vs LoRA) untuk adaptasi Whisper pada bahasa Minangkabau dalam skenario \textit{extremely low-resource}. Identifikasi masalah ini mencakup beberapa aspek kunci berikut:
 
 \begin{enumerate}[noitemsep]
     \item Analisis keterbatasan sistem ASR \textit{existing} untuk bahasa daerah Indonesia, khususnya dari perspektif ketersediaan model dan dataset
     \item Identifikasi tantangan bahasa \textit{low-resource}: minimnya dataset audio-transkrip Minangkabau yang berkualitas dan teranotasi
     \item Perumusan \textit{research gap}: perlunya adaptasi model \textit{pre-trained} (Whisper) untuk bahasa Minangkabau dengan pendekatan yang efisien secara komputasi
-    \item Penetapan objektif penelitian: membandingkan efektivitas strategi \textit{fine-tuning} (\textit{Full Fine-Tuning} vs LoRA) dalam hal akurasi dan efisiensi
+    \item Penetapan objektif penelitian: membandingkan efektivitas strategi \textit{fine-tuning} (\textit{Freeze Encoder} vs LoRA) dalam hal akurasi dan efisiensi untuk dataset yang sangat terbatas
     \item Penentuan metrik evaluasi utama: \textit{Word Error Rate} (WER) dan \textit{Character Error Rate} (CER) sebagai indikator kinerja model
 \end{enumerate}
 
@@ -41,7 +41,7 @@ Berdasarkan analisis tersebut, penelitian ini merumuskan \textit{research gap} y
 
 Setelah masalah utama teridentifikasi, langkah selanjutnya dalam alur penelitian adalah melakukan studi literatur secara sistematis dan komprehensif. Proses ini bertujuan untuk memvalidasi \textit{research gap} yang telah diidentifikasi pada tahap sebelumnya, mengumpulkan landasan teori yang relevan, serta memetakan metode \textit{state-of-the-art} yang akan digunakan sebagai dasar perbandingan dalam penelitian ini. Studi literatur dilakukan dengan pendekatan yang terstruktur untuk memastikan bahwa semua aspek penting dari penelitian tercakup dengan baik.
 
-Studi literatur difokuskan pada empat area utama yang saling berkaitan. Pertama, mendalami arsitektur dan kemampuan model Whisper dari OpenAI, termasuk mekanisme \textit{encoder-decoder Transformer}, proses \textit{pre-training} pada 680,000 jam data multibahasa, dan karakteristik yang membuat Whisper unggul dalam skenario \textit{zero-shot} maupun \textit{few-shot}. Kedua, mengidentifikasi dan menganalisis strategi \textit{fine-tuning} yang telah terbukti efektif untuk bahasa \textit{low-resource}, dengan fokus khusus pada perbandingan antara \textit{Full Fine-Tuning} yang meng-\textit{update} seluruh parameter model versus teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) seperti LoRA yang hanya melatih sebagian kecil parameter. Ketiga, mempelajari penelitian-penelitian terdahulu yang telah menerapkan Whisper atau model ASR lainnya pada bahasa Indonesia dan bahasa daerah Nusantara, untuk memahami tantangan spesifik dan solusi yang telah dicoba. Keempat, memahami karakteristik linguistik bahasa Minangkabau, termasuk fonologi, morfologi, dan pola ucapan yang dapat mempengaruhi performa model ASR.
+Studi literatur difokuskan pada empat area utama yang saling berkaitan. Pertama, mendalami arsitektur dan kemampuan model Whisper dari OpenAI, termasuk mekanisme \textit{encoder-decoder Transformer}, proses \textit{pre-training} pada 680,000 jam data multibahasa, dan karakteristik yang membuat Whisper unggul dalam skenario \textit{zero-shot} maupun \textit{few-shot}. Kedua, mengidentifikasi dan menganalisis strategi \textit{fine-tuning} yang telah terbukti efektif untuk skenario \textit{extremely low-resource}, dengan fokus khusus pada perbandingan antara \textit{Freeze Encoder} yang hanya melatih \textit{decoder} versus teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) seperti LoRA yang hanya melatih sebagian kecil parameter. Ketiga, mempelajari penelitian-penelitian terdahulu yang telah menerapkan Whisper atau model ASR lainnya pada bahasa Indonesia dan bahasa daerah Nusantara, untuk memahami tantangan spesifik dan solusi yang telah dicoba. Keempat, memahami karakteristik linguistik bahasa Minangkabau, termasuk fonologi, morfologi, dan pola ucapan yang dapat mempengaruhi performa model ASR.
 
 Proses studi literatur dilaksanakan melalui tahapan-tahapan berikut:
 
@@ -58,21 +58,24 @@ Hasil dari studi literatur ini menjadi landasan teoritis yang kokoh dalam memili
 \subsection{Pengumpulan Dataset}
 \label{III.Langkah3}
 
-Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0, yang merupakan koleksi rekaman audio dari buku-buku domain publik dalam berbagai bahasa daerah Indonesia. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Pemilihan dataset LibriVox Indonesia sebagai sumber data didasarkan pada beberapa pertimbangan penting. Pertama, LibriVox menyediakan audio dengan kualitas rekaman yang relatif baik karena mengikuti standar produksi \textit{audiobook} dengan \textit{sampling rate} 44.1 kHz. Kedua, setiap audio dilengkapi dengan transkrip teks yang akurat karena dibacakan dari naskah tertulis (teks UDHR), sehingga mengurangi beban anotasi manual dan menjamin akurasi transkrip. Ketiga, dataset ini tersedia secara publik dengan lisensi \textit{Public Domain} (CC-0), memungkinkan penggunaan bebas untuk penelitian akademis.
+Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0, yang merupakan koleksi rekaman audio dari buku-buku domain publik dalam berbagai bahasa daerah Indonesia. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{155 segmen audio} dengan durasi rata-rata 30 detik per segmen.
 
-Proses pengumpulan dataset dirancang secara sistematis menggunakan \textit{forced alignment software} yang dikembangkan oleh kontributor LibriVox Indonesia untuk mengkonversi rekaman \textit{audiobook} panjang menjadi segmen-segmen pendek yang sesuai untuk pelatihan ASR. Tahap awal dimulai dengan mengunduh dataset bahasa Minangkabau dari repositori LibriVox Indonesia melalui platform Hugging Face Datasets. Setelah dataset diunduh, dilakukan proses verifikasi kualitas untuk memastikan bahwa setiap segmen audio memiliki kejernihan ucapan yang baik (\textit{clear speech}), minim \textit{background noise}, dan tidak mengandung distorsi audio yang signifikan. Dataset LibriVox Indonesia telah melalui proses segmentasi otomatis yang membagi rekaman panjang menjadi klip-klip pendek dengan durasi beberapa detik hingga maksimal 20 detik, yang ideal untuk pelatihan model ASR.
+Pemilihan dataset LibriVox Indonesia sebagai sumber data didasarkan pada beberapa pertimbangan penting. Pertama, LibriVox menyediakan audio dengan kualitas rekaman yang relatif baik karena mengikuti standar produksi \textit{audiobook} dengan \textit{sampling rate} 44.1 kHz. Kedua, setiap audio dilengkapi dengan transkrip teks yang akurat karena dibacakan dari naskah tertulis (teks UDHR), sehingga mengurangi beban anotasi manual dan menjamin akurasi transkrip. Ketiga, dataset ini tersedia secara publik dengan lisensi \textit{Public Domain} (CC-0), memungkinkan penggunaan bebas untuk penelitian akademis. Namun, penting untuk dicatat bahwa dataset terbatas pada domain \textbf{pembacaan formal} (\textit{formal reading}) dari teks legal/deklarasi, sehingga performa model pada percakapan spontan atau konteks informal mungkin berbeda.
 
-Dataset bahasa Minangkabau dalam LibriVox Indonesia 1.0 mencakup total sekitar 8 jam rekaman audio dari 7 bahasa Indonesia yang berbeda, dengan porsi spesifik untuk bahasa Minangkabau yang akan digunakan dalam penelitian ini. Meskipun konten terbatas pada pembacaan UDHR, dataset ini tetap mencakup keberagaman \textit{speaker} dengan variasi karakteristik suara yang berbeda. Proses pengumpulan dan persiapan dataset mencakup langkah-langkah berikut:
+Proses pengumpulan dataset dirancang secara sistematis dengan menggabungkan seluruh data yang tersedia dari folder \textit{train} dan \textit{test} yang disediakan oleh \textit{maintainer} Hugging Face. Tahap awal dimulai dengan mengunduh dataset bahasa Minangkabau dari repositori LibriVox Indonesia melalui platform Hugging Face Datasets. Setelah dataset diunduh, dilakukan proses verifikasi kualitas untuk memastikan bahwa setiap segmen audio memiliki kejernihan ucapan yang baik (\textit{clear speech}), minim \textit{background noise}, dan tidak mengandung distorsi audio yang signifikan. Dataset LibriVox Indonesia telah melalui proses segmentasi otomatis yang membagi rekaman panjang menjadi klip-klip pendek dengan durasi beberapa detik hingga maksimal 30 detik, yang ideal untuk pelatihan model ASR.
+
+Proses pengumpulan dan persiapan dataset mencakup langkah-langkah berikut:
 
 \begin{enumerate}[noitemsep]
     \item Mengunduh dataset LibriVox Indonesia 1.0 dari Hugging Face Datasets, dengan fokus pada subset bahasa Minangkabau yang berisi pembacaan UDHR
+    \item Menggabungkan seluruh audio dari folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} untuk memaksimalkan penggunaan data dalam skema \textit{cross-validation}
     \item Verifikasi kualitas audio secara teknis untuk setiap segmen: \textit{clear speech}, minimal \textit{background noise}, tidak ada distorsi atau \textit{clipping}
     \item Validasi transkrip teks yang sesuai dengan setiap segmen audio, memastikan akurasi dan kelengkapan transkrip berdasarkan teks UDHR dalam bahasa Minangkabau
-    \item Ekstraksi metadata \textit{speaker} (\\textit{reader ID}) untuk analisis keberagaman pembicara dalam dataset
-    \item Inventarisasi total durasi audio yang tersedia dan perencanaan penggunaan data untuk mencapai cakupan yang memadai bagi proses \textit{fine-tuning}
+    \item Ekstraksi metadata \textit{speaker} (\textit{reader ID}) untuk dokumentasi keberagaman pembicara dalam dataset
+    \item Inventarisasi total durasi audio yang tersedia (155 segmen @ ~30s = ~1.3 jam total)
 \end{enumerate}
 
-Dataset yang berhasil dikumpulkan dari LibriVox Indonesia mencakup rekaman pembacaan UDHR dalam bahasa Minangkabau, yang meskipun terbatas pada satu jenis teks (dokumen deklarasi HAM), tetap merepresentasikan bahasa Minangkabau formal dan standar. Karakteristik dataset ini sesuai untuk penelitian \textit{fine-tuning} model ASR pada bahasa \textit{low-resource}, di mana ketersediaan data yang terbatas merupakan tantangan utama yang perlu diatasi melalui pendekatan \textit{transfer learning} dari model \textit{pre-trained} seperti Whisper.
+Dataset yang berhasil dikumpulkan mencakup rekaman pembacaan UDHR dalam bahasa Minangkabau dengan total 1.3 jam audio (155 segmen). Meskipun terbatas pada satu jenis teks (dokumen deklarasi HAM) dan durasi yang sangat kecil, dataset ini tetap merepresentasikan bahasa Minangkabau formal dan standar. Karakteristik \textit{extremely low-resource} ini membuat penelitian ini mengadopsi pendekatan \textbf{5-Fold Cross-Validation} untuk memaksimalkan penggunaan data dan memperoleh evaluasi yang lebih robust, dengan strategi \textit{transfer learning} yang sangat efisien dari model \textit{pre-trained} Whisper.
 
 \subsection{Preprocessing Dataset}
 \label{III.Langkah4}
@@ -106,17 +109,32 @@ Tahap \textit{text preprocessing} bertujuan untuk menstandarkan transkrip teks d
     \item \textbf{Special Character Handling}: Penanganan khusus untuk karakter-karakter yang spesifik dalam bahasa Minangkabau, termasuk diakritik atau simbol yang mungkin muncul dalam transkrip
 \end{enumerate}
 
-\subsubsection{Dataset Splitting}
+\subsubsection{5-Fold Cross-Validation}
 
-Setelah \textit{preprocessing} audio dan teks selesai, dataset dibagi menjadi tiga subset dengan proporsi yang standar dalam penelitian \textit{machine learning}:
+Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan \textbf{5-Fold Cross-Validation}. Seluruh 155 segmen audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Fold Splitting}: Dataset dibagi menjadi 5 \textit{folds}, masing-masing berisi sekitar 31 audio ($\sim$20\% dari total)
+    \item \textbf{Iterative Training}: Pada setiap iterasi (total 5 iterasi):
+    \begin{itemize}[noitemsep]
+        \item Satu \textit{fold} digunakan sebagai \textit{test set} ($\sim$31 audio, $\sim$0.26 jam)
+        \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} ($\sim$124 audio, $\sim$1.03 jam)
+        \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Small) pada \textit{training set}
+        \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat
+    \end{itemize}
+    \item \textbf{Aggregation}: Hasil WER dan CER dari 5 iterasi di-\textit{aggregate} untuk menghasilkan metrik final berupa \textit{mean} ± \textit{standard deviation}
+\end{enumerate}
+
+Pendekatan \textit{5-fold cross-validation} memberikan beberapa keuntungan penting untuk dataset \textit{extremely low-resource}:
 
 \begin{itemize}[noitemsep]
-    \item \textit{Training set}: 80\% dari total data, digunakan untuk melatih parameter model
-    \item \textit{Validation set}: 10\% dari total data, digunakan untuk memantau performa selama \textit{training} dan melakukan \textit{hyperparameter tuning}
-    \item \textit{Test set}: 10\% dari total data, digunakan untuk evaluasi final dan tidak pernah dilihat oleh model selama \textit{training}
+    \item \textbf{Evaluasi lebih robust}: Setiap audio memiliki kesempatan untuk menjadi bagian dari \textit{test set}, mengurangi bias akibat pembagian data yang tidak representative
+    \item \textbf{Maximum data utilization}: Seluruh 155 audio digunakan untuk \textit{training} DAN \textit{testing}, tidak ada data yang "terbuang"
+    \item \textbf{Statistical reliability}: Dengan 5 \textit{folds}, diperoleh 5 nilai WER/CER yang dapat digunakan untuk menghitung \textit{mean} dan \textit{standard deviation}, memberikan gambaran variabilitas performa model
+    \item \textbf{Fair comparison}: Kedua strategi (\textit{Freeze Encoder} dan LoRA) dievaluasi pada \textit{folds} yang identik, memastikan perbandingan yang adil
 \end{itemize}
 
-Pembagian dilakukan secara \textit{stratified} untuk memastikan distribusi \textit{speaker}, dialek Minangkabau, dan karakteristik lainnya seimbang di setiap subset. Pendekatan \textit{stratified splitting} ini penting untuk menghindari bias dalam evaluasi dan memastikan bahwa setiap subset merepresentasikan keberagaman yang ada dalam dataset lengkap.
+Dengan pendekatan ini, penelitian tidak menggunakan \textit{validation set} terpisah. Monitoring selama \textit{training} dilakukan dengan memantau \textit{training loss} dan menerapkan \textit{early stopping} berbasis penurunan \textit{loss} untuk mencegah \textit{overfitting}.
 
 \subsection{Konfigurasi Model Whisper Small}
 \label{III.Langkah5}
@@ -138,19 +156,23 @@ Tahap konfigurasi model Whisper Small mencakup beberapa langkah teknis penting:
 \subsection{Implementasi Fine-Tuning}
 \label{III.Langkah6}
 
-Penelitian ini menerapkan pendekatan komparatif dengan membandingkan dua strategi \textit{fine-tuning} yang berbeda: \textit{Full Fine-Tuning} dan \textit{Low-Rank Adaptation} (LoRA). Pemilihan kedua strategi ini didasarkan pada karakteristik yang saling melengkapi dalam konteks bahasa \textit{low-resource}. \textit{Full Fine-Tuning} merepresentasikan pendekatan tradisional yang meng-\textit{update} seluruh parameter model, berpotensi menghasilkan adaptasi yang paling optimal tetapi dengan biaya komputasi yang tinggi. Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih sebagian kecil parameter tambahan, menawarkan efisiensi komputasi yang signifikan dengan trade-off minimal dalam akurasi. Implementasi kedua metode dilakukan secara terpisah dan sistematis untuk memastikan perbandingan yang adil dan valid.
+Penelitian ini menerapkan pendekatan komparatif dengan membandingkan dua strategi \textit{fine-tuning} yang berbeda: \textit{Freeze Encoder Fine-Tuning} dan \textit{Low-Rank Adaptation} (LoRA). Pemilihan kedua strategi ini didasarkan pada karakteristik yang saling melengkapi dalam konteks \textit{extremely low-resource}. \textit{Freeze Encoder} merupakan pendekatan yang membekukan seluruh \textit{encoder} dan hanya melatih \textit{decoder}, mempertahankan representasi akustik universal yang telah dipelajari selama \textit{pre-training} sambil mengadaptasi komponen linguistik untuk bahasa Minangkabau. Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih sebagian kecil parameter tambahan ($\sim$0.24\% dari total), menawarkan efisiensi komputasi yang maksimal. Implementasi kedua metode dilakukan secara terpisah dan sistematis untuk memastikan perbandingan yang adil dan valid.
 
-Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau sebagai bahasa \textit{low-resource}, pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$2\% parameter) memberikan hasil yang sebanding dengan \textit{Full Fine-Tuning} (yang melatih 100\% parameter)? Jika LoRA dapat mencapai performa yang mendekati \textit{Full Fine-Tuning} dengan biaya komputasi yang jauh lebih rendah, maka LoRA menjadi solusi yang lebih praktis dan dapat diskalakan untuk bahasa-bahasa \textit{low-resource} lainnya. Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat dengan pengaturan \textit{hyperparameter} yang dioptimalkan untuk masing-masing pendekatan.
+Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$0.24\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Jika LoRA dapat mencapai performa yang mendekati \textit{Freeze Encoder} dengan biaya komputasi yang jauh lebih rendah, maka LoRA menjadi solusi yang lebih praktis dan dapat diskalakan untuk bahasa-bahasa \textit{extremely low-resource} lainnya. Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat dengan pengaturan \textit{hyperparameter} yang dioptimalkan untuk masing-masing pendekatan.
 
-\subsubsection{Full Fine-Tuning}
+\subsubsection{Freeze Encoder Fine-Tuning}
 
-Pada metode \textit{Full Fine-Tuning}, seluruh 244 juta parameter model Whisper Small di-\textit{update} selama proses \textit{training}. Pendekatan ini memberikan fleksibilitas maksimal bagi model untuk beradaptasi dengan karakteristik spesifik bahasa Minangkabau, termasuk pola fonetik, intonasi, dan struktur linguistik yang unik. Konfigurasi \textit{training} untuk \textit{Full Fine-Tuning} adalah sebagai berikut:
+Pada metode \textit{Freeze Encoder}, seluruh parameter \textit{encoder} Whisper Small (yang berfungsi memproses input audio) dibekukan (\textit{frozen}), dan hanya parameter \textit{decoder} (yang menghasilkan teks transkrip) yang di-\textit{update} selama proses \textit{training}. Pendekatan ini sangat sesuai untuk skenario \textit{extremely low-resource} karena mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara hanya mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau. Dengan hanya melatih \textit{decoder} (~122 juta dari 244 juta parameter total), pendekatan ini mengurangi risiko \textit{overfitting} yang sangat tinggi pada dataset 1.3 jam.
+
+Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berikut:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.01 untuk regularisasi dan mencegah \textit{overfitting}
-    \item \textbf{Learning Rate}: $2 \times 10^{-5}$ dengan strategi \textit{linear warmup} (500 langkah) diikuti \textit{cosine decay} untuk konvergensi yang stabil
-    \item \textbf{Batch Size}: 16 sampel per \textit{batch}, dengan opsi \textit{gradient accumulation} jika memori GPU tidak mencukupi
-    \item \textbf{Epochs}: 10-15 \textit{epochs} dengan mekanisme \textit{early stopping} (\textit{patience}=5) untuk menghentikan \textit{training} jika tidak ada peningkatan pada \textit{validation} WER
+    \item \textbf{Frozen Components}: Seluruh 12 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
+    \item \textbf{Trainable Components}: Seluruh 12 lapisan \textit{decoder} Transformer ($\sim$122M parameter)
+    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.01 untuk regularisasi
+    \item \textbf{Learning Rate}: $1 \times 10^{-5}$ (lebih rendah dari \textit{full fine-tuning} karena hanya melatih \textit{decoder})
+    \item \textbf{Batch Size}: 8-16 sampel per \textit{batch}, disesuaikan dengan memori GPU
+    \item \textbf{Epochs}: 20-30 \textit{epochs} dengan mekanisme \textit{early stopping} untuk mencegah \textit{overfitting}
     \item \textbf{Loss Function}: \textit{Cross-entropy loss} standar untuk tugas klasifikasi sekuens
 \end{enumerate}
 
@@ -215,9 +237,9 @@ Protokol \textit{training} dan \textit{monitoring} yang diterapkan mencakup aspe
 \subsection{Evaluasi Model}
 \label{III.Langkah8}
 
-Model yang telah di-\textit{fine-tune} dievaluasi secara komprehensif menggunakan \textit{test set} yang tidak pernah dilihat oleh model selama proses \textit{training} maupun \textit{validation}. Prinsip isolasi \textit{test set} ini sangat penting untuk memastikan bahwa metrik evaluasi yang diperoleh merepresentasikan kemampuan generalisasi model yang sebenarnya pada data baru, bukan hanya kemampuan menghafal pola dalam data \textit{training}. Evaluasi dilakukan dengan protokol yang konsisten untuk kedua strategi \textit{fine-tuning} (\textit{Full Fine-Tuning} dan LoRA) untuk memungkinkan perbandingan yang adil dan valid.
+Model yang telah di-\textit{fine-tune} dievaluasi secara komprehensif menggunakan \textit{test set} yang tidak pernah dilihat oleh model selama proses \textit{training}. Prinsip isolasi \textit{test set} ini sangat penting untuk memastikan bahwa metrik evaluasi yang diperoleh merepresentasikan kemampuan generalisasi model yang sebenarnya pada data baru, bukan hanya kemampuan menghafal pola dalam data \textit{training}. Evaluasi dilakukan dengan protokol yang konsisten untuk kedua strategi \textit{fine-tuning} (\textit{Freeze Encoder} dan LoRA) untuk memungkinkan perbandingan yang adil dan valid melalui skema \textit{5-fold cross-validation}.
 
-Proses evaluasi dirancang untuk mengukur berbagai aspek performa model, tidak hanya akurasi transkrip tetapi juga \textit{error patterns} dan karakteristik kesalahan yang terjadi. Analisis \textit{error patterns} memberikan \textit{insights} penting tentang jenis kesalahan yang paling sering dibuat model (substitusi, penghapusan, atau penyisipan kata), yang dapat menjadi dasar untuk perbaikan model di masa depan. Selain itu, evaluasi juga mempertimbangkan variasi dialek Minangkabau jika memungkinkan, untuk memahami seberapa baik model dapat menangani keberagaman linguistik dalam bahasa target.
+Proses evaluasi dirancang untuk mengukur berbagai aspek performa model, tidak hanya akurasi transkrip tetapi juga \textit{error patterns} dan karakteristik kesalahan yang terjadi. Analisis \textit{error patterns} memberikan \textit{insights} penting tentang jenis kesalahan yang paling sering dibuat model (substitusi, penghapusan, atau penyisipan kata), yang dapat menjadi dasar untuk perbaikan model di masa depan.
 
 Protokol evaluasi yang diterapkan mencakup tahapan-tahapan berikut:
 
@@ -225,10 +247,11 @@ Protokol evaluasi yang diterapkan mencakup tahapan-tahapan berikut:
     \item \textit{Inference} pada \textit{test set} menggunakan algoritma \textit{beam search} dengan \textit{beam size} = 5, yang memberikan keseimbangan antara kualitas transkrip dan kecepatan inferensi
     \item Perhitungan \textit{Word Error Rate} (WER) sebagai metrik utama untuk mengukur akurasi transkrip pada level kata
     \item Perhitungan \textit{Character Error Rate} (CER) sebagai metrik tambahan yang lebih sensitif terhadap kesalahan fonetik dan memberikan perspektif komplementer terhadap WER
-    \item Normalisasi teks sebelum evaluasi (konversi ke \textit{lowercase}, penghapusan tanda baca, normalisasi\textit{whitespace}) untuk memastikan konsistensi dalam perhitungan metrik
+    \item Normalisasi teks sebelum evaluasi (konversi ke \textit{lowercase}, penghapusan tanda baca, normalisasi \textit{whitespace}) untuk memastikan konsistensi dalam perhitungan metrik
+    \item Perhitungan metrik untuk setiap \textit{fold}: WER dan CER pada \textit{test set} dari masing-masing 5 \textit{folds}
+    \item Agregasi hasil: Menghitung \textit{mean} ± \textit{standard deviation} dari WER dan CER across 5 \textit{folds} untuk kedua strategi (\textit{Freeze Encoder} dan LoRA)
     \item Analisis \textit{error patterns} detail dengan mengkategorikan kesalahan menjadi: substitusi (kata yang salah diganti), penghapusan (kata yang hilang), dan penyisipan (kata tambahan yang tidak seharusnya ada)
-    \item Perbandingan performa antara model \textit{Full Fine-Tuning} dan LoRA menggunakan metrik WER, CER, serta analisis \textit{trade-off} dengan waktu \textit{training} dan penggunaan memori
-    \item Evaluasi per-dialek Minangkabau (\textit{e.g.}, dialek Padang, Bukittinggi, Payakumbuh) jika distribusi data memungkinkan, untuk memahami kemampuan model menangani variasi linguistik
+    \item Perbandingan performa antara model \textit{Freeze Encoder} dan LoRA menggunakan metrik agregat (mean WER/CER), serta analisis \textit{trade-off} dengan waktu \textit{training} dan penggunaan memori
 \end{enumerate}
 
 \subsection{Analisis Hasil dan Perbandingan}
@@ -241,13 +264,13 @@ Analisis dilakukan dengan mengintegrasikan evaluasi kuantitatif (metrik numerik)
 Proses analisis hasil dan perbandingan mencakup aspek-aspek berikut:
 
 \begin{enumerate}[noitemsep]
-    \item Perbandingan metrik WER dan CER antara \textit{Full Fine-Tuning} dan LoRA pada \textit{test set} yang sama, termasuk perhitungan selisih performa dan signifikansi statistik perbedaan tersebut
-    \item Analisis \textit{trade-off} multidimensional: akurasi model vs efisiensi \textit{training} (waktu pelatihan, penggunaan memori GPU, jumlah parameter yang dilatih), untuk mengidentifikasi strategi yang menawarkan keseimbangan terbaik
-    \item Evaluasi kualitas transkrip secara kualitatif melalui inspeksi manual terhadap sampel transkrip, mengidentifikasi jenis kesalahan yang paling umum dan konteks di mana setiap metode unggul atau lemah
+    \item Perbandingan metrik WER dan CER antara \textit{Freeze Encoder} dan LoRA berdasarkan \textit{mean} ± \textit{standard deviation} dari 5 \textit{folds}
+    \item \textbf{Statistical significance testing}: Menerapkan \textit{paired t-test} pada hasil WER/CER dari 5 \textit{folds} untuk menentukan apakah perbedaan antara \textit{Freeze Encoder} dan LoRA secara statistik signifikan (\textit{p-value} $<$ 0.05)
+    \item Analisis \textit{trade-off} multidimensional: akurasi model vs efisiensi \textit{training} (waktu pelatihan total untuk 5 \textit{folds}, penggunaan memori GPU, jumlah parameter yang dilatih), untuk mengidentifikasi strategi yang menawarkan keseimbangan terbaik untuk skenario \textit{extremely low-resource}
+    \item Evaluasi kualitas transkrip secara kualitatif melalui inspeksi manual terhadap sampel transkrip dari berbagai \textit{folds}, mengidentifikasi jenis kesalahan yang paling umum dan konteks di mana setiap metode unggul atau lemah
     \item Identifikasi \textit{patterns of errors} yang spesifik (\textit{common misrecognitions}), seperti fonem atau kata Minangkabau yang sering salah dikenali, untuk memberikan \textit{insights} bagi penelitian lanjutan
-    \item Analisis performa pada \textit{different speaking styles} (\textit{e.g.}, narasi formal vs informal) dan dialek Minangkabau yang berbeda, jika distribusi data memungkinkan
-    \item Diskusi tentang \textit{limitations} penelitian (\textit{e.g.}, ukuran dataset yang terbatas, variasi dialek yang tidak sepenuhnya tercakup) dan \textit{potential improvements} untuk penelitian masa depan
-    \item Perumusan rekomendasi strategi \textit{fine-tuning} terbaik untuk bahasa Minangkabau berdasarkan hasil analisis komprehensif, dengan pertimbangan terhadap konteks penggunaan (\textit{e.g.}, penelitian akademis vs aplikasi praktis)
+    \item Diskusi tentang \textit{limitations} penelitian (\textit{e.g.}, ukuran dataset yang sangat terbatas, domain terbatas pada pembacaan formal UDHR, computational cost dari 5-fold training) dan \textit{potential improvements} untuk penelitian masa depan
+    \item Perumusan rekomendasi strategi \textit{fine-tuning} terbaik untuk bahasa Minangkabau dan bahasa \textit{extremely low-resource} lainnya berdasarkan hasil analisis komprehensif dari \textit{cross-validation}
 \end{enumerate}
 
 \section{Alat dan Bahan Tugas Akhir}
@@ -317,8 +340,9 @@ Bahan-bahan yang digunakan dalam penelitian ini meliputi dataset dan dokumen ref
         \item Sumber: LibriVox Indonesia 1.0 via Hugging Face Datasets (\url{https://huggingface.co/datasets/indonesian-nlp/librivox-indonesia})
         \item Konten: Pembacaan \textit{Universal Declaration of Human Rights} dalam bahasa Minangkabau
         \item Format: Audio \textit{files} MP3 dengan \textit{sampling rate} 44.1 kHz
-        \item Durasi: Sekitar 8 jam total (7 bahasa), subset Minangkabau digunakan untuk penelitian
-        \item Segmentasi: Klip audio dengan durasi beberapa detik hingga maksimal 20 detik
+        \item Durasi: Total ~1.3 jam (155 audio @ ~30 detik per audio)
+        \item Evaluasi: 5-Fold Cross-Validation (setiap fold: ~124 train, ~31 test)
+        \item Karakteristik: \textit{Extremely low-resource}, domain pembacaan formal (UDHR)
         \item Lisensi: \textit{Public Domain} (CC-0)
     \end{itemize}
     \item \textbf{Model Pre-trained}:
@@ -348,10 +372,11 @@ Penelitian ini menggunakan pendekatan eksperimental dengan metodologi yang terst
 Penelitian ini mengadopsi \textbf{pendekatan eksperimental} dengan karakteristik:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Quantitative Evaluation}: Pengukuran performa menggunakan metrik objektif (WER, CER)
-    \item \textbf{Comparative Study}: Perbandingan antara dua strategi fine-tuning (Full vs LoRA)
-    \item \textbf{Controlled Experiment}: Dataset, hyperparameters, dan evaluation protocol dijaga konsisten
-    \item \textbf{Reproducible Research}: Semua kode, konfigurasi, dan hasil didokumentasikan
+    \item \textbf{Quantitative Evaluation}: Pengukuran performa menggunakan metrik objektif (WER, CER) dengan agregasi mean ± std dari 5 folds
+    \item \textbf{Comparative Study}: Perbandingan antara dua strategi fine-tuning (\textit{Freeze Encoder} vs LoRA) pada skenario extremely low-resource
+    \item \textbf{Controlled Experiment}: Dataset, hyperparameters, dan evaluation protocol dijaga konsisten untuk perbandingan yang adil
+    \item \textbf{Reproducible Research}: Semua kode, konfigurasi, dan hasil didokumentasikan dengan lengkap
+    \item \textbf{Statistical Validation}: Paired t-test (n=5 folds) untuk menentukan signifikansi perbedaan performa
 \end{enumerate}
 
 \subsection{Alur Pengembangan}
@@ -361,7 +386,7 @@ Pengembangan sistem ASR bahasa Minangkabau mengikuti alur yang sistematis sepert
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{figure/Development_Flow.pdf}
+\includegraphics[width=1.2\textwidth]{figure/Development_Flow.pdf}
 \caption{Alur Pengembangan Sistem}
 \label{fig:3.alur_dev}
 \end{figure}
@@ -369,28 +394,61 @@ Pengembangan sistem ASR bahasa Minangkabau mengikuti alur yang sistematis sepert
 \subsection{Metodologi Fine-Tuning}
 \label{III.Metodologi_FT}
 
-Metodologi fine-tuning mengikuti best practices untuk low-resource ASR:
+Metodologi fine-tuning mengikuti best practices untuk extremely low-resource ASR dengan pendekatan 5-Fold Cross-Validation:
 
-\subsubsection{Full Fine-Tuning Methodology}
+\subsubsection{Freeze Encoder Fine-Tuning Methodology}
+
+Strategi ini mempertahankan representasi akustik universal dari encoder sambil mengadaptasi decoder untuk bahasa Minangkabau:
 
 \begin{enumerate}[noitemsep]
     \item Initialize dari pre-trained Whisper Small checkpoint
-    \item Freeze feature extractor (convolutional layers)
-    \item Unfreeze encoder dan decoder Transformer blocks
-    \item Training dengan supervised learning pada dataset Minangkabau
-    \item Monitoring validation WER untuk early stopping
-    \item Save best checkpoint berdasarkan validation performance
+    \item \textbf{Freeze Components}: Seluruh encoder layers (12 layers) dan feature extractor tetap frozen
+    \item \textbf{Trainable Components}: Decoder Transformer blocks (12 layers, $\sim$122M parameters)
+    \item \textbf{5-Fold Iteration}: Untuk setiap fold k (k=1 hingga 5):
+    \begin{itemize}[noitemsep]
+        \item Training set: 4 folds ($\sim$124 audio)
+        \item Test set: 1 fold ($\sim$31 audio)
+        \item Training dengan supervised learning dari scratch
+        \item Monitoring training loss untuk convergence
+        \item Early stopping berdasarkan loss plateau (patience=5 epochs)
+    \end{itemize}
+    \item Save best checkpoint per fold berdasarkan lowest training loss
+    \item Evaluate pada test fold untuk mendapatkan WER\textsubscript{k} dan CER\textsubscript{k}
 \end{enumerate}
 
 \subsubsection{LoRA Fine-Tuning Methodology}
 
+Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$0.24\% parameters):
+
 \begin{enumerate}[noitemsep]
     \item Initialize dari pre-trained Whisper Small checkpoint
-    \item Freeze seluruh base model parameters
-    \item Inject LoRA adapters pada Query dan Value projections
-    \item Training hanya LoRA parameters ($\sim$2\% dari total)
-    \item Monitoring validation WER untuk early stopping
-    \item Merge LoRA weights dengan base model untuk inference
+    \item \textbf{Freeze Components}: Seluruh base model parameters (244M params)
+    \item \textbf{Inject LoRA Adapters}: 
+    \begin{itemize}[noitemsep]
+        \item Rank r=8, Alpha=16
+        \item Target modules: Query dan Value projections
+        \item Trainable parameters: $\sim$0.59M ($\sim$0.24\% dari total)
+    \end{itemize}
+    \item \textbf{5-Fold Iteration}: Sama seperti Freeze Encoder, untuk setiap fold k:
+    \begin{itemize}[noitemsep]
+        \item Training pada 4 folds, test pada 1 fold
+        \item Higher learning rate (5e-4) karena parameter lebih sedikit
+        \item Dropout 0.1 pada LoRA layers untuk regularisasi
+    \end{itemize}
+    \item Save LoRA adapters per fold (base model tetap frozen)
+    \item Evaluate pada test fold untuk WER\textsubscript{k} dan CER\textsubscript{k}
+\end{enumerate}
+
+\subsubsection{Aggregation dan Statistical Testing}
+
+Setelah 5 iterasi selesai untuk kedua strategi:
+
+\begin{enumerate}[noitemsep]
+    \item Kumpulkan hasil: \{WER\textsubscript{1}, WER\textsubscript{2}, ..., WER\textsubscript{5}\} untuk Freeze Encoder dan LoRA
+    \item Hitung mean ± standard deviation untuk setiap strategi
+    \item Paired t-test (n=5) untuk menguji signifikansi perbedaan: H\textsubscript{0}: $\mu$\textsubscript{freeze} = $\mu$\textsubscript{lora}
+    \item Signifikansi ditentukan dengan p-value $<$ 0.05
+    \item Report final metrics: ``Freeze Encoder: WER = X.X\% ± Y.Y\%''
 \end{enumerate}
 
 \subsection{Metode Pengujian}
@@ -419,9 +477,10 @@ Pengujian dilakukan secara sistematis untuk memvalidasi performa model:
 \subsubsection{Comparative Testing}
 
 \begin{enumerate}[noitemsep]
-    \item Perbandingan Base Whisper Small vs Fine-tuned models
-    \item Perbandingan Full Fine-Tuning vs LoRA
-    \item Statistical significance testing (paired t-test untuk WER/CER differences)
+    \item Perbandingan Base Whisper Small vs Fine-tuned models (mean WER/CER across 5 folds)
+    \item Perbandingan Freeze Encoder vs LoRA (mean ± std WER/CER dari 5 folds)
+    \item Statistical significance testing dengan paired t-test (n=5 folds) untuk WER dan CER
+    \item Analysis of variance (ANOVA) jika diperlukan untuk multiple comparisons
 \end{enumerate}
 
 \section{Ilustrasi Perhitungan Metode}

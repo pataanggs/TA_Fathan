@@ -365,3 +365,53 @@ Untuk mencegah \textit{overfitting} pada dataset kecil dan memastikan konvergens
 \subsubsection{Optimisasi}
 
 \textbf{AdamW} \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan secara luas untuk \textit{fine-tuning} model \textit{Transformer}. AdamW adalah varian dari Adam yang memisahkan \textit{weight decay} dari optimisasi gradien, menghasilkan regularisasi yang lebih efektif. AdamW menggunakan \textit{adaptive learning rates} per-parameter berdasarkan estimasi momen pertama dan kedua dari gradien, memungkinkan konvergensi cepat sambil mempertahankan stabilitas pelatihan.
+
+\subsection{K-Fold Cross-Validation}
+\label{II.KFoldCV}
+
+\textit{K-Fold Cross-Validation} adalah teknik evaluasi model yang sangat penting untuk dataset berukuran kecil, di mana pembagian data tunggal (\textit{fixed train-test split}) dapat menghasilkan estimasi performa yang bias atau tidak representatif \cite{kohavi1995crossvalidation}. Metode ini memaksimalkan penggunaan data yang tersedia dengan memastikan setiap sampel dalam dataset digunakan untuk \textit{training} maupun \textit{testing}.
+
+\subsubsection{Prinsip Dasar K-Fold Cross-Validation}
+
+Dalam \textit{K-Fold Cross-Validation}, seluruh dataset dibagi menjadi $K$ partisi (\textit{folds}) dengan ukuran yang kurang lebih sama. Proses validasi dilakukan secara iteratif sebanyak $K$ kali, di mana pada setiap iterasi:
+
+\begin{enumerate}[noitemsep]
+    \item Satu \textit{fold} digunakan sebagai \textit{test set}
+    \item $K-1$ \textit{folds} lainnya digabungkan sebagai \textit{training set}
+    \item Model dilatih dari awal (\textit{scratch}) pada \textit{training set}
+    \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat
+    \item Metrik performa (misalnya, \textit{accuracy}, WER, atau CER) dicatat
+\end{enumerate}
+
+Setelah $K$ iterasi, diperoleh $K$ nilai metrik yang kemudian di-\textit{aggregate} untuk menghasilkan estimasi performa final, biasanya dalam bentuk \textit{mean} $\pm$ \textit{standard deviation}.
+
+\subsubsection{Keuntungan untuk Dataset Kecil}
+
+Kohavi \cite{kohavi1995crossvalidation} menunjukkan bahwa \textit{K-Fold Cross-Validation} memberikan estimasi performa yang lebih akurat dan \textit{unbiased} dibandingkan \textit{holdout validation} (pembagian tunggal), terutama untuk dataset kecil. Keuntungan utama meliputi:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Maximum Data Utilization}: Setiap sampel digunakan untuk \textit{training} ($K-1$ kali) dan \textit{testing} (1 kali), memaksimalkan penggunaan data yang terbatas
+    \item \textbf{Reduced Variance}: Dengan melakukan evaluasi pada $K$ \textit{folds} yang berbeda, variabilitas akibat pembagian data tertentu diminimalkan
+    \item \textbf{Unbiased Performance Estimate}: Estimasi performa yang dihasilkan lebih mendekati performa sebenarnya pada data baru karena tidak bergantung pada satu pembagian data spesifik
+    \item \textbf{Statistical Reliability}: Dengan $K$ nilai metrik, dapat dihitung \textit{confidence intervals} dan dilakukan \textit{statistical significance testing} (misalnya, \textit{paired t-test}) untuk membandingkan beberapa model
+\end{itemize}
+
+\subsubsection{Pemilihan Nilai K}
+
+Nilai $K$ yang umum digunakan adalah 5 atau 10. Pemilihan $K$ melibatkan \textit{trade-off}:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{$K$ kecil (e.g., 5)}: Lebih cepat (fewer iterations), tetapi estimasi performa memiliki \textit{variance} lebih tinggi
+    \item \textbf{$K$ besar (e.g., 10)}: Estimasi lebih akurat dengan \textit{variance} lebih rendah, tetapi memerlukan waktu komputasi lebih lama
+    \item \textbf{Leave-One-Out CV ($K = N$)}: Estimasi paling tidak bias, tetapi sangat mahal secara komputasi dan dapat memiliki \textit{variance} tinggi
+\end{itemize}
+
+Untuk dataset \textit{extremely low-resource} (misalnya, $<$200 sampel), nilai $K=5$ sering menjadi pilihan yang seimbang antara akurasi estimasi dan biaya komputasi \cite{kohavi1995crossvalidation}.
+
+\subsubsection{Stratified K-Fold}
+
+Untuk dataset dengan distribusi kelas atau karakteristik yang tidak seimbang, \textit{Stratified K-Fold} memastikan bahwa setiap \textit{fold} memiliki proporsi kelas yang sama dengan dataset lengkap. Pendekatan ini penting untuk menghindari bias evaluasi akibat distribusi data yang tidak representatif dalam beberapa \textit{folds}.
+
+\subsubsection{Statistical Testing dengan Cross-Validation}
+
+Salah satu keuntungan penting \textit{K-Fold Cross-Validation} adalah kemampuan untuk melakukan \textit{statistical significance testing} ketika membandingkan beberapa model. Dengan $K$ \textit{folds}, diperoleh $K$ pasangan nilai metrik untuk setiap model yang dibandingkan. \textit{Paired t-test} dapat diterapkan untuk menentukan apakah perbedaan performa antara dua model secara statistik signifikan ($p < 0.05$), memberikan kepercayaan yang lebih tinggi terhadap kesimpulan perbandingan model.
