@@ -265,6 +265,11 @@ Dalam konteks Whisper Base, strategi ini membekukan 6 lapisan \textit{encoder} T
 
 Keterbatasan strategi ini adalah model hanya dapat beradaptasi pada level linguistik melalui \textit{decoder}, sehingga jika bahasa target memiliki karakteristik akustik yang sangat berbeda dari bahasa-bahasa dalam data \textit{pre-training}, performa mungkin tidak optimal. Namun, untuk bahasa-bahasa yang masih memiliki kemiripan akustik dengan bahasa-bahasa dalam dataset \textit{pre-training} Whisper (seperti bahasa Minangkabau yang berkaitan dengan bahasa Indonesia), strategi ini terbukti efektif \cite{liu2024exploration}.
 
+\vspace{0.3cm}
+\noindent
+\textbf{Catatan Terminologi}: Dalam penelitian ini, istilah \textbf{"Freeze Encoder"} dan \textbf{"Decoder-Only Fine-Tuning"} merujuk pada strategi yang sama. Istilah "Freeze Encoder" akan digunakan sebagai terminologi utama untuk konsistensi, dengan penjelasan "(Decoder-Only Fine-Tuning)" diberikan pada kemunculan pertama di setiap bab untuk klarifikasi.
+
+
 \subsubsection{Parameter-Efficient Fine-Tuning (PEFT)}
 
 \textit{Parameter-Efficient Fine-Tuning} (PEFT) adalah keluarga metode yang bertujuan mengurangi jumlah parameter yang dilatih selama \textit{fine-tuning} sambil mempertahankan performa yang sebanding dengan \textit{full fine-tuning} \cite{hu2022lora}. PEFT sangat relevan untuk skenario \textit{low-resource} di mana sumber daya komputasi terbatas.

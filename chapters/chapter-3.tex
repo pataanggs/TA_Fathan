@@ -97,7 +97,7 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
     \begin{itemize}[noitemsep]
         \item \textbf{Maximum duration}: Whisper memiliki batasan maksimal \textbf{30 detik} untuk input audio. Audio yang melebihi durasi ini (jika ada) akan \textbf{dipotong} (\textit{truncated}) pada detik ke-30 atau \textbf{dibuang} jika informasi penting terpotong
         \item \textbf{Minimum duration}: Audio yang terlalu pendek ($<$2 detik) akan \textbf{difilter} karena kemungkinan tidak mengandung informasi linguistik yang cukup untuk pembelajaran
-        \item \textbf{No padding}: Audio pendek (2-20 detik) \textbf{tidak} di-\textit{pad} secara artifisial, karena Whisper dapat menangani audio dengan panjang variabel melalui mekanisme \textit{attention masking}
+        \item \textbf{No padding}: Audio pendek (2-20 detik) \textbf{tidak} di-\textit{pad} secara artifisial, karena Whisper dapat menangani audio dengan panjang variabel melalui mekanisme \textit{attention masking}. Selama \textit{training}, \textbf{batching} diimplementasikan menggunakan \textit{data collator} khusus yang secara dinamis mem-\textit{pad} audio dalam \textit{batch} ke panjang maksimal dalam \textit{batch} tersebut (bukan panjang maksimal global), sehingga setiap \textit{batch} dapat diproses oleh GPU secara efisien meski panjang audio berbeda-beda antar \textit{batch}. Pendekatan \textit{dynamic padding per-batch} ini lebih efisien secara memori dibandingkan \textit{global padding} yang akan membuang banyak komputasi pada bagian yang di-\textit{pad}.
     \end{itemize}
     Dengan validasi ini, dataset final yang digunakan untuk pelatihan adalah subset dari 156 file audio asli yang memenuhi kriteria durasi, memastikan kompatibilitas dengan batasan teknis Whisper tanpa kehilangan informasi linguistik yang signifikan
     \item \textbf{Normalization}: Normalisasi \textit{amplitude} audio untuk memastikan konsistensi volume di seluruh dataset, menghindari bias model terhadap audio dengan volume tertentu
@@ -107,6 +107,11 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
     \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik
     \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam dan meningkatkan generalisasi pada skenario \textit{low-resource}
 \end{enumerate}
+
+\vspace{0.3cm}
+\noindent
+\textbf{PENTING - Pencegahan Data Leakage}: Ketiga teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, dan \textit{Noise Injection}) \textbf{hanya diterapkan pada data training} di dalam setiap \textit{fold}, dan \textbf{TIDAK PERNAH diterapkan pada test set}. Pipeline yang benar adalah: \textbf{(1) Split Fold, (2) Augment Training Data Only, (3) Train}. Augmentasi tidak boleh dilakukan sebelum proses splitting karena akan menyebabkan \textit{data leakage} di mana informasi dari \textit{test set} bocor ke \textit{training set} melalui versi teraugmentasi. Hal ini sangat krusial untuk memastikan evaluasi yang valid dan tidak bias.
+
 
 \subsubsection{Text Preprocessing}
 
@@ -130,8 +135,9 @@ Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi
     \begin{itemize}[noitemsep]
         \item Satu \textit{fold} digunakan sebagai \textit{test set} ($\sim$31 audio, $\sim$0.26 jam)
         \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} ($\sim$125 audio, $\sim$1.04 jam)
-        \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Base) pada \textit{training set}
-        \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat
+        \item \textbf{Data augmentation} (SpecAugment, Speed Perturbation, Noise Injection) diterapkan \textbf{hanya pada training set}, bukan pada test set, untuk mencegah \textit{data leakage}
+        \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Base) pada \textit{training set} yang telah diaugmentasi
+        \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat dan \textbf{tidak teraugmentasi}
     \end{itemize}
     \item \textbf{Aggregation}: Hasil WER dan CER dari 5 iterasi di-\textit{aggregate} untuk menghasilkan metrik final berupa \textit{mean} ± \textit{standard deviation}
 \end{enumerate}
@@ -259,6 +265,23 @@ Protokol evaluasi yang diterapkan mencakup tahapan-tahapan berikut:
     \item Perbandingan performa antara model \textit{Freeze Encoder} dan LoRA menggunakan metrik agregat (mean WER/CER), serta analisis \textit{trade-off} dengan waktu \textit{training} dan penggunaan memori
 \end{enumerate}
 
+\subsubsection{Kategorisasi Error untuk Analisis Kualitatif}
+
+Selain evaluasi kuantitatif menggunakan WER dan CER, penelitian ini juga melakukan analisis kualitatif terhadap kesalahan transkripsi dengan mengkategorikan error berdasarkan karakteristik dan penyebabnya. Kategorisasi ini bertujuan untuk memberikan pemahaman mendalam tentang jenis kesalahan yang paling sering terjadi dan konteks di mana model mengalami kesulitan, sehingga dapat memberikan \textit{insights} untuk perbaikan model di masa depan. Error dikategorikan ke dalam empat tipe utama sebagai berikut:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Kesalahan Fonetik (Phonetic Errors)}: Kesalahan yang terjadi akibat misrecognition fonem-fonem spesifik bahasa Minangkabau yang berbeda dari bahasa Indonesia standar. Contohnya termasuk kesalahan pengenalan vokal (misalnya, "a" vs "o" dalam konteks tertentu) atau konsonan khas Minangkabau yang tidak ada dalam bahasa Indonesia. Analisis kesalahan fonetik dapat mengungkap fonem-fonem yang paling sulit dikenali oleh model dan memerlukan perhatian khusus dalam \textit{fine-tuning}.
+    
+    \item \textbf{Kesalahan Leksikal (Lexical Errors)}: Kesalahan pada level kata, terutama pada kosakata spesifik Minangkabau, kata serapan dari bahasa Indonesia atau bahasa asing yang diucapkan dalam konteks bahasa Minangkabau, serta kata-kata yang memiliki ejaan atau pengucapan yang ambigu. Kategori ini mencakup kesalahan penggantian kata dengan kata lain yang mirip secara fonetik tetapi berbeda makna, atau kesalahan pada kata-kata yang jarang muncul dalam dataset \textit{training}.
+    
+    \item \textbf{Kesalahan Kontekstual (Contextual Errors)}: Kesalahan pada kata-kata yang pengenalan yang benarnya bergantung pada konteks kalimat. Misalnya, kata yang secara fonetik ambigu tetapi dapat dikenali dengan benar jika model memahami konteks semantik atau sintaksis kalimat. Kesalahan kontekstual mengindikasikan keterbatasan model dalam memahami struktur bahasa atau memanfaatkan informasi konteks untuk disambiguasi.
+    
+    \item \textbf{Kesalahan Halusinasi (Hallucination Errors)}: Kategori error yang spesifik untuk model Whisper, di mana model menghasilkan teks yang tidak sesuai dengan audio input, terutama selama periode hening atau \textit{silence}. Manifestasi umum termasuk pengulangan frasa secara berulang-ulang (\textit{phrase repetition}) atau munculnya teks acak yang tidak relevan dengan konten audio. Kesalahan halusinasi merupakan karakteristik intrinsik dari model \textit{autoregressive} seperti Whisper yang dilatih pada data skala besar dengan \textit{weak supervision}, dan sering terjadi ketika model tidak memiliki informasi audio yang cukup untuk diprediksi tetapi tetap dipaksa menghasilkan output. Monitoring halusinasi penting untuk memahami \textit{robustness} model terhadap variasi kualitas audio dan periode hening dalam dataset Minangkabau.
+\end{enumerate}
+
+Kategorisasi error ini akan diterapkan pada sampel hasil transkripsi dari setiap \textit{fold} dalam \textit{cross-validation}, dengan inspeksi manual terhadap kesalahan yang terjadi. Analisis kualitatif berdasarkan kategorisasi ini akan diintegrasikan dengan hasil kuantitatif (WER/CER) untuk memberikan pemahaman komprehensif tentang performa model dan pola kesalahan yang dominan untuk setiap strategi \textit{fine-tuning}.
+
+
 \subsection{Analisis Hasil dan Perbandingan}
 \label{III.Langkah9}
 
@@ -272,7 +295,7 @@ Proses analisis hasil dan perbandingan mencakup aspek-aspek berikut:
     \item Perbandingan metrik WER dan CER antara \textit{Freeze Encoder} dan LoRA berdasarkan \textit{mean} ± \textit{standard deviation} dari 5 \textit{folds}
     \item \textbf{Statistical significance testing}: Menerapkan \textit{paired t-test} pada hasil WER/CER dari 5 \textit{folds} untuk menentukan apakah perbedaan antara \textit{Freeze Encoder} dan LoRA secara statistik signifikan (\textit{p-value} $<$ 0.05)
     \item Analisis \textit{trade-off} multidimensional: akurasi model vs efisiensi \textit{training} (waktu pelatihan total untuk 5 \textit{folds}, penggunaan memori GPU, jumlah parameter yang dilatih), untuk mengidentifikasi strategi yang menawarkan keseimbangan terbaik untuk skenario \textit{extremely low-resource}
-    \item Evaluasi kualitas transkrip secara kualitatif melalui inspeksi manual terhadap sampel transkrip dari berbagai \textit{folds}, mengidentifikasi jenis kesalahan yang paling umum dan konteks di mana setiap metode unggul atau lemah
+    \item Evaluasi kualitas transkrip secara kualitatif melalui inspeksi manual terhadap sampel transkrip dari berbagai \textit{folds}, mengidentifikasi dan mengkategorikan kesalahan berdasarkan kerangka kategorisasi error yang telah didefinisikan (fonetik, leksikal, kontekstual, dan halusinasi), untuk memahami jenis kesalahan yang paling umum dan konteks di mana setiap metode unggul atau lemah
     \item Identifikasi \textit{patterns of errors} yang spesifik (\textit{common misrecognitions}), seperti fonem atau kata Minangkabau yang sering salah dikenali, untuk memberikan \textit{insights} bagi penelitian lanjutan
     \item Diskusi tentang \textit{limitations} penelitian (\textit{e.g.}, ukuran dataset yang sangat terbatas, domain terbatas pada pembacaan formal UDHR, computational cost dari 5-fold training) dan \textit{potential improvements} untuk penelitian masa depan
     \item Perumusan rekomendasi strategi \textit{fine-tuning} terbaik untuk bahasa Minangkabau dan bahasa \textit{extremely low-resource} lainnya berdasarkan hasil analisis komprehensif dari \textit{cross-validation}
@@ -409,11 +432,13 @@ Strategi ini mempertahankan representasi akustik universal dari encoder sambil m
     \item Initialize dari pre-trained Whisper Base checkpoint
     \item \textbf{Freeze Components}: Seluruh encoder layers (6 layers) dan feature extractor tetap frozen
     \item \textbf{Trainable Components}: Decoder Transformer blocks (6 layers, $\sim$37M parameters)
+    \item \textbf{Batching Strategy}: Menggunakan \textit{data collator} dengan \textit{dynamic padding per-batch} yang mem-\textit{pad} audio ke panjang maksimal dalam setiap \textit{batch}, memungkinkan pemrosesan GPU yang efisien untuk audio dengan durasi bervariasi tanpa \textit{padding} global yang boros memori
     \item \textbf{5-Fold Iteration}: Untuk setiap fold k (k=1 hingga 5):
     \begin{itemize}[noitemsep]
         \item Training set: 4 folds ($\sim$124 audio)
         \item Test set: 1 fold ($\sim$31 audio)
-        \item Training dengan supervised learning dari scratch
+        \item \textbf{Apply augmentation}: SpecAugment, Speed Perturbation, Noise Injection \textbf{pada training set only} (tidak pada test set)
+        \item Training dengan supervised learning dari scratch menggunakan augmented training data
         \item Monitoring training loss untuk convergence
         \item Early stopping berdasarkan loss plateau (patience=5 epochs)
     \end{itemize}
@@ -434,9 +459,11 @@ Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$0.
         \item Target modules: Query dan Value projections
         \item Trainable parameters: $\sim$0.59M ($\sim$0.24\% dari total)
     \end{itemize}
+    \item \textbf{Batching Strategy}: Sama dengan Freeze Encoder, menggunakan \textit{dynamic padding per-batch} untuk efisiensi memori GPU
     \item \textbf{5-Fold Iteration}: Sama seperti Freeze Encoder, untuk setiap fold k:
     \begin{itemize}[noitemsep]
         \item Training pada 4 folds, test pada 1 fold
+        \item \textbf{Apply augmentation}: SpecAugment, Speed Perturbation, Noise Injection \textbf{pada training set only}
         \item Higher learning rate (5e-4) karena parameter lebih sedikit
         \item Dropout 0.1 pada LoRA layers untuk regularisasi
     \end{itemize}
