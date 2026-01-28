@@ -92,7 +92,7 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Format Conversion}: Konversi format audio dari MP3 (format asli LibriVox Indonesia) ke WAV (\textit{Waveform Audio File Format}). Konversi ini diperlukan karena format MP3 yang terkompresi dengan \textit{lossy compression} memerlukan proses \textit{decoding} tambahan yang dapat membebani komputasi Whisper. Format WAV yang \textit{uncompressed} memungkinkan akses langsung ke data audio mentah (\textit{raw audio samples}), sehingga mengurangi beban komputasi dan mempercepat proses \textit{preprocessing} serta \textit{training}
-    \item \textbf{Resampling}: Konversi \textit{sampling rate} audio dari 44.1 kHz (format asli LibriVox Indonesia) ke 16 kHz, yang merupakan spesifikasi standar yang digunakan oleh model Whisper. Konversi ini penting karena model Whisper dilatih dengan data audio pada frekuensi 16 kHz dan akan menghasilkan performa optimal pada \textit{sampling rate} yang sama
+    \item \textbf{Resampling}: Konversi \textit{sampling rate} audio dari 44.1 kHz (format asli LibriVox Indonesia) ke 16 kHz, yang merupakan spesifikasi standar yang digunakan oleh model Whisper. Konversi ini penting karena model Whisper dilatih dengan data audio pada frekuensi 16 kHz dan akan menghasilkan performa optimal pada \textit{sampling rate} yang sama \cite{radford2023whisper}
     \item \textbf{Duration Filtering and Validation}: Dataset LibriVox Indonesia telah menyediakan audio yang sudah tersegmentasi dengan durasi rata-rata 30 detik per segmen. Proses \textit{preprocessing} tidak melakukan pemotongan ulang (\textit{splitting}) terhadap audio, melainkan melakukan \textbf{validasi durasi} dan \textbf{filtering} untuk memastikan semua audio memenuhi batasan teknis Whisper:
     \begin{itemize}[noitemsep]
         \item \textbf{Maximum duration}: Whisper memiliki batasan maksimal \textbf{30 detik} untuk input audio. Audio yang melebihi durasi ini (jika ada) akan \textbf{dipotong} (\textit{truncated}) pada detik ke-30 atau \textbf{dibuang} jika informasi penting terpotong
@@ -103,9 +103,9 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
     \item \textbf{Normalization}: Normalisasi \textit{amplitude} audio untuk memastikan konsistensi volume di seluruh dataset, menghindari bias model terhadap audio dengan volume tertentu
     \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir setiap \textit{clip}, sehingga model tidak perlu memproses bagian audio yang tidak mengandung informasi linguistik
     \item \textbf{Quality Check}: Penyaringan \textit{clips} dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau mengandung distorsi signifikan, untuk memastikan hanya data berkualitas tinggi yang digunakan dalam \textit{training}
-    \item \textbf{SpecAugment}: Teknik \textit{augmentation} pada representasi spektrogram dengan menerapkan \textit{time masking} (T=70) dan \textit{frequency masking} (F=27) untuk meningkatkan invariansi temporal dan frekuensi, diterapkan selama \textit{training} untuk meningkatkan \textit{robustness} model
-    \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik
-    \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam dan meningkatkan generalisasi pada skenario \textit{low-resource}
+    \item \textbf{SpecAugment}: Teknik \textit{augmentation} pada representasi spektrogram dengan menerapkan \textit{time masking} (T=70) dan \textit{frequency masking} (F=27) untuk meningkatkan invariansi temporal dan frekuensi \\cite{park2019specaugment}, diterapkan selama \textit{training} untuk meningkatkan \textit{robustness} model
+    \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik \\cite{ko2015audio}
+    \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam dan meningkatkan generalisasi pada skenario \textit{low-resource} \cite{salamon2017scaper,kim2020augmentation}
 \end{enumerate}
 
 \vspace{0.3cm}
@@ -222,7 +222,7 @@ Konfigurasi ini dirancang khusus untuk mencegah \textit{overfitting} pada datase
 
 \subsubsection{LoRA Fine-Tuning}
 
-Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada \textit{attention layers}, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini sangat efisien karena hanya melatih $\sim$0.27\% dari total parameter (sekitar 197 ribu parameter dari 74 juta), namun tetap mampu mencapai performa yang kompetitif. Konfigurasi LoRA \textit{fine-tuning} adalah sebagai berikut:
+Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada \textit{attention layers}, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini diperkenalkan oleh Hu et al. \cite{hu2022lora} dan telah terbukti efektif untuk adaptasi model besar dengan dataset terbatas \cite{gupta2024parameter,wang2025ssvd}. Pendekatan ini sangat efisien karena hanya melatih $\sim$0.27\% dari total parameter (sekitar 197 ribu parameter dari 74 juta), namun tetap mampu mencapai performa yang kompetitif. Bagat dan Kumar \cite{bagat2025mixture} menunjukkan bahwa LoRA dapat dikombinasikan dengan arsitektur \textit{mixture of experts} untuk meningkatkan adaptasi multi-domain. Konfigurasi LoRA \textit{fine-tuning} adalah sebagai berikut:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{LoRA Configuration}:
@@ -241,12 +241,12 @@ Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \t
 
 \subsubsection{Regularization}
 
-Selain \textit{data augmentation}, beberapa teknik \textit{regularization} juga diterapkan untuk mencegah \textit{overfitting} dan meningkatkan generalisasi model:
+Selain \textit{data augmentation}, beberapa teknik \textit{regularization} juga diterapkan untuk mencegah \textit{overfitting} dan meningkatkan generalisasi model \cite{krogh1991regularization}:
 
 \begin{enumerate}[noitemsep]
-    \item \textit{Dropout} pada \textit{attention layers} (p=0.1) dan \textit{feed-forward network} (FFN) \textit{layers} (p=0.3) untuk mengurangi \textit{co-adaptation} antar \textit{neurons}
-    \item \textit{Label smoothing} ($\epsilon = 0.1$) untuk mencegah overconfidence pada prediksi dan meningkatkan kalibrasi model
-    \item \textit{Gradient clipping} (\textit{max norm} = 1.0) untuk mencegah \textit{exploding gradients} selama \textit{training}
+    \item \textit{Dropout} pada \textit{attention layers} (p=0.1) dan \textit{feed-forward network} (FFN) \textit{layers} (p=0.3) untuk mengurangi \textit{co-adaptation} antar \textit{neurons} \cite{srivastava2014dropout}
+    \item \textit{Label smoothing} ($\epsilon = 0.1$) untuk mencegah overconfidence pada prediksi dan meningkatkan kalibrasi model \cite{szegedy2016rethinking}
+    \item \textit{Gradient clipping} (\textit{max norm} = 1.0) untuk mencegah \textit{exploding gradients} selama \textit{training} \cite{pascanu2013difficulty}
     \item \textit{Early stopping} berdasarkan \textit{validation} WER, menghentikan \textit{training} jika tidak ada perbaikan selama 5 \textit{epochs} berturut-turut
 \end{enumerate}
 

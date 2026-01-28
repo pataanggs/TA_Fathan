@@ -1,11 +1,11 @@
-\contentsline {myequations}{\numberline {Rumus~2.1}Formula LoRA (Low-Rank Adaptation)}{27}{equation.2.2.1}%
-\contentsline {myequations}{\numberline {Rumus~2.2}Formula WER (Word Error Rate)}{28}{equation.2.2.2}%
-\contentsline {myequations}{\numberline {Rumus~3.1}Definisi WER (Word Error Rate)}{69}{equation.3.5.1}%
-\contentsline {myequations}{\numberline {Rumus~3.2}Contoh Perhitungan WER}{70}{equation.3.5.2}%
-\contentsline {myequations}{\numberline {Rumus~3.3}Definisi CER (Character Error Rate)}{70}{equation.3.5.3}%
-\contentsline {myequations}{\numberline {Rumus~3.4}Contoh Perhitungan CER}{70}{equation.3.5.4}%
-\contentsline {myequations}{\numberline {Rumus~3.5}Formula Parameter LoRA}{71}{equation.3.5.5}%
-\contentsline {myequations}{\numberline {Rumus~3.6}Parameter LoRA Per Projection}{71}{equation.3.5.6}%
-\contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{71}{equation.3.5.7}%
-\contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA}{71}{equation.3.5.8}%
-\contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{72}{equation.3.5.9}%
+\contentsline {myequations}{\numberline {Rumus~2.1}Formula LoRA (Low-Rank Adaptation)}{30}{equation.2.2.1}%
+\contentsline {myequations}{\numberline {Rumus~2.2}Formula WER (Word Error Rate)}{31}{equation.2.2.2}%
+\contentsline {myequations}{\numberline {Rumus~3.1}Definisi WER (Word Error Rate)}{71}{equation.3.5.1}%
+\contentsline {myequations}{\numberline {Rumus~3.2}Contoh Perhitungan WER}{72}{equation.3.5.2}%
+\contentsline {myequations}{\numberline {Rumus~3.3}Definisi CER (Character Error Rate)}{72}{equation.3.5.3}%
+\contentsline {myequations}{\numberline {Rumus~3.4}Contoh Perhitungan CER}{72}{equation.3.5.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5}Formula Parameter LoRA}{73}{equation.3.5.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6}Parameter LoRA Per Projection}{73}{equation.3.5.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{73}{equation.3.5.7}%
+\contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA}{73}{equation.3.5.8}%
+\contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{74}{equation.3.5.9}%

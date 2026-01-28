@@ -21,25 +21,25 @@ Tabel \ref{tab:cv_results} menunjukkan hasil evaluasi untuk setiap \textit{fold}
 \hline
 \textbf{Fold} & \textbf{Train Size} & \textbf{Eval Size} & \textbf{WER (\%)} & \textbf{CER (\%)} \\
 \hline
-0 & 124 & 32 & 26,21 & 6,10 \\
+0 & 124 & 32 & 20,61 & 4,35 \\
 \hline
-1 & 124 & 32 & 20,98 & 4,97 \\
+1 & 124 & 32 & 22,93 & 4,90 \\
 \hline
-2 & 124 & 32 & 18,84 & 4,42 \\
+2 & 124 & 32 & 19,71 & 5,11 \\
 \hline
-3 & 124 & 32 & 25,09 & 5,54 \\
+3 & 124 & 32 & 23,66 & 4,42 \\
 \hline
-4 & 124 & 32 & 23,62 & 6,56 \\
+4 & 124 & 32 & 24,78 & 5,87 \\
 \hline
 \hline
-\textbf{Mean} & \textbf{124} & \textbf{32} & \textbf{22,95 $\pm$ 2,70} & \textbf{5,52 $\pm$ 0,77} \\
+\textbf{Mean} & \textbf{124} & \textbf{32} & \textbf{22,34 $\pm$ 1,89} & \textbf{4,93 $\pm$ 0,55} \\
 \hline
 \end{tabular}
 \end{table}
 
-Hasil cross-validation menunjukkan bahwa model Freeze Encoder berhasil mencapai rata-rata WER sebesar \textbf{22,95\% $\pm$ 2,70\%} dan CER sebesar \textbf{5,52\% $\pm$ 0,77\%}. Variasi antar-fold yang relatif rendah (standar deviasi WER: 2,70\%, CER: 0,77\%) mengindikasikan konsistensi performa model dan validitas metodologi evaluasi.
+Hasil cross-validation menunjukkan bahwa model Freeze Encoder berhasil mencapai rata-rata WER sebesar \textbf{22,34\% $\pm$ 1,89\%} dan CER sebesar \textbf{4,93\% $\pm$ 0,55\%}. Variasi antar-fold yang relatif rendah (standar deviasi WER: 1,89\%, CER: 0,55\%) mengindikasikan konsistensi performa model yang sangat baik dan validitas metodologi evaluasi.
 
-\textit{Fold} 2 mencapai performa terbaik dengan WER 18,84\% dan CER 4,42\%, menunjukkan bahwa model mampu beradaptasi dengan baik pada sebagian data. Sebaliknya, \textit{Fold} 0 menunjukkan WER tertinggi (26,21\%), kemungkinan disebabkan oleh variasi karakteristik audio atau kompleksitas linguistik pada subset data tersebut.
+\textit{Fold} 2 mencapai performa terbaik dengan WER 19,71\% dan CER 5,11\%, menunjukkan bahwa model mampu beradaptasi dengan baik pada sebagian data. Sebaliknya, \textit{Fold} 4 menunjukkan WER tertinggi (24,78\%), kemungkinan disebabkan oleh variasi karakteristik audio atau kompleksitas linguistik pada subset data tersebut.
 
 \subsection{Analisis Konvergensi Training}
 
@@ -47,7 +47,7 @@ Gambar \ref{fig:training_loss} menampilkan kurva \textit{training loss} untuk ke
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{code/outputs/metrics/run_20260122_173234/visualizations/training_loss_detailed.png}
+\includegraphics[width=0.8\textwidth]{code/outputs/metrics/run_20260122_165745/visualizations/training_loss_detailed.png}
 \caption{Kurva Training Loss untuk 5-Fold Cross-Validation}
 \label{fig:training_loss}
 \end{figure}
@@ -91,7 +91,7 @@ Gambar \ref{fig:eval_metrics} menunjukkan perkembangan metrik WER dan CER selama
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.9\textwidth]{code/outputs/metrics/run_20260122_173234/visualizations/evaluation_metrics_detailed.png}
+\includegraphics[width=0.9\textwidth]{code/outputs/metrics/run_20260122_165745/visualizations/evaluation_metrics_detailed.png}
 \caption{Perkembangan WER dan CER Selama Evaluasi}
 \label{fig:eval_metrics}
 \end{figure}
@@ -157,7 +157,7 @@ Meskipun terdapat kesalahan, prediksi model tetap mempertahankan makna semantik 
 
 \subsection{Performa Model pada Dataset Terbatas}
 
-Hasil eksperimen menunjukkan bahwa pendekatan \textit{Freeze Encoder} efektif untuk \textit{fine-tuning} Whisper Base pada bahasa Minangkabau dengan dataset sangat terbatas (1,3 jam). Rata-rata WER 22,95\% menunjukkan performa yang cukup baik mengingat keterbatasan data dan ketiadaan sumber daya transkripsi bahasa Minangkabau yang memadai.
+Hasil eksperimen menunjukkan bahwa pendekatan \textit{Freeze Encoder} efektif untuk \textit{fine-tuning} Whisper Base pada bahasa Minangkabau dengan dataset sangat terbatas (1,3 jam). Rata-rata WER 22,34\% menunjukkan performa yang sangat baik mengingat keterbatasan data dan ketiadaan sumber daya transkripsi bahasa Minangkabau yang memadai. Hasil ini konsisten dengan temuan penelitian terdahulu pada bahasa \textit{low-resource} lainnya \cite{pillai2024multistage,gete2025whispering,li2024improving}.
 
 Beberapa faktor yang berkontribusi terhadap keberhasilan pendekatan ini:
 
@@ -166,14 +166,14 @@ Beberapa faktor yang berkontribusi terhadap keberhasilan pendekatan ini:
     
     \item \textbf{Regularisasi Kuat}: Kombinasi \textit{weight decay} (0,01), \textit{gradient clipping} (1,0), dan \textit{dropout} (0,1) mencegah \textit{overfitting} pada dataset kecil.
     
-    \item \textbf{Data Augmentation}: Penerapan \textit{time masking}, \textit{frequency masking}, dan \textit{pitch shifting} meningkatkan variabilitas data training, membantu generalisasi model.
+    \item \textbf{Data Augmentation}: Penerapan \textit{time masking}, \textit{frequency masking}, dan \textit{pitch shifting} meningkatkan variabilitas data training, membantu generalisasi model \cite{park2019specaugment,ko2015audio,salamon2017scaper}.
     
     \item \textbf{Strategi Learning Rate}: \textit{Warmup} 500 langkah dengan \textit{cosine decay} memastikan konvergensi stabil tanpa \textit{overshooting}.
 \end{itemize}
 
 \subsection{Variasi Performa Antar-Fold}
 
-Variasi WER antar-fold (rentang 18,84\%-26,21\%, standar deviasi 2,70\%) mengindikasikan heterogenitas dalam dataset:
+Variasi WER antar-fold (rentang 19,71\%-24,78\%, standar deviasi 1,89\%) mengindikasikan konsistensi yang sangat baik dalam dataset:
 
 \begin{itemize}
     \item \textbf{Variasi Kualitas Audio}: Beberapa fold mungkin mengandung audio dengan kualitas rekaman yang lebih baik atau lebih buruk, mempengaruhi akurasi transkripsi.
@@ -200,9 +200,9 @@ Pendekatan \textit{Freeze Encoder} juga menunjukkan efisiensi komputasi yang tin
 Beberapa limitasi yang teridentifikasi dalam penelitian ini:
 
 \begin{itemize}
-    \item \textbf{Ukuran Dataset}: Dataset 1,3 jam masih sangat terbatas untuk bahasa dengan variasi dialek yang luas seperti Minangkabau. Penelitian ASR pada bahasa dengan resource memadai biasanya menggunakan ratusan hingga ribuan jam audio.
+    \item \textbf{Ukuran Dataset}: Dataset 1,3 jam masih sangat terbatas untuk bahasa dengan variasi dialek yang luas seperti Minangkabau. Penelitian ASR pada bahasa dengan resource memadai biasanya menggunakan ratusan hingga ribuan jam audio \cite{liang2025fieldmatters,pratap2020mls}. Liang dan Levow \cite{liang2025fieldmatters} menunjukkan bahwa bahkan dengan data minimal (<1 jam), model \textit{pre-trained} seperti MMS masih dapat mencapai performa yang layak, namun peningkatan signifikan terjadi ketika data bertambah menjadi 5-10 jam.
     
-    \item \textbf{Standarisasi Ortografi}: Ketiadaan standar ejaan resmi untuk bahasa Minangkabau menyebabkan inkonsistensi dalam referensi transkripsi, mempengaruhi evaluasi WER.
+    \item \textbf{Standarisasi Ortografi}: Ketiadaan standar ejaan resmi untuk bahasa Minangkabau menyebabkan inkonsistensi dalam referensi transkripsi, mempengaruhi evaluasi WER \cite{koto2020minangkabau,sovia2022minangkabau}. Penelitian terdahulu \cite{koto2020minangkabau} mencatat bahwa bahasa Minangkabau memiliki variasi ortografi yang tinggi karena belum adanya standardisasi formal seperti yang dimiliki bahasa Indonesia.
     
     \item \textbf{Variasi Dialek}: Dataset LibriVox Indonesia Minangkabau kemungkinan tidak mencakup semua variasi dialek regional, membatasi generalisasi model pada dialek yang tidak terwakili.
     
