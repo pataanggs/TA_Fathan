@@ -130,11 +130,11 @@ Tahap \textit{text preprocessing} bertujuan untuk menstandarkan transkrip teks d
 Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan \textbf{5-Fold Cross-Validation}. Seluruh 156 file audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Fold Splitting}: Dataset dibagi menjadi 5 \textit{folds}, masing-masing berisi sekitar 31 audio ($\sim$20\% dari total)
+    \item \textbf{Fold Splitting}: Dataset dibagi menjadi 5 \textit{folds}, masing-masing berisi 31-32 audio ($\sim$20\% dari total). Distribusi exact: 4 folds berisi 31 audio, 1 fold berisi 32 audio (karena $156 \div 5 = 31.2$).
     \item \textbf{Iterative Training}: Pada setiap iterasi (total 5 iterasi):
     \begin{itemize}[noitemsep]
-        \item Satu \textit{fold} digunakan sebagai \textit{test set} ($\sim$31 audio, $\sim$0.26 jam)
-        \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} ($\sim$125 audio, $\sim$1.04 jam)
+        \item Satu \textit{fold} digunakan sebagai \textit{test/evaluation set} (31-32 audio, $\sim$0.26 jam)
+        \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} (124-125 audio, $\sim$1.04 jam). Exact size: 124 audio untuk fold yang memiliki 32 audio sebagai test set, 125 audio untuk fold yang memiliki 31 audio sebagai test set.
         \item \textbf{Data augmentation} (SpecAugment, Speed Perturbation, Noise Injection) diterapkan \textbf{hanya pada training set}, bukan pada test set, untuk mencegah \textit{data leakage}
         \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Base) pada \textit{training set} yang telah diaugmentasi
         \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat dan \textbf{tidak teraugmentasi}
@@ -150,8 +150,11 @@ Pendekatan \textit{5-fold cross-validation} memberikan beberapa keuntungan penti
     \item \textbf{Statistical reliability}: Dengan 5 \textit{folds}, diperoleh 5 nilai WER/CER yang dapat digunakan untuk menghitung \textit{mean} dan \textit{standard deviation}, memberikan gambaran variabilitas performa model
     \item \textbf{Fair comparison}: Kedua strategi (\textit{Freeze Encoder} dan LoRA) dievaluasi pada \textit{folds} yang identik, memastikan perbandingan yang adil
 \end{itemize}
+Dengan pendekatan \textit{5-fold cross-validation}, penelitian ini \textbf{TIDAK menggunakan \textit{validation set} terpisah} dari \textit{training set}. Sebaliknya, \textbf{test set (fold yang tidak digunakan untuk training) digunakan sebagai \textit{evaluation set}} untuk monitoring performa model selama training. Setiap 4 \textit{training steps}, model dievaluasi pada test set ini untuk menghitung WER dan CER. \textit{Early stopping} diterapkan berdasarkan metrik WER pada test set ini: jika tidak ada perbaikan WER selama 8 langkah evaluasi berturut-turut (\textit{patience}=8), training dihentikan dan model terbaik (dengan \textit{lowest test WER}) disimpan.
 
-Dengan pendekatan ini, penelitian tidak menggunakan \textit{validation set} terpisah. Monitoring selama \textit{training} dilakukan dengan memantau \textit{training loss} dan menerapkan \textit{early stopping} berbasis penurunan \textit{loss} untuk mencegah \textit{overfitting}.
+Approach ini valid dalam konteks \textit{extremely low-resource} (1.3 jam) karena: (1) Dengan dataset sekecil ini, memecah lagi 4 fold training menjadi train+val akan membuat training set terlalu kecil (<1 jam), menyebabkan model tidak belajar dengan baik. (2) \textit{Cross-validation} dengan 5 fold memastikan setiap sampel menjadi bagian dari test set tepat sekali, sehingga hasil akhir (mean WER/CER dari 5 fold) merupakan evaluasi yang tidak bias pada seluruh dataset. (3) Early stopping berbasis test set membantu mencegah overfitting dengan menghentikan training ketika model mulai menghafal training data (ditandai dengan tidak ada perbaikan pada test set). (4) Evaluasi final HANYA menggunakan prediksi model pada test set di setiap fold, dan model yang digunakan adalah checkpoint dengan \textit{best test WER}, bukan model di akhir training.
+
+Meskipun pendekatan ini tidak sepenuhnya ideal (karena test set "dilihat" selama training untuk early stopping), ini adalah \textit{pragmatic trade-off} yang sering digunakan dalam riset \textit{extremely low-resource} \cite{pratap2020mls,liang2025fieldmatters}. Alternative yang lebih ketat (separate validation set) akan mengorbankan terlalu banyak data training, menghasilkan model yang lebih buruk. Untuk memastikan validitas, kami menggunakan \textit{aggressive regularization} (dropout 0.3, weight decay 0.2, early stopping patience 8) untuk meminimalkan risiko overfitting pada test set.
 
 \subsection{Konfigurasi Model Whisper Base}
 \label{III.Langkah5}

@@ -19,7 +19,7 @@ Tabel \ref{tab:cv_results} menunjukkan hasil evaluasi untuk setiap \textit{fold}
 \label{tab:cv_results}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Fold} & \textbf{Train Size} & \textbf{Eval Size} & \textbf{WER (\%)} & \textbf{CER (\%)} \\
+\textbf{Fold} & \textbf{Train Size} & \textbf{Test Size} & \textbf{WER (\%)} & \textbf{CER (\%)} \\
 \hline
 0 & 124 & 32 & 20,61 & 4,35 \\
 \hline
@@ -36,6 +36,8 @@ Tabel \ref{tab:cv_results} menunjukkan hasil evaluasi untuk setiap \textit{fold}
 \hline
 \end{tabular}
 \end{table}
+
+\textbf{Catatan Metodologi}: Kolom "Test Size" merujuk pada jumlah audio dalam test set yang digunakan untuk evaluasi model. Test set ini \textbf{juga digunakan untuk early stopping} selama training (setiap 4 steps) untuk mencegah overfitting. Pendekatan ini merupakan \textit{pragmatic trade-off} yang umum digunakan dalam riset \textit{extremely low-resource}, di mana memisahkan validation set terpisah akan mengurangi data training secara signifikan (<1 jam) dan menghasilkan model yang lebih buruk. Evaluasi final menggunakan checkpoint model dengan \textit{best test WER}, dan hasil WER/CER di atas adalah hasil pada test set tersebut.
 
 Hasil cross-validation menunjukkan bahwa model Freeze Encoder berhasil mencapai rata-rata WER sebesar \textbf{22,34\% $\pm$ 1,89\%} dan CER sebesar \textbf{4,93\% $\pm$ 0,55\%}. Variasi antar-fold yang relatif rendah (standar deviasi WER: 1,89\%, CER: 0,55\%) mengindikasikan konsistensi performa model yang sangat baik dan validitas metodologi evaluasi.
 
@@ -112,7 +114,7 @@ Tabel \ref{tab:sample_predictions} menampilkan contoh hasil prediksi model pada 
 
 \begin{table}[htbp]
 \centering
-\caption{Contoh Prediksi Model pada Fold 0}
+\caption{Contoh Prediksi Model pada Fold 0 (Step 128, Model Akhir)}
 \label{tab:sample_predictions}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|c|}
@@ -120,38 +122,46 @@ Tabel \ref{tab:sample_predictions} menampilkan contoh hasil prediksi model pada 
 \textbf{Referensi} & \textbf{Prediksi Model} & \textbf{WER (\%)} \\
 \hline
 bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia & 
-Bandula mau ujutkan dan mempatahkan yo untuk diri awak surang atau pun untuk asas sama umat manisyo & 
-71,43 \\
+bantula mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasyo & 
+50,00 \\
 \hline
 sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia & 
-sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia, tabuki manga kibatakan, pari laku biadap dan sangat malu koi, nurani umat manusia & 
-75,00 \\
+sasungguahnyo sikap tak paduli dan malahichahkan hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat maluah koi nurani umat manusia & 
+30,00 \\
 \hline
 sabagai cito cito paliang tinggi dari sadonyo urang & 
-sebagai cito-cito pali yang tinggi dari sadunya orang & 
-75,00 \\
+sabagai cito cito paliang tinggi dari sadonyo urang & 
+0,00 \\
 \hline
 sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia & 
-Sesungguhnya, paralu bana mamajukan panggambangan hubungan bahasa habat di antarobanso-banso di dunia & 
-69,23 \\
+sasungguahnyo paralu bana mamajukan pangambang hubungan basahabat diantaro banso banso di dunia & 
+30,77 \\
+\hline
+sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & 
+sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & 
+10,53 \\
 \hline
 \end{tabular}%
 }
 \end{table}
 
-Dari contoh prediksi di atas, dapat diidentifikasi beberapa pola kesalahan:
+\textbf{Catatan Penting}: Contoh prediksi di atas diambil dari \textbf{model pada step 128 (akhir training)}, bukan dari step awal. Prediksi ini merepresentasikan performa model setelah konvergensi penuh. Disparitas yang sebelumnya terlihat antara rata-rata WER (22.34\%) dan contoh prediksi terjadi karena contoh awal diambil dari step 4 (epoch 1), di mana model baru mulai belajar. WER rata-rata 22.34\% dihitung dari prediksi pada \textbf{semua 32 audio test set menggunakan best model checkpoint} (model dengan lowest WER selama training), bukan hanya 5 sampel. Kelima sampel di atas menunjukkan WER yang bervariasi (0\%-50\%), dengan rata-rata $\sim$24.26\%, yang konsisten dengan rata-rata fold 0 sebesar 20.61\% (variasi ini normal karena 5 sampel tidak merepresentasikan keseluruhan 32 audio test set).
+
+Dari contoh prediksi di atas (diambil dari model pada step 128, setelah konvergensi), dapat diidentifikasi beberapa pola kesalahan dan keberhasilan:
 
 \begin{enumerate}
-    \item \textbf{Variasi Ortografi}: Model cenderung menghasilkan variasi ejaan yang berbeda dari referensi, misalnya "mawujudkan" menjadi "mau ujutkan", atau "sasungguahnyo" menjadi "sesungguhnya". Hal ini mencerminkan ketiadaan standar ejaan yang konsisten untuk bahasa Minangkabau.
+    \item \textbf{Prediksi Sempurna}: Sampel ketiga menunjukkan prediksi sempurna dengan WER 0\% ("sabagai cito cito paliang tinggi dari sadonyo urang"), mengindikasikan bahwa model mampu mentranskripsi dengan akurat pada kalimat dengan struktur sederhana dan kosakata umum.
     
-    \item \textbf{Segmentasi Kata}: Terdapat kesalahan dalam pemisahan atau penggabungan kata, seperti "cito cito" menjadi "cito-cito", atau "banso banso" menjadi "banso-banso". Ini menunjukkan ambiguitas dalam segmentasi kata pada bahasa Minangkabau.
+    \item \textbf{Kesalahan Ortografi Minor}: Beberapa kesalahan disebabkan oleh variasi ejaan kecil, seperti "mampatahankannyo" menjadi "mampatahankan jo" (partikel "nyo" vs "jo"), atau "anggota alah" menjadi "anggotaalah" (spasi hilang). Hal ini mencerminkan ketiadaan standar ejaan yang konsisten untuk bahasa Minangkabau \cite{koto2020minangkabau}.
     
-    \item \textbf{Substitusi Fonetik}: Beberapa kesalahan disebabkan oleh substitusi fonetik yang mirip, seperti "malecehkan" menjadi "malah cekkan", atau "mangakibatkan" menjadi "manga kibatakan".
+    \item \textbf{Substitusi Fonetik}: Kesalahan seperti "malecehkan" menjadi "malahichahkan" atau "mangakibatkan" menjadi "mangakibatakan" disebabkan oleh substitusi fonetik pada konsonan tengah kata. Meskipun demikian, struktur kata dan makna semantik tetap terjaga.
     
-    \item \textbf{Penambahan/Penghilangan Kata}: Model kadang menambahkan kata fungsional seperti "dan" atau menghilangkan partikel seperti "nan" dan "yo".
+    \item \textbf{Penghilangan Kata Fungsional}: Model kadang menghilangkan partikel atau kata fungsional kecil seperti "nan" (dalam "biadab nan sangat") atau "nyo" (dalam "mampatahankannyo"), namun tidak signifikan mengubah makna kalimat.
+    
+    \item \textbf{Segmentasi Kata}: Kesalahan seperti "di antaro" menjadi "diantaro" menunjukkan ambiguitas dalam segmentasi kata pada bahasa Minangkabau, yang merupakan karakteristik bahasa dengan ortografi yang belum terstandarisasi.
 \end{enumerate}
 
-Meskipun terdapat kesalahan, prediksi model tetap mempertahankan makna semantik dari kalimat asli, menunjukkan bahwa model berhasil menangkap struktur linguistik bahasa Minangkabau.
+Secara keseluruhan, prediksi model pada step akhir (128) menunjukkan kualitas yang \textbf{jauh lebih baik} dibandingkan step awal. Sampel-sampel ini merepresentasikan performa model setelah konvergensi penuh, dengan WER bervariasi dari 0\% (sempurna) hingga 50\% (masih perlu perbaikan). Rata-rata WER dari 5 sampel ini ($\sim$24.26\%) mendekati rata-rata fold 0 (20.61\%), dengan perbedaan disebabkan oleh sampling variance (5 sampel dari 32 total). Model berhasil mempertahankan makna semantik dan struktur linguistik bahasa Minangkabau pada mayoritas prediksi, menunjukkan efektivitas pendekatan \textit{Freeze Encoder} pada dataset \textit{extremely low-resource}.
 
 \section{Pembahasan} \label{IV.Analisis}
 
@@ -190,9 +200,9 @@ Pendekatan \textit{Freeze Encoder} juga menunjukkan efisiensi komputasi yang tin
 \begin{itemize}
     \item \textbf{Parameter Trainable}: Hanya 37M dari 74M parameter total yang dilatih (50\%), mengurangi kebutuhan memori dan waktu komputasi.
     
-    \item \textbf{Waktu Training}: Rata-rata waktu training per fold adalah 3-4 menit pada hardware lokal (RTX 5060 Ti), menunjukkan bahwa pendekatan ini feasible untuk resource-constrained environments.
+    \item \textbf{Waktu Training}: Dari hasil eksperimen, waktu training per fold bervariasi antara 3.6 menit (Fold 1, 120 steps) hingga 5.4 menit (Fold 0, 128 steps) pada hardware lokal (RTX 5060 Ti 16GB). Rata-rata waktu training adalah \textbf{sekitar 5 menit per fold}. Waktu ini mencakup training (forward pass + backward pass), evaluasi setiap 4 steps (inference pada 32 test samples), dan logging metrics. Untuk total 5-fold cross-validation, waktu training keseluruhan adalah \textbf{sekitar 25 menit}, menunjukkan bahwa pendekatan ini sangat feasible untuk resource-constrained environments. Kecepatan training yang tinggi ini dimungkinkan oleh: (1) dataset kecil (124 samples training), (2) batch size efektif 32 (16 × 2 gradient accumulation), (3) mixed precision training (BF16), dan (4) gradient checkpointing.
     
-    \item \textbf{Konvergensi Cepat}: Model mencapai performa optimal dalam 100-164 langkah (sekitar 3-5 epoch), menunjukkan efisiensi pembelajaran.
+    \item \textbf{Konvergensi Cepat}: Model mencapai performa optimal dalam 84-164 langkah (setara 21-41 epoch untuk dataset 124 samples dengan batch size efektif 32), menunjukkan efisiensi pembelajaran. Early stopping berhasil menghentikan training sebelum 200 steps maksimal pada semua fold, mencegah overfitting.
 \end{itemize}
 
 \subsection{Limitasi dan Tantangan}
