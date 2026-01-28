@@ -1,0 +1,1271 @@
+[
+  {
+    "timestamp": "2026-01-22T17:41:36.109217",
+    "step": 4,
+    "epoch": 1.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Manusia sadayoyo lah ya, kadunya membu hakak dan kamar di kean, mandasar dan sama dan indak dapat dipisahkan.",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.8823529411764706,
+        "cer": 0.22641509433962265
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekerasi sadunya hakak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.13333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hakak manusia mukadima. Sesungguhnya pengakuan taradok martabat tasar dan hakak, dan sama saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamer DKN.",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.6428571428571429,
+        "cer": 0.16080402010050251
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhnya iklar negara-negara anggota.",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.17073170731707318
+      },
+      {
+        "index": 4,
+        "prediction": " untuk memajukan panggur matang taradok hakak asasi manusia dan kamerdekaan nama dasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.13636363636363635
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:41:45.587697",
+    "step": 8,
+    "epoch": 2.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Manusia sadayoyo-yoyo lah ya, kadunya membu hakak dan kamar di kean, mandasar dan sama dan indak dapat dipisahkan.",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.8823529411764706,
+        "cer": 0.2641509433962264
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekerasi sadunya hakak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.13333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hakak manusia mukadima. Sesungguhnya pengakuan taradok martabat tasar dan hakak, dan sama saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamer DKN.",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.6428571428571429,
+        "cer": 0.16080402010050251
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhnya iklar negara-negara anggota.",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.17073170731707318
+      },
+      {
+        "index": 4,
+        "prediction": " untuk memajukan panggur matang taradok hakak asasi manusia dan kamerdekaan nama dasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.13636363636363635
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:41:55.738559",
+    "step": 12,
+    "epoch": 3.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Manusia sadayoyo-yoyo lahia, kadunya membu hakak dan kamar dikehan, mandasarnan, sama dan indak dapat dipisahkan.",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.8235294117647058,
+        "cer": 0.25471698113207547
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekerasi sadunya hakak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.13333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hakak manusia mukadima. Sesungguhnya pengakuan taradok martabat tasar dan hakak dan sama saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamerdekaan.",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.6071428571428571,
+        "cer": 0.1306532663316583
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara-negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.8,
+        "cer": 0.17073170731707318
+      },
+      {
+        "index": 4,
+        "prediction": " untuk memajukan panggur matang taradok hakak asasi manusia dan kamerdekaan nama dasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.13636363636363635
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:42:05.908349",
+    "step": 16,
+    "epoch": 4.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Manusia sadayoyo-yo lahia, kadunya membu hakak dan kamar dikehan, mandasarnan, sama dan indak dapat dipisahkan.",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.8235294117647058,
+        "cer": 0.2358490566037736
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekerasi sadunya hakak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.13333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hakak manusia mukadima. Sesungguhnya pangakuan taradok martabat tasar dan hakak, dan sama saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamerdekaan.",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.1306532663316583
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": " untuk memajukan panggormatan taradok hakak asasi manusia dan kamerdekaan nama dasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.6666666666666666,
+        "cer": 0.10227272727272728
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:42:14.697622",
+    "step": 20,
+    "epoch": 5.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Manusia sadayoyoyo lahia kadunya membu hakak dan kamar dekaan mandasarnan sama dan indak dapat dipisahkan.",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.7647058823529411,
+        "cer": 0.16981132075471697
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekerasi sadunya hakak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.13333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hakak manusia mukadima. Sesungguhnya pangakuan taradok martabat tasar dan hakak nann samo saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamerdekaan.",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.5357142857142857,
+        "cer": 0.12060301507537688
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": " Untuak memajukan panggormatan taradok hakak asasi manusia dan kamardekaan nan mandaseran",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.09090909090909091
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:42:23.526990",
+    "step": 24,
+    "epoch": 6.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manusia sadayoyo lahia kadunya membo hakak dan kamardekaan mandasarnan sama dan indak dapat dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.5882352941176471,
+        "cer": 0.12264150943396226
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekalasi sadunya hakak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.13333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hakak manusia mukadima sesungguhyo pangakuan taradok martabat tasar dan hakak nan samo saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamerdekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.10552763819095477
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": " Untuak memajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandaseran",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.06818181818181818
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:42:32.679744",
+    "step": 28,
+    "epoch": 7.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manusia sadayoyo lahia kadunya mambuh hakak dan kamardekaan mandasarnan sama dan indakdapak dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.6470588235294118,
+        "cer": 0.12264150943396226
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekalasi sadunya hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.08888888888888889
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hak hak manusia mukadima sesungguhyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamerdekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.07537688442211055
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": " Untuak memajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandaseran",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.056818181818181816
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:42:41.505534",
+    "step": 32,
+    "epoch": 8.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manusia sadayoyo lahia kadunian membohak hak dan kamardekaan mandasarnan sama dan indakdapak dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.5882352941176471,
+        "cer": 0.11320754716981132
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunya hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.08888888888888889
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hak hak manusia mukadima sesungguhio pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamerdekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.08040201005025126
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": " Untuak memajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.03409090909090909
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:42:50.608666",
+    "step": 36,
+    "epoch": 9.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manusia sadayoyo lahia kadunian mambuh hak hak dan kamardekaan mandasarnan samo dan indakdapat dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.47058823529411764,
+        "cer": 0.10377358490566038
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunya hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.08888888888888889
+      },
+      {
+        "index": 2,
+        "prediction": " Deklarasi sadunya hak hak manusia mukadima sasungguhyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamerdekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.07035175879396985
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": " Untuak memajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.03409090909090909
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:42:59.771066",
+    "step": 40,
+    "epoch": 10.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manusia sadayoyo lahia kadunian mambuh hak hak dan kamardekaan mandasarnan samo dan indakdapat dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.47058823529411764,
+        "cer": 0.10377358490566038
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunya hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.08888888888888889
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunya hak hak manusia muka dimahsasungguhyo pangakuantaradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.07035175879396985
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": " Untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.022727272727272728
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:43:08.699949",
+    "step": 44,
+    "epoch": 11.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadoyoyo lahia kadunian mambuhak hak dan kamardekaan mandasarnan samo dan indakdapat dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.5294117647058824,
+        "cer": 0.10377358490566038
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunya hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.08888888888888889
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunya hak hak manusia muka dimahsasungguhyo pangakuantaradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.07035175879396985
+      },
+      {
+        "index": 3,
+        "prediction": " Susungguhio iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.14634146341463414
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:43:17.506138",
+    "step": 48,
+    "epoch": 12.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadoyoyo lahia kadunian mambuh hak hak dan kamardekaan mandasarnan samo dan indakdapat dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.47058823529411764,
+        "cer": 0.09433962264150944
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunya hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.08888888888888889
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunya hak hak manusia muka dimahsasungguhyo pangakuantar adok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.07537688442211055
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:43:26.964567",
+    "step": 52,
+    "epoch": 13.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadoyoyo lahia kadunian mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.05660377358490566
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunya hak hak manusia muka dimahsasungguahyo pangakuantaradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.06532663316582915
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:43:36.474868",
+    "step": 56,
+    "epoch": 14.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayoyo jo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.08490566037735849
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka dimahsasungguahyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.17857142857142858,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:43:46.594330",
+    "step": 60,
+    "epoch": 15.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di mah sasungguahyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:43:56.647884",
+    "step": 64,
+    "epoch": 16.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di mah sasungguahyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:44:05.969175",
+    "step": 68,
+    "epoch": 17.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di mah sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05025125628140704
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:44:15.320061",
+    "step": 72,
+    "epoch": 18.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di mah sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05025125628140704
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:44:24.153998",
+    "step": 76,
+    "epoch": 19.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:44:33.203311",
+    "step": 80,
+    "epoch": 20.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:44:42.075237",
+    "step": 84,
+    "epoch": 21.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:44:52.027362",
+    "step": 88,
+    "epoch": 22.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:45:00.863257",
+    "step": 92,
+    "epoch": 23.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan pangormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:45:10.209158",
+    "step": 96,
+    "epoch": 24.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan pangormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:45:19.117705",
+    "step": 100,
+    "epoch": 25.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan pangormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:45:28.931709",
+    "step": 104,
+    "epoch": 26.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": " dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan pangormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:45:36.448647",
+    "step": 104,
+    "epoch": 26.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manusia sadayonyo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "reference": "manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.04716981132075472
+      },
+      {
+        "index": 1,
+        "prediction": "dalam rekelerasi sadunia hak hak asasi manusia",
+        "reference": "dalam deklarasi sadunia hak hak asasi manusia",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.06666666666666667
+      },
+      {
+        "index": 2,
+        "prediction": "deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan",
+        "reference": "deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan",
+        "audio_id": null,
+        "wer": 0.21428571428571427,
+        "cer": 0.05527638190954774
+      },
+      {
+        "index": 3,
+        "prediction": "susungguahnyo iklar negara negara anggota",
+        "reference": "sasungguahnyo ikrar negara negara anggota",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.04878048780487805
+      },
+      {
+        "index": 4,
+        "prediction": "untuak mamajukan panggormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "reference": "untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar",
+        "audio_id": null,
+        "wer": 0.08333333333333333,
+        "cer": 0.011363636363636364
+      }
+    ]
+  }
+]

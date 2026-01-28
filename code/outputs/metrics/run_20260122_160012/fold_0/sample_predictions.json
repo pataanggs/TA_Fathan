@@ -1,0 +1,2164 @@
+[
+  {
+    "timestamp": "2026-01-22T16:00:34.607623",
+    "step": 4,
+    "epoch": 1.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mau ujutkan dan mempatahkan yo untuk diri awak surang atau pun untuk asas sama umat manisyo.",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7142857142857143,
+        "cer": 0.2
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia, tabuki manga kibatakan, pari laku biadap dan sangat malu koi, nurani umat manusia.",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.1388888888888889
+      },
+      {
+        "index": 2,
+        "prediction": " sebagai cito-cito pali yang tinggi dari sadunya orang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.13725490196078433
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya, paralu bana mamajukan panggambangan hubungan bahasa habat di antarobanso-banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.6923076923076923,
+        "cer": 0.13131313131313133
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam perserikatan bangsa-bangsa sadunya anggota ala mengukuhakan baliak kaya kenan tarado khakak asasi manusia dan mandasara.",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.631578947368421,
+        "cer": 0.1360544217687075
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:00:44.906343",
+    "step": 8,
+    "epoch": 2.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mau ujutkan dan mempatahkan yo untuk diri awak surang atau pun untuk asas sama umat manisyo.",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7142857142857143,
+        "cer": 0.2
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia, tabuki manga kibatakan, pari laku biadap dan sangat malu koi, nurani umat manusia.",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.1388888888888889
+      },
+      {
+        "index": 2,
+        "prediction": " sebagai cito-cito pali yang tinggi dari sadunya orang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.13725490196078433
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya, paralu bana mamajukan panggambangan hubungan bahasa habat di antarobanso-banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.6923076923076923,
+        "cer": 0.13131313131313133
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam perserikatan bangsa-bangsa sadunya anggota ala mengukuhakan baliak kaya kenan tarado khakak asasi manusia dan mandasara.",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.631578947368421,
+        "cer": 0.1360544217687075
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:00:54.437174",
+    "step": 12,
+    "epoch": 3.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mau ujutkan dan mempatahkan yo untuk diri awak surang ataupun untukaksa sama umat manisyo.",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7857142857142857,
+        "cer": 0.2
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia, tabuki manga kibatakan, pari laku biadap dan sangat malu koi, nurani umat manusia.",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.1388888888888889
+      },
+      {
+        "index": 2,
+        "prediction": " sebagai cito-cito pali yang tinggi dari sadunya orang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.13725490196078433
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya, paralu bana mamajukan panggambangan hubungan bahasa habat di antarobanso-banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.6923076923076923,
+        "cer": 0.13131313131313133
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam perserikatan bangsa-bangsa sadunya anggota ala mengukuhakan baliak kaya kenan tarado khakak asasi manusia dan mandasara.",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.631578947368421,
+        "cer": 0.1360544217687075
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:01:04.560269",
+    "step": 16,
+    "epoch": 4.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mau ujutkan dan mempatahkan yo untuk diri awak surang ataupun untukaksa sama umat manisyo.",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7857142857142857,
+        "cer": 0.2
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia, tabuki manga kibatakan, pari laku biadap dan sangat malu koi, nurani umat manusia.",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.1388888888888889
+      },
+      {
+        "index": 2,
+        "prediction": " sebagai cito-cito pali yang tinggi dari sadunya orang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.13725490196078433
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya, paralu bana mamajukan panggambangan hubungan basahabat di antarobanso-banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.5384615384615384,
+        "cer": 0.10101010101010101
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam perserikatan bangsa bangsa sadunya anggota ala mengukuhakan baliak kaya kinan tarado khakak asasi manusia dan mandasara.",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.5263157894736842,
+        "cer": 0.12244897959183673
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:01:14.104199",
+    "step": 20,
+    "epoch": 5.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mau ujutkan dan mempatahkan yo untuk diri awak surang ataupun untukaksa sama umat manisyo.",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7857142857142857,
+        "cer": 0.2
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia tabuki manga kibatakan parilaku biadap dan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.55,
+        "cer": 0.10416666666666667
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito-cito pali yang tinggi dari sadunya orang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.625,
+        "cer": 0.11764705882352941
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya, paralu bana mamajukan panggambangan hubungan basahabat di antaro banso-banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.46153846153846156,
+        "cer": 0.09090909090909091
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam perserikatan bangsa bangsa sadunya anggota ala mengukuhakan baliak kaya kinan tarado khakak asasi manusia dan mandasara.",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.5263157894736842,
+        "cer": 0.12244897959183673
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:01:23.581307",
+    "step": 24,
+    "epoch": 6.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mahu jutkan dan mempatahkan yo untuk diri awak surang ataupun untuak sesamo umat mancio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7142857142857143,
+        "cer": 0.16
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekan hakak asasi manusia tabuki manga kibatakan parilaku biadap dan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.09722222222222222
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito-cito pali yang tinggi dari sadunya orang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.625,
+        "cer": 0.11764705882352941
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.23076923076923078,
+        "cer": 0.06060606060606061
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam perserikatan bangsa bangsa sadunya anggota ala mengukuhakan baliak kaya kinan tarado hak hak asasi manusia nanda sarah.",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.47368421052631576,
+        "cer": 0.1292517006802721
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:01:33.113550",
+    "step": 28,
+    "epoch": 7.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mahu jutkan dan mempatahkanyo untuk diri awak surang ataupun untuak sesamo umat mancio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.6428571428571429,
+        "cer": 0.16
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekan hakak asasi manusia tabuki manga kibatakan parilaku biadap dan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.09722222222222222
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonya orang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.0784313725490196
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.23076923076923078,
+        "cer": 0.06060606060606061
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam perserikatan bangsa bangsa sadunya anggota ala mengukuhakan baliak kaya kinan taradok hak hak asasi manusiaan mandasara.",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.47368421052631576,
+        "cer": 0.10204081632653061
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:01:42.658264",
+    "step": 32,
+    "epoch": 8.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mahu jutkan dan mampatah kanyo untuk diri awak surang ataupun untuak sesamo umat mancio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7142857142857143,
+        "cer": 0.15
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap dan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonya urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.058823529411764705
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia.",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.23076923076923078,
+        "cer": 0.06060606060606061
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mengukuhakan baliak kaya kinan taradok hak hak asasi manusiaan mandasara",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.5789473684210527,
+        "cer": 0.10884353741496598
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:01:52.490874",
+    "step": 36,
+    "epoch": 9.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mahu jutkan dan mampatah kanyo untuk diri awak surang ataupun untuak sesamo umat manisyo",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.7142857142857143,
+        "cer": 0.15
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonya urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.058823529411764705
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.050505050505050504
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mengukuhakan baliak kaya kinan taradok hak hak asasi manusiaan mandasara",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.5789473684210527,
+        "cer": 0.10884353741496598
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:02:02.025812",
+    "step": 40,
+    "epoch": 10.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mahu jutkan dan mampatahkanyo untuk diri awak surang ataupun untuak sesamo umat manisyo",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.6428571428571429,
+        "cer": 0.15
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonya urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.058823529411764705
+      },
+      {
+        "index": 3,
+        "prediction": " Sesungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.050505050505050504
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mengukuhakan baliak kaya kinan taradok hak hak asasi manusia nan mandasara",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.47368421052631576,
+        "cer": 0.09523809523809523
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:02:11.767069",
+    "step": 44,
+    "epoch": 11.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Bandula mahu jutkan dan mampatahkanyo untuk diri awak surang ataupun untuak sesamo umat manisyo",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.6428571428571429,
+        "cer": 0.15
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhyo sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonya urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.058823529411764705
+      },
+      {
+        "index": 3,
+        "prediction": " sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mengukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasara",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3684210526315789,
+        "cer": 0.08843537414965986
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:02:21.361934",
+    "step": 48,
+    "epoch": 12.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " bantula mahujutkan dan mampatahkanyo untuk diri awak surang ataupun untuak sesamo umat manisyo",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.12
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0392156862745098
+      },
+      {
+        "index": 3,
+        "prediction": " sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": " Sesungguhnya dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3157894736842105,
+        "cer": 0.07482993197278912
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:02:30.998710",
+    "step": 52,
+    "epoch": 13.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " bantula mahujutkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manisyo",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.42857142857142855,
+        "cer": 0.1
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhnya sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0392156862745098
+      },
+      {
+        "index": 3,
+        "prediction": " sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": " sesungguhyo dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3157894736842105,
+        "cer": 0.06802721088435375
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:02:40.686294",
+    "step": 56,
+    "epoch": 14.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " bantula mahujutkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manisyo",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.42857142857142855,
+        "cer": 0.1
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhyo sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0392156862745098
+      },
+      {
+        "index": 3,
+        "prediction": " sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhyo dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3157894736842105,
+        "cer": 0.061224489795918366
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:02:50.275735",
+    "step": 60,
+    "epoch": 15.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mahujutkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.42857142857142855,
+        "cer": 0.09
+      },
+      {
+        "index": 1,
+        "prediction": " sesungguhio sikap tak paduli dan malahcekank hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.09027777777777778
+      },
+      {
+        "index": 2,
+        "prediction": " sabagai cito cito pali yang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0392156862745098
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhyo dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3157894736842105,
+        "cer": 0.061224489795918366
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:02:59.970748",
+    "step": 64,
+    "epoch": 16.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mawujudkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.35714285714285715,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sesungguhnya sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": "sabaagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhyo dalam piagam persadikatan bangsa bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3157894736842105,
+        "cer": 0.061224489795918366
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:03:09.429952",
+    "step": 68,
+    "epoch": 17.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mawujudkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.35714285714285715,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguhio sikap tak paduli dan malahcekank hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": "sabaagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhnyo dalam piagam persadikatan bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3684210526315789,
+        "cer": 0.10204081632653061
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:03:19.101522",
+    "step": 72,
+    "epoch": 18.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mawujudkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.35714285714285715,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguhio sikap tak paduli dan malah cekan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.08333333333333333
+      },
+      {
+        "index": 2,
+        "prediction": "sabaagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhnyo dalam piagam persadikatan bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3684210526315789,
+        "cer": 0.10204081632653061
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:03:28.797053",
+    "step": 76,
+    "epoch": 19.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mawujudkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.35714285714285715,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguhnyo sikap tak paduli dan malahcekank hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malu koi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhnyo dalam piagam persadikatan bangsa sadunya anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3684210526315789,
+        "cer": 0.10204081632653061
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:03:38.266608",
+    "step": 80,
+    "epoch": 20.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mawujudkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.35714285714285715,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahcekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoy nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguhnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.030303030303030304
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.3157894736842105,
+        "cer": 0.08843537414965986
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:03:48.078586",
+    "step": 84,
+    "epoch": 21.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mawujudkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.35714285714285715,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnya paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.15384615384615385,
+        "cer": 0.020202020202020204
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:03:57.738454",
+    "step": 88,
+    "epoch": 22.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bantula mawujudkan dan mampatahkanyo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.35714285714285715,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:04:07.323044",
+    "step": 92,
+    "epoch": 23.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandula mawujudkan dan mampatahankan jo untuak diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.42857142857142855,
+        "cer": 0.07
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:04:17.164099",
+    "step": 96,
+    "epoch": 24.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandula mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:04:26.723585",
+    "step": 100,
+    "epoch": 25.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandula mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:04:36.481963",
+    "step": 104,
+    "epoch": 26.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoy nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.0763888888888889
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:04:46.073481",
+    "step": 108,
+    "epoch": 27.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoy nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.0763888888888889
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:04:55.722265",
+    "step": 112,
+    "epoch": 28.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandula mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0625
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:05:05.970201",
+    "step": 116,
+    "epoch": 29.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:05:16.161955",
+    "step": 120,
+    "epoch": 30.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:05:25.758859",
+    "step": 124,
+    "epoch": 31.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat maluakoy nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.0763888888888889
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.2631578947368421,
+        "cer": 0.08163265306122448
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:05:35.361915",
+    "step": 128,
+    "epoch": 32.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangah kibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.21052631578947367,
+        "cer": 0.06802721088435375
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:05:44.947932",
+    "step": 132,
+    "epoch": 33.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangah kibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.06944444444444445
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam persadikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.21052631578947367,
+        "cer": 0.06802721088435375
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:05:54.587228",
+    "step": 136,
+    "epoch": 34.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:06:04.128014",
+    "step": 140,
+    "epoch": 35.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0625
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:06:13.848139",
+    "step": 144,
+    "epoch": 36.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0625
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito-cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.0196078431372549
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:06:23.542289",
+    "step": 148,
+    "epoch": 37.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:06:33.091075",
+    "step": 152,
+    "epoch": 38.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:06:42.734082",
+    "step": 156,
+    "epoch": 39.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:06:52.372864",
+    "step": 160,
+    "epoch": 40.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:07:02.057932",
+    "step": 164,
+    "epoch": 41.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:07:11.647772",
+    "step": 168,
+    "epoch": 42.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:07:21.232701",
+    "step": 172,
+    "epoch": 43.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:07:30.742572",
+    "step": 176,
+    "epoch": 44.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:07:40.304230",
+    "step": 180,
+    "epoch": 45.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T16:07:47.443864",
+    "step": 180,
+    "epoch": 45.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "bandolah mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasio",
+        "reference": "bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08
+      },
+      {
+        "index": 1,
+        "prediction": "sasungguahnyo sikap tak paduli dan malahicekann hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia",
+        "reference": "sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "reference": "sabagai cito cito paliang tinggi dari sadonyo urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia",
+        "reference": "sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia",
+        "audio_id": null,
+        "wer": 0.07692307692307693,
+        "cer": 0.010101010101010102
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo dalam piagam perserikatan bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "reference": "sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar",
+        "audio_id": null,
+        "wer": 0.15789473684210525,
+        "cer": 0.05442176870748299
+      }
+    ]
+  }
+]

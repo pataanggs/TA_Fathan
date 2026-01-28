@@ -1,0 +1,1365 @@
+[
+  {
+    "timestamp": "2026-01-22T17:18:05.966835",
+    "step": 4,
+    "epoch": 1.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " lim bago per serikatan bangsa bangsa padekat untuk menjulm jungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.19117647058823528
+      },
+      {
+        "index": 1,
+        "prediction": " Bakaian ke nanti.",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 3.0,
+        "cer": 0.8181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": " tarah dok, martabat dan nilai tiok urang.",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.10810810810810811
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hak-hak nanti sama dari lagi-laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.6363636363636364,
+        "cer": 0.1320754716981132
+      },
+      {
+        "index": 4,
+        "prediction": " bahasa agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.05
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:18:15.153921",
+    "step": 8,
+    "epoch": 2.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " lim bago per serikatan bangsa bangsa padekat untuk menjulm jungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.19117647058823528
+      },
+      {
+        "index": 1,
+        "prediction": " Bakaian ke nanti.",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 3.0,
+        "cer": 0.8181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": " tarah dok, martabat dan nilai tiok urang.",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.10810810810810811
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hak-hak nanti sama dari lagi-laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.6363636363636364,
+        "cer": 0.1320754716981132
+      },
+      {
+        "index": 4,
+        "prediction": " bahas o agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.05
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:18:25.016138",
+    "step": 12,
+    "epoch": 3.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " lim bago perserikatan bangsa bangsa padekat untuk menjulmjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.625,
+        "cer": 0.16176470588235295
+      },
+      {
+        "index": 1,
+        "prediction": " Bakaian ke nanti",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 3.0,
+        "cer": 0.7272727272727273
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang.",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hakak nanti sama dari lagi-laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.6363636363636364,
+        "cer": 0.1509433962264151
+      },
+      {
+        "index": 4,
+        "prediction": " bahas o agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.05
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:18:34.057883",
+    "step": 16,
+    "epoch": 4.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " lim bago perserikatan bangsa bangsa padekat untuak panjung jungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.625,
+        "cer": 0.14705882352941177
+      },
+      {
+        "index": 1,
+        "prediction": " bakaya kenan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang.",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hakak nanti sama dari lagi-laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.6363636363636364,
+        "cer": 0.1509433962264151
+      },
+      {
+        "index": 4,
+        "prediction": " bahas o agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.05
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:18:43.276046",
+    "step": 20,
+    "epoch": 5.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " lim bago perserikatan bangsa bangsa padekat untuak panjungjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.1323529411764706
+      },
+      {
+        "index": 1,
+        "prediction": " bakaya kinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.09090909090909091
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hakaknan sama dari laki-laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.6363636363636364,
+        "cer": 0.11320754716981132
+      },
+      {
+        "index": 4,
+        "prediction": " bahas o agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.05
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:18:52.507125",
+    "step": 24,
+    "epoch": 6.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " lim bago perserikatan bangsa bangsa padekat untuak panjungjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.1323529411764706
+      },
+      {
+        "index": 1,
+        "prediction": " bakaya kinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.09090909090909091
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hakak nan sama dari laki-laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.5454545454545454,
+        "cer": 0.09433962264150944
+      },
+      {
+        "index": 4,
+        "prediction": " bahas o agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.05
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:19:01.835335",
+    "step": 28,
+    "epoch": 7.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " lim bago perserikatan bangsa bangsa padekat untuak panjunjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.11764705882352941
+      },
+      {
+        "index": 1,
+        "prediction": " bakaya kinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.09090909090909091
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hak hak nan sama dari laki laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.18181818181818182,
+        "cer": 0.03773584905660377
+      },
+      {
+        "index": 4,
+        "prediction": " bahaso agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.025
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:19:11.371605",
+    "step": 32,
+    "epoch": 8.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " limbago perserikatan bangsa bangsa padekat untuak manjunjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": " bakaya kinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.09090909090909091
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hak hak nan samo dari laki laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.09090909090909091,
+        "cer": 0.018867924528301886
+      },
+      {
+        "index": 4,
+        "prediction": " bahaso agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.025
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:19:20.722208",
+    "step": 36,
+    "epoch": 9.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " limbago perserikatan bangsa bangsa padekat untuak manjunjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": " bakaya kinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.09090909090909091
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": " dan taradok hak hak nan samo dari laki laki yo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.09090909090909091,
+        "cer": 0.018867924528301886
+      },
+      {
+        "index": 4,
+        "prediction": " bahaso agama politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.025
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:19:30.500355",
+    "step": 40,
+    "epoch": 10.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " limbago perserikatan bangsa bangsa padekat untuak manjunjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": " bakayakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": " bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:19:39.601524",
+    "step": 44,
+    "epoch": 11.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak manjulmjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.11764705882352941
+      },
+      {
+        "index": 1,
+        "prediction": "bakai akhirnan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.36363636363636365
+      },
+      {
+        "index": 2,
+        "prediction": " taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:19:48.635916",
+    "step": 48,
+    "epoch": 12.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak manjulmjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.11764705882352941
+      },
+      {
+        "index": 1,
+        "prediction": "bakai akhirnan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.36363636363636365
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:19:57.899452",
+    "step": 52,
+    "epoch": 13.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak manjulmjungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.11764705882352941
+      },
+      {
+        "index": 1,
+        "prediction": "bakai akhirnan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.36363636363636365
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:20:07.029744",
+    "step": 56,
+    "epoch": 14.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak manjulian jungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.14705882352941177
+      },
+      {
+        "index": 1,
+        "prediction": "bakai akhirnan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.36363636363636365
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:20:16.163204",
+    "step": 60,
+    "epoch": 15.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak manjulian jungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.14705882352941177
+      },
+      {
+        "index": 1,
+        "prediction": "bakai akhirnan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.36363636363636365
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:20:25.351280",
+    "step": 64,
+    "epoch": 16.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak manjulian jungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.14705882352941177
+      },
+      {
+        "index": 1,
+        "prediction": "bakai akhirnan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.36363636363636365
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:20:34.644124",
+    "step": 68,
+    "epoch": 17.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak manjulian jungan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.375,
+        "cer": 0.14705882352941177
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:20:44.092558",
+    "step": 72,
+    "epoch": 18.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekad untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07352941176470588
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:20:53.308079",
+    "step": 76,
+    "epoch": 19.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekad untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07352941176470588
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:21:02.512738",
+    "step": 80,
+    "epoch": 20.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:21:11.778350",
+    "step": 84,
+    "epoch": 21.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekad untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07352941176470588
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:21:21.543068",
+    "step": 88,
+    "epoch": 22.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekad untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07352941176470588
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan ilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:21:30.817591",
+    "step": 92,
+    "epoch": 23.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekad untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07352941176470588
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan ilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:21:39.933828",
+    "step": 96,
+    "epoch": 24.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan nilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:21:49.158283",
+    "step": 100,
+    "epoch": 25.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan ilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:21:58.370012",
+    "step": 104,
+    "epoch": 26.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan ilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:22:08.581540",
+    "step": 108,
+    "epoch": 27.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan ilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:22:18.273134",
+    "step": 112,
+    "epoch": 28.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekat untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.08823529411764706
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan ilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-22T17:22:24.899984",
+    "step": 112,
+    "epoch": 28.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "limbago perserikatan bangsa bangsa padekad untuak mancunjukan tinggi",
+        "reference": "limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07352941176470588
+      },
+      {
+        "index": 1,
+        "prediction": "bakar yakinan",
+        "reference": "bakayakinan",
+        "audio_id": null,
+        "wer": 2.0,
+        "cer": 0.18181818181818182
+      },
+      {
+        "index": 2,
+        "prediction": "taradok martabat dan ilai tiok urang",
+        "reference": "taradok martabat dan nilai tiok urang",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.02702702702702703
+      },
+      {
+        "index": 3,
+        "prediction": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "reference": "dan taradok hak hak nan samo dari laki laki jo padusi",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "bahaso agamo politik atau pandangan lain",
+        "reference": "bahaso agamo politik atau pandangan lain",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      }
+    ]
+  }
+]

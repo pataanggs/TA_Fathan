@@ -167,7 +167,7 @@ Tahap konfigurasi model Whisper Base mencakup beberapa langkah teknis penting:
     \item Verifikasi arsitektur model: 6 \textit{encoder layers} dan 6 \textit{decoder layers}, dengan \textit{hidden dimension} (\textit{width}) 512 dan 8 \textit{attention heads} per \textit{layer}, sesuai dengan spesifikasi resmi Whisper Base
     \item Inisialisasi \textit{tokenizer} dengan \textit{vocabulary} sebesar 51,864 \textit{tokens}, yang mencakup representasi karakter dan subword untuk berbagai bahasa termasuk kemampuan untuk mengakomodasi bahasa baru
     \item Konfigurasi \textit{feature extractor} untuk menghasilkan representasi \textit{log-Mel spectrogram} dengan 80 dimensi, menggunakan \textit{window size} 25ms dan \textit{hop length} 10ms, yang merupakan parameter standar untuk ekstraksi fitur audio dalam Whisper
-    \item \textit{Setup device} (GPU/CPU) untuk \textit{training}, dengan preferensi GPU (NVIDIA GeForce RTX 4090 dengan 24 GB VRAM) untuk mempercepat komputasi matriks dalam proses \textit{fine-tuning}
+    \item \textit{Setup device} (GPU/CPU) untuk \textit{training}, dengan preferensi GPU (NVIDIA GeForce RTX 5060 Ti dengan 16 GB VRAM) untuk mempercepat komputasi matriks dalam proses \textit{fine-tuning}
 \end{enumerate}
 
 \subsection{Implementasi Fine-Tuning}
@@ -190,12 +190,35 @@ Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berik
 \begin{enumerate}[noitemsep]
     \item \textbf{Frozen Components}: Seluruh 6 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
     \item \textbf{Trainable Components}: Seluruh 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter)
-    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.01 untuk regularisasi
-    \item \textbf{Learning Rate}: $1 \times 10^{-5}$ (disesuaikan untuk melatih \textit{decoder} dengan stabil)
-    \item \textbf{Batch Size}: 8-16 sampel per \textit{batch}, disesuaikan dengan memori GPU
-    \item \textbf{Epochs}: 20-30 \textit{epochs} dengan mekanisme \textit{early stopping} untuk mencegah \textit{overfitting}
+    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.2 untuk regularisasi kuat
+    \item \textbf{Learning Rate}: $1 \times 10^{-5}$ dengan \textit{cosine annealing scheduler}
+    \item \textbf{Warmup}: 20\% dari total \textit{training steps} (40 steps dari 200 total steps) untuk stabilisasi awal
+    \item \textbf{Batch Size}: 16 sampel per \textit{batch} untuk \textit{training}, 8 untuk evaluasi
+    \item \textbf{Gradient Accumulation}: 2 \textit{steps} (effective batch size = 32)
+    \item \textbf{Training Steps}: 200 \textit{steps} maksimal ($\sim$50 epochs untuk dataset 1.3 jam)
+    \item \textbf{Mixed Precision}: BF16 (\textit{Brain Floating Point 16-bit}) untuk efisiensi komputasi
+    \item \textbf{Gradient Checkpointing}: Aktif untuk mengurangi penggunaan memori GPU
+    \item \textbf{Regularization - Dropout}: 
+    \begin{itemize}[noitemsep]
+        \item \textit{Standard dropout}: 0.3 (30\%)
+        \item \textit{Attention dropout}: 0.2 (20\%)
+        \item \textit{Activation dropout}: 0.2 (20\%)
+    \end{itemize}
+    \item \textbf{Early Stopping}: \textit{Patience} 8 \textit{steps} ($\sim$1 epoch) dengan threshold 0.001 untuk menghentikan \textit{training} jika tidak ada perbaikan WER
+    \item \textbf{Evaluation Strategy}: Setiap 4 \textit{steps} untuk monitoring WER secara frequent
+    \item \textbf{Best Model Selection}: Berdasarkan \textit{lowest validation WER}
+    \item \textbf{Data Augmentation} (diterapkan \textbf{hanya pada training set}):
+    \begin{itemize}[noitemsep]
+        \item \textit{Speed Perturbation}: Faktor $\{0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15\}$
+        \item \textit{Noise Injection}: SNR 10-30 dB
+        \item \textit{SpecAugment}: Time masking (80 frames), Frequency masking (40 bins)
+        \item \textit{Pitch Shifting}: $\pm$2 semitones
+    \end{itemize}
+    \item \textbf{Generation Config}: \textit{Greedy decoding} (beam size = 1) dengan max length 225 tokens
     \item \textbf{Loss Function}: \textit{Cross-entropy loss} standar untuk tugas klasifikasi sekuens
 \end{enumerate}
+
+Konfigurasi ini dirancang khusus untuk mencegah \textit{overfitting} pada dataset \textit{extremely low-resource} dengan menerapkan \textit{aggressive regularization} (dropout tinggi, weight decay kuat) dan \textit{extensive data augmentation}. \textit{Early stopping} yang agresif (patience 8 steps) memastikan model tidak melampaui titik optimal dan mulai menghafal data \textit{training}.
 
 \subsubsection{LoRA Fine-Tuning}
 
@@ -232,17 +255,18 @@ Selain \textit{data augmentation}, beberapa teknik \textit{regularization} juga 
 
 Proses \textit{training} dilakukan dengan protokol \textit{monitoring} yang ketat dan sistematis untuk memastikan konvergensi yang optimal serta mendeteksi potensi masalah sejak dini. \textit{Monitoring} yang komprehensif sangat penting dalam penelitian ini mengingat kompleksitas model Whisper dan sifat dataset yang \textit{low-resource}. Tanpa \textit{monitoring} yang tepat, berbagai masalah seperti \textit{overfitting}, konvergensi yang lambat, atau konfigurasi \textit{hyperparameter} yang tidak optimal dapat tidak terdeteksi dan menghasilkan model dengan performa suboptimal. Oleh karena itu, strategi \textit{monitoring} dirancang untuk memberikan visibilitas penuh terhadap seluruh aspek proses \textit{training}, dari metrik performa hingga penggunaan sumber daya komputasi.
 
-Infrastruktur \textit{training} menggunakan RunPod \textit{Cloud GPU Service} dengan NVIDIA GeForce RTX 4090 (24 GB VRAM), yang menyediakan performa komputasi tinggi untuk \textit{fine-tuning} model berukuran menengah seperti Whisper Base. Seluruh proses \textit{training} untuk kedua strategi (\textit{Freeze Encoder} dan LoRA) dilakukan pada infrastruktur yang sama untuk memastikan perbandingan yang adil. Metrik-metrik kunci dicatat secara otomatis menggunakan \textit{logging framework} yang terintegrasi, dan \textit{checkpointing} dilakukan secara berkala untuk menyimpan \textit{state} model terbaik.
+Infrastruktur \textit{training} menggunakan perangkat \textit{Local PC} dengan spesifikasi CPU AMD Ryzen 5 7500F dan GPU NVIDIA GeForce RTX 5060 Ti, yang menyediakan performa komputasi yang memadai untuk \textit{fine-tuning} model berukuran menengah seperti Whisper Base. Seluruh proses \textit{training} untuk kedua strategi (\textit{Freeze Encoder} dan LoRA) dilakukan pada infrastruktur yang sama untuk memastikan perbandingan yang adil. Metrik-metrik kunci dicatat secara otomatis menggunakan \textit{logging framework} yang terintegrasi, dan \textit{checkpointing} dilakukan secara berkala untuk menyimpan \textit{state} model terbaik.
 
 Protokol \textit{training} dan \textit{monitoring} yang diterapkan mencakup aspek-aspek berikut:
 
 \begin{enumerate}[noitemsep]
-    \item \textit{Training} dilakukan pada RunPod dengan akselerasi GPU NVIDIA GeForce RTX 4090 (24 GB VRAM) untuk mempercepat komputasi matriks dalam \textit{backpropagation}
-    \item \textit{Logging} metrik setiap 10 \textit{steps}: \textit{training loss}, \textit{learning rate} saat ini, dan waktu komputasi per \textit{batch}, untuk memantau progres \textit{training} secara real-time (setiap 10 steps memastikan monitoring yang cukup sering untuk dataset kecil dengan ~8 steps per epoch)
-    \item Evaluasi pada \textit{validation set} setiap \textit{epoch}: perhitungan WER, CER, dan \textit{validation loss} untuk memantau kemampuan generalisasi model
+    \item \textit{Training} dilakukan pada \textit{Local PC} dengan akselerasi GPU NVIDIA GeForce RTX 5060 Ti untuk mempercepat komputasi matriks dalam \textit{backpropagation}
+    \item \textit{Logging} metrik setiap 1 \textit{step}: \textit{training loss}, \textit{learning rate} saat ini, dan waktu komputasi per \textit{batch}, untuk memantau progres \textit{training} secara real-time dengan detail maksimal
+    \item Evaluasi pada \textit{test set} setiap 4 \textit{steps}: perhitungan WER, CER, dan \textit{validation loss} untuk memantau kemampuan generalisasi model secara \textit{frequent}
     \item \textit{Checkpoint} model terbaik berdasarkan \textit{lowest validation} WER, memastikan model yang disimpan adalah yang paling optimal untuk tugas ASR bahasa Minangkabau
     \item \textit{Tracking training time} dan penggunaan memori GPU untuk analisis efisiensi komputasi, terutama penting untuk membandingkan \textit{Freeze Encoder} dengan LoRA
-    \item Visualisasi \textit{learning curves} (\textit{loss}, WER, CER vs \textit{epochs}) menggunakan \textit{TensorBoard} atau \textit{Weights \& Biases} untuk analisis visual terhadap konvergensi model
+    \item Visualisasi \textit{learning curves} (\textit{loss}, WER, CER vs \textit{steps}) menggunakan \textit{Weights \& Biases} untuk analisis visual terhadap konvergensi model dan deteksi dini \textit{overfitting}
+    \item \textit{Prediction logging}: Mencatat 5 sampel prediksi setiap kali evaluasi untuk inspeksi kualitatif kualitas transkrip
 \end{enumerate}
 
 \subsection{Evaluasi Model}
@@ -322,39 +346,96 @@ Alat-alat yang digunakan dalam penelitian ini meliputi perangkat keras dan peran
         \item Sistem operasi: Linux/Windows
         \item Fungsi: \textit{Development environment}, eksplorasi data, dan analisis hasil
     \end{itemize}
-    \item \textbf{RunPod Cloud GPU Service}: Platform \textit{cloud computing} untuk \textit{training} model dengan GPU
+    \item \textbf{Local PC}: Perangkat komputer pribadi dengan spesifikasi tinggi, digunakan untuk \textit{training} model dan eksperimen keseluruhan
     \begin{itemize}[noitemsep]
-        \item GPU: NVIDIA GeForce RTX 4090 (24 GB VRAM)
-        \item RAM: 36 GB
-        \item vCPU: 8 \textit{virtual cores}
-        \item Storage: 80 GB \textit{disk space}
-        \item Container: \texttt{runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404}
+        \item CPU: AMD Ryzen 5 7500F
+        \item GPU: NVIDIA GeForce RTX 5060 Ti 16 GB
+        \item RAM: 16 GB DDR5 5600 MHz
+        \item Storage: 512 GB SSD
+        \item Sistem Operasi: CachyOS x86\_64 (Linux Kernel 6.18.7)
         \item Fungsi: \textit{Training} model \textit{Freeze Encoder} dan LoRA dengan akselerasi GPU
     \end{itemize}
 \end{enumerate}
 
 \subsubsection{Perangkat Lunak}
 
+\textbf{Lingkungan Pengembangan dan Sistem Operasi:}
 \begin{enumerate}[noitemsep]
     \item \textbf{Python 3.10+}: Bahasa pemrograman utama untuk implementasi model dan \textit{data processing}
-    \item \textbf{PyTorch 2.8.0}: \textit{Deep learning framework} untuk \textit{training} dan \textit{inference} model Whisper
-    \item \textbf{CUDA 12.8.1}: \textit{NVIDIA CUDA Toolkit} untuk akselerasi GPU pada RunPod
-    \item \textbf{Ubuntu 24.04 LTS}: Sistem operasi \textit{Linux} pada \textit{container} RunPod (\texttt{runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404})
-    \item \textbf{Hugging Face Transformers}: \textit{Library} untuk memuat dan \textit{fine-tune} model Whisper \textit{pre-trained}
-    \item \textbf{Hugging Face Datasets}: \textit{Library} untuk manajemen dataset, \textit{data loading}, dan \textit{streaming} dari Hugging Face Hub
-    \item \textbf{Hugging Face Accelerate}: \textit{Library} untuk \textit{distributed training}, optimisasi memori, dan akselerasi proses \textit{training} pada GPU
-    \item \textbf{Hugging Face Evaluate}: \textit{Library} untuk evaluasi metrik model \textit{machine learning} secara standar dan konsisten
-    \item \textbf{PEFT (Parameter-Efficient Fine-Tuning)}: \textit{Library} dari Hugging Face untuk implementasi LoRA dan metode \textit{fine-tuning} yang efisien parameter
-    \item \textbf{torchaudio}: \textit{Library} PyTorch untuk \textit{audio processing}, transformasi, dan augmentasi data audio
-    \item \textbf{torchcodec}: \textit{Library} untuk \textit{encoding} dan \textit{decoding} berbagai format audio dengan \textit{backend} PyTorch
-    \item \textbf{audiomentations}: \textit{Library} untuk \textit{data augmentation} audio (\textit{noise injection}, \textit{pitch shifting}, \textit{time stretching})
-    \item \textbf{jiwer}: \textit{Library} untuk perhitungan metrik evaluasi ASR (WER dan CER)
-    \item \textbf{scikit-learn}: \textit{Library} untuk utilitas \textit{machine learning} (\textit{data splitting}, metrik evaluasi, \textit{preprocessing})
-    \item \textbf{TensorBoard}: Platform visualisasi untuk \textit{monitoring} metrik \textit{training}, \textit{loss curves}, dan parameter model secara \textit{real-time}
-    \item \textbf{Weights \& Biases (wandb)}: Platform untuk \textit{experiment tracking}, visualisasi \textit{learning curves}, perbandingan eksperimen, dan \textit{logging} metrik
+    \item \textbf{CachyOS x86\_64}: Sistem operasi \textit{Linux} (Kernel 6.18.7) yang digunakan pada Local PC
+    \item \textbf{CUDA 12.8.1}: \textit{NVIDIA CUDA Toolkit} untuk akselerasi GPU pada Local PC
     \item \textbf{Jupyter Notebook}: \textit{Interactive development environment} untuk eksplorasi data, eksperimen model, dan dokumentasi proses penelitian
-    \item \textbf{Git/GitHub}: \textit{Version control system} dan repositori kode untuk manajemen proyek dan kolaborasi
     \item \textbf{Visual Studio Code}: \textit{Code editor} untuk \textit{local development} pada ASUS VivoBook 14 K413
+    \item \textbf{Git/GitHub}: \textit{Version control system} dan repositori kode untuk manajemen proyek dan kolaborasi
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent
+\textbf{Framework Deep Learning dan Library Inti:}
+\begin{enumerate}[noitemsep]
+    \item \textbf{PyTorch 2.9.1}: \textit{Deep learning framework} untuk \textit{training} dan \textit{inference} model Whisper dengan dukungan CUDA 12.8
+    \item \textbf{Triton 3.5.1}: Compiler untuk optimasi kernel GPU yang digunakan oleh PyTorch
+    \item \textbf{torchaudio 2.9.1}: \textit{Library} PyTorch untuk \textit{audio processing}, transformasi, dan augmentasi data audio
+    \item \textbf{Transformers 4.57.3}: \textit{Library} Hugging Face untuk memuat dan \textit{fine-tune} model Whisper \textit{pre-trained}
+    \item \textbf{Tokenizers 0.22.2}: \textit{Library} untuk tokenisasi teks dengan performa tinggi, digunakan oleh Transformers
+    \item \textbf{Datasets 4.4.2}: \textit{Library} Hugging Face untuk manajemen dataset, \textit{data loading}, dan \textit{streaming}
+    \item \textbf{Accelerate 1.12.0}: \textit{Library} Hugging Face untuk \textit{distributed training}, optimisasi memori, dan akselerasi proses \textit{training} pada GPU
+    \item \textbf{PEFT}: \textit{Library} dari Hugging Face untuk implementasi LoRA dan metode \textit{fine-tuning} yang efisien parameter
+    \item \textbf{Evaluate 0.4.6}: \textit{Library} Hugging Face untuk evaluasi metrik model \textit{machine learning} secara standar dan konsisten
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent
+\textbf{Library Audio Processing dan Augmentation:}
+\begin{enumerate}[noitemsep]
+    \item \textbf{librosa 0.11.0}: \textit{Library} untuk analisis audio dan ekstraksi fitur musik/suara
+    \item \textbf{audiomentations 0.43.1}: \textit{Library} untuk \textit{data augmentation} audio (\textit{noise injection}, \textit{pitch shifting}, \textit{time stretching})
+    \item \textbf{soundfile 0.13.1}: \textit{Library} untuk membaca dan menulis file audio dalam berbagai format
+    \item \textbf{audioread 3.1.0}: \textit{Library} untuk membaca file audio dengan dukungan berbagai \textit{backend}
+    \item \textbf{soxr 0.5.0}: \textit{Library} untuk resampling audio berkualitas tinggi
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent
+\textbf{Library Machine Learning dan Evaluasi:}
+\begin{enumerate}[noitemsep]
+    \item \textbf{scikit-learn 1.8.0}: \textit{Library} untuk utilitas \textit{machine learning} (\textit{data splitting}, metrik evaluasi, \textit{preprocessing})
+    \item \textbf{jiwer 4.0.0}: \textit{Library} untuk perhitungan metrik evaluasi ASR (WER dan CER)
+    \item \textbf{scipy 1.17.0}: \textit{Library} untuk komputasi saintifik dan algoritma optimasi
+    \item \textbf{numpy 2.3.5}: \textit{Library} fundamental untuk komputasi numerik dengan array multidimensi
+    \item \textbf{pandas 2.3.3}: \textit{Library} untuk manipulasi dan analisis data terstruktur
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent
+\textbf{Library Visualisasi dan Monitoring:}
+\begin{enumerate}[noitemsep]
+    \item \textbf{matplotlib 3.10.8}: \textit{Library} untuk visualisasi data dan plotting grafik
+    \item \textbf{Weights \& Biases (wandb) 0.23.1}: Platform untuk \textit{experiment tracking}, visualisasi \textit{learning curves}, perbandingan eksperimen, dan \textit{logging} metrik
+    \item \textbf{tqdm 4.67.1}: \textit{Library} untuk progress bar dan monitoring iterasi
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent
+\textbf{Library Pendukung Lainnya:}
+\begin{enumerate}[noitemsep]
+    \item \textbf{huggingface-hub 0.36.0}: Client untuk mengakses Hugging Face Model Hub dan Dataset Hub
+    \item \textbf{safetensors 0.7.0}: Format penyimpanan tensor yang aman dan efisien untuk model \textit{machine learning}
+    \item \textbf{pydantic 2.12.5}: \textit{Library} untuk validasi data menggunakan Python type hints
+    \item \textbf{requests 2.32.5}: \textit{Library} HTTP untuk komunikasi dengan API eksternal
+    \item \textbf{python-dotenv 1.2.1}: \textit{Library} untuk manajemen variabel environment dari file \texttt{.env}
+    \item \textbf{PyYAML 6.0.3}: \textit{Library} untuk parsing dan serialisasi file YAML (konfigurasi)
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent
+\textbf{NVIDIA CUDA Libraries} (untuk akselerasi GPU):
+\begin{enumerate}[noitemsep]
+    \item \textbf{nvidia-cuda-runtime-cu12 12.8.90}: CUDA runtime library
+    \item \textbf{nvidia-cudnn-cu12 9.10.2.21}: cuDNN untuk akselerasi operasi deep learning
+    \item \textbf{nvidia-cublas-cu12 12.8.4.1}: cuBLAS untuk operasi algebra linear
+    \item \textbf{nvidia-cufft-cu12 11.3.3.83}: cuFFT untuk Fast Fourier Transform
+    \item \textbf{nvidia-nccl-cu12 2.27.5}: NCCL untuk komunikasi multi-GPU
 \end{enumerate}
 
 \subsection{Bahan}
