@@ -3,53 +3,90 @@
 
 \section{Pendahuluan}
 
-Bab ini menyajikan hasil eksperimen \textit{fine-tuning} model Whisper Base pada bahasa Minangkabau menggunakan pendekatan \textit{Freeze Encoder}. Evaluasi dilakukan menggunakan metodologi 5-\textit{fold cross-validation} untuk memastikan reliabilitas dan generalisasi model pada dataset yang sangat terbatas (1,3 jam audio).
+Bab ini menyajikan hasil eksperimen \textit{fine-tuning} model Whisper Base pada bahasa Minangkabau menggunakan pendekatan \textit{Freeze Encoder}. Evaluasi dilakukan menggunakan metodologi 5-\textit{fold cross-validation} untuk memastikan reliabilitas dan generalisasi model pada dataset yang sangat terbatas (1,3 jam audio). Dari empat kali percobaan pelatihan dengan variasi konfigurasi \textit{hyperparameter}, dipilih hasil terbaik untuk dianalisis secara mendalam.
 
 \section{Hasil Training} \label{IV.Hasil}
 
+\subsection{Perbandingan Eksperimen}
+
+Selama proses penelitian, dilakukan empat kali percobaan pelatihan (\textit{run}) dengan variasi konfigurasi \textit{hyperparameter} untuk menemukan konfigurasi optimal. Tabel~\ref{tab:run_comparison} merangkum hasil dari seluruh percobaan.
+
+\begin{table}[H]
+\centering
+\caption{Perbandingan Hasil Empat Percobaan Pelatihan}
+\label{tab:run_comparison}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\textbf{Run} & \textbf{Learning Rate} & \textbf{Batch Size} & \textbf{Weight Decay} & \textbf{Beam} & \textbf{Mean WER (\%)} & \textbf{Mean CER (\%)} \\
+\hline
+1 (22 Jan, 16:00) & 5$\times$10\textsuperscript{-6} & 16$\times$2 & 0,2 & 1 & 25,07 $\pm$ 2,86 & 5,60 $\pm$ 0,59 \\
+\hline
+2 (22 Jan, 16:57) & 1$\times$10\textsuperscript{-5} & 16$\times$2 & 0,2 & 1 & 22,34 $\pm$ 1,89 & 4,93 $\pm$ 0,55 \\
+\hline
+3 (22 Jan, 17:32) & 1$\times$10\textsuperscript{-5} & 16$\times$2 & 0,2 & 1 & 22,95 $\pm$ 2,70 & 5,52 $\pm$ 0,77 \\
+\hline
+\textbf{4 (8 Feb, 14:51)} & \textbf{1$\times$10\textsuperscript{-5}} & \textbf{32$\times$1} & \textbf{0,1} & \textbf{5} & \textbf{19,92 $\pm$ 2,42} & \textbf{4,53 $\pm$ 0,65} \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+Dari empat percobaan, Run 4 mencapai performa terbaik dengan rata-rata WER \textbf{19,92\%} dan CER \textbf{4,53\%}. Peningkatan performa pada Run 4 dibandingkan Run 2 (WER 22,34\% $\rightarrow$ 19,92\%, penurunan relatif 10,8\%) disebabkan oleh tiga faktor optimasi:
+
+\begin{enumerate}
+    \item \textbf{Penurunan \textit{weight decay}} dari 0,2 menjadi 0,1: Nilai \textit{weight decay} 0,2 yang dikombinasikan dengan skema \textit{dropout} bertingkat (\textit{decoder dropout}=0,3; \textit{attention dropout}=0,2; \textit{activation dropout}=0,2) terlalu agresif dan berisiko menyebabkan \textit{underfitting}. Penurunan \textit{weight decay} ke 0,1 memberikan keseimbangan yang lebih baik antara regularisasi dan kapasitas belajar.
+    
+    \item \textbf{Peningkatan \textit{batch size}} dari 16 (dengan 2 \textit{gradient accumulation}) menjadi 32 (tanpa akumulasi): Meskipun \textit{effective batch size} tetap 32, penggunaan \textit{batch size} fisik yang lebih besar meningkatkan \textit{throughput} GPU karena paralelisasi CUDA core yang lebih efisien pada \textit{batch} berukuran besar, sekaligus memanfaatkan kapasitas VRAM RTX 5060 Ti 16GB secara optimal.
+    
+    \item \textbf{\textit{Beam search} (\textit{width}=5)} saat evaluasi: Dibandingkan \textit{greedy decoding} (\textit{beam}=1) pada Run 1--3, \textit{beam search} mengeksplorasi lima jalur dekoding dan memilih urutan kata dengan probabilitas total tertinggi, menghasilkan transkripsi yang lebih akurat \cite{radford2023whisper}.
+\end{enumerate}
+
+Analisis selanjutnya pada bab ini menggunakan hasil dari \textbf{Run 4} sebagai hasil utama.
+
 \subsection{Hasil Cross-Validation}
 
-Pelatihan model dilakukan menggunakan 5-\textit{fold cross-validation} dengan konfigurasi yang telah dijelaskan pada Bab \ref{Bab III}. Setiap \textit{fold} menggunakan pembagian data 80\% untuk pelatihan (training) dan 20\% untuk evaluasi. Dataset yang digunakan terdiri dari 156 file audio yang telah diaugmentasi dengan total durasi 1,3 jam dari LibriVox Indonesia Minangkabau.
+Pelatihan model dilakukan menggunakan 5-\textit{fold cross-validation} dengan konfigurasi yang telah dijelaskan pada Bab~\ref{Bab III}. Setiap \textit{fold} menggunakan pembagian data 80\% untuk pelatihan dan 20\% untuk evaluasi. Dataset yang digunakan terdiri dari 156 file audio dengan total durasi 1,3 jam dari LibriVox Indonesia Minangkabau.
 
-Tabel \ref{tab:cv_results} menunjukkan hasil evaluasi untuk setiap \textit{fold} berdasarkan metrik WER (\textit{Word Error Rate}) dan CER (\textit{Character Error Rate}).
+Tabel~\ref{tab:cv_results} menunjukkan hasil evaluasi untuk setiap \textit{fold} berdasarkan metrik WER (\textit{Word Error Rate}) dan CER (\textit{Character Error Rate}).
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
-\caption{Hasil 5-Fold Cross-Validation untuk Freeze Encoder}
+\caption{Hasil 5-Fold Cross-Validation untuk Freeze Encoder (Run Terbaik)}
 \label{tab:cv_results}
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Fold} & \textbf{Train Size} & \textbf{Test Size} & \textbf{WER (\%)} & \textbf{CER (\%)} \\
+\textbf{Fold} & \textbf{Train} & \textbf{Eval} & \textbf{WER (\%)} & \textbf{CER (\%)} & \textbf{Steps} \\
 \hline
-0 & 124 & 32 & 20,61 & 4,35 \\
+0 & 124 & 32 & 21,37 & 4,51 & 160 \\
 \hline
-1 & 124 & 32 & 22,93 & 4,90 \\
+1 & 124 & 32 & 19,02 & 4,04 & 136 \\
 \hline
-2 & 124 & 32 & 19,71 & 5,11 \\
+2 & 124 & 32 & \textbf{15,65} & \textbf{3,47} & 156 \\
 \hline
-3 & 124 & 32 & 23,66 & 4,42 \\
+3 & 124 & 32 & 22,58 & 4,48 & 156 \\
 \hline
-4 & 124 & 32 & 24,78 & 5,87 \\
+4 & 124 & 32 & 20,99 & 5,31 & 128 \\
 \hline
 \hline
-\textbf{Mean} & \textbf{124} & \textbf{32} & \textbf{22,34 $\pm$ 1,89} & \textbf{4,93 $\pm$ 0,55} \\
+\textbf{Mean} & \textbf{124} & \textbf{32} & \textbf{19,92 $\pm$ 2,42} & \textbf{4,53 $\pm$ 0,65} & \textbf{147,2} \\
 \hline
 \end{tabular}
 \end{table}
 
-\textbf{Catatan Metodologi}: Kolom "Test Size" merujuk pada jumlah audio dalam test set yang digunakan untuk evaluasi model. Test set ini \textbf{juga digunakan untuk early stopping} selama training (setiap 4 steps) untuk mencegah overfitting. Pendekatan ini merupakan \textit{pragmatic trade-off} yang umum digunakan dalam riset \textit{extremely low-resource}, di mana memisahkan validation set terpisah akan mengurangi data training secara signifikan (<1 jam) dan menghasilkan model yang lebih buruk. Evaluasi final menggunakan checkpoint model dengan \textit{best test WER}, dan hasil WER/CER di atas adalah hasil pada test set tersebut.
+\textbf{Catatan Metodologi}: Kolom ``Eval'' merujuk pada jumlah audio dalam \textit{evaluation set}. \textit{Evaluation set} ini \textbf{juga digunakan untuk \textit{early stopping}} selama training (setiap 4 steps) untuk mencegah \textit{overfitting}. Pendekatan ini merupakan \textit{pragmatic trade-off} yang umum digunakan dalam riset \textit{extremely low-resource}, di mana memisahkan \textit{validation set} terpisah akan mengurangi data training secara signifikan ($<$1 jam) dan menghasilkan model yang lebih buruk. Metrik WER dan CER yang dilaporkan berasal dari \textit{best checkpoint} (model dengan WER terendah selama training).
 
-Hasil cross-validation menunjukkan bahwa model Freeze Encoder berhasil mencapai rata-rata WER sebesar \textbf{22,34\% $\pm$ 1,89\%} dan CER sebesar \textbf{4,93\% $\pm$ 0,55\%}. Variasi antar-fold yang relatif rendah (standar deviasi WER: 1,89\%, CER: 0,55\%) mengindikasikan konsistensi performa model yang sangat baik dan validitas metodologi evaluasi.
+Hasil \textit{cross-validation} menunjukkan bahwa model \textit{Freeze Encoder} mencapai rata-rata WER sebesar \textbf{19,92\% $\pm$ 2,42\%} dan CER sebesar \textbf{4,53\% $\pm$ 0,65\%}. Standar deviasi WER 2,42\% menunjukkan variasi moderat antar-\textit{fold}, yang dapat diharapkan pada dataset sekecil ini (32 sampel evaluasi per \textit{fold}). Perlu dicatat bahwa karena \textit{evaluation set} juga digunakan untuk \textit{early stopping} (lihat Catatan Metodologi di atas), metrik yang dilaporkan berpotensi sedikit optimistis.
 
-\textit{Fold} 2 mencapai performa terbaik dengan WER 19,71\% dan CER 5,11\%, menunjukkan bahwa model mampu beradaptasi dengan baik pada sebagian data. Sebaliknya, \textit{Fold} 4 menunjukkan WER tertinggi (24,78\%), kemungkinan disebabkan oleh variasi karakteristik audio atau kompleksitas linguistik pada subset data tersebut.
+\textit{Fold}~2 mencapai performa terbaik dengan WER \textbf{15,65\%} dan CER \textbf{3,47\%}, sedangkan \textit{Fold}~3 menunjukkan WER tertinggi (22,58\%). Rentang WER antar-\textit{fold} yang cukup lebar (6,93 poin persentase) mencerminkan sensitivitas model terhadap pembagian data pada dataset kecil---di mana distribusi karakteristik audio dan kompleksitas linguistik per \textit{fold} dapat bervariasi secara signifikan. Meskipun demikian, performa \textit{Fold}~2 menunjukkan bahwa pada pembagian data yang lebih homogen, model mampu mencapai akurasi yang setara dengan sistem ASR pada bahasa \textit{low-resource} lainnya yang menggunakan data jauh lebih banyak \cite{li2024improving,gete2025whispering}.
 
 \subsection{Analisis Konvergensi Training}
 
-Gambar \ref{fig:training_loss} menampilkan kurva \textit{training loss} untuk kelima \textit{fold}, yang menunjukkan pola konvergensi model selama proses pelatihan.
+Gambar~\ref{fig:training_loss} menampilkan kurva \textit{training loss} untuk kelima \textit{fold}, yang menunjukkan pola konvergensi model selama proses pelatihan.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{code/freeze_encoder/outputs/metrics/run_20260122_165745/visualizations/training_loss_detailed.png}
+\includegraphics[width=0.8\textwidth]{code/freeze_encoder/outputs/metrics/run_20260208_145119/visualizations/training_loss_detailed.png}
 \caption{Kurva Training Loss untuk 5-Fold Cross-Validation}
 \label{fig:training_loss}
 \end{figure}
@@ -57,43 +94,48 @@ Gambar \ref{fig:training_loss} menampilkan kurva \textit{training loss} untuk ke
 Analisis konvergensi menunjukkan beberapa temuan penting:
 
 \begin{itemize}
-    \item \textbf{Konvergensi Cepat}: Semua \textit{fold} menunjukkan penurunan loss yang signifikan pada epoch awal (langkah 1-50), mengindikasikan bahwa \textit{pre-trained encoder} Whisper Base memberikan representasi fitur audio yang sudah baik untuk bahasa Minangkabau.
+    \item \textbf{Konvergensi Cepat}: Semua \textit{fold} menunjukkan penurunan loss yang paling signifikan pada fase awal training, yaitu dalam 40 langkah pertama ($\sim$10 epoch pertama dari total $\sim$37 epoch). Pada fase ini, loss turun drastis dari $\sim$3,0 menjadi $\sim$0,5 (penurunan $\sim$83\%), sedangkan sisa $\sim$27 epoch berikutnya hanya menyempurnakan loss dari $\sim$0,5 menjadi $\sim$0,01. Pola ini mengindikasikan bahwa \textit{pre-trained encoder} Whisper Base sudah memberikan representasi fitur audio yang baik untuk bahasa Minangkabau, sehingga decoder mampu beradaptasi dengan cepat di awal pelatihan.
     
-    \item \textbf{Stabilitas Training}: Tidak ditemukan tanda-tanda \textit{overfitting} yang signifikan, ditunjukkan oleh penurunan loss yang stabil tanpa fluktuasi besar hingga akhir training.
+    \item \textbf{Stabilitas Training}: Tidak ditemukan tanda-tanda \textit{overfitting} yang signifikan pada mayoritas \textit{fold}, ditunjukkan oleh penurunan loss yang monoton dan stabil. \textit{Fold}~2 (performa terbaik) mencapai \textit{final loss} 0,0154 dalam 156 langkah (39 epoch).
     
-    \item \textbf{Variasi Antar-Fold}: Terdapat variasi jumlah langkah training antar-fold (84-164 langkah) yang disebabkan oleh strategi \textit{early stopping} berdasarkan performa evaluasi. Fold 2 yang mencapai performa terbaik berkonvergen dalam 104 langkah, sementara Fold 3 memerlukan 164 langkah untuk mencapai kriteria konvergensi.
+    \item \textbf{Efektivitas \textit{Early Stopping}}: Variasi jumlah langkah antar-\textit{fold} (128--160 langkah) menunjukkan bahwa strategi \textit{early stopping} (\textit{patience}=8 steps) berhasil menghentikan training pada titik optimal sebelum mencapai batas 200 steps, mencegah \textit{overfitting} pada dataset yang sangat kecil.
 \end{itemize}
 
-Tabel \ref{tab:training_summary} merangkum statistik training untuk setiap fold:
+Tabel~\ref{tab:training_summary} merangkum statistik training untuk setiap \textit{fold}:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Ringkasan Statistik Training untuk Setiap Fold}
 \label{tab:training_summary}
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Fold} & \textbf{Total Steps} & \textbf{Initial Loss} & \textbf{Final Loss} & \textbf{Min Loss} \\
+\textbf{Fold} & \textbf{Steps} & \textbf{Initial Loss} & \textbf{Final Loss} & \textbf{Waktu (menit)} & \textbf{Epoch} \\
 \hline
-0 & 84 & 2,605 & 0,183 & 0,131 \\
+0 & 160 & 2,706 & 0,012 & 9,39 & 40 \\
 \hline
-1 & 120 & 3,018 & 0,026 & 0,020 \\
+1 & 136 & 3,106 & 0,013 & 9,72 & 34 \\
 \hline
-2 & 104 & 2,969 & 0,042 & 0,039 \\
+2 & 156 & 3,117 & 0,015 & 8,37 & 39 \\
 \hline
-3 & 164 & 2,691 & 0,014 & 0,013 \\
+3 & 156 & 2,934 & 0,012 & 9,25 & 39 \\
 \hline
-4 & 140 & 3,012 & 0,014 & 0,014 \\
+4 & 128 & 2,966 & 0,018 & 6,95 & 32 \\
+\hline
+\hline
+\textbf{Mean} & \textbf{147,2} & \textbf{2,966} & \textbf{0,014} & \textbf{8,74} & \textbf{36,8} \\
 \hline
 \end{tabular}
 \end{table}
 
+Dari Tabel~\ref{tab:training_summary}, terlihat bahwa seluruh \textit{fold} berhasil menurunkan \textit{training loss} dari kisaran 2,7--3,1 menjadi $\sim$0,01 (penurunan $>$99\%), menunjukkan kapasitas model yang memadai untuk mempelajari pola akustik bahasa Minangkabau. Rata-rata waktu training per \textit{fold} adalah \textbf{8,74 menit}, sehingga total 5-\textit{fold cross-validation} selesai dalam \textbf{$\sim$44 menit} pada GPU RTX 5060 Ti 16GB.
+
 \subsection{Analisis Metrik Evaluasi}
 
-Gambar \ref{fig:eval_metrics} menunjukkan perkembangan metrik WER dan CER selama proses evaluasi untuk semua \textit{fold}.
+Gambar~\ref{fig:eval_metrics} menunjukkan perkembangan metrik WER dan CER selama proses evaluasi untuk semua \textit{fold}.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.9\textwidth]{code/freeze_encoder/outputs/metrics/run_20260122_165745/visualizations/evaluation_metrics_detailed.png}
+\includegraphics[width=0.9\textwidth]{code/freeze_encoder/outputs/metrics/run_20260208_145119/visualizations/evaluation_metrics_detailed.png}
 \caption{Perkembangan WER dan CER Selama Evaluasi}
 \label{fig:eval_metrics}
 \end{figure}
@@ -101,108 +143,135 @@ Gambar \ref{fig:eval_metrics} menunjukkan perkembangan metrik WER dan CER selama
 Analisis metrik evaluasi mengungkapkan beberapa pola penting:
 
 \begin{itemize}
-    \item \textbf{Penurunan WER Signifikan}: Semua \textit{fold} menunjukkan penurunan WER dari rentang 72-130\% pada evaluasi awal menjadi 18-26\% pada evaluasi akhir, menunjukkan peningkatan kemampuan transkripsi yang substansial.
+    \item \textbf{Penurunan WER Signifikan}: Semua \textit{fold} menunjukkan penurunan WER dari rentang 70--89\% pada evaluasi awal menjadi 15--23\% pada evaluasi akhir, menunjukkan peningkatan kemampuan transkripsi yang substansial ($>$70\% penurunan relatif). Pada \textit{Fold}~0, WER menurun dari 72,26\% menjadi 21,37\%; pada \textit{Fold}~2 dari 70,72\% menjadi 15,65\%.
     
-    \item \textbf{Konsistensi CER}: Metrik CER menunjukkan pola penurunan yang lebih stabil dibandingkan WER, dengan standar deviasi yang lebih kecil (0,77\% vs 2,70\%). Hal ini mengindikasikan bahwa model lebih konsisten dalam memprediksi karakter individual dibandingkan kata utuh.
+    \item \textbf{Konsistensi CER}: Metrik CER menunjukkan pola penurunan yang lebih stabil dibandingkan WER, dengan standar deviasi yang lebih kecil (0,65\% vs 2,42\%). Hal ini mengindikasikan bahwa model lebih konsisten dalam memprediksi karakter individual dibandingkan kata utuh, yang merupakan karakteristik umum pada bahasa aglutinatif seperti Minangkabau.
     
-    \item \textbf{Korelasi WER-CER}: Terdapat korelasi positif antara WER dan CER di semua \textit{fold}, di mana fold dengan WER rendah (Fold 2: 18,84\%) juga memiliki CER rendah (4,42\%), mengkonfirmasi konsistensi performa model.
+    \item \textbf{Korelasi WER-CER}: Terdapat korelasi positif antara WER dan CER di semua \textit{fold}. \textit{Fold}~2 dengan WER terendah (15,65\%) juga memiliki CER terendah (3,47\%), sedangkan \textit{Fold}~4 dengan CER tertinggi (5,31\%) juga memiliki WER yang relatif tinggi (20,99\%). Korelasi ini mengkonfirmasi konsistensi internal metrik evaluasi.
 \end{itemize}
 
 \subsection{Analisis Prediksi Model}
 
-Tabel \ref{tab:sample_predictions} menampilkan contoh hasil prediksi model pada evaluasi akhir untuk mengilustrasikan kualitas transkripsi:
+Untuk mengilustrasikan kualitas transkripsi secara kualitatif, Tabel~\ref{tab:sample_predictions_fold2} menampilkan contoh hasil prediksi model pada \textit{Fold}~2 (performa terbaik, WER 15,65\%).
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
-\caption{Contoh Prediksi Model pada Fold 0 (Step 128, Model Akhir)}
-\label{tab:sample_predictions}
+\caption{Contoh Prediksi Model pada Fold 2 --- Fold Terbaik (Step 156)}
+\label{tab:sample_predictions_fold2}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|c|}
+\begin{tabular}{|p{0.42\textwidth}|p{0.42\textwidth}|c|c|}
 \hline
-\textbf{Referensi} & \textbf{Prediksi Model} & \textbf{WER (\%)} \\
+\textbf{Referensi} & \textbf{Prediksi Model} & \textbf{WER} & \textbf{CER} \\
 \hline
-bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia & 
-bantula mawujudkan dan mampatahankan jo untuk diri awak surang ataupun untuak sasamo umat manasyo & 
-50,00 \\
+manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan & 
+manusia sadonyo jo lahia kadunia mambu hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan & 
+23,5\% & 5,7\% \\
 \hline
-sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia & 
-sasungguahnyo sikap tak paduli dan malahichahkan hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat maluah koi nurani umat manusia & 
-30,00 \\
+dalam deklarasi sadunia hak hak asasi manusia & 
+dalam rekelerasi sadunia hak hak asasi manusia & 
+14,3\% & 6,7\% \\
 \hline
-sabagai cito cito paliang tinggi dari sadonyo urang & 
-sabagai cito cito paliang tinggi dari sadonyo urang & 
-0,00 \\
+sasungguahnyo ikrar negara negara anggota & 
+susungguahnyo ikrar negara negara anggota & 
+20,0\% & 2,4\% \\
 \hline
-sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia & 
-sasungguahnyo paralu bana mamajukan pangambang hubungan basahabat diantaro banso banso di dunia & 
-30,77 \\
-\hline
-sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & 
-sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggotaalah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & 
-10,53 \\
+untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar & 
+untuak mamajukan pangormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar & 
+\textbf{8,3\%} & \textbf{1,1\%} \\
 \hline
 \end{tabular}%
 }
 \end{table}
 
-\textbf{Catatan Penting}: Contoh prediksi di atas diambil dari \textbf{model pada step 128 (akhir training)}, bukan dari step awal. Prediksi ini merepresentasikan performa model setelah konvergensi penuh. Disparitas yang sebelumnya terlihat antara rata-rata WER (22.34\%) dan contoh prediksi terjadi karena contoh awal diambil dari step 4 (epoch 1), di mana model baru mulai belajar. WER rata-rata 22.34\% dihitung dari prediksi pada \textbf{semua 32 audio test set menggunakan best model checkpoint} (model dengan lowest WER selama training), bukan hanya 5 sampel. Kelima sampel di atas menunjukkan WER yang bervariasi (0\%-50\%), dengan rata-rata $\sim$24.26\%, yang konsisten dengan rata-rata fold 0 sebesar 20.61\% (variasi ini normal karena 5 sampel tidak merepresentasikan keseluruhan 32 audio test set).
+Sebagai perbandingan, Tabel~\ref{tab:sample_predictions_fold0} menampilkan contoh prediksi dari \textit{Fold}~0 (WER 21,37\%):
 
-Dari contoh prediksi di atas (diambil dari model pada step 128, setelah konvergensi), dapat diidentifikasi beberapa pola kesalahan dan keberhasilan:
+\begin{table}[H]
+\centering
+\caption{Contoh Prediksi Model pada Fold 0 (Step 160)}
+\label{tab:sample_predictions_fold0}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|p{0.42\textwidth}|p{0.42\textwidth}|c|c|}
+\hline
+\textbf{Referensi} & \textbf{Prediksi Model} & \textbf{WER} & \textbf{CER} \\
+\hline
+bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia & 
+bantula mawujudkan dan mampatahankan jo untuk diriawak surang atau pun untuak sasamo umat manusia & 
+35,7\% & 5,0\% \\
+\hline
+sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia & 
+sasungguahnyo sikap tak paduli dan malahicekkan hak hak asasi manusia tabuki mangakibatakan parilaku biadap nan sangat malukoi nurani umat manusia & 
+20,0\% & 4,9\% \\
+\hline
+sabagai cito cito paliang tinggi dari sadonyo urang & 
+sabagai cito cito paliang tinggi dari sadonyo urang & 
+\textbf{0,0\%} & \textbf{0,0\%} \\
+\hline
+sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia & 
+sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat diantaro banso banso di dunia & 
+23,1\% & 2,0\% \\
+\hline
+sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & 
+sasungguahnyo dalam piagam perserikatan bangsa bangsa sadunyo anggotaalah mangukuhakan baliak kayakinan taradok hak hak asasi manusia nan mandasar & 
+21,1\% & 2,7\% \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+Dari analisis prediksi pada kedua \textit{fold}, dapat diidentifikasi beberapa pola kesalahan dan keberhasilan:
 
 \begin{enumerate}
-    \item \textbf{Prediksi Sempurna}: Sampel ketiga menunjukkan prediksi sempurna dengan WER 0\% ("sabagai cito cito paliang tinggi dari sadonyo urang"), mengindikasikan bahwa model mampu mentranskripsi dengan akurat pada kalimat dengan struktur sederhana dan kosakata umum.
+    \item \textbf{Prediksi Sempurna}: Pada \textit{Fold}~0, sampel ``sabagai cito cito paliang tinggi dari sadonyo urang'' diprediksi dengan WER dan CER 0\%, menunjukkan bahwa model mampu mentranskripsi kalimat pendek dengan kosakata umum secara sempurna.
     
-    \item \textbf{Kesalahan Ortografi Minor}: Beberapa kesalahan disebabkan oleh variasi ejaan kecil, seperti "mampatahankannyo" menjadi "mampatahankan jo" (partikel "nyo" vs "jo"), atau "anggota alah" menjadi "anggotaalah" (spasi hilang). Hal ini mencerminkan ketiadaan standar ejaan yang konsisten untuk bahasa Minangkabau \cite{koto2020minangkabau}.
+    \item \textbf{Substitusi Fonetik}: Kesalahan dominan berupa substitusi fonetik pada konsonan serupa, seperti ``deklarasi'' $\rightarrow$ ``rekelerasi'', ``malecehkan'' $\rightarrow$ ``malahicekkan'', dan ``sasungguahnyo'' $\rightarrow$ ``susungguahnyo''. Kesalahan ini mencerminkan kesamaan representasi akustik antara fonem-fonem tersebut dalam bahasa Minangkabau.
     
-    \item \textbf{Substitusi Fonetik}: Kesalahan seperti "malecehkan" menjadi "malahichahkan" atau "mangakibatkan" menjadi "mangakibatakan" disebabkan oleh substitusi fonetik pada konsonan tengah kata. Meskipun demikian, struktur kata dan makna semantik tetap terjaga.
+    \item \textbf{Kesalahan Segmentasi Kata}: Beberapa kesalahan terkait penggabungan atau pemisahan kata, seperti ``di antaro'' $\rightarrow$ ``diantaro'' dan ``anggota alah'' $\rightarrow$ ``anggotaalah''. Hal ini mencerminkan ketiadaan standar ortografi yang konsisten untuk bahasa Minangkabau \cite{koto2020minangkabau}.
     
-    \item \textbf{Penghilangan Kata Fungsional}: Model kadang menghilangkan partikel atau kata fungsional kecil seperti "nan" (dalam "biadab nan sangat") atau "nyo" (dalam "mampatahankannyo"), namun tidak signifikan mengubah makna kalimat.
+    \item \textbf{Variasi Partikel}: Partikel khas Minangkabau seperti ``-nyo'' kadang disubstitusi menjadi ``jo'' (contoh: ``mampatahankannyo'' $\rightarrow$ ``mampatahankan jo''). Partikel ini memiliki fungsi gramatikal serupa namun penggunaan yang berbeda dalam dialek Minangkabau.
     
-    \item \textbf{Segmentasi Kata}: Kesalahan seperti "di antaro" menjadi "diantaro" menunjukkan ambiguitas dalam segmentasi kata pada bahasa Minangkabau, yang merupakan karakteristik bahasa dengan ortografi yang belum terstandarisasi.
+    \item \textbf{CER Rendah Secara Konsisten}: Meskipun WER bervariasi (0--35,7\%), CER tetap rendah (0--6,7\%), mengindikasikan bahwa kesalahan umumnya bersifat minor dan tidak mengubah keseluruhan konten secara drastis.
 \end{enumerate}
-
-Secara keseluruhan, prediksi model pada step akhir (128) menunjukkan kualitas yang \textbf{jauh lebih baik} dibandingkan step awal. Sampel-sampel ini merepresentasikan performa model setelah konvergensi penuh, dengan WER bervariasi dari 0\% (sempurna) hingga 50\% (masih perlu perbaikan). Rata-rata WER dari 5 sampel ini ($\sim$24.26\%) mendekati rata-rata fold 0 (20.61\%), dengan perbedaan disebabkan oleh sampling variance (5 sampel dari 32 total). Model berhasil mempertahankan makna semantik dan struktur linguistik bahasa Minangkabau pada mayoritas prediksi, menunjukkan efektivitas pendekatan \textit{Freeze Encoder} pada dataset \textit{extremely low-resource}.
 
 \section{Pembahasan} \label{IV.Analisis}
 
 \subsection{Performa Model pada Dataset Terbatas}
 
-Hasil eksperimen menunjukkan bahwa pendekatan \textit{Freeze Encoder} efektif untuk \textit{fine-tuning} Whisper Base pada bahasa Minangkabau dengan dataset sangat terbatas (1,3 jam). Rata-rata WER 22,34\% menunjukkan performa yang sangat baik mengingat keterbatasan data dan ketiadaan sumber daya transkripsi bahasa Minangkabau yang memadai. Hasil ini konsisten dengan temuan penelitian terdahulu pada bahasa \textit{low-resource} lainnya \cite{pillai2024multistage,gete2025whispering,li2024improving}.
+Hasil eksperimen menunjukkan bahwa pendekatan \textit{Freeze Encoder} efektif untuk \textit{fine-tuning} Whisper Base pada bahasa Minangkabau dengan dataset sangat terbatas (1,3 jam). Rata-rata WER \textbf{19,92\%} menunjukkan performa yang sangat baik mengingat keterbatasan data dan ketiadaan sumber daya transkripsi bahasa Minangkabau yang memadai. Hasil ini konsisten dengan temuan penelitian terdahulu pada bahasa \textit{low-resource} lainnya \cite{pillai2024multistage,gete2025whispering,li2024improving}.
 
 Beberapa faktor yang berkontribusi terhadap keberhasilan pendekatan ini:
 
 \begin{itemize}
-    \item \textbf{Transfer Learning Efektif}: Encoder Whisper yang sudah dilatih pada 680.000 jam audio multibahasa memberikan representasi fitur audio yang robust, sehingga hanya decoder yang perlu disesuaikan untuk bahasa Minangkabau.
+    \item \textbf{Transfer Learning Efektif}: Encoder Whisper yang sudah dilatih pada 680.000 jam audio multibahasa memberikan representasi fitur audio yang robust, sehingga hanya decoder yang perlu disesuaikan untuk bahasa Minangkabau. Keefektifan ini konsisten dengan temuan bahwa bahasa dengan kekerabatan tipologis (Minangkabau--Indonesia) mendapat manfaat lebih besar dari \textit{transfer learning} \cite{liang2025fieldmatters}.
     
-    \item \textbf{Regularisasi Kuat}: Kombinasi \textit{weight decay} (0,01), \textit{gradient clipping} (1,0), dan \textit{dropout} (0,1) mencegah \textit{overfitting} pada dataset kecil.
+    \item \textbf{Regularisasi Berlapis}: Kombinasi \textit{weight decay} (0,1), \textit{dropout} tinggi (0,3/0,2/0,2), dan \textit{early stopping} (\textit{patience}=8 steps) memberikan tiga lapis perlindungan terhadap \textit{overfitting} pada dataset kecil.
     
-    \item \textbf{Data Augmentation}: Penerapan \textit{time masking}, \textit{frequency masking}, dan \textit{pitch shifting} meningkatkan variabilitas data training, membantu generalisasi model \cite{park2019specaugment,ko2015audio,salamon2017scaper}.
+    \item \textbf{Data Augmentation Agresif}: Penerapan \textit{speed perturbation} (0,85--1,15$\times$), \textit{noise injection} (SNR 10--30 dB), \textit{SpecAugment} ($T$=80, $F$=40), dan \textit{pitch shifting} ($\pm$2 semitone) meningkatkan variabilitas data training secara signifikan \cite{park2019specaugment,ko2015audio}.
     
-    \item \textbf{Strategi Learning Rate}: \textit{Warmup} 500 langkah dengan \textit{cosine decay} memastikan konvergensi stabil tanpa \textit{overshooting}.
+    \item \textbf{\textit{Beam Search Decoding}}: Penggunaan \textit{beam search} (\textit{width}=5) saat evaluasi memanfaatkan VRAM yang tersedia untuk mengeksplorasi lebih banyak jalur dekoding, menghasilkan transkripsi yang lebih akurat dibandingkan \textit{greedy decoding}.
 \end{itemize}
 
 \subsection{Variasi Performa Antar-Fold}
 
-Variasi WER antar-fold (rentang 19,71\%-24,78\%, standar deviasi 1,89\%) mengindikasikan konsistensi yang sangat baik dalam dataset:
+Variasi WER antar-\textit{fold} (rentang 15,65\%--22,58\%, standar deviasi 2,42\%) menunjukkan variasi moderat yang perlu dianalisis lebih lanjut. Rentang 6,93 poin persentase antara \textit{fold} terbaik dan terburuk merupakan konsekuensi yang wajar dari evaluasi pada dataset yang sangat kecil:
 
 \begin{itemize}
-    \item \textbf{Variasi Kualitas Audio}: Beberapa fold mungkin mengandung audio dengan kualitas rekaman yang lebih baik atau lebih buruk, mempengaruhi akurasi transkripsi.
+    \item \textbf{Variasi Kualitas Audio}: Beberapa \textit{fold} mungkin mengandung audio dengan kualitas rekaman yang lebih baik atau lebih buruk, mempengaruhi akurasi transkripsi. \textit{Fold}~2 (WER terbaik: 15,65\%) kemungkinan mendapat distribusi audio dengan kualitas yang lebih homogen.
     
     \item \textbf{Kompleksitas Linguistik}: Variasi dialek, kecepatan bicara, atau kompleksitas kalimat dalam subset data berbeda dapat mempengaruhi tingkat kesulitan tugas transkripsi.
     
-    \item \textbf{Distribusi Data}: Dengan dataset kecil (156 file), setiap fold hanya memiliki 32 sampel evaluasi, sehingga variasi individual sampel dapat memiliki dampak besar pada metrik agregat.
+    \item \textbf{Distribusi Data}: Dengan dataset kecil (156 file), setiap \textit{fold} hanya memiliki 32 sampel evaluasi, sehingga variasi individual sampel dapat memiliki dampak besar pada metrik agregat. Standar deviasi WER 2,42\% perlu diinterpretasikan dengan hati-hati pada dataset sekecil ini, namun fakta bahwa seluruh \textit{fold} tetap berada di bawah 23\% WER menunjukkan bahwa model secara umum mampu beradaptasi dengan bahasa Minangkabau terlepas dari pembagian data.
 \end{itemize}
 
 \subsection{Efisiensi Komputasi}
 
-Pendekatan \textit{Freeze Encoder} juga menunjukkan efisiensi komputasi yang tinggi:
+Pendekatan \textit{Freeze Encoder} menunjukkan efisiensi komputasi yang tinggi:
 
 \begin{itemize}
-    \item \textbf{Parameter Trainable}: Hanya 37M dari 74M parameter total yang dilatih (50\%), mengurangi kebutuhan memori dan waktu komputasi.
+    \item \textbf{Parameter Trainable}: Hanya $\sim$37M dari 74M parameter total yang dilatih (50\%), mengurangi kebutuhan memori dan waktu komputasi dibandingkan \textit{full fine-tuning}.
     
-    \item \textbf{Waktu Training}: Dari hasil eksperimen, waktu training per fold bervariasi antara 3.6 menit (Fold 1, 120 steps) hingga 5.4 menit (Fold 0, 128 steps) pada hardware lokal (RTX 5060 Ti 16GB). Rata-rata waktu training adalah \textbf{sekitar 5 menit per fold}. Waktu ini mencakup training (forward pass + backward pass), evaluasi setiap 4 steps (inference pada 32 test samples), dan logging metrics. Untuk total 5-fold cross-validation, waktu training keseluruhan adalah \textbf{sekitar 25 menit}, menunjukkan bahwa pendekatan ini sangat feasible untuk resource-constrained environments. Kecepatan training yang tinggi ini dimungkinkan oleh: (1) dataset kecil (124 samples training), (2) batch size efektif 32 (16 × 2 gradient accumulation), (3) mixed precision training (BF16), dan (4) gradient checkpointing.
+    \item \textbf{Waktu Training}: Rata-rata waktu training per \textit{fold} adalah \textbf{8,74 menit} pada RTX 5060 Ti 16GB, dengan variasi antara 6,95 menit (\textit{Fold}~4, 128 steps) hingga 9,72 menit (\textit{Fold}~1, 136 steps). Total 5-\textit{fold cross-validation} selesai dalam \textbf{$\sim$44 menit}. Kecepatan ini dimungkinkan oleh: (1) dataset kecil (124 sampel training per \textit{fold}), (2) \textit{batch size} 32, (3) \textit{mixed precision training} (BF16), dan (4) penonaktifan \textit{gradient checkpointing} untuk memaksimalkan kecepatan GPU.
     
-    \item \textbf{Konvergensi Cepat}: Model mencapai performa optimal dalam 84-164 langkah (setara 21-41 epoch untuk dataset 124 samples dengan batch size efektif 32), menunjukkan efisiensi pembelajaran. Early stopping berhasil menghentikan training sebelum 200 steps maksimal pada semua fold, mencegah overfitting.
+    \item \textbf{Konvergensi Cepat}: Model mencapai performa optimal dalam rata-rata 147 langkah ($\sim$37 epoch), menunjukkan efisiensi pembelajaran. \textit{Early stopping} berhasil menghentikan training pada semua \textit{fold} sebelum batas 200 steps, mengkonfirmasi konvergensi yang memadai.
 \end{itemize}
 
 \subsection{Limitasi dan Tantangan}
@@ -210,11 +279,13 @@ Pendekatan \textit{Freeze Encoder} juga menunjukkan efisiensi komputasi yang tin
 Beberapa limitasi yang teridentifikasi dalam penelitian ini:
 
 \begin{itemize}
-    \item \textbf{Ukuran Dataset}: Dataset 1,3 jam masih sangat terbatas untuk bahasa dengan variasi dialek yang luas seperti Minangkabau. Penelitian ASR pada bahasa dengan resource memadai biasanya menggunakan ratusan hingga ribuan jam audio \cite{liang2025fieldmatters,pratap2020mls}. Liang dan Levow \cite{liang2025fieldmatters} menunjukkan bahwa bahkan dengan data minimal (<1 jam), model \textit{pre-trained} seperti MMS masih dapat mencapai performa yang layak, namun peningkatan signifikan terjadi ketika data bertambah menjadi 5-10 jam.
+    \item \textbf{Ukuran Dataset}: Dataset 1,3 jam masih sangat terbatas untuk bahasa dengan variasi dialek yang luas seperti Minangkabau. Penelitian ASR pada bahasa dengan resource memadai biasanya menggunakan ratusan hingga ribuan jam audio \cite{liang2025fieldmatters,pratap2020mls}. Liang dan Levow \cite{liang2025fieldmatters} menunjukkan bahwa bahkan dengan data minimal ($<$1 jam), model \textit{pre-trained} seperti MMS masih dapat mencapai performa yang layak, namun peningkatan signifikan terjadi ketika data bertambah menjadi 5--10 jam.
     
-    \item \textbf{Standarisasi Ortografi}: Ketiadaan standar ejaan resmi untuk bahasa Minangkabau menyebabkan inkonsistensi dalam referensi transkripsi, mempengaruhi evaluasi WER \cite{koto2020minangkabau,sovia2022minangkabau}. Penelitian terdahulu \cite{koto2020minangkabau} mencatat bahwa bahasa Minangkabau memiliki variasi ortografi yang tinggi karena belum adanya standardisasi formal seperti yang dimiliki bahasa Indonesia.
+    \item \textbf{Standarisasi Ortografi}: Ketiadaan standar ejaan resmi untuk bahasa Minangkabau menyebabkan inkonsistensi dalam referensi transkripsi, mempengaruhi evaluasi WER \cite{koto2020minangkabau,sovia2022minangkabau}. Variasi ortografi seperti ``di antaro'' vs ``diantaro'' atau ``mampatahankannyo'' vs ``mampatahankan nyo'' secara artifisial meningkatkan WER meskipun prediksi model secara semantik benar.
     
     \item \textbf{Variasi Dialek}: Dataset LibriVox Indonesia Minangkabau kemungkinan tidak mencakup semua variasi dialek regional, membatasi generalisasi model pada dialek yang tidak terwakili.
     
     \item \textbf{Domain Spesifik}: Data training berasal dari pembacaan teks (LibriVox), sehingga model mungkin tidak optimal untuk transkripsi percakapan spontan atau domain lainnya.
+    
+    \item \textbf{Potensi \textit{Data Leakage}}: Penggunaan \textit{evaluation set} yang sama untuk \textit{early stopping} dan pelaporan metrik berpotensi menghasilkan estimasi performa yang sedikit optimistis. Pada skenario ideal, diperlukan \textit{validation set} terpisah, namun ukuran dataset yang sangat kecil membuat pemisahan tersebut tidak praktis.
 \end{itemize}

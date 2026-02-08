@@ -1,0 +1,1882 @@
+[
+  {
+    "timestamp": "2026-02-08T15:31:01.424822",
+    "step": 4,
+    "epoch": 1.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " menggiatkan dan malindungi hak hak asasi triok orang.",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.09615384615384616
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa-bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa mau raitkan secara jala hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.1111111111111111
+      },
+      {
+        "index": 3,
+        "prediction": " Ha, ha, ko, adola, milik, awak.",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.25
+      },
+      {
+        "index": 4,
+        "prediction": " itu lah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:31:13.495438",
+    "step": 8,
+    "epoch": 2.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " menggiatkan dan malindungi hak hak asasi triok orang.",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.09615384615384616
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa-bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa mau raitkan secara jala hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.1111111111111111
+      },
+      {
+        "index": 3,
+        "prediction": " Ha, ha, ko, adola, milik, awak.",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.25
+      },
+      {
+        "index": 4,
+        "prediction": " itu lah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:31:30.553613",
+    "step": 12,
+    "epoch": 3.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malindungi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.038461538461538464
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa mau raitkan secara jala hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.1111111111111111
+      },
+      {
+        "index": 3,
+        "prediction": " haka ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.14285714285714285
+      },
+      {
+        "index": 4,
+        "prediction": " itu lah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:31:42.161191",
+    "step": 16,
+    "epoch": 4.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malindungi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.038461538461538464
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa maurai kan secara jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08641975308641975
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak kok adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": " itu lah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:31:53.957380",
+    "step": 20,
+    "epoch": 5.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malindungi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.038461538461538464
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa maurai kan sacaro jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.4166666666666667,
+        "cer": 0.06172839506172839
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": " itu lah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:32:05.915398",
+    "step": 24,
+    "epoch": 6.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malindungi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.038461538461538464
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa maurai kan sacaro jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.4166666666666667,
+        "cer": 0.06172839506172839
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": " itu lah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:32:17.997689",
+    "step": 28,
+    "epoch": 7.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malindungi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.038461538461538464
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa maurai kan sacaro jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.4166666666666667,
+        "cer": 0.06172839506172839
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": " itu lah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 1.0,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:32:30.179376",
+    "step": 32,
+    "epoch": 8.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malindungi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.038461538461538464
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa maurai kan sacaro jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.4166666666666667,
+        "cer": 0.06172839506172839
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": " Itulah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:32:41.352808",
+    "step": 36,
+    "epoch": 9.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malindungi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.038461538461538464
+      },
+      {
+        "index": 1,
+        "prediction": " Tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.05555555555555555
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan bahasa bangsa maurai kan sacaro jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.4166666666666667,
+        "cer": 0.06172839506172839
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": " Itulah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:32:53.933199",
+    "step": 40,
+    "epoch": 10.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manggiatkan dan malinduangi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": " tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan basa bangsa mawurai kan sacaro jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.4166666666666667,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": " Itulah ha ha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.15789473684210525
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:33:05.556615",
+    "step": 44,
+    "epoch": 11.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok orang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": " tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": " perserikatan basa bangsa mawurai kan sacaro jale hak hak dan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.4166666666666667,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": " hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:33:19.182731",
+    "step": 48,
+    "epoch": 12.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawurai kan sacaro jale hak hak nan di miliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:33:30.686891",
+    "step": 52,
+    "epoch": 13.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduang hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawurai kan sacaro jale hak hak nan di miliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adola milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.16666666666666666,
+        "cer": 0.03571428571428571
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:33:43.209571",
+    "step": 56,
+    "epoch": 14.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduang hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawurai kan sacaro jale hak hak nan di miliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:33:54.723399",
+    "step": 60,
+    "epoch": 15.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduang hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawurahikan sacaro jalehak hak nan di miliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08641975308641975
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:34:06.258632",
+    "step": 64,
+    "epoch": 16.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduang hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan di miliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08641975308641975
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:34:17.712701",
+    "step": 68,
+    "epoch": 17.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduang hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.037037037037037035
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan di miliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08641975308641975
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:34:28.997865",
+    "step": 72,
+    "epoch": 18.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduang hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawurahikan sacaro jalehak hak nan di miliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.5,
+        "cer": 0.08641975308641975
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:34:40.272522",
+    "step": 76,
+    "epoch": 19.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduang hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.019230769230769232
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawurahikan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:34:51.333802",
+    "step": 80,
+    "epoch": 20.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:35:03.828576",
+    "step": 84,
+    "epoch": 21.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangnyo hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.057692307692307696
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:35:15.623997",
+    "step": 88,
+    "epoch": 22.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangnyo hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.125,
+        "cer": 0.057692307692307696
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:35:27.199745",
+    "step": 92,
+    "epoch": 23.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:35:46.863482",
+    "step": 96,
+    "epoch": 24.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.66666666666667,
+        "cer": 62.107142857142854
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:35:58.592226",
+    "step": 100,
+    "epoch": 25.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:36:10.584455",
+    "step": 104,
+    "epoch": 26.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:36:21.763091",
+    "step": 108,
+    "epoch": 27.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:36:32.920423",
+    "step": 112,
+    "epoch": 28.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:36:52.071693",
+    "step": 116,
+    "epoch": 29.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak ko adolah hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.33333333333333,
+        "cer": 61.892857142857146
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:37:11.513448",
+    "step": 120,
+    "epoch": 30.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:37:27.738496",
+    "step": 124,
+    "epoch": 31.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak ko adolah hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.33333333333333,
+        "cer": 61.892857142857146
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:37:47.136112",
+    "step": 128,
+    "epoch": 32.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:38:07.455004",
+    "step": 132,
+    "epoch": 33.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:38:27.629814",
+    "step": 136,
+    "epoch": 34.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:38:47.673345",
+    "step": 140,
+    "epoch": 35.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:39:07.937862",
+    "step": 144,
+    "epoch": 36.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:39:27.435476",
+    "step": 148,
+    "epoch": 37.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:39:44.568269",
+    "step": 152,
+    "epoch": 38.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik awak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:40:04.064869",
+    "step": 156,
+    "epoch": 39.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak hak ko adolah milik jo hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.16666666666667,
+        "cer": 61.785714285714285
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:40:14.636145",
+    "step": 156,
+    "epoch": 39.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+        "audio_id": null,
+        "wer": 0.0,
+        "cer": 0.0
+      },
+      {
+        "index": 1,
+        "prediction": "tekat ko bambulah dari piagam perserikatan bangsa bangsa",
+        "reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 2,
+        "prediction": "perserikatan basa bangsa mawuraitkan sacaro jalehak hak nan dimiliki tiok urang",
+        "reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07407407407407407
+      },
+      {
+        "index": 3,
+        "prediction": "hak hak ko adolah milik jo hak hak ko adolah hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak hak",
+        "reference": "hak hak ko adolah milik awak",
+        "audio_id": null,
+        "wer": 72.33333333333333,
+        "cer": 61.892857142857146
+      },
+      {
+        "index": 4,
+        "prediction": "itu lahaha awak",
+        "reference": "itulah hak hak awak",
+        "audio_id": null,
+        "wer": 0.75,
+        "cer": 0.3157894736842105
+      }
+    ]
+  }
+]

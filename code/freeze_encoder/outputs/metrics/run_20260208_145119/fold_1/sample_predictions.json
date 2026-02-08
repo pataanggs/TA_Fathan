@@ -1,0 +1,1647 @@
+[
+  {
+    "timestamp": "2026-02-08T15:01:37.810410",
+    "step": 4,
+    "epoch": 1.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kaya kinen umat manusia di dunia taradok hak-hak asasi dan martapat, dan mandasar sarato nilai manusia secara pribadi.",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.12878787878787878
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak Damayan di dunia.",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.8,
+        "cer": 0.1875
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya kurang indak tapaso memilih barontak sebagai usaha pengabisan Untuk menantang kajaliman dan panindasan.",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.7333333333333333,
+        "cer": 0.12903225806451613
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato taraf iduik dan labiah elok dalam kamer dekatan dan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.5294117647058824,
+        "cer": 0.10434782608695652
+      },
+      {
+        "index": 4,
+        "prediction": " Saya sungguhnya perlu banyak adanya pemahaman dan sama tantang hakak dan kabebasan kabebasan kok supaya dapat diwujudkan salur ruah nyok, sasuai yo ikrar.",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.8571428571428571,
+        "cer": 0.1917808219178082
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:03:36.249760",
+    "step": 8,
+    "epoch": 2.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kaya kinen umat manusia di dunia taradok hak-hak asasi dan martapat dan mandasar sarato nilai manusia secara pribadi.",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.45,
+        "cer": 0.12121212121212122
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak Damayan di dunia.",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.8,
+        "cer": 0.1875
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya kurang indak tapaso memilih barontak sebagai usaha pengabisan Untuk menantang kajaliman dan panindasan.",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.7333333333333333,
+        "cer": 0.12903225806451613
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato tarof iduik dan labiah elok dalam kamer dekatan dan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.5882352941176471,
+        "cer": 0.11304347826086956
+      },
+      {
+        "index": 4,
+        "prediction": " Saya sungguhnya, pahal bana adanya pemahaman dan sama tantang hakak dan kabebasan kabebasan kok supaya dapak diwujutkan, seluruhuahnya, sasuai yo ikrar.",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.7619047619047619,
+        "cer": 0.1917808219178082
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:03:50.475150",
+    "step": 12,
+    "epoch": 3.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kaya kinen umat manusia di dunia taradok hak hak asasi dan martapat, nan mandasar sarato nilai manusia secara pribadi.",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.3,
+        "cer": 0.11363636363636363
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak Damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.15625
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya kurang indak tapaso mamiliya barontak sabagai usahaupang habisan Untuk manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.5333333333333333,
+        "cer": 0.12096774193548387
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato taraf iduik dan labiah elok dalam kamer dekatan dan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.5294117647058824,
+        "cer": 0.10434782608695652
+      },
+      {
+        "index": 4,
+        "prediction": " Saya sungguhnya perlu banyak adanya pemahaman dan sama tantang hakak dan kabebasan kabebasan kok supaya dapat diwujudkan salur ruah nyok, sasuai yo ikrar.",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.8571428571428571,
+        "cer": 0.1917808219178082
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:04:06.625640",
+    "step": 16,
+    "epoch": 4.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kaya kinen umat manusia di dunia taradok hak hak asasi dan martapat nan mandasar sarato nilai manusia secarro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.25,
+        "cer": 0.09848484848484848
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak Damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.15625
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya kurang indak tapaso mamiliya barontak sabagai usahaupang habisan Untuk manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.5333333333333333,
+        "cer": 0.12096774193548387
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato taraf iduik dan labiah elok dalam kamerdekaan dan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.47058823529411764,
+        "cer": 0.08695652173913043
+      },
+      {
+        "index": 4,
+        "prediction": " Susungguhio, palu bana adanya pemahaman dan sama tantang hakak dan kabebasan kabebasan kok supaya dapak diwujutkan salur ruah nyok, sasuai yo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.7619047619047619,
+        "cer": 0.17123287671232876
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:04:19.684725",
+    "step": 20,
+    "epoch": 5.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kaya kinen umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.15,
+        "cer": 0.07575757575757576
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak Damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.15625
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya urang indak tapaso mamiliya barontak sabagai usahaupangabisan Untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.4666666666666667,
+        "cer": 0.08870967741935484
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato taraf iduiknan labiah elok dalam kamerdekaan dan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.5294117647058824,
+        "cer": 0.08695652173913043
+      },
+      {
+        "index": 4,
+        "prediction": " Sasungguhyo palu bana adanyao pemahamanan sama tantang hakak dan kabebasan kabebasan ko supaya dapak diwujutkan saluruhanyo saswaiyo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.6666666666666666,
+        "cer": 0.14383561643835616
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:04:32.608894",
+    "step": 24,
+    "epoch": 6.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06060606060606061
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya urang indak tapaso mamiliya barontak sabagai usahao pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.07258064516129033
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato taraf iduiknan labiah elok dalam kamardekaan dan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.47058823529411764,
+        "cer": 0.0782608695652174
+      },
+      {
+        "index": 4,
+        "prediction": " Sasungguhyo palu bana adanyo pemahaman dan samo tantang hakak dan kabebasan kabebasan ko supaya dapak diwujudkan saluruhanyo sasuaiyo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.5714285714285714,
+        "cer": 0.1095890410958904
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:04:48.827335",
+    "step": 28,
+    "epoch": 7.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06060606060606061
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya urang indak tapaso mamilia barontak sabagai usahao pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.06451612903225806
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.06086956521739131
+      },
+      {
+        "index": 4,
+        "prediction": " Sasungguhyo palu bana adanyo pemahaman nan samo tantang hakak dan kabebasan kabebasan ko supaya dapak diwujudkan saluruhanyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.42857142857142855,
+        "cer": 0.08904109589041095
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:05:02.414794",
+    "step": 32,
+    "epoch": 8.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " Mengukuhakan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06060606060606061
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya urang indak tapaso mamilia barontak sabagai usahao pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.06451612903225806
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.06086956521739131
+      },
+      {
+        "index": 4,
+        "prediction": " sasungguhyo palu bana adanyo pemahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruhanyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.2857142857142857,
+        "cer": 0.06164383561643835
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:05:15.432266",
+    "step": 36,
+    "epoch": 9.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": " Sesungguhnya supaya urang indak tapaso mamiliah barontak sabagai usahaupang habisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.3333333333333333,
+        "cer": 0.08064516129032258
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuk mandorong kamuajuan sosial serato tarav iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.35294117647058826,
+        "cer": 0.06956521739130435
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhio palu bana adanyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruhanyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.23809523809523808,
+        "cer": 0.06164383561643835
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:05:29.449192",
+    "step": 40,
+    "epoch": 10.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": " manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": " keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguunyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.03225806451612903
+      },
+      {
+        "index": 3,
+        "prediction": " dan patekat untuuk mandorong kamuajuan sosial serato tarav iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.35294117647058826,
+        "cer": 0.06956521739130435
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguhio palu bana adanyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruhanyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.23809523809523808,
+        "cer": 0.06164383561643835
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:05:43.436794",
+    "step": 44,
+    "epoch": 11.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguunyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.03225806451612903
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamuajuan sosial sarato tarav iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahyo palu bana adanyo pamahaman nan samo tantang hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.23809523809523808,
+        "cer": 0.06164383561643835
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:05:57.329148",
+    "step": 48,
+    "epoch": 12.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguunyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.2,
+        "cer": 0.03225806451612903
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajoan sosial sarato tarav iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahyo palu bana adonyo pamahaman nan samo tantang hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo iklar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.23809523809523808,
+        "cer": 0.06164383561643835
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:06:12.857619",
+    "step": 52,
+    "epoch": 13.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajoan sosial sarato tarav iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahiyo palu bana adonyo pamahaman nan samo tantang hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo iklar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.23809523809523808,
+        "cer": 0.06164383561643835
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:06:27.441978",
+    "step": 56,
+    "epoch": 14.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan pak damayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.125
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajoan sosial sarato tarav iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahiyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo iklar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.19047619047619047,
+        "cer": 0.03424657534246575
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:06:40.529714",
+    "step": 60,
+    "epoch": 15.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarav iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.0782608695652174
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo iklar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.14285714285714285,
+        "cer": 0.0273972602739726
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:06:53.656578",
+    "step": 64,
+    "epoch": 16.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:07:07.676446",
+    "step": 68,
+    "epoch": 17.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.05303030303030303
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.0782608695652174
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:07:21.627727",
+    "step": 72,
+    "epoch": 18.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "keadilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.4,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.0782608695652174
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:07:35.104861",
+    "step": 76,
+    "epoch": 19.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supaya urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.0782608695652174
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:07:48.024414",
+    "step": 80,
+    "epoch": 20.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.06666666666666667,
+        "cer": 0.008064516129032258
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.0782608695652174
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:08:01.416587",
+    "step": 84,
+    "epoch": 21.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.06666666666666667,
+        "cer": 0.008064516129032258
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadangan",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.29411764705882354,
+        "cer": 0.0782608695652174
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:08:15.370048",
+    "step": 88,
+    "epoch": 22.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.06086956521739131
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:08:29.839529",
+    "step": 92,
+    "epoch": 23.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.06086956521739131
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:08:43.321092",
+    "step": 96,
+    "epoch": 24.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajoan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.23529411764705882,
+        "cer": 0.06086956521739131
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:08:57.352803",
+    "step": 100,
+    "epoch": 25.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.11764705882352941,
+        "cer": 0.02608695652173913
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:09:10.528963",
+    "step": 104,
+    "epoch": 26.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.11764705882352941,
+        "cer": 0.02608695652173913
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:09:24.440794",
+    "step": 108,
+    "epoch": 27.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.17647058823529413,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:09:37.127573",
+    "step": 112,
+    "epoch": 28.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.17647058823529413,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:09:49.949354",
+    "step": 116,
+    "epoch": 29.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.11764705882352941,
+        "cer": 0.02608695652173913
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:10:03.437625",
+    "step": 120,
+    "epoch": 30.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.11764705882352941,
+        "cer": 0.02608695652173913
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:10:22.519881",
+    "step": 124,
+    "epoch": 31.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.17647058823529413,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:10:35.907667",
+    "step": 128,
+    "epoch": 32.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.11764705882352941,
+        "cer": 0.043478260869565216
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:10:49.897189",
+    "step": 132,
+    "epoch": 33.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajuan sosial sarato tarad iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.17647058823529413,
+        "cer": 0.05217391304347826
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:11:02.632965",
+    "step": 136,
+    "epoch": 34.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandaurang kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.11764705882352941,
+        "cer": 0.043478260869565216
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-02-08T15:11:12.954182",
+    "step": 136,
+    "epoch": 34.0,
+    "samples": [
+      {
+        "index": 0,
+        "prediction": "manggukku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "reference": "nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi",
+        "audio_id": null,
+        "wer": 0.1,
+        "cer": 0.06818181818181818
+      },
+      {
+        "index": 1,
+        "prediction": "ka adilan dan parkdamayan di dunia",
+        "reference": "kaadilan dan pardamaian di dunia",
+        "audio_id": null,
+        "wer": 0.6,
+        "cer": 0.09375
+      },
+      {
+        "index": 2,
+        "prediction": "sasungguahnyo supayo urang indak tapaso mamiliah barantak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan",
+        "reference": "sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan",
+        "audio_id": null,
+        "wer": 0.13333333333333333,
+        "cer": 0.016129032258064516
+      },
+      {
+        "index": 3,
+        "prediction": "dan patekat untuak mandorong kamajuan sosial sarato tarof iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "reference": "dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang",
+        "audio_id": null,
+        "wer": 0.11764705882352941,
+        "cer": 0.02608695652173913
+      },
+      {
+        "index": 4,
+        "prediction": "sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "reference": "sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar",
+        "audio_id": null,
+        "wer": 0.09523809523809523,
+        "cer": 0.02054794520547945
+      }
+    ]
+  }
+]

@@ -20,8 +20,6 @@ from peft import (
     LoraConfig,
     get_peft_model,
     PeftModel,
-    TaskType,
-    prepare_model_for_kbit_training,
 )
 
 from config import (
@@ -45,6 +43,38 @@ from metrics_logger import (
     ComprehensiveMetricsCallback,
     PredictionLoggingCallback,
 )
+
+
+class WhisperLoRATrainer(Seq2SeqTrainer):
+    """
+    Custom Seq2SeqTrainer for Whisper + LoRA that handles label smoothing.
+
+    When label_smoothing_factor > 0, the base Trainer.compute_loss() pops
+    'labels' from inputs before calling model(**inputs). Whisper's forward()
+    needs labels to auto-generate decoder_input_ids via shift_tokens_right().
+    Without labels, Whisper raises:
+        ValueError: You have to specify either decoder_input_ids or decoder_inputs_embeds
+
+    Fix: pre-compute decoder_input_ids from labels and inject them into inputs
+    before the parent's compute_loss() pops labels.
+    """
+
+    def compute_loss(self, model, inputs, num_items_in_batch=None, **kwargs):
+        if "labels" in inputs and "decoder_input_ids" not in inputs:
+            labels = inputs["labels"]
+            # Shift labels right to create decoder_input_ids
+            # (same logic as WhisperForConditionalGeneration.forward)
+            decoder_input_ids = labels.new_zeros(labels.shape)
+            decoder_input_ids[:, 1:] = labels[:, :-1].clone()
+            decoder_input_ids[:, 0] = model.config.decoder_start_token_id
+            # Replace -100 (ignore index) with pad_token_id
+            decoder_input_ids = decoder_input_ids.masked_fill(
+                decoder_input_ids == -100,
+                model.config.pad_token_id,
+            )
+            inputs["decoder_input_ids"] = decoder_input_ids
+
+        return super().compute_loss(model, inputs, num_items_in_batch=num_items_in_batch, **kwargs)
 
 
 def load_model() -> WhisperForConditionalGeneration:
@@ -85,13 +115,19 @@ def apply_lora(model: WhisperForConditionalGeneration) -> PeftModel:
         PeftModel with LoRA adapters applied
     """
     # Create LoRA configuration
+    # NOTE: Do NOT use task_type=TaskType.SEQ_2_SEQ_LM here.
+    # SEQ_2_SEQ_LM wraps the model in PeftModelForSeq2SeqLM, whose forward()
+    # injects an 'input_ids' kwarg for encoder text input (designed for T5/BART).
+    # Whisper uses 'input_features' (mel spectrograms), not 'input_ids', so
+    # setting task_type=None uses the generic PeftModel wrapper that passes all
+    # kwargs through to the underlying WhisperForConditionalGeneration unchanged.
     lora_config = LoraConfig(
         r=LORA_CONFIG["r"],
         lora_alpha=LORA_CONFIG["lora_alpha"],
         lora_dropout=LORA_CONFIG["lora_dropout"],
         target_modules=LORA_CONFIG["target_modules"],
         bias=LORA_CONFIG["bias"],
-        task_type=TaskType.SEQ_2_SEQ_LM,
+        task_type=None,
         modules_to_save=LORA_CONFIG.get("modules_to_save", None),
     )
 
@@ -264,7 +300,7 @@ def create_trainer(
         }
         metrics_logger.log_model_config(model_config)
 
-    trainer = Seq2SeqTrainer(
+    trainer = WhisperLoRATrainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
