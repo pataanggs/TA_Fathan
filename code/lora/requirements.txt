@@ -1,0 +1,8 @@
+# LoRA Fine-tuning additional requirements
+# Install on top of the base requirements from ../requirements.txt
+#
+# Usage:
+#   pip install -r ../requirements.txt
+#   pip install -r requirements.txt
+
+peft>=0.13.0

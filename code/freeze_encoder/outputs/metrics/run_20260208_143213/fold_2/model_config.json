@@ -1,0 +1,12 @@
+{
+  "model_name": "openai/whisper-base",
+  "language": "id",
+  "language_full": "indonesian",
+  "task": "transcribe",
+  "strategy": "Freeze Encoder (Decoder-Only)",
+  "dropout": 0.3,
+  "attention_dropout": 0.2,
+  "activation_dropout": 0.2,
+  "num_beams": 1,
+  "max_length": 225
+}

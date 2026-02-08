@@ -1,7 +1,7 @@
 """
-Trainer module for Whisper fine-tuning.
-Implements model initialization, freeze encoder strategy, and training loop.
-With proper language token configuration for Indonesian as proxy for Minangkabau.
+Trainer module for Whisper fine-tuning with Freeze Encoder strategy.
+Implements model initialization, encoder freezing, and training loop.
+Uses Indonesian as proxy language for Minangkabau.
 Includes comprehensive metrics logging to both local files and WandB.
 """
 
@@ -26,6 +26,7 @@ from config import (
     TRAINING_ARGS, 
     MODEL_DROPOUT_CONFIG,
     GENERATION_CONFIG,
+    EARLY_STOPPING_CONFIG,
     METRICS_LOGGING_CONFIG,
     OUTPUT_DIR,
 )
@@ -48,25 +49,16 @@ def load_model() -> WhisperForConditionalGeneration:
     """
     model = WhisperForConditionalGeneration.from_pretrained(MODEL_NAME)
     
-    # ==========================================================================
-    # CRITICAL: Set language token to Indonesian (proxy for Minangkabau)
-    # ==========================================================================
-    
     # Configure generation config with Indonesian language
     model.generation_config.language = LANGUAGE  # "id"
     model.generation_config.task = TASK  # "transcribe"
-    
-    # Set forced decoder IDs to use Indonesian token
-    # This ensures the model starts generating with <|id|> token instead of <|en|>
-    model.generation_config.forced_decoder_ids = None  # Will be set by processor
+    model.generation_config.forced_decoder_ids = None
     
     # Configure beam search for better inference
     model.generation_config.num_beams = GENERATION_CONFIG["num_beams"]
     model.generation_config.max_length = GENERATION_CONFIG["max_length"]
     
-    # ==========================================================================
     # Apply dropout configuration to prevent overfitting
-    # ==========================================================================
     model.config.dropout = MODEL_DROPOUT_CONFIG["dropout"]
     model.config.attention_dropout = MODEL_DROPOUT_CONFIG["attention_dropout"]
     model.config.activation_dropout = MODEL_DROPOUT_CONFIG["activation_dropout"]
@@ -81,11 +73,10 @@ def load_processor() -> WhisperProcessor:
     Returns:
         WhisperProcessor configured for Indonesian
     """
-    # Load processor with Indonesian language
     processor = WhisperProcessor.from_pretrained(
         MODEL_NAME, 
-        language=LANGUAGE_FULL,  # "indonesian"
-        task=TASK  # "transcribe"
+        language=LANGUAGE_FULL,
+        task=TASK,
     )
     
     # Ensure tokenizer is configured correctly
@@ -136,15 +127,6 @@ def create_compute_metrics(processor: WhisperProcessor):
     cer_metric = evaluate.load("cer")
     
     def compute_metrics(pred) -> Dict[str, float]:
-        """
-        Compute WER and CER for predictions.
-        
-        Args:
-            pred: Prediction output from Trainer
-            
-        Returns:
-            Dictionary with 'wer' and 'cer' metrics
-        """
         pred_ids = pred.predictions
         label_ids = pred.label_ids
         
@@ -180,7 +162,6 @@ def create_training_arguments(
     Returns:
         Seq2SeqTrainingArguments
     """
-    # Merge default args with overrides
     args = TRAINING_ARGS.copy()
     args.update(kwargs)
     args["output_dir"] = output_dir
@@ -215,9 +196,13 @@ def create_trainer(
     """
     compute_metrics = create_compute_metrics(processor)
     
-    # Get early stopping patience from training args
-    early_stopping_patience = TRAINING_ARGS.get("early_stopping_patience", 5)
-    callbacks = [EarlyStoppingCallback(early_stopping_patience=early_stopping_patience)]
+    # Early stopping callback
+    callbacks = [
+        EarlyStoppingCallback(
+            early_stopping_patience=EARLY_STOPPING_CONFIG["patience"],
+            early_stopping_threshold=EARLY_STOPPING_CONFIG["threshold"],
+        )
+    ]
     
     # Add metrics logging callbacks if logger is provided
     if metrics_logger is not None:
@@ -236,6 +221,7 @@ def create_trainer(
             "language": LANGUAGE,
             "language_full": LANGUAGE_FULL,
             "task": TASK,
+            "strategy": "Freeze Encoder (Decoder-Only)",
             "dropout": MODEL_DROPOUT_CONFIG["dropout"],
             "attention_dropout": MODEL_DROPOUT_CONFIG["attention_dropout"],
             "activation_dropout": MODEL_DROPOUT_CONFIG["activation_dropout"],
@@ -283,7 +269,7 @@ def train_fold(
         Dictionary with evaluation metrics
     """
     print(f"\n{'='*60}")
-    print(f"TRAINING FOLD {fold_idx + 1}/5")
+    print(f"TRAINING FOLD {fold_idx + 1}/5 (Freeze Encoder)")
     print(f"{'='*60}")
     
     # CRITICAL: Re-initialize model for each fold to prevent weight leakage
@@ -317,7 +303,7 @@ def train_fold(
     fold_output_dir = f"{output_dir}/fold_{fold_idx}"
     training_args = create_training_arguments(
         output_dir=fold_output_dir,
-        run_name=f"fold-{fold_idx}",
+        run_name=f"freeze-fold-{fold_idx}",
     )
     
     # Create trainer with metrics logger
@@ -355,7 +341,7 @@ def train_fold(
 
 
 if __name__ == "__main__":
-    print("Testing Trainer Module")
+    print("Testing Freeze Encoder Trainer Module")
     print("-" * 50)
     
     # Load model and processor

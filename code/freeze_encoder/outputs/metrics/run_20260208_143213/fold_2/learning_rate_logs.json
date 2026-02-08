@@ -1,0 +1,42 @@
+[
+  {
+    "step": 1,
+    "epoch": 0.25,
+    "learning_rate": 0.0
+  },
+  {
+    "step": 2,
+    "epoch": 0.5,
+    "learning_rate": 2.5000000000000004e-07
+  },
+  {
+    "step": 3,
+    "epoch": 0.75,
+    "learning_rate": 5.000000000000001e-07
+  },
+  {
+    "step": 4,
+    "epoch": 1.0,
+    "learning_rate": 7.5e-07
+  },
+  {
+    "step": 5,
+    "epoch": 1.25,
+    "learning_rate": 1.0000000000000002e-06
+  },
+  {
+    "step": 6,
+    "epoch": 1.5,
+    "learning_rate": 1.25e-06
+  },
+  {
+    "step": 7,
+    "epoch": 1.75,
+    "learning_rate": 1.5e-06
+  },
+  {
+    "step": 8,
+    "epoch": 2.0,
+    "learning_rate": 1.75e-06
+  }
+]

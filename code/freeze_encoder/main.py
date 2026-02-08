@@ -1,10 +1,16 @@
 """
 Main entry point for Whisper fine-tuning on Minangkabau language.
+Strategy: Freeze Encoder (Decoder-Only Fine-Tuning).
 Implements 5-fold cross-validation with WandB integration.
 Includes comprehensive metrics logging to both local files and WandB.
+
+Usage:
+    cd /path/to/code/freeze_encoder
+    python main.py
 """
 
 import os
+import sys
 import warnings
 import logging
 import json
@@ -21,6 +27,22 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 logging.getLogger("transformers").setLevel(logging.ERROR)
 logging.getLogger("torch").setLevel(logging.ERROR)
 
+# =============================================================================
+# PATH SETUP: Ensure this strategy's config is used by shared modules
+# =============================================================================
+STRATEGY_DIR = Path(__file__).parent          # code/freeze_encoder/
+CODE_DIR = STRATEGY_DIR.parent                # code/
+
+# 1. Import our own config first
+sys.path.insert(0, str(STRATEGY_DIR))
+import config  # This imports freeze_encoder/config.py
+
+# 2. Register it as THE config module so shared modules use it
+sys.modules['config'] = config
+
+# 3. Add parent (code/) to path for shared modules
+sys.path.insert(0, str(CODE_DIR))
+
 from config import (
     WANDB_API_KEY,
     WANDB_PROJECT,
@@ -34,6 +56,8 @@ from config import (
     AUGMENTATION_CONFIG,
     METRICS_LOGGING_CONFIG,
 )
+
+# Import shared modules from parent (code/) directory
 from data_loader import (
     load_and_merge_datasets,
     dataframe_to_hf_dataset,
@@ -45,6 +69,8 @@ from dataset import (
     create_data_collator,
 )
 from augmentation import AudioAugmenter
+
+# Import strategy-specific trainer
 from trainer import (
     load_processor,
     load_model,
@@ -70,9 +96,41 @@ def setup_wandb():
     """Initialize WandB with API key from .env"""
     if WANDB_API_KEY:
         os.environ["WANDB_API_KEY"] = WANDB_API_KEY
-        print("WandB API key loaded from .env")
+        print("✅ WandB API key loaded from .env")
     else:
-        print("Warning: WANDB_API_KEY not found in .env")
+        print("⚠️  Warning: WANDB_API_KEY not found in .env")
+
+
+def print_experiment_config():
+    """Print the full experiment configuration for reproducibility."""
+    print("\n" + "=" * 70)
+    print("EXPERIMENT CONFIGURATION (Freeze Encoder)")
+    print("=" * 70)
+
+    print("\n📋 Strategy: Freeze Encoder (Decoder-Only)")
+    print(f"   Trainable: ~37M params (~50% of 74M)")
+
+    print("\n📋 Training Configuration:")
+    print(f"   Learning Rate:      {TRAINING_ARGS['learning_rate']}")
+    print(f"   Batch Size:         {TRAINING_ARGS['per_device_train_batch_size']}")
+    print(f"   Grad Accum Steps:   {TRAINING_ARGS['gradient_accumulation_steps']}")
+    print(f"   Effective Batch:    {TRAINING_ARGS['per_device_train_batch_size'] * TRAINING_ARGS['gradient_accumulation_steps']}")
+    print(f"   Max Steps:          {TRAINING_ARGS['max_steps']}")
+    print(f"   Warmup Ratio:       {TRAINING_ARGS['warmup_ratio']}")
+    print(f"   Weight Decay:       {TRAINING_ARGS['weight_decay']}")
+    print(f"   LR Scheduler:       {TRAINING_ARGS['lr_scheduler_type']}")
+
+    print("\n📋 Model Dropout (Anti-Overfitting):")
+    print(f"   Dropout:            {MODEL_DROPOUT_CONFIG['dropout']}")
+    print(f"   Attention Dropout:  {MODEL_DROPOUT_CONFIG['attention_dropout']}")
+    print(f"   Activation Dropout: {MODEL_DROPOUT_CONFIG['activation_dropout']}")
+
+    print("\n📋 Augmentation Config:")
+    print(f"   Speed Perturbation: {AUGMENTATION_CONFIG['speed_perturbation']}")
+    print(f"   Noise SNR Range:    {AUGMENTATION_CONFIG['noise_snr_range']}")
+    print(f"   SpecAugment Time:   {AUGMENTATION_CONFIG['specaugment_time_mask']}")
+    print(f"   SpecAugment Freq:   {AUGMENTATION_CONFIG['specaugment_freq_mask']}")
+    print(f"   Pitch Shift:        {AUGMENTATION_CONFIG['pitch_shift']}")
 
 
 def main():
@@ -80,6 +138,7 @@ def main():
     
     print("=" * 70)
     print("WHISPER FINE-TUNING FOR MINANGKABAU LANGUAGE")
+    print("Strategy: Freeze Encoder (Decoder-Only)")
     print("=" * 70)
     
     # Check GPU
@@ -87,18 +146,20 @@ def main():
     
     # Setup WandB
     setup_wandb()
+
+    # Print full configuration
+    print_experiment_config()
     
     # Create experiment name with timestamp
     experiment_name = f"run_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     print(f"\n📊 Experiment Name: {experiment_name}")
-    print(f"   Metrics will be saved locally and to WandB")
+    print(f"   Metrics will be saved to: {OUTPUT_DIR / 'metrics' / experiment_name}")
     
     # ==========================================================================
     # STEP 1: Load data (uses pre-converted WAV metadata if available)
     # ==========================================================================
     print("\n[STEP 1] Loading data...")
     
-    # Load datasets (data_loader will use pre-converted metadata if it exists)
     merged_df = load_and_merge_datasets()
     
     print(f"Final dataset size: {len(merged_df)} samples")
@@ -118,6 +179,7 @@ def main():
     dummy_model = load_model()
     data_collator = create_data_collator(processor, dummy_model)
     del dummy_model  # Free memory
+    torch.cuda.empty_cache()
     
     # ==========================================================================
     # STEP 3: 5-Fold Cross-Validation
@@ -134,11 +196,19 @@ def main():
         wandb.init(
             project=WANDB_PROJECT,
             group=WANDB_GROUP,
-            name=f"fold-{fold_idx}",
+            name=f"freeze-fold-{fold_idx}",
             reinit=True,
+            config={
+                "strategy": "Freeze Encoder",
+                "fold": fold_idx,
+                "learning_rate": TRAINING_ARGS["learning_rate"],
+                "max_steps": TRAINING_ARGS["max_steps"],
+                "weight_decay": TRAINING_ARGS["weight_decay"],
+                "dropout": MODEL_DROPOUT_CONFIG["dropout"],
+            },
         )
         
-        print(f"\n--- Fold {fold_idx + 1}/{NUM_FOLDS} ---")
+        print(f"\n--- Fold {fold_idx + 1}/{NUM_FOLDS} (Freeze Encoder) ---")
         print(f"Train samples: {len(train_indices)}")
         print(f"Eval samples: {len(eval_indices)}")
         
@@ -182,26 +252,32 @@ def main():
         
         # Finish WandB run for this fold
         wandb.finish()
+
+        # Clear GPU memory between folds
+        torch.cuda.empty_cache()
     
     # ==========================================================================
     # STEP 4: Calculate and print final statistics
     # ==========================================================================
     print("\n" + "=" * 70)
-    print("FINAL RESULTS - 5-FOLD CROSS-VALIDATION")
+    print("FINAL RESULTS - 5-FOLD CROSS-VALIDATION (Freeze Encoder)")
     print("=" * 70)
     
     wer_scores = [r["wer"] for r in fold_results]
     cer_scores = [r["cer"] for r in fold_results]
     
     print("\nPer-Fold Results:")
-    print("-" * 40)
+    print("-" * 50)
     for i, result in enumerate(fold_results):
-        print(f"  Fold {i + 1}: WER = {result['wer']:.4f}, CER = {result['cer']:.4f}")
+        print(f"  Fold {i + 1}: WER = {result['wer']:.4f} ({result['wer']*100:.2f}%), "
+              f"CER = {result['cer']:.4f} ({result['cer']*100:.2f}%)")
     
-    print("\n" + "-" * 40)
-    print(f"WER: {np.mean(wer_scores):.4f} ± {np.std(wer_scores):.4f}")
-    print(f"CER: {np.mean(cer_scores):.4f} ± {np.std(cer_scores):.4f}")
-    print("-" * 40)
+    print("\n" + "-" * 50)
+    print(f"📊 Mean WER: {np.mean(wer_scores)*100:.2f}% ± {np.std(wer_scores)*100:.2f}%")
+    print(f"📊 Mean CER: {np.mean(cer_scores)*100:.2f}% ± {np.std(cer_scores)*100:.2f}%")
+    print(f"📊 Best WER: {np.min(wer_scores)*100:.2f}% (Fold {np.argmin(wer_scores) + 1})")
+    print(f"📊 Best CER: {np.min(cer_scores)*100:.2f}% (Fold {np.argmin(cer_scores) + 1})")
+    print("-" * 50)
     
     # ==========================================================================
     # STEP 5: Save comprehensive cross-validation summary locally
@@ -209,11 +285,13 @@ def main():
     cv_summary = {
         "experiment_name": experiment_name,
         "timestamp": datetime.now().isoformat(),
+        "strategy": "Freeze Encoder (Decoder-Only)",
         "num_folds": NUM_FOLDS,
         "training_config": {
             "learning_rate": TRAINING_ARGS["learning_rate"],
             "batch_size": TRAINING_ARGS["per_device_train_batch_size"],
             "gradient_accumulation_steps": TRAINING_ARGS["gradient_accumulation_steps"],
+            "effective_batch_size": TRAINING_ARGS["per_device_train_batch_size"] * TRAINING_ARGS["gradient_accumulation_steps"],
             "max_steps": TRAINING_ARGS["max_steps"],
             "warmup_ratio": TRAINING_ARGS["warmup_ratio"],
             "weight_decay": TRAINING_ARGS["weight_decay"],
@@ -224,7 +302,13 @@ def main():
             "attention_dropout": MODEL_DROPOUT_CONFIG["attention_dropout"],
             "activation_dropout": MODEL_DROPOUT_CONFIG["activation_dropout"],
         },
-        "augmentation_config": AUGMENTATION_CONFIG,
+        "augmentation_config": {
+            "speed_perturbation": AUGMENTATION_CONFIG["speed_perturbation"],
+            "noise_snr_range": list(AUGMENTATION_CONFIG["noise_snr_range"]),
+            "specaugment_time_mask": AUGMENTATION_CONFIG["specaugment_time_mask"],
+            "specaugment_freq_mask": AUGMENTATION_CONFIG["specaugment_freq_mask"],
+            "pitch_shift": AUGMENTATION_CONFIG["pitch_shift"],
+        },
         "per_fold_results": [
             {
                 "fold": i,
@@ -292,6 +376,7 @@ def main():
     
     # Update summary
     wandb.summary.update({
+        "strategy": "Freeze Encoder",
         "mean_wer": np.mean(wer_scores),
         "std_wer": np.std(wer_scores),
         "mean_cer": np.mean(cer_scores),
@@ -299,7 +384,7 @@ def main():
     })
     wandb.finish()
     
-    print("\n✅ Training complete!")
+    print("\n✅ Freeze Encoder Training complete!")
     print(f"📁 Checkpoints saved to: {CHECKPOINT_DIR}")
     print(f"📊 All metrics saved to: {OUTPUT_DIR / 'metrics' / experiment_name}")
     
