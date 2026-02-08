@@ -310,7 +310,7 @@ h = Wx + \Delta Wx = Wx + BAx
 \myequations{Formula LoRA (Low-Rank Adaptation)}
 \vspace{1cm}
 
-Parameter asli $W$ tetap \textit{frozen}, dan hanya matriks $A$ dan $B$ yang dilatih. Jumlah parameter \textit{trainable} per lapisan adalah $r \times (d + k)$, yang jauh lebih kecil dari $d \times k$ parameter asli. Untuk Whisper Base dengan $r=8$ dan $d=512$, LoRA hanya melatih $\sim$0.27\% dari total parameter model, menghasilkan penghematan memori dan waktu pelatihan yang signifikan.
+Parameter asli $W$ tetap \textit{frozen}, dan hanya matriks $A$ dan $B$ yang dilatih. Jumlah parameter \textit{trainable} per lapisan adalah $r \times (d + k)$, yang jauh lebih kecil dari $d \times k$ parameter asli. Untuk Whisper Base dengan $r=8$, $d=512$, dan LoRA diterapkan pada seluruh 6 \textit{linear layer} per blok Transformer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2}), LoRA melatih $\sim$1,47\% dari total parameter model (1.081.344 parameter trainable), menghasilkan penghematan memori dan waktu pelatihan yang signifikan.
 
 LoRA juga memiliki keunggulan praktis: (i) dapat dengan mudah di-\textit{merge} dengan model dasar untuk \textit{inference} tanpa overhead latensi, (ii) memungkinkan \textit{multi-task learning} dengan menyimpan beberapa set matriks LoRA untuk tugas berbeda, dan (iii) mengurangi risiko \textit{overfitting} karena parameter yang dilatih jauh lebih sedikit.
 

@@ -46,3 +46,24 @@
 | 17 November 2025 | Dataset yang terkumpul baru 2, Target adalah 50                                             |
 | 27 November 2025 | Menulis BAB 3. Metode Penelitian                                                            |
 | 27 November 2025 | BAB 3 selesai namun masih sangat kasar, butuh konsultasi terkait metode penelitian          |
+
+# Desember 2025
+|       DATE       | TASK                                                                                        |
+| :--------------: | ------------------------------------------------------------------------------------------- |
+| 12 Desember 2025 | Start training Freeze Encoder                                                               |
+| 20 Desember 2025 | Mencoba training kembali dengan beberapa perubahan config untuk freeze encoder              |
+
+# Januari 2026
+|       DATE       | TASK                                                                                        |
+| :--------------: | ------------------------------------------------------------------------------------------- |
+| 10 Januari 2026  | Masih mencoba mengulik konfigurasi training yang pas untuk freeze encoder                   |
+| 15 Januari 2026  | Research ulang penelitian terdahulu terkait konfigurasi yang sesuai                         |
+| 22 Januari 2026  | Berhasil melakukan training pertama kali dengan WER dan CER yang cukup                      |
+| 28 Januari 2026  | Mencoba melakukan training ulang dengan konfigurasi parameter yang berbeda                  |
+
+# Februari 2026
+|       DATE       | TASK                                                                                        |
+| :--------------: | ------------------------------------------------------------------------------------------- |
+| 1 Februari 2026  | Training ulang untuk mencari performa WER dan CER terbaik                                   |
+| 4 Februari 2026  | Training terakhir freeze encoder                                                            |
+| 8 Februari 2026  | Membuat config untuk training menggunakan PEFT LORA dan melakukan training LORA             |

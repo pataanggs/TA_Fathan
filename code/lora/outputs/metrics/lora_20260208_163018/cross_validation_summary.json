@@ -1,0 +1,111 @@
+{
+  "experiment_name": "lora_20260208_163018",
+  "timestamp": "2026-02-08T17:24:44.098610",
+  "strategy": "LoRA (PEFT)",
+  "num_folds": 5,
+  "lora_config": {
+    "r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.1,
+    "target_modules": [
+      "q_proj",
+      "v_proj",
+      "k_proj",
+      "out_proj",
+      "fc1",
+      "fc2"
+    ],
+    "modules_to_save": [],
+    "bias": "none"
+  },
+  "training_config": {
+    "learning_rate": 0.0005,
+    "batch_size": 32,
+    "gradient_accumulation_steps": 1,
+    "effective_batch_size": 32,
+    "max_steps": 400,
+    "warmup_ratio": 0.1,
+    "weight_decay": 0.01,
+    "lr_scheduler_type": "cosine",
+    "label_smoothing_factor": 0.1
+  },
+  "model_config": {
+    "dropout": 0.1,
+    "attention_dropout": 0.05,
+    "activation_dropout": 0.05
+  },
+  "augmentation_config": {
+    "speed_perturbation": [
+      0.85,
+      0.9,
+      0.95,
+      1.0,
+      1.05,
+      1.1,
+      1.15
+    ],
+    "noise_snr_range": [
+      10,
+      30
+    ],
+    "specaugment_time_mask": 80,
+    "specaugment_freq_mask": 40,
+    "pitch_shift": 2
+  },
+  "per_fold_results": [
+    {
+      "fold": 0,
+      "wer": 0.17557251908396945,
+      "cer": 0.03483528966300644,
+      "wer_percent": 17.557251908396946,
+      "cer_percent": 3.483528966300644,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/lora/outputs/metrics/lora_20260208_163018/fold_0"
+    },
+    {
+      "fold": 1,
+      "wer": 0.17560975609756097,
+      "cer": 0.03724725079815538,
+      "wer_percent": 17.560975609756095,
+      "cer_percent": 3.7247250798155376,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/lora/outputs/metrics/lora_20260208_163018/fold_1"
+    },
+    {
+      "fold": 2,
+      "wer": 0.16521739130434782,
+      "cer": 0.02860858257477243,
+      "wer_percent": 16.52173913043478,
+      "cer_percent": 2.860858257477243,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/lora/outputs/metrics/lora_20260208_163018/fold_2"
+    },
+    {
+      "fold": 3,
+      "wer": 0.1863799283154122,
+      "cer": 0.03251599147121535,
+      "wer_percent": 18.63799283154122,
+      "cer_percent": 3.251599147121535,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/lora/outputs/metrics/lora_20260208_163018/fold_3"
+    },
+    {
+      "fold": 4,
+      "wer": 0.16326530612244897,
+      "cer": 0.041432887354337505,
+      "wer_percent": 16.3265306122449,
+      "cer_percent": 4.14328873543375,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/lora/outputs/metrics/lora_20260208_163018/fold_4"
+    }
+  ],
+  "cross_validation_summary": {
+    "mean_wer": 0.1732089801847479,
+    "std_wer": 0.00833745839525328,
+    "mean_cer": 0.03492800037229742,
+    "std_cer": 0.004323283490615642,
+    "min_wer": 0.16326530612244897,
+    "max_wer": 0.1863799283154122,
+    "min_cer": 0.02860858257477243,
+    "max_cer": 0.041432887354337505,
+    "mean_wer_percent": 17.32089801847479,
+    "std_wer_percent": 0.8337458395253281,
+    "mean_cer_percent": 3.4928000372297423,
+    "std_cer_percent": 0.43232834906156414
+  }
+}

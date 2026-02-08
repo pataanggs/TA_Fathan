@@ -2,8 +2,22 @@
 OPTIMIZED FOR TINY DATASET (156 Files / 1.3 Hours).
 Strategy: Parameter-Efficient Fine-Tuning (PEFT) with Low-Rank Adaptation (LoRA).
 
-Applies LoRA to all attention + feed-forward linear layers (~1.2M trainable
-params, ~1.6% of 74M) for maximum expressivity while retaining PEFT benefits.
+v3 Sweet-Spot (based on v1 & v2 comparison):
+    v1 (17.32% WER): r=8, LR=5e-4, WD=0.01, LS=0.1, dropout=0.1/0.05/0.05
+    v2 (18.03% WER): r=16, LR=3e-4, WD=0.03, LS=0.05, dropout=0.15/0.1/0.1
+    → r=16 too many params for 1.3h; LR=3e-4 too weak for few LoRA params
+    → LS=0.05 hurt fold stability (std 1.01% vs 0.83%)
+
+    v3 strategy:
+    - Revert r=8, alpha=16 (low-rank = structural regularization for tiny data)
+    - Raise LR to 7e-4 (LoRA params need stronger gradient signal)
+    - Restore label_smoothing=0.1 (critical for fold consistency)
+    - Increase weight_decay to 0.05 (midpoint: stronger than v1's 0.01)
+    - Keep lora_dropout=0.15 (v2 showed this helps vs v1's 0.1)
+    - Revert warmup_ratio=0.1 (v1 was fine; 0.15 wastes steps)
+    - Revert model dropout to v1 levels (0.1/0.05/0.05)
+
+Applies LoRA to all attention + feed-forward linear layers.
 
 References:
     - Hu et al. (2022). LoRA: Low-Rank Adaptation of Large Language Models. ICLR.
@@ -65,9 +79,9 @@ MAX_DURATION_SECONDS = 30.0
 # LoRA CONFIGURATION (PEFT)
 # =============================================================================
 LORA_CONFIG = {
-    "r": 8,                          # Rank of the low-rank matrices
+    "r": 8,                          # Low rank = structural regularization for 1.3h data
     "lora_alpha": 16,                # Scaling factor (alpha/r = 2x scaling)
-    "lora_dropout": 0.1,             # Dropout on LoRA layers for regularization
+    "lora_dropout": 0.15,            # Dropout on LoRA layers (↑ from v1's 0.1)
     "target_modules": [              # All attention + FFN linear layers
         "q_proj",                    # Query projection
         "v_proj",                    # Value projection
@@ -92,16 +106,16 @@ TRAINING_ARGS = {
     "per_device_train_batch_size": 32,   
     "per_device_eval_batch_size": 64,    # Max out eval throughput
     "gradient_accumulation_steps": 1,    # Effective batch size = 32
-    "learning_rate": 5e-4,               # Higher LR for LoRA (only small params updated)
-    "warmup_ratio": 0.1,                 # 10% warmup
-    "max_steps": 400,                    # ~80 epochs, early stopping protects
+    "learning_rate": 7e-4,               # Higher than v1 (5e-4) — few LoRA params need strong signal
+    "warmup_ratio": 0.1,                 # 10% warmup (v1 baseline was stable)
+    "max_steps": 250,                    # Convergence by step ~80-100, early stopping protects
     "lr_scheduler_type": "cosine",       # Cosine annealing
     "optim": "adamw_torch",
     "gradient_checkpointing": False,     
     "bf16": True,                        
     "dataloader_num_workers": 4,
     "dataloader_pin_memory": True,
-    "weight_decay": 0.01,               # Lower weight decay (LoRA has implicit reg)
+    "weight_decay": 0.05,               # Midpoint between v1 (0.01) and FE (0.1)
     "eval_strategy": "steps",
     "eval_steps": 4,
     "save_steps": 4,
@@ -116,18 +130,18 @@ TRAINING_ARGS = {
     "predict_with_generate": True,
     "generation_max_length": 225,
     "torch_compile": False,
-    "label_smoothing_factor": 0.1,       # Label smoothing for better calibration
+    "label_smoothing_factor": 0.1,       # Restored — critical for fold consistency on tiny data
 }
 
 # LoRA has implicit regularization, so lower dropout than Freeze Encoder
 MODEL_DROPOUT_CONFIG = {
-    "dropout": 0.1,               # Lower dropout (LoRA already constrains capacity)
-    "attention_dropout": 0.05,
-    "activation_dropout": 0.05,
+    "dropout": 0.1,               # v1 level (LoRA already constrains capacity)
+    "attention_dropout": 0.05,    # Light attention regularization
+    "activation_dropout": 0.05,   # Light activation regularization
 }
 
 EARLY_STOPPING_CONFIG = {
-    "patience": 10,     # More patience since LoRA converges slower
+    "patience": 8,      # Tighter patience to prevent overtraining past optimum
     "threshold": 0.001,
 }
 

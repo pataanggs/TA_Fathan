@@ -1,0 +1,13 @@
+{
+  "final_wer": 0.180488,
+  "final_cer": 0.038666,
+  "best_wer": 0.17561,
+  "best_cer": 0.037247,
+  "final_wer_percent": 18.05,
+  "final_cer_percent": 3.87,
+  "best_wer_percent": 17.56,
+  "best_cer_percent": 3.72,
+  "total_training_time_seconds": 502.5,
+  "total_training_time_minutes": 8.38,
+  "total_steps": 100
+}

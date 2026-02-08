@@ -104,13 +104,13 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
     \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir setiap \textit{clip}, sehingga model tidak perlu memproses bagian audio yang tidak mengandung informasi linguistik
     \item \textbf{Quality Check}: Penyaringan \textit{clips} dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau mengandung distorsi signifikan, untuk memastikan hanya data berkualitas tinggi yang digunakan dalam \textit{training}
     \item \textbf{SpecAugment}: Teknik \textit{augmentation} pada representasi spektrogram dengan menerapkan \textit{time masking} (T=70) dan \textit{frequency masking} (F=27) untuk meningkatkan invariansi temporal dan frekuensi \\cite{park2019specaugment}, diterapkan selama \textit{training} untuk meningkatkan \textit{robustness} model
-    \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik \\cite{ko2015audio}
+    \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik \cite{ko2015audio}
     \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam dan meningkatkan generalisasi pada skenario \textit{low-resource} \cite{salamon2017scaper,kim2020augmentation}
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
-\textbf{PENTING - Pencegahan Data Leakage}: Ketiga teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, dan \textit{Noise Injection}) \textbf{hanya diterapkan pada data training} di dalam setiap \textit{fold}, dan \textbf{TIDAK PERNAH diterapkan pada test set}. Pipeline yang benar adalah: \textbf{(1) Split Fold, (2) Augment Training Data Only, (3) Train}. Augmentasi tidak boleh dilakukan sebelum proses splitting karena akan menyebabkan \textit{data leakage} di mana informasi dari \textit{test set} bocor ke \textit{training set} melalui versi teraugmentasi. Hal ini sangat krusial untuk memastikan evaluasi yang valid dan tidak bias.
+Ketiga teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, dan \textit{Noise Injection}) \textbf{hanya diterapkan pada data training} di dalam setiap \textit{fold}, dan \textbf{TIDAK PERNAH diterapkan pada test set}. Pipeline yang benar adalah: \textbf{(1) Split Fold, (2) Augment Training Data Only, (3) Train}. Augmentasi tidak boleh dilakukan sebelum proses splitting karena akan menyebabkan \textit{data leakage} di mana informasi dari \textit{test set} bocor ke \textit{training set} melalui versi teraugmentasi. Hal ini sangat krusial untuk memastikan evaluasi yang valid dan tidak bias.
 
 
 \subsubsection{Text Preprocessing}
@@ -154,7 +154,7 @@ Dengan pendekatan \textit{5-fold cross-validation}, penelitian ini \textbf{TIDAK
 
 Approach ini valid dalam konteks \textit{extremely low-resource} (1.3 jam) karena: (1) Dengan dataset sekecil ini, memecah lagi 4 fold training menjadi train+val akan membuat training set terlalu kecil (<1 jam), menyebabkan model tidak belajar dengan baik. (2) \textit{Cross-validation} dengan 5 fold memastikan setiap sampel menjadi bagian dari test set tepat sekali, sehingga hasil akhir (mean WER/CER dari 5 fold) merupakan evaluasi yang tidak bias pada seluruh dataset. (3) Early stopping berbasis test set membantu mencegah overfitting dengan menghentikan training ketika model mulai menghafal training data (ditandai dengan tidak ada perbaikan pada test set). (4) Evaluasi final HANYA menggunakan prediksi model pada test set di setiap fold, dan model yang digunakan adalah checkpoint dengan \textit{best test WER}, bukan model di akhir training.
 
-Meskipun pendekatan ini tidak sepenuhnya ideal (karena test set "dilihat" selama training untuk early stopping), ini adalah \textit{pragmatic trade-off} yang sering digunakan dalam riset \textit{extremely low-resource} \cite{pratap2020mls,liang2025fieldmatters}. Alternative yang lebih ketat (separate validation set) akan mengorbankan terlalu banyak data training, menghasilkan model yang lebih buruk. Untuk memastikan validitas, kami menggunakan \textit{aggressive regularization} (dropout 0.3, weight decay 0.2, early stopping patience 8) untuk meminimalkan risiko overfitting pada test set.
+Meskipun pendekatan ini tidak sepenuhnya ideal (karena test set "dilihat" selama training untuk early stopping), ini adalah \textit{pragmatic trade-off} yang sering digunakan dalam riset \textit{extremely low-resource} \cite{pratap2020mls,liang2025fieldmatters}. Alternative yang lebih ketat (separate validation set) akan mengorbankan terlalu banyak data training, menghasilkan model yang lebih buruk. Untuk memastikan validitas, kami menggunakan \textit{aggressive regularization} (dropout hingga 0.3, weight decay 0.1, early stopping patience 8 evaluation steps) untuk meminimalkan risiko overfitting pada test set.
 
 \subsection{Konfigurasi Model Whisper Base}
 \label{III.Langkah5}
@@ -180,9 +180,9 @@ Penelitian ini menerapkan pendekatan komparatif eksperimental dengan membandingk
 
 \textit{Freeze Encoder} melatih seluruh \textit{decoder} (37 juta parameter, sekitar 50\% dari total model) sambil membekukan seluruh \textit{encoder}. Pendekatan ini mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau.
 
-Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih $\sim$0.27\% dari total parameter (sekitar 197 ribu parameter), menawarkan efisiensi komputasi yang maksimal dan regularisasi implisit melalui pembatasan kapasitas model. Dengan membatasi jumlah parameter yang dilatih, LoRA mengurangi risiko \textit{overfitting} pada dataset sangat terbatas.
+Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih $\sim$1,47\% dari total parameter (sekitar 1,08 juta parameter), menawarkan efisiensi komputasi yang maksimal dan regularisasi implisit melalui pembatasan kapasitas model. Dengan membatasi jumlah parameter yang dilatih, LoRA mengurangi risiko \textit{overfitting} pada dataset sangat terbatas.
 
-Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$0.27\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat dengan pengaturan \textit{hyperparameter} yang dioptimalkan untuk masing-masing pendekatan.
+Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$1,47\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat dengan pengaturan \textit{hyperparameter} yang dioptimalkan untuk masing-masing pendekatan.
 
 \subsubsection{Freeze Encoder Fine-Tuning}
 
@@ -193,11 +193,11 @@ Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berik
 \begin{enumerate}[noitemsep]
     \item \textbf{Frozen Components}: Seluruh 6 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
     \item \textbf{Trainable Components}: Seluruh 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter)
-    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.2 untuk regularisasi kuat
+    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.1 untuk regularisasi kuat
     \item \textbf{Learning Rate}: $1 \times 10^{-5}$ dengan \textit{cosine annealing scheduler}
     \item \textbf{Warmup}: 20\% dari total \textit{training steps} (40 steps dari 200 total steps) untuk stabilisasi awal
-    \item \textbf{Batch Size}: 16 sampel per \textit{batch} untuk \textit{training}, 8 untuk evaluasi
-    \item \textbf{Gradient Accumulation}: 2 \textit{steps} (effective batch size = 32)
+    \item \textbf{Batch Size}: 32 sampel per \textit{batch} untuk \textit{training}, 8 untuk evaluasi
+    \item \textbf{Gradient Accumulation}: 1 \textit{step} (effective batch size = 32)
     \item \textbf{Training Steps}: 200 \textit{steps} maksimal ($\sim$50 epochs untuk dataset 1.3 jam)
     \item \textbf{Mixed Precision}: BF16 (\textit{Brain Floating Point 16-bit}) untuk efisiensi komputasi
     \item \textbf{Gradient Checkpointing}: Aktif untuk mengurangi penggunaan memori GPU
@@ -217,7 +217,7 @@ Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berik
         \item \textit{SpecAugment}: Time masking (80 frames), Frequency masking (40 bins)
         \item \textit{Pitch Shifting}: $\pm$2 semitones
     \end{itemize}
-    \item \textbf{Generation Config}: \textit{Greedy decoding} (beam size = 1) dengan max length 225 tokens
+    \item \textbf{Generation Config}: \textit{Beam search} (beam size = 5) dengan max length 225 tokens
     \item \textbf{Loss Function}: \textit{Cross-entropy loss} standar untuk tugas klasifikasi sekuens
 \end{enumerate}
 
@@ -225,7 +225,7 @@ Konfigurasi ini dirancang khusus untuk mencegah \textit{overfitting} pada datase
 
 \subsubsection{LoRA Fine-Tuning}
 
-Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada \textit{attention layers}, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini diperkenalkan oleh Hu et al. \cite{hu2022lora} dan telah terbukti efektif untuk adaptasi model besar dengan dataset terbatas \cite{gupta2024parameter,wang2025ssvd}. Pendekatan ini sangat efisien karena hanya melatih $\sim$0.27\% dari total parameter (sekitar 197 ribu parameter dari 74 juta), namun tetap mampu mencapai performa yang kompetitif. Bagat dan Kumar \cite{bagat2025mixture} menunjukkan bahwa LoRA dapat dikombinasikan dengan arsitektur \textit{mixture of experts} untuk meningkatkan adaptasi multi-domain. Konfigurasi LoRA \textit{fine-tuning} adalah sebagai berikut:
+Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada \textit{attention layers}, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini diperkenalkan oleh Hu et al. \cite{hu2022lora} dan telah terbukti efektif untuk adaptasi model besar dengan dataset terbatas \cite{gupta2024parameter,wang2025ssvd}. Pendekatan ini sangat efisien karena hanya melatih $\sim$1,47\% dari total parameter (sekitar 1,08 juta parameter dari 74 juta), namun tetap mampu mencapai performa yang kompetitif. Bagat dan Kumar \cite{bagat2025mixture} menunjukkan bahwa LoRA dapat dikombinasikan dengan arsitektur \textit{mixture of experts} untuk meningkatkan adaptasi multi-domain. Konfigurasi LoRA \textit{fine-tuning} adalah sebagai berikut:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{LoRA Configuration}:
@@ -233,13 +233,13 @@ Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \t
         \item \textit{Rank} ($r$): 8 (dimensi matriks \textit{low-rank} yang ditambahkan)
         \item \textit{Alpha}: 16 (\textit{scaling factor} untuk LoRA \textit{updates})
         \item \textit{Dropout}: 0.1 (regularisasi pada LoRA \textit{layers})
-        \item \textit{Target modules}: \textit{Query} dan \textit{Value projections} dalam \textit{attention layers}, yang merupakan komponen paling kritis untuk adaptasi
+        \item \textit{Target modules}: Seluruh \textit{linear layer} pada setiap blok \textit{Transformer} (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2}), yang mencakup \textit{attention projections} dan \textit{feed-forward network}
     \end{itemize}
-    \item \textbf{Trainable Parameters}: $\sim$0.27\% dari total parameter ($\sim$197 ribu parameter), drastis lebih sedikit dibanding \textit{Freeze Encoder}
+    \item \textbf{Trainable Parameters}: $\sim$1,47\% dari total parameter ($\sim$1,08 juta parameter), drastis lebih sedikit dibanding \textit{Freeze Encoder}
     \item \textbf{Optimizer}: AdamW dengan \textit{weight decay} 0.01
     \item \textbf{Learning Rate}: $5 \times 10^{-4}$ (lebih tinggi dibanding \textit{Freeze Encoder} karena hanya melatih sebagian kecil parameter pada \textit{frozen base model})
-    \item \textbf{Batch Size}: 16 sampel per \textit{batch}
-    \item \textbf{Epochs}: 20-30 \textit{epochs} dengan \textit{early stopping} (\textit{patience}=5)
+    \item \textbf{Batch Size}: 32 sampel per \textit{batch}
+    \item \textbf{Epochs}: Hingga $\sim$44 \textit{epochs} (400 \textit{steps} maksimal) dengan \textit{early stopping} (\textit{patience}=8 \textit{evaluation steps})
 \end{enumerate}
 
 \subsubsection{Regularization}
@@ -247,10 +247,14 @@ Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \t
 Selain \textit{data augmentation}, beberapa teknik \textit{regularization} juga diterapkan untuk mencegah \textit{overfitting} dan meningkatkan generalisasi model \cite{krogh1991regularization}:
 
 \begin{enumerate}[noitemsep]
-    \item \textit{Dropout} pada \textit{attention layers} (p=0.1) dan \textit{feed-forward network} (FFN) \textit{layers} (p=0.3) untuk mengurangi \textit{co-adaptation} antar \textit{neurons} \cite{srivastava2014dropout}
-    \item \textit{Label smoothing} ($\epsilon = 0.1$) untuk mencegah overconfidence pada prediksi dan meningkatkan kalibrasi model \cite{szegedy2016rethinking}
+    \item \textit{Dropout} pada berbagai level untuk mengurangi \textit{co-adaptation} antar \textit{neurons} \cite{srivastava2014dropout}:
+    \begin{itemize}[noitemsep]
+        \item \textbf{Freeze Encoder}: \textit{standard dropout} 0,3; \textit{attention dropout} 0,2; \textit{activation dropout} 0,2 (agresif karena 37M parameter trainable)
+        \item \textbf{LoRA}: \textit{standard dropout} 0,1; \textit{attention dropout} 0,05; \textit{activation dropout} 0,05 (lebih ringan karena hanya 1,47\% parameter trainable)
+    \end{itemize}
+    \item \textit{Label smoothing} ($\epsilon = 0.1$) untuk mencegah overconfidence pada prediksi dan meningkatkan kalibrasi model \cite{szegedy2016rethinking} (diterapkan pada LoRA; \textit{Freeze Encoder} menggunakan \textit{cross-entropy} standar)
     \item \textit{Gradient clipping} (\textit{max norm} = 1.0) untuk mencegah \textit{exploding gradients} selama \textit{training} \cite{pascanu2013difficulty}
-    \item \textit{Early stopping} berdasarkan \textit{validation} WER, menghentikan \textit{training} jika tidak ada perbaikan selama 5 \textit{epochs} berturut-turut
+    \item \textit{Early stopping} berdasarkan WER pada \textit{evaluation set}, menghentikan \textit{training} jika tidak ada perbaikan selama 8 \textit{evaluation steps} berturut-turut (\textit{patience}=8 steps, dengan evaluasi setiap 4 \textit{training steps})
 \end{enumerate}
 
 \subsection{Training dan Monitoring}
@@ -524,7 +528,7 @@ Strategi ini mempertahankan representasi akustik universal dari encoder sambil m
         \item \textbf{Apply augmentation}: SpecAugment, Speed Perturbation, Noise Injection \textbf{pada training set only} (tidak pada test set)
         \item Training dengan supervised learning dari scratch menggunakan augmented training data
         \item Monitoring training loss untuk convergence
-        \item Early stopping berdasarkan loss plateau (patience=5 epochs)
+        \item Early stopping berdasarkan WER pada evaluation set (patience=8 evaluation steps)
     \end{itemize}
     \item Save best checkpoint per fold berdasarkan lowest training loss
     \item Evaluate pada test fold untuk mendapatkan WER\textsubscript{k} dan CER\textsubscript{k}
@@ -532,7 +536,7 @@ Strategi ini mempertahankan representasi akustik universal dari encoder sambil m
 
 \subsubsection{LoRA Fine-Tuning Methodology}
 
-Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$0.24\% parameters):
+Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$1,47\% parameters):
 
 \begin{enumerate}[noitemsep]
     \item Initialize dari pre-trained Whisper Base checkpoint
@@ -540,8 +544,8 @@ Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$0.
     \item \textbf{Inject LoRA Adapters}: 
     \begin{itemize}[noitemsep]
         \item Rank r=8, Alpha=16
-        \item Target modules: Query dan Value projections
-        \item Trainable parameters: $\sim$0.59M ($\sim$0.24\% dari total)
+        \item Target modules: Seluruh linear layer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2})
+        \item Trainable parameters: $\sim$1,08M ($\sim$1,47\% dari total)
     \end{itemize}
     \item \textbf{Batching Strategy}: Sama dengan Freeze Encoder, menggunakan \textit{dynamic padding per-batch} untuk efisiensi memori GPU
     \item \textbf{5-Fold Iteration}: Sama seperti Freeze Encoder, untuk setiap fold k:
@@ -746,7 +750,7 @@ Whisper Base memiliki:
     \item Hidden dimension ($d$): 512
     \item Projection dimension ($k$): 512
     \item LoRA rank ($r$): 8
-    \item LoRA applied to: Query dan Value projections (2 per layer)
+    \item LoRA applied to: Seluruh 6 \textit{linear layer} per blok Transformer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2})
 \end{itemize}
 
 \textbf{Perhitungan per layer:}
@@ -754,7 +758,7 @@ Whisper Base memiliki:
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_per_projection}
-\text{Params per projection} = 8 \times (512 + 512) = 8 \times 1024 = 8,192
+\text{Params per projection} = 8 \times (512 + 512) = 8 \times 1024 = 8.192
 \end{equation}
 \myequations{Parameter LoRA Per Projection}
 \vspace{0.2cm}
@@ -762,7 +766,7 @@ Whisper Base memiliki:
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_per_layer}
-\text{Params per layer} = 2 \times 8,192 = 16,384
+\text{Params per layer} = 6 \times 8.192 = 49.152
 \end{equation}
 \myequations{Parameter LoRA Per Layer}
 \vspace{0.2cm}
@@ -772,21 +776,24 @@ Whisper Base memiliki:
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_total}
-\text{Total LoRA params} = 12 \times 16,384 = 196,608 \approx 0.197\text{M}
+\text{Total LoRA params} = 12 \times 49.152 = 589.824
 \end{equation}
-\myequations{Total Parameter LoRA}
+\myequations{Total Parameter LoRA (Matriks A dan B)}
 \vspace{0.2cm}
+
+\noindent
+\textbf{Catatan}: Perhitungan di atas hanya mencakup matriks LoRA A dan B. Dalam implementasi aktual, total parameter trainable juga mencakup \textit{layer normalization} dan komponen lain yang tidak di-\textit{freeze}, sehingga total parameter trainable yang dilaporkan oleh PEFT \textit{library} adalah \textbf{1.081.344} ($\sim$1,47\% dari 73.675.264 parameter total termasuk LoRA \textit{overhead}).
 
 \textbf{Percentage of total parameters:}
 
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:lora_percentage}
-\text{Percentage} = \frac{196,608}{74,000,000} \times 100\% \approx 0.27\%
+\text{Percentage} = \frac{1.081.344}{73.675.264} \times 100\% \approx 1,47\%
 \end{equation}
 \myequations{Persentase Parameter LoRA Terhadap Total}
 \vspace{0.2cm}
 
 \noindent
-Ini menunjukkan bahwa LoRA hanya melatih $\sim$0.27\% dari total parameters Whisper Base, sangat efisien dibanding \textit{Freeze Encoder} yang melatih 50\% (37M parameters).
+Ini menunjukkan bahwa LoRA melatih $\sim$1,47\% dari total parameters Whisper Base, tetap sangat efisien dibanding \textit{Freeze Encoder} yang melatih 50\% (37M parameters).
 

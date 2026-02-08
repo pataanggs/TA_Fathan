@@ -1,0 +1,24 @@
+{
+  "model_name": "openai/whisper-base",
+  "language": "id",
+  "language_full": "indonesian",
+  "task": "transcribe",
+  "strategy": "LoRA (PEFT)",
+  "lora_r": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.15,
+  "lora_target_modules": [
+    "q_proj",
+    "v_proj",
+    "k_proj",
+    "out_proj",
+    "fc1",
+    "fc2"
+  ],
+  "lora_modules_to_save": [],
+  "dropout": 0.15,
+  "attention_dropout": 0.1,
+  "activation_dropout": 0.1,
+  "num_beams": 5,
+  "max_length": 225
+}
