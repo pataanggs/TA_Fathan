@@ -127,7 +127,7 @@ Tahap \textit{text preprocessing} bertujuan untuk menstandarkan transkrip teks d
 
 \subsubsection{5-Fold Cross-Validation}
 
-Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan \textbf{5-Fold Cross-Validation}. Seluruh 156 file audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
+Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan \textbf{5-Fold Cross-Validation} \cite{kohavi1995crossvalidation}. Seluruh 156 file audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Fold Splitting}: Dataset dibagi menjadi 5 \textit{folds}, masing-masing berisi 31-32 audio ($\sim$20\% dari total). Distribusi exact: 4 folds berisi 31 audio, 1 fold berisi 32 audio (karena $156 \div 5 = 31.2$).
@@ -182,80 +182,123 @@ Penelitian ini menerapkan pendekatan komparatif eksperimental dengan membandingk
 
 Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih $\sim$1,47\% dari total parameter (sekitar 1,08 juta parameter), menawarkan efisiensi komputasi yang maksimal dan regularisasi implisit melalui pembatasan kapasitas model. Dengan membatasi jumlah parameter yang dilatih, LoRA mengurangi risiko \textit{overfitting} pada dataset sangat terbatas.
 
-Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$1,47\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat dengan pengaturan \textit{hyperparameter} yang dioptimalkan untuk masing-masing pendekatan.
+Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$1,47\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat melalui proses \textbf{eksplorasi \textit{hyperparameter}} secara iteratif. Masing-masing strategi diuji dalam \textbf{empat kali percobaan (\textit{run})} dengan variasi \textit{hyperparameter} kunci untuk menemukan konfigurasi optimal. Subbab berikut menjelaskan kerangka konfigurasi dan ruang pencarian \textit{hyperparameter} untuk setiap strategi, sedangkan konfigurasi spesifik dan hasil dari setiap percobaan dibahas secara rinci pada Bab~\ref{Bab IV}.
 
 \subsubsection{Freeze Encoder Fine-Tuning}
 
-Pada metode \textit{Freeze Encoder (Decoder-Only Fine-Tuning)}, seluruh parameter \textit{encoder} Whisper Base (yang berfungsi memproses input audio) dibekukan (\textit{frozen}), dan hanya parameter \textit{decoder} (yang menghasilkan teks transkrip) yang di-\textit{update} selama proses \textit{training}. Pendekatan ini merupakan strategi standar untuk skenario \textit{low-resource} karena mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara hanya mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau. Dengan hanya melatih \textit{decoder} (~37 juta dari 74 juta parameter total), pendekatan ini lebih efisien dibandingkan melatih seluruh model (\textit{full fine-tuning}).
+Pada metode \textit{Freeze Encoder (Decoder-Only Fine-Tuning)}, seluruh parameter \textit{encoder} Whisper Base (yang berfungsi memproses input audio) dibekukan (\textit{frozen}), dan hanya parameter \textit{decoder} (yang menghasilkan teks transkrip) yang di-\textit{update} selama proses \textit{training}. Pendekatan ini merupakan strategi standar untuk skenario \textit{low-resource} karena mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara hanya mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau. Dengan hanya melatih \textit{decoder} ($\sim$37 juta dari 74 juta parameter total), pendekatan ini lebih efisien dibandingkan melatih seluruh model (\textit{full fine-tuning}).
 
-Konfigurasi \textit{training} untuk \textit{Freeze Encoder} adalah sebagai berikut:
+Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{tetap} (tidak divariasikan) pada seluruh percobaan \textit{Freeze Encoder} adalah:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Frozen Components}: Seluruh 6 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
-    \item \textbf{Trainable Components}: Seluruh 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter)
-    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) dengan \textit{weight decay} 0.1 untuk regularisasi kuat
-    \item \textbf{Learning Rate}: $1 \times 10^{-5}$ dengan \textit{cosine annealing scheduler}
-    \item \textbf{Warmup}: 20\% dari total \textit{training steps} (40 steps dari 200 total steps) untuk stabilisasi awal
-    \item \textbf{Batch Size}: 32 sampel per \textit{batch} untuk \textit{training}, 8 untuk evaluasi
-    \item \textbf{Gradient Accumulation}: 1 \textit{step} (effective batch size = 32)
-    \item \textbf{Training Steps}: 200 \textit{steps} maksimal ($\sim$50 epochs untuk dataset 1.3 jam)
-    \item \textbf{Mixed Precision}: BF16 (\textit{Brain Floating Point 16-bit}) untuk efisiensi komputasi
-    \item \textbf{Gradient Checkpointing}: Aktif untuk mengurangi penggunaan memori GPU
-    \item \textbf{Regularization - Dropout}: 
-    \begin{itemize}[noitemsep]
-        \item \textit{Standard dropout}: 0.3 (30\%)
-        \item \textit{Attention dropout}: 0.2 (20\%)
-        \item \textit{Activation dropout}: 0.2 (20\%)
-    \end{itemize}
-    \item \textbf{Early Stopping}: \textit{Patience} 8 \textit{steps} ($\sim$1 epoch) dengan threshold 0.001 untuk menghentikan \textit{training} jika tidak ada perbaikan WER
-    \item \textbf{Evaluation Strategy}: Setiap 4 \textit{steps} untuk monitoring WER secara frequent
-    \item \textbf{Best Model Selection}: Berdasarkan \textit{lowest validation WER}
+    \item \textbf{Trainable Components}: Seluruh 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter, 50\% dari total)
+    \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) \cite{loshchilov2019adamw} dengan \textit{cosine annealing scheduler}
+    \item \textbf{Effective Batch Size}: 32 sampel (melalui kombinasi \textit{batch size} dan \textit{gradient accumulation})
+    \item \textbf{Max Steps}: 200 \textit{steps} ($\sim$50 epochs untuk dataset 1,3 jam)
+    \item \textbf{Mixed Precision}: BF16 (\textit{Brain Floating Point 16-bit}) untuk efisiensi komputasi \cite{micikevicius2018mixed}
+    \item \textbf{Dropout}: \textit{Standard dropout} 0,3; \textit{attention dropout} 0,2; \textit{activation dropout} 0,2 (agresif untuk mencegah \textit{overfitting} pada 37M parameter trainable) \cite{srivastava2014dropout}
+    \item \textbf{Early Stopping}: \textit{Patience} 8 \textit{evaluation steps} dengan evaluasi setiap 4 \textit{training steps}
+    \item \textbf{Best Model Selection}: Berdasarkan \textit{lowest evaluation WER}
     \item \textbf{Data Augmentation} (diterapkan \textbf{hanya pada training set}):
     \begin{itemize}[noitemsep]
         \item \textit{Speed Perturbation}: Faktor $\{0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15\}$
-        \item \textit{Noise Injection}: SNR 10-30 dB
+        \item \textit{Noise Injection}: SNR 10--30 dB
         \item \textit{SpecAugment}: Time masking (80 frames), Frequency masking (40 bins)
         \item \textit{Pitch Shifting}: $\pm$2 semitones
     \end{itemize}
-    \item \textbf{Generation Config}: \textit{Beam search} (beam size = 5) dengan max length 225 tokens
-    \item \textbf{Loss Function}: \textit{Cross-entropy loss} standar untuk tugas klasifikasi sekuens
+    \item \textbf{Max Length}: 225 tokens pada saat generasi
+    \item \textbf{Loss Function}: \textit{Cross-entropy loss} standar
 \end{enumerate}
 
-Konfigurasi ini dirancang khusus untuk mencegah \textit{overfitting} pada dataset \textit{extremely low-resource} dengan menerapkan \textit{aggressive regularization} (dropout tinggi, weight decay kuat) dan \textit{extensive data augmentation}. \textit{Early stopping} yang agresif (patience 8 steps) memastikan model tidak melampaui titik optimal dan mulai menghafal data \textit{training}.
+Sementara itu, beberapa \textit{hyperparameter} kunci \textbf{divariasikan} antar percobaan untuk menemukan konfigurasi optimal. Tabel~\ref{tab:fe_search_space} merangkum ruang pencarian \textit{hyperparameter} yang dieksplorasi.
+
+\begin{table}[H]
+\centering
+\caption{Ruang Pencarian Hyperparameter --- Freeze Encoder}
+\label{tab:fe_search_space}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Hyperparameter} & \textbf{Nilai yang Diuji} & \textbf{Justifikasi} \\
+\hline
+Learning Rate & $5 \times 10^{-6}$, $1 \times 10^{-5}$ & \parbox{4cm}{Rentang konservatif untuk \textit{fine-tuning} decoder} \\
+\hline
+Batch Size & 16 ($\times$2 akum.), 32 ($\times$1) & \parbox{4cm}{Pengaruh paralelisasi GPU vs \textit{gradient accumulation}} \\
+\hline
+Weight Decay & 0,1; 0,2 & \parbox{4cm}{Kekuatan regularisasi L2 pada parameter decoder} \\
+\hline
+Warmup Ratio & 0,2 & Stabilisasi awal \textit{training} \\
+\hline
+Beam Width & 1 (greedy), 5 & \parbox{4cm}{Strategi dekoding: greedy vs \textit{beam search}} \\
+\hline
+\end{tabular}
+\end{table}
+
+Total dilakukan \textbf{empat percobaan} dengan kombinasi \textit{hyperparameter} yang berbeda. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:fe_run_configs} dan Tabel~\ref{tab:fe_run_comparison}). Desain eksperimen ini dirancang untuk mengidentifikasi pengaruh masing-masing \textit{hyperparameter}: percobaan awal menguji pengaruh \textit{learning rate}, percobaan selanjutnya mengevaluasi reproduktibilitas, dan percobaan terakhir mengkombinasikan optimasi \textit{batch size}, \textit{weight decay}, dan strategi dekoding.
 
 \subsubsection{LoRA Fine-Tuning}
 
-Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada \textit{attention layers}, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini diperkenalkan oleh Hu et al. \cite{hu2022lora} dan telah terbukti efektif untuk adaptasi model besar dengan dataset terbatas \cite{gupta2024parameter,wang2025ssvd}. Pendekatan ini sangat efisien karena hanya melatih $\sim$1,47\% dari total parameter (sekitar 1,08 juta parameter dari 74 juta), namun tetap mampu mencapai performa yang kompetitif. Bagat dan Kumar \cite{bagat2025mixture} menunjukkan bahwa LoRA dapat dikombinasikan dengan arsitektur \textit{mixture of experts} untuk meningkatkan adaptasi multi-domain. Konfigurasi LoRA \textit{fine-tuning} adalah sebagai berikut:
+Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada seluruh \textit{linear layer} di setiap blok Transformer, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini diperkenalkan oleh Hu et al. \cite{hu2022lora} dan telah terbukti efektif untuk adaptasi model besar dengan dataset terbatas \cite{gupta2024parameter,wang2025ssvd}. Bagat dan Kumar \cite{bagat2025mixture} menunjukkan bahwa LoRA dapat dikombinasikan dengan arsitektur \textit{mixture of experts} untuk meningkatkan adaptasi multi-domain.
+
+Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{tetap} pada seluruh percobaan LoRA adalah:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{LoRA Configuration}:
-    \begin{itemize}[noitemsep]
-        \item \textit{Rank} ($r$): 8 (dimensi matriks \textit{low-rank} yang ditambahkan)
-        \item \textit{Alpha}: 16 (\textit{scaling factor} untuk LoRA \textit{updates})
-        \item \textit{Dropout}: 0.1 (regularisasi pada LoRA \textit{layers})
-        \item \textit{Target modules}: Seluruh \textit{linear layer} pada setiap blok \textit{Transformer} (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2}), yang mencakup \textit{attention projections} dan \textit{feed-forward network}
-    \end{itemize}
-    \item \textbf{Trainable Parameters}: $\sim$1,47\% dari total parameter ($\sim$1,08 juta parameter), drastis lebih sedikit dibanding \textit{Freeze Encoder}
-    \item \textbf{Optimizer}: AdamW dengan \textit{weight decay} 0.01
-    \item \textbf{Learning Rate}: $5 \times 10^{-4}$ (lebih tinggi dibanding \textit{Freeze Encoder} karena hanya melatih sebagian kecil parameter pada \textit{frozen base model})
+    \item \textbf{Target Modules}: Seluruh 6 \textit{linear layer} pada setiap blok Transformer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2}), mencakup \textit{attention projections} dan \textit{feed-forward network} pada encoder maupun decoder
+    \item \textbf{Scaling}: Rasio $\alpha / r$ dijaga konstan pada 2,0$\times$ untuk seluruh percobaan
+    \item \textbf{Bias}: None (tidak melatih parameter \textit{bias})
+    \item \textbf{Optimizer}: AdamW \cite{loshchilov2019adamw} dengan \textit{cosine annealing scheduler}
     \item \textbf{Batch Size}: 32 sampel per \textit{batch}
-    \item \textbf{Epochs}: Hingga $\sim$44 \textit{epochs} (400 \textit{steps} maksimal) dengan \textit{early stopping} (\textit{patience}=8 \textit{evaluation steps})
+    \item \textbf{Mixed Precision}: BF16 untuk efisiensi komputasi \cite{micikevicius2018mixed}
+    \item \textbf{Early Stopping}: \textit{Patience} 8 \textit{evaluation steps} dengan evaluasi setiap 4 \textit{training steps}
+    \item \textbf{Best Model Selection}: Berdasarkan \textit{lowest evaluation WER}
+    \item \textbf{Beam Width}: 5 (\textit{beam search}) dengan max length 225 tokens
+    \item \textbf{Data Augmentation}: Identik dengan \textit{Freeze Encoder} (diterapkan hanya pada \textit{training set})
 \end{enumerate}
+
+Berbeda dengan \textit{Freeze Encoder}, LoRA memiliki \textit{hyperparameter} tambahan yang spesifik untuk konfigurasi \textit{adapter}, sehingga ruang pencarian lebih luas. Tabel~\ref{tab:lora_search_space} merangkum \textit{hyperparameter} yang divariasikan.
+
+\begin{table}[H]
+\centering
+\caption{Ruang Pencarian Hyperparameter --- LoRA}
+\label{tab:lora_search_space}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Hyperparameter} & \textbf{Nilai yang Diuji} & \textbf{Justifikasi} \\
+\hline
+Rank ($r$) & 8, 16 & \parbox{4cm}{Kapasitas adaptasi vs risiko \textit{overfitting}} \\
+\hline
+Alpha ($\alpha$) & 16, 32 & \parbox{4cm}{Disesuaikan dengan rank (rasio $\alpha/r$ = 2,0)} \\
+\hline
+LoRA Dropout & 0,1; 0,15 & \parbox{4cm}{Regularisasi pada \textit{adapter}} \\
+\hline
+Learning Rate & $3{-}7 \times 10^{-4}$ & \parbox{4cm}{Lebih tinggi dari FE karena parameter trainable sedikit} \\
+\hline
+Weight Decay & 0,01; 0,03; 0,05 & Kekuatan regularisasi L2 \\
+\hline
+Label Smoothing & 0,05; 0,1 & \parbox{4cm}{Kalibrasi probabilistik dan anti-\textit{overconfidence}} \\
+\hline
+Max Steps & 250, 400 & Batas \textit{training} \\
+\hline
+Model Dropout & 0,1/0,05/0,05; 0,15/0,1/0,1 & \parbox{4cm}{Dropout decoder/attention/activation} \\
+\hline
+\end{tabular}
+\end{table}
+
+Dengan konfigurasi \textit{rank} 8 dan \textit{target modules} yang mencakup seluruh \textit{linear layer}, LoRA hanya melatih $\sim$\textbf{1,47\%} dari total parameter ($\sim$1,08 juta dari 74 juta parameter), yang secara drastis lebih efisien dibandingkan \textit{Freeze Encoder} (50\%). Total dilakukan \textbf{empat percobaan} dengan variasi \textit{hyperparameter} yang berbeda, termasuk satu percobaan dengan \textit{rank} yang lebih tinggi ($r$=16, $\sim$2,9\% parameter trainable). Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:lora_run_configs} dan Tabel~\ref{tab:lora_run_comparison}).
 
 \subsubsection{Regularization}
 
-Selain \textit{data augmentation}, beberapa teknik \textit{regularization} juga diterapkan untuk mencegah \textit{overfitting} dan meningkatkan generalisasi model \cite{krogh1991regularization}:
+Selain \textit{data augmentation}, beberapa teknik \textit{regularization} diterapkan untuk mencegah \textit{overfitting} dan meningkatkan generalisasi model \cite{krogh1991regularization}. Strategi regularisasi dirancang berbeda untuk kedua metode, disesuaikan dengan jumlah parameter yang dilatih:
 
 \begin{enumerate}[noitemsep]
-    \item \textit{Dropout} pada berbagai level untuk mengurangi \textit{co-adaptation} antar \textit{neurons} \cite{srivastava2014dropout}:
-    \begin{itemize}[noitemsep]
-        \item \textbf{Freeze Encoder}: \textit{standard dropout} 0,3; \textit{attention dropout} 0,2; \textit{activation dropout} 0,2 (agresif karena 37M parameter trainable)
-        \item \textbf{LoRA}: \textit{standard dropout} 0,1; \textit{attention dropout} 0,05; \textit{activation dropout} 0,05 (lebih ringan karena hanya 1,47\% parameter trainable)
-    \end{itemize}
-    \item \textit{Label smoothing} ($\epsilon = 0.1$) untuk mencegah overconfidence pada prediksi dan meningkatkan kalibrasi model \cite{szegedy2016rethinking} (diterapkan pada LoRA; \textit{Freeze Encoder} menggunakan \textit{cross-entropy} standar)
-    \item \textit{Gradient clipping} (\textit{max norm} = 1.0) untuk mencegah \textit{exploding gradients} selama \textit{training} \cite{pascanu2013difficulty}
-    \item \textit{Early stopping} berdasarkan WER pada \textit{evaluation set}, menghentikan \textit{training} jika tidak ada perbaikan selama 8 \textit{evaluation steps} berturut-turut (\textit{patience}=8 steps, dengan evaluasi setiap 4 \textit{training steps})
+    \item \textbf{\textit{Dropout}} pada berbagai level untuk mengurangi \textit{co-adaptation} antar \textit{neurons} \cite{srivastava2014dropout}. \textit{Freeze Encoder} menggunakan \textit{dropout} yang lebih agresif (hingga 0,3) karena melatih 37M parameter pada dataset kecil, sedangkan LoRA menggunakan \textit{dropout} yang lebih ringan (0,05--0,15) karena \textit{low-rank constraint} sudah berfungsi sebagai regularisasi struktural. Nilai spesifik \textit{dropout} yang digunakan pada tiap percobaan dirinci pada Bab~\ref{Bab IV}
+    \item \textbf{\textit{Weight Decay}}: Divariasikan antar percobaan (lihat Tabel~\ref{tab:fe_search_space} dan Tabel~\ref{tab:lora_search_space}) untuk menemukan keseimbangan antara regularisasi L2 dan kapasitas belajar
+    \item \textbf{\textit{Label Smoothing}}: Diterapkan pada strategi LoRA ($\epsilon = 0,05{-}0,1$) untuk mencegah \textit{overconfidence} pada prediksi dan meningkatkan kalibrasi model \cite{szegedy2016rethinking}. \textit{Freeze Encoder} menggunakan \textit{cross-entropy} standar tanpa \textit{label smoothing}
+    \item \textbf{\textit{Gradient Clipping}}: \textit{Max norm} = 1,0 untuk mencegah \textit{exploding gradients} selama \textit{training} \cite{pascanu2013difficulty} (tetap pada kedua strategi)
+    \item \textbf{\textit{Early Stopping}}: Menghentikan \textit{training} jika tidak ada perbaikan WER selama 8 \textit{evaluation steps} berturut-turut (\textit{patience}=8, evaluasi setiap 4 \textit{training steps}) --- tetap pada kedua strategi
 \end{enumerate}
+
+Perbedaan mendasar dalam filosofi regularisasi kedua strategi ini---\textit{aggressive explicit regularization} pada \textit{Freeze Encoder} vs \textit{structural regularization} melalui \textit{low-rank constraint} pada LoRA---merupakan salah satu aspek yang dianalisis dalam perbandingan hasil (Bab~\ref{Bab IV}).
 
 \subsection{Training dan Monitoring}
 \label{III.Langkah7}
@@ -272,7 +315,7 @@ Protokol \textit{training} dan \textit{monitoring} yang diterapkan mencakup aspe
     \item Evaluasi pada \textit{test set} setiap 4 \textit{steps}: perhitungan WER, CER, dan \textit{validation loss} untuk memantau kemampuan generalisasi model secara \textit{frequent}
     \item \textit{Checkpoint} model terbaik berdasarkan \textit{lowest validation} WER, memastikan model yang disimpan adalah yang paling optimal untuk tugas ASR bahasa Minangkabau
     \item \textit{Tracking training time} dan penggunaan memori GPU untuk analisis efisiensi komputasi, terutama penting untuk membandingkan \textit{Freeze Encoder} dengan LoRA
-    \item Visualisasi \textit{learning curves} (\textit{loss}, WER, CER vs \textit{steps}) menggunakan \textit{Weights \& Biases} untuk analisis visual terhadap konvergensi model dan deteksi dini \textit{overfitting}
+    \item Visualisasi \textit{learning curves} (\textit{loss}, WER, CER vs \textit{steps}) menggunakan \textit{Weights \& Biases} \cite{biewald2020wandb} untuk analisis visual terhadap konvergensi model dan deteksi dini \textit{overfitting}
     \item \textit{Prediction logging}: Mencatat 5 sampel prediksi setiap kali evaluasi untuk inspeksi kualitatif kualitas transkrip
 \end{enumerate}
 
@@ -286,7 +329,7 @@ Proses evaluasi dirancang untuk mengukur berbagai aspek performa model, tidak ha
 Protokol evaluasi yang diterapkan mencakup tahapan-tahapan berikut:
 
 \begin{enumerate}[noitemsep]
-    \item \textit{Inference} pada \textit{test set} menggunakan algoritma \textit{beam search} dengan \textit{beam size} = 5, yang memberikan keseimbangan antara kualitas transkrip dan kecepatan inferensi
+    \item \textit{Inference} pada \textit{test set} menggunakan algoritma \textit{beam search} \cite{radford2023whisper} dengan \textit{beam size} = 5, yang memberikan keseimbangan antara kualitas transkrip dan kecepatan inferensi
     \item Perhitungan \textit{Word Error Rate} (WER) sebagai metrik utama untuk mengukur akurasi transkrip pada level kata
     \item Perhitungan \textit{Character Error Rate} (CER) sebagai metrik tambahan yang lebih sensitif terhadap kesalahan fonetik dan memberikan perspektif komplementer terhadap WER
     \item Normalisasi teks sebelum evaluasi (konversi ke \textit{lowercase}, penghapusan tanda baca, normalisasi \textit{whitespace}) untuk memastikan konsistensi dalam perhitungan metrik
@@ -324,7 +367,7 @@ Proses analisis hasil dan perbandingan mencakup aspek-aspek berikut:
 
 \begin{enumerate}[noitemsep]
     \item Perbandingan metrik WER dan CER antara \textit{Freeze Encoder} dan LoRA berdasarkan \textit{mean} ± \textit{standard deviation} dari 5 \textit{folds}
-    \item \textbf{Statistical significance testing}: Menerapkan \textit{paired t-test} pada hasil WER/CER dari 5 \textit{folds} untuk menentukan apakah perbedaan antara \textit{Freeze Encoder} dan LoRA secara statistik signifikan (\textit{p-value} $<$ 0.05)
+    \item \textbf{Statistical significance testing}: Menerapkan \textit{paired t-test} \cite{student1908ttest} pada hasil WER/CER dari 5 \textit{folds} untuk menentukan apakah perbedaan antara \textit{Freeze Encoder} dan LoRA secara statistik signifikan (\textit{p-value} $<$ 0.05)
     \item Analisis \textit{trade-off} multidimensional: akurasi model vs efisiensi \textit{training} (waktu pelatihan total untuk 5 \textit{folds}, penggunaan memori GPU, jumlah parameter yang dilatih), untuk mengidentifikasi strategi yang menawarkan keseimbangan terbaik untuk skenario \textit{extremely low-resource}
     \item Evaluasi kualitas transkrip secara kualitatif melalui inspeksi manual terhadap sampel transkrip dari berbagai \textit{folds}, mengidentifikasi dan mengkategorikan kesalahan berdasarkan kerangka kategorisasi error yang telah didefinisikan (fonetik, leksikal, kontekstual, dan halusinasi), untuk memahami jenis kesalahan yang paling umum dan konteks di mana setiap metode unggul atau lemah
     \item Identifikasi \textit{patterns of errors} yang spesifik (\textit{common misrecognitions}), seperti fonem atau kata Minangkabau yang sering salah dikenali, untuk memberikan \textit{insights} bagi penelitian lanjutan
@@ -358,7 +401,7 @@ Alat-alat yang digunakan dalam penelitian ini meliputi perangkat keras dan peran
         \item CPU: AMD Ryzen 5 7500F
         \item GPU: NVIDIA GeForce RTX 5060 Ti 16 GB
         \item RAM: 16 GB DDR5 5600 MHz
-        \item Storage: 512 GB SSD
+        \item Storage: 2 TB SSD
         \item Sistem Operasi: CachyOS x86\_64 (Linux Kernel 6.18.7)
         \item Fungsi: \textit{Training} model \textit{Freeze Encoder} dan LoRA dengan akselerasi GPU
     \end{itemize}
@@ -368,82 +411,91 @@ Alat-alat yang digunakan dalam penelitian ini meliputi perangkat keras dan peran
 
 \textbf{Lingkungan Pengembangan dan Sistem Operasi:}
 \begin{enumerate}[noitemsep]
-    \item \textbf{Python 3.10+}: Bahasa pemrograman utama untuk implementasi model dan \textit{data processing}
+    \item \textbf{Python 3.10+} \cite{vanrossum2009python}: Bahasa pemrograman utama untuk implementasi model dan \textit{data processing}
     \item \textbf{CachyOS x86\_64}: Sistem operasi \textit{Linux} (Kernel 6.18.7) yang digunakan pada Local PC
-    \item \textbf{CUDA 12.8.1}: \textit{NVIDIA CUDA Toolkit} untuk akselerasi GPU pada Local PC
-    \item \textbf{Jupyter Notebook}: \textit{Interactive development environment} untuk eksplorasi data, eksperimen model, dan dokumentasi proses penelitian
+    \item \textbf{CUDA 12.8.1} \cite{nvidia2023cuda}: \textit{NVIDIA CUDA Toolkit} untuk akselerasi GPU pada Local PC
+    \item \textbf{Jupyter Notebook} \cite{kluyver2016jupyter}: \textit{Interactive development environment} untuk eksplorasi data, eksperimen model, dan dokumentasi proses penelitian
     \item \textbf{Visual Studio Code}: \textit{Code editor} untuk \textit{local development} pada ASUS VivoBook 14 K413
     \item \textbf{Git/GitHub}: \textit{Version control system} dan repositori kode untuk manajemen proyek dan kolaborasi
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
+Seluruh \textit{library} Python yang digunakan dalam penelitian ini dikelola melalui file \texttt{requirements.txt}. Berikut adalah daftar dependensi utama yang dikelompokkan berdasarkan fungsi.
+
+\vspace{0.3cm}
+\noindent
 \textbf{Framework Deep Learning dan Library Inti:}
 \begin{enumerate}[noitemsep]
-    \item \textbf{PyTorch 2.9.1}: \textit{Deep learning framework} untuk \textit{training} dan \textit{inference} model Whisper dengan dukungan CUDA 12.8
+    \item \textbf{PyTorch 2.9.1} \cite{paszke2019pytorch} dan \textbf{torchaudio 2.9.1}: \textit{Deep learning framework} untuk \textit{training}, \textit{inference}, dan \textit{audio processing} model Whisper
+    \item \textbf{Transformers 4.57.3} \cite{wolf2020transformers}: \textit{Library} Hugging Face untuk memuat dan \textit{fine-tune} model Whisper \textit{pre-trained}
+    \item \textbf{Datasets 4.4.2} \cite{lhoest2021datasets}: \textit{Library} Hugging Face untuk manajemen dataset, \textit{data loading}, dan \textit{streaming}
+    \item \textbf{Accelerate 1.12.0}: \textit{Library} Hugging Face untuk \textit{distributed training}, optimisasi memori, dan akselerasi GPU
+    \item \textbf{PEFT $\geq$0.13.0} \cite{hu2022lora,manmatha2017peft}: \textit{Library} Hugging Face untuk implementasi LoRA dan metode \textit{fine-tuning} efisien parameter
+    \item \textbf{Evaluate 0.4.6}: \textit{Library} Hugging Face untuk evaluasi metrik model secara standar
+    \item \textbf{Tokenizers 0.22.2}: Tokenisasi teks performa tinggi, digunakan oleh Transformers
+    \item \textbf{Safetensors 0.7.0}: Format penyimpanan tensor yang aman dan efisien
+    \item \textbf{Huggingface-hub 0.36.0}: \textit{Client} untuk mengakses Hugging Face Model Hub dan Dataset Hub
     \item \textbf{Triton 3.5.1}: Compiler untuk optimasi kernel GPU yang digunakan oleh PyTorch
-    \item \textbf{torchaudio 2.9.1}: \textit{Library} PyTorch untuk \textit{audio processing}, transformasi, dan augmentasi data audio
-    \item \textbf{Transformers 4.57.3}: \textit{Library} Hugging Face untuk memuat dan \textit{fine-tune} model Whisper \textit{pre-trained}
-    \item \textbf{Tokenizers 0.22.2}: \textit{Library} untuk tokenisasi teks dengan performa tinggi, digunakan oleh Transformers
-    \item \textbf{Datasets 4.4.2}: \textit{Library} Hugging Face untuk manajemen dataset, \textit{data loading}, dan \textit{streaming}
-    \item \textbf{Accelerate 1.12.0}: \textit{Library} Hugging Face untuk \textit{distributed training}, optimisasi memori, dan akselerasi proses \textit{training} pada GPU
-    \item \textbf{PEFT}: \textit{Library} dari Hugging Face untuk implementasi LoRA dan metode \textit{fine-tuning} yang efisien parameter
-    \item \textbf{Evaluate 0.4.6}: \textit{Library} Hugging Face untuk evaluasi metrik model \textit{machine learning} secara standar dan konsisten
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
 \textbf{Library Audio Processing dan Augmentation:}
 \begin{enumerate}[noitemsep]
-    \item \textbf{librosa 0.11.0}: \textit{Library} untuk analisis audio dan ekstraksi fitur musik/suara
-    \item \textbf{audiomentations 0.43.1}: \textit{Library} untuk \textit{data augmentation} audio (\textit{noise injection}, \textit{pitch shifting}, \textit{time stretching})
-    \item \textbf{soundfile 0.13.1}: \textit{Library} untuk membaca dan menulis file audio dalam berbagai format
-    \item \textbf{audioread 3.1.0}: \textit{Library} untuk membaca file audio dengan dukungan berbagai \textit{backend}
-    \item \textbf{soxr 0.5.0}: \textit{Library} untuk resampling audio berkualitas tinggi
+    \item \textbf{librosa 0.11.0} \cite{mcfee2015librosa}: Analisis audio dan ekstraksi fitur musik/suara
+    \item \textbf{audiomentations 0.43.1}: \textit{Data augmentation} audio (\textit{noise injection}, \textit{pitch shifting}, \textit{time stretching}) \cite{ko2015audio,park2019specaugment}
+    \item \textbf{soundfile 0.13.1}: Membaca dan menulis file audio dalam berbagai format
+    \item \textbf{soxr 0.5.0.post1}: Resampling audio berkualitas tinggi
+    \item \textbf{audioread 3.1.0}: Membaca file audio dengan dukungan berbagai \textit{backend}
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
 \textbf{Library Machine Learning dan Evaluasi:}
 \begin{enumerate}[noitemsep]
-    \item \textbf{scikit-learn 1.8.0}: \textit{Library} untuk utilitas \textit{machine learning} (\textit{data splitting}, metrik evaluasi, \textit{preprocessing})
-    \item \textbf{jiwer 4.0.0}: \textit{Library} untuk perhitungan metrik evaluasi ASR (WER dan CER)
-    \item \textbf{scipy 1.17.0}: \textit{Library} untuk komputasi saintifik dan algoritma optimasi
-    \item \textbf{numpy 2.3.5}: \textit{Library} fundamental untuk komputasi numerik dengan array multidimensi
-    \item \textbf{pandas 2.3.3}: \textit{Library} untuk manipulasi dan analisis data terstruktur
+    \item \textbf{scikit-learn 1.8.0} \cite{pedregosa2011scikitlearn}: Utilitas \textit{machine learning} (\textit{data splitting}, metrik evaluasi, \textit{preprocessing})
+    \item \textbf{jiwer 4.0.0} \cite{morris2004wer}: Perhitungan metrik evaluasi ASR (WER dan CER)
+    \item \textbf{numpy 2.3.5} \cite{harris2020numpy}: Komputasi numerik fundamental dengan array multidimensi
+    \item \textbf{scipy 1.17.0} \cite{virtanen2020scipy}: Komputasi saintifik dan algoritma optimasi
+    \item \textbf{pandas 2.3.3} \cite{mckinney2010pandas}: Manipulasi dan analisis data terstruktur
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
 \textbf{Library Visualisasi dan Monitoring:}
 \begin{enumerate}[noitemsep]
-    \item \textbf{matplotlib 3.10.8}: \textit{Library} untuk visualisasi data dan plotting grafik
-    \item \textbf{Weights \& Biases (wandb) 0.23.1}: Platform untuk \textit{experiment tracking}, visualisasi \textit{learning curves}, perbandingan eksperimen, dan \textit{logging} metrik
-    \item \textbf{tqdm 4.67.1}: \textit{Library} untuk progress bar dan monitoring iterasi
+    \item \textbf{matplotlib 3.10.8} \cite{hunter2007matplotlib}: Visualisasi data dan plotting grafik
+    \item \textbf{Weights \& Biases (wandb) 0.23.1} \cite{biewald2020wandb}: Platform untuk \textit{experiment tracking}, visualisasi \textit{learning curves}, dan \textit{logging} metrik
+    \item \textbf{tqdm 4.67.1}: \textit{Progress bar} dan monitoring iterasi
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
-\textbf{Library Pendukung Lainnya:}
+\textbf{Library Pendukung:}
 \begin{enumerate}[noitemsep]
-    \item \textbf{huggingface-hub 0.36.0}: Client untuk mengakses Hugging Face Model Hub dan Dataset Hub
-    \item \textbf{safetensors 0.7.0}: Format penyimpanan tensor yang aman dan efisien untuk model \textit{machine learning}
-    \item \textbf{pydantic 2.12.5}: \textit{Library} untuk validasi data menggunakan Python type hints
-    \item \textbf{requests 2.32.5}: \textit{Library} HTTP untuk komunikasi dengan API eksternal
-    \item \textbf{python-dotenv 1.2.1}: \textit{Library} untuk manajemen variabel environment dari file \texttt{.env}
-    \item \textbf{PyYAML 6.0.3}: \textit{Library} untuk parsing dan serialisasi file YAML (konfigurasi)
+    \item \textbf{pydantic 2.12.5}: Validasi data menggunakan Python type hints
+    \item \textbf{python-dotenv 1.2.1}: Manajemen variabel environment dari file \texttt{.env}
+    \item \textbf{PyYAML 6.0.3}: Parsing dan serialisasi file YAML untuk konfigurasi
+    \item \textbf{pyarrow 22.0.0}: Format data kolumnar Apache Arrow (digunakan oleh Datasets)
+    \item \textbf{requests 2.32.5}: \textit{HTTP client} untuk komunikasi dengan API eksternal
+    \item \textbf{gitpython 3.1.46}: Interaksi programatik dengan repositori Git
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
 \textbf{NVIDIA CUDA Libraries} (untuk akselerasi GPU):
 \begin{enumerate}[noitemsep]
-    \item \textbf{nvidia-cuda-runtime-cu12 12.8.90}: CUDA runtime library
-    \item \textbf{nvidia-cudnn-cu12 9.10.2.21}: cuDNN untuk akselerasi operasi deep learning
-    \item \textbf{nvidia-cublas-cu12 12.8.4.1}: cuBLAS untuk operasi algebra linear
-    \item \textbf{nvidia-cufft-cu12 11.3.3.83}: cuFFT untuk Fast Fourier Transform
+    \item \textbf{nvidia-cuda-runtime-cu12 12.8.90} \cite{nvidia2023cuda}: CUDA \textit{runtime library}
+    \item \textbf{nvidia-cudnn-cu12 9.10.2.21} \cite{chetlur2014cudnn}: cuDNN untuk akselerasi operasi \textit{deep learning}
+    \item \textbf{nvidia-cublas-cu12 12.8.4.1}: cuBLAS untuk operasi aljabar linear
+    \item \textbf{nvidia-cufft-cu12 11.3.3.83}: cuFFT untuk \textit{Fast Fourier Transform}
     \item \textbf{nvidia-nccl-cu12 2.27.5}: NCCL untuk komunikasi multi-GPU
 \end{enumerate}
+
+\vspace{0.2cm}
+\noindent
+Selain \textit{library} utama di atas, proyek ini juga menggunakan sejumlah dependensi pendukung (\textit{transitive dependencies}) yang secara otomatis dipasang, seperti \texttt{numba} (akselerasi librosa), \texttt{rapidfuzz} (dependensi jiwer), \texttt{cffi} (dependensi soundfile), \texttt{multiprocess} (dependensi Datasets), serta berbagai \textit{library} \textit{networking} (\texttt{aiohttp}, \texttt{httpx}, \texttt{urllib3}) dan utilitas (\texttt{filelock}, \texttt{packaging}, \texttt{psutil}). Daftar lengkap seluruh 98 dependensi beserta versi spesifiknya tersedia pada file \texttt{requirements.txt} di repositori kode penelitian.
 
 \subsection{Bahan}
 \label{III.Bahan}
@@ -502,7 +554,7 @@ Pengembangan sistem ASR bahasa Minangkabau mengikuti alur yang sistematis sepert
 
 \begin{figure}[H]
 \centering
-\includegraphics[angle=-90, width=1.2\textwidth]{figure/Development_Flow.pdf}
+\includegraphics[angle=-90, width=1.0\textwidth]{figure/Development_Flow.pdf}
 \caption{Alur Pengembangan Sistem}
 \label{fig:3.alur_dev}
 \end{figure}

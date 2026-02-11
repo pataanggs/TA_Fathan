@@ -3,7 +3,7 @@
 
 \section{Pendahuluan}
 
-Bab ini menyajikan hasil eksperimen \textit{fine-tuning} model Whisper Base pada bahasa Minangkabau menggunakan dua strategi: \textit{Freeze Encoder} dan \textit{Low-Rank Adaptation} (LoRA). Kedua strategi dievaluasi menggunakan metodologi 5-\textit{fold cross-validation} pada dataset yang sama (156 file audio, $\sim$1,3 jam) untuk memastikan perbandingan yang adil. Bab ini dimulai dengan hasil masing-masing strategi, dilanjutkan dengan analisis perbandingan dan pembahasan.
+Bab ini menyajikan hasil eksperimen \textit{fine-tuning} model Whisper Base pada bahasa Minangkabau menggunakan dua strategi: \textit{Freeze Encoder} dan \textit{Low-Rank Adaptation} (LoRA) \cite{hu2022lora}. Kedua strategi dievaluasi menggunakan metodologi 5-\textit{fold cross-validation} \cite{kohavi1995crossvalidation} pada dataset yang sama (156 file audio, $\sim$1,3 jam) untuk memastikan perbandingan yang adil. Bab ini dimulai dengan hasil masing-masing strategi, dilanjutkan dengan analisis perbandingan dan pembahasan.
 
 %% ====================================================================
 %% SECTION: HASIL FREEZE ENCODER
@@ -12,7 +12,54 @@ Bab ini menyajikan hasil eksperimen \textit{fine-tuning} model Whisper Base pada
 
 \subsection{Perbandingan Eksperimen Freeze Encoder}
 
-Selama proses penelitian, dilakukan empat kali percobaan pelatihan (\textit{run}) dengan strategi \textit{Freeze Encoder} untuk menemukan konfigurasi optimal. Tabel~\ref{tab:fe_run_comparison} merangkum hasil dari seluruh percobaan.
+Selama proses penelitian, dilakukan empat kali percobaan pelatihan (\textit{run}) dengan strategi \textit{Freeze Encoder} untuk menemukan konfigurasi optimal. Tabel~\ref{tab:fe_run_configs} merangkum konfigurasi yang digunakan pada setiap percobaan, dan Tabel~\ref{tab:fe_run_comparison} merangkum hasilnya.
+
+\begin{table}[H]
+\centering
+\caption{Konfigurasi Hyperparameter Empat Percobaan Freeze Encoder}
+\label{tab:fe_run_configs}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Parameter} & \textbf{Run 1} & \textbf{Run 2} & \textbf{Run 3} & \textbf{Run 4} \\
+ & \textbf{(22 Jan, 16:00)} & \textbf{(22 Jan, 16:57)} & \textbf{(22 Jan, 17:32)} & \textbf{(8 Feb, 14:51)} \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textbf{Konfigurasi Training}} \\
+\hline
+Learning Rate & 5$\times$10\textsuperscript{-6} & 1$\times$10\textsuperscript{-5} & 1$\times$10\textsuperscript{-5} & 1$\times$10\textsuperscript{-5} \\
+\hline
+Batch Size & 16 & 16 & 16 & 32 \\
+\hline
+Gradient Accumulation & 2 & 2 & 2 & 1 \\
+\hline
+Effective Batch Size & 32 & 32 & 32 & 32 \\
+\hline
+Max Steps & 200 & 200 & 200 & 200 \\
+\hline
+Warmup Ratio & 0,2 & 0,2 & 0,2 & 0,2 \\
+\hline
+Weight Decay & 0,2 & 0,2 & 0,2 & 0,1 \\
+\hline
+LR Scheduler & Cosine & Cosine & Cosine & Cosine \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textbf{Konfigurasi Dropout Model}} \\
+\hline
+Decoder Dropout & 0,3 & 0,3 & 0,3 & 0,3 \\
+\hline
+Attention Dropout & 0,2 & 0,2 & 0,2 & 0,2 \\
+\hline
+Activation Dropout & 0,2 & 0,2 & 0,2 & 0,2 \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textbf{Decoding}} \\
+\hline
+Beam Width & 1 (greedy) & 1 (greedy) & 1 (greedy) & 5 \\
+\hline
+\end{tabular}%
+}
+\end{table}
 
 \begin{table}[H]
 \centering
@@ -35,7 +82,17 @@ Selama proses penelitian, dilakukan empat kali percobaan pelatihan (\textit{run}
 }
 \end{table}
 
-Run 4 mencapai performa terbaik dengan rata-rata WER \textbf{19,92\%} dan CER \textbf{4,53\%}. Peningkatan performa pada Run 4 dibandingkan Run 2 (penurunan WER relatif 10,8\%) disebabkan oleh tiga faktor: (1) penurunan \textit{weight decay} dari 0,2 ke 0,1 yang mengurangi risiko \textit{underfitting} ketika dikombinasikan dengan skema \textit{dropout} bertingkat (\textit{decoder}=0,3; \textit{attention}=0,2; \textit{activation}=0,2); (2) peningkatan \textit{batch size} fisik dari 16 menjadi 32 yang meningkatkan \textit{throughput} GPU melalui paralelisasi CUDA core yang lebih efisien; dan (3) penggunaan \textit{beam search} (\textit{width}=5) yang mengeksplorasi lebih banyak jalur dekoding dibandingkan \textit{greedy decoding} \cite{radford2023whisper}. Analisis selanjutnya menggunakan hasil dari \textbf{Run 4}.
+Run 4 mencapai performa terbaik dengan rata-rata WER \textbf{19,92\%} dan CER \textbf{4,53\%}. Berdasarkan analisis konfigurasi pada Tabel~\ref{tab:fe_run_configs}, peningkatan performa Run 4 dibandingkan Run 2 (penurunan WER relatif 10,8\%) disebabkan oleh tiga faktor:
+
+\begin{enumerate}
+    \item \textbf{Run 1 vs Run 2} (pengaruh \textit{learning rate}): Peningkatan \textit{learning rate} dari 5$\times$10\textsuperscript{-6} ke 1$\times$10\textsuperscript{-5} menghasilkan penurunan WER signifikan (25,07\% $\rightarrow$ 22,34\%), menunjukkan bahwa \textit{learning rate} awal terlalu kecil untuk konvergensi yang efektif.
+    
+    \item \textbf{Run 2 vs Run 3} (reproduktibilitas): Kedua run menggunakan konfigurasi identik namun menghasilkan WER yang berbeda (22,34\% vs 22,95\%), menunjukkan variabilitas dari \textit{stochastic training} yang perlu diperhatikan dalam interpretasi hasil.
+    
+    \item \textbf{Run 4} (optimasi multi-faktor): Penurunan \textit{weight decay} dari 0,2 ke 0,1 mengurangi risiko \textit{underfitting} ketika dikombinasikan dengan skema \textit{dropout} bertingkat (\textit{decoder}=0,3; \textit{attention}=0,2; \textit{activation}=0,2); peningkatan \textit{batch size} fisik dari 16 menjadi 32 meningkatkan \textit{throughput} GPU melalui paralelisasi CUDA core yang lebih efisien; dan penggunaan \textit{beam search} (\textit{width}=5) mengeksplorasi lebih banyak jalur dekoding dibandingkan \textit{greedy decoding} \cite{radford2023whisper}.
+\end{enumerate}
+
+Analisis selanjutnya menggunakan hasil dari \textbf{Run 4}.
 
 \subsection{Hasil Cross-Validation Freeze Encoder}
 
@@ -144,13 +201,108 @@ Pola kesalahan utama pada \textit{Freeze Encoder} meliputi: (1) substitusi fonet
 %% ====================================================================
 \section{Hasil Strategi LoRA} \label{IV.LoRA}
 
-\subsection{Konfigurasi LoRA}
+\subsection{Perbandingan Eksperimen LoRA}
 
-Strategi LoRA (\textit{Low-Rank Adaptation}) menerapkan \textit{adapter} berpangkat rendah pada seluruh \textit{linear layer} di model Whisper Base. Tabel~\ref{tab:lora_config} merangkum konfigurasi LoRA yang digunakan.
+Serupa dengan strategi \textit{Freeze Encoder}, dilakukan empat kali percobaan pelatihan (\textit{run}) dengan strategi LoRA untuk menemukan konfigurasi optimal. Setiap percobaan menggunakan variasi \textit{hyperparameter} yang berbeda, termasuk variasi \textit{rank}, \textit{learning rate}, \textit{weight decay}, dan \textit{dropout}. Tabel~\ref{tab:lora_run_configs} merangkum konfigurasi yang digunakan pada setiap percobaan.
 
 \begin{table}[H]
 \centering
-\caption{Konfigurasi LoRA}
+\caption{Konfigurasi Hyperparameter Empat Percobaan LoRA}
+\label{tab:lora_run_configs}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Parameter} & \textbf{Run 1} & \textbf{Run 2} & \textbf{Run 3} & \textbf{Run 4} \\
+ & \textbf{(8 Feb, 16:30)} & \textbf{(8 Feb, 17:44)} & \textbf{(8 Feb, 18:51)} & \textbf{(8 Feb, 19:41)} \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textbf{Konfigurasi LoRA Adapter}} \\
+\hline
+Rank ($r$) & 8 & 8 & 16 & 8 \\
+\hline
+Alpha ($\alpha$) & 16 & 16 & 32 & 16 \\
+\hline
+Scaling ($\alpha / r$) & 2,0$\times$ & 2,0$\times$ & 2,0$\times$ & 2,0$\times$ \\
+\hline
+LoRA Dropout & 0,1 & 0,1 & 0,15 & 0,15 \\
+\hline
+Target Modules & \multicolumn{4}{c|}{q\_proj, v\_proj, k\_proj, out\_proj, fc1, fc2} \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textbf{Konfigurasi Training}} \\
+\hline
+Learning Rate & 5$\times$10\textsuperscript{-4} & 5$\times$10\textsuperscript{-4} & 3$\times$10\textsuperscript{-4} & 7$\times$10\textsuperscript{-4} \\
+\hline
+Batch Size & 32 & 32 & 32 & 32 \\
+\hline
+Max Steps & 400 & 400 & 250 & 250 \\
+\hline
+Warmup Ratio & 0,1 & 0,1 & 0,15 & 0,1 \\
+\hline
+Weight Decay & 0,01 & 0,01 & 0,03 & 0,05 \\
+\hline
+Label Smoothing & 0,1 & 0,1 & 0,05 & 0,1 \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textbf{Konfigurasi Dropout Model}} \\
+\hline
+Decoder Dropout & 0,1 & 0,1 & 0,15 & 0,1 \\
+\hline
+Attention Dropout & 0,05 & 0,05 & 0,1 & 0,05 \\
+\hline
+Activation Dropout & 0,05 & 0,05 & 0,1 & 0,05 \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textbf{Decoding}} \\
+\hline
+Beam Width & 5 & 5 & 5 & 5 \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+Tabel~\ref{tab:lora_run_comparison} merangkum hasil performa dari seluruh percobaan LoRA.
+
+\begin{table}[H]
+\centering
+\caption{Perbandingan Hasil Empat Percobaan LoRA}
+\label{tab:lora_run_comparison}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Run} & \textbf{Rank} & \textbf{LR} & \textbf{Weight Decay} & \textbf{Label Smooth.} & \textbf{Mean WER (\%)} & \textbf{Mean CER (\%)} & \textbf{Std WER (\%)} \\
+\hline
+\textbf{1 (16:30)} & \textbf{8} & \textbf{5$\times$10\textsuperscript{-4}} & \textbf{0,01} & \textbf{0,1} & \textbf{17,32 $\pm$ 0,83} & \textbf{3,49 $\pm$ 0,43} & \textbf{0,83} \\
+\hline
+2 (17:44) & 8 & 5$\times$10\textsuperscript{-4} & 0,01 & 0,1 & 17,73 $\pm$ 1,91 & 3,57 $\pm$ 0,33 & 1,91 \\
+\hline
+3 (18:51) & 16 & 3$\times$10\textsuperscript{-4} & 0,03 & 0,05 & 18,03 $\pm$ 1,01 & 3,80 $\pm$ 0,39 & 1,01 \\
+\hline
+4 (19:41) & 8 & 7$\times$10\textsuperscript{-4} & 0,05 & 0,1 & 17,43 $\pm$ 1,74 & 3,78 $\pm$ 0,53 & 1,74 \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+Run 1 mencapai performa terbaik dengan rata-rata WER \textbf{17,32\%} dan CER \textbf{3,49\%}, sekaligus menunjukkan konsistensi tertinggi (standar deviasi WER hanya 0,83\%). Beberapa temuan dari eksplorasi \textit{hyperparameter} LoRA:
+
+\begin{enumerate}
+    \item \textbf{Run 1 vs Run 2} (konfigurasi identik): Run 2 merupakan pengulangan Run 1 dengan konfigurasi yang sama, menghasilkan WER rata-rata yang sangat mirip (17,73\% vs 17,32\%), namun dengan standar deviasi yang lebih tinggi (1,91\% vs 0,83\%). Perbedaan ini menunjukkan variabilitas inheren dari \textit{stochastic training} dan inisialisasi \textit{adapter} LoRA yang acak.
+    
+    \item \textbf{Run 3} (rank lebih tinggi, LR lebih rendah): Peningkatan \textit{rank} dari 8 ke 16 (menggandakan parameter trainable) dengan \textit{learning rate} yang lebih rendah (3$\times$10\textsuperscript{-4}) dan \textit{label smoothing} yang lebih kecil (0,05) justru menghasilkan WER yang lebih tinggi (18,03\%). Hal ini mengindikasikan bahwa pada dataset sekecil ini, peningkatan kapasitas model tidak selalu bermanfaat---\textit{rank} 8 sudah cukup untuk mengkodekan adaptasi yang diperlukan.
+    
+    \item \textbf{Run 4} (\textit{learning rate} tertinggi): Penggunaan \textit{learning rate} 7$\times$10\textsuperscript{-4} (tertinggi dari semua run) dengan \textit{weight decay} yang lebih agresif (0,05) menghasilkan WER rata-rata kompetitif (17,43\%), namun dengan standar deviasi yang tinggi (1,74\%). \textit{Learning rate} yang terlalu tinggi meningkatkan risiko ketidakstabilan training.
+\end{enumerate}
+
+Analisis selanjutnya menggunakan hasil dari \textbf{Run 1} (lora\_20260208\_163018) yang mencapai performa terbaik dan paling konsisten.
+
+\subsection{Konfigurasi LoRA Terbaik}
+
+Tabel~\ref{tab:lora_config} merangkum konfigurasi LoRA pada Run 1 yang digunakan untuk analisis mendalam.
+
+\begin{table}[H]
+\centering
+\caption{Konfigurasi LoRA Terbaik (Run 1)}
 \label{tab:lora_config}
 \begin{tabular}{|l|l|}
 \hline
@@ -213,7 +365,7 @@ Tabel~\ref{tab:lora_cv_results} menunjukkan hasil evaluasi 5-\textit{fold cross-
 Strategi LoRA mencapai rata-rata WER \textbf{17,32\% $\pm$ 0,83\%} dan CER \textbf{3,49\% $\pm$ 0,43\%}. Beberapa observasi penting:
 
 \begin{itemize}
-    \item \textbf{Konsistensi Tinggi}: Standar deviasi WER hanya 0,83\% (dibandingkan 2,42\% pada \textit{Freeze Encoder}), menunjukkan bahwa LoRA lebih stabil terhadap variasi pembagian data. Rentang WER antar-\textit{fold} hanya 2,31 poin persentase (16,33\%--18,64\%), jauh lebih sempit dibandingkan \textit{Freeze Encoder} (6,93 pp).
+    \item \textbf{Konsistensi Tinggi}: Standar deviasi WER hanya 0,83\% (dibandingkan 2,42\% pada \textit{Freeze Encoder}), menunjukkan bahwa LoRA lebih stabil terhadap variasi pembagian data. Rentang WER antar-\textit{fold} hanya 2,31 poin persentase (16,33\%--18,64\%), jauh lebih sempit dibandingkan \textit{Freeze Encoder} (6,93 \%).
     
     \item \textbf{Fold Terbaik}: \textit{Fold}~4 mencapai WER terendah (16,33\%), sementara \textit{Fold}~2 mencapai CER terendah (2,86\%). Perbedaan \textit{fold} terbaik untuk WER dan CER mengindikasikan profil kesalahan yang berbeda antar-\textit{fold}.
     
@@ -361,6 +513,47 @@ Pola kesalahan LoRA menunjukkan karakteristik yang sedikit berbeda dari \textit{
 %% ====================================================================
 \section{Perbandingan Strategi Fine-Tuning} \label{IV.Perbandingan}
 
+\subsection{Ringkasan Seluruh Percobaan}
+
+Tabel~\ref{tab:all_runs_summary} menyajikan ringkasan hasil dari seluruh delapan percobaan (empat \textit{Freeze Encoder} dan empat LoRA) yang dilakukan selama penelitian.
+
+\begin{table}[H]
+\centering
+\caption{Ringkasan Seluruh Percobaan Training}
+\label{tab:all_runs_summary}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|l|c|c|c|c|c|c|}
+\hline
+\textbf{No.} & \textbf{Strategi} & \textbf{LR} & \textbf{Batch} & \textbf{W. Decay} & \textbf{Beam} & \textbf{Mean WER (\%)} & \textbf{Mean CER (\%)} \\
+\hline
+\hline
+\multicolumn{8}{|c|}{\textbf{Freeze Encoder}} \\
+\hline
+FE-1 & Freeze Encoder & 5$\times$10\textsuperscript{-6} & 16$\times$2 & 0,2 & 1 & 25,07 $\pm$ 2,86 & 5,60 $\pm$ 0,59 \\
+\hline
+FE-2 & Freeze Encoder & 1$\times$10\textsuperscript{-5} & 16$\times$2 & 0,2 & 1 & 22,34 $\pm$ 1,89 & 4,93 $\pm$ 0,55 \\
+\hline
+FE-3 & Freeze Encoder & 1$\times$10\textsuperscript{-5} & 16$\times$2 & 0,2 & 1 & 22,95 $\pm$ 2,70 & 5,52 $\pm$ 0,77 \\
+\hline
+\textbf{FE-4} & \textbf{Freeze Encoder} & \textbf{1$\times$10\textsuperscript{-5}} & \textbf{32$\times$1} & \textbf{0,1} & \textbf{5} & \textbf{19,92 $\pm$ 2,42} & \textbf{4,53 $\pm$ 0,65} \\
+\hline
+\hline
+\multicolumn{8}{|c|}{\textbf{LoRA}} \\
+\hline
+\textbf{L-1} & \textbf{LoRA ($r$=8)} & \textbf{5$\times$10\textsuperscript{-4}} & \textbf{32} & \textbf{0,01} & \textbf{5} & \textbf{17,32 $\pm$ 0,83} & \textbf{3,49 $\pm$ 0,43} \\
+\hline
+L-2 & LoRA ($r$=8) & 5$\times$10\textsuperscript{-4} & 32 & 0,01 & 5 & 17,73 $\pm$ 1,91 & 3,57 $\pm$ 0,33 \\
+\hline
+L-3 & LoRA ($r$=16) & 3$\times$10\textsuperscript{-4} & 32 & 0,03 & 5 & 18,03 $\pm$ 1,01 & 3,80 $\pm$ 0,39 \\
+\hline
+L-4 & LoRA ($r$=8) & 7$\times$10\textsuperscript{-4} & 32 & 0,05 & 5 & 17,43 $\pm$ 1,74 & 3,78 $\pm$ 0,53 \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+Dari Tabel~\ref{tab:all_runs_summary}, terlihat jelas bahwa \textbf{seluruh percobaan LoRA} (WER 17,32\%--18,03\%) mengungguli \textbf{seluruh percobaan Freeze Encoder} (WER 19,92\%--25,07\%) dalam hal rata-rata WER. Bahkan percobaan LoRA terburuk (L-3, WER 18,03\%) masih lebih baik 1,89 poin persentase dari percobaan \textit{Freeze Encoder} terbaik (FE-4, WER 19,92\%). Hal ini menunjukkan keunggulan yang konsisten dan \textit{robust} dari strategi LoRA pada skenario \textit{low-resource} ini.
+
 \subsection{Perbandingan Metrik Utama}
 
 Tabel~\ref{tab:strategy_comparison} menyajikan perbandingan komprehensif antara kedua strategi \textit{fine-tuning}.
@@ -415,7 +608,7 @@ Dropout (dec/attn/act) & 0,3 / 0,2 / 0,2 & 0,1 / 0,05 / 0,05 & Lebih ringan \\
 Dari Tabel~\ref{tab:strategy_comparison}, dapat diidentifikasi beberapa temuan kunci:
 
 \begin{enumerate}
-    \item \textbf{LoRA Mengungguli Freeze Encoder pada Metrik Rata-Rata}: LoRA mencapai WER 17,32\% dibandingkan 19,92\% pada \textit{Freeze Encoder} (penurunan relatif 13,1\%). Penurunan CER juga signifikan: 3,49\% vs 4,53\% (penurunan relatif 23,0\%). Keunggulan ini dicapai dengan hanya melatih 1,47\% parameter---34 kali lebih sedikit dari \textit{Freeze Encoder}.
+    \item \textbf{LoRA Mengungguli Freeze Encoder pada Metrik Rata-Rata}: LoRA mencapai WER \cite{morris2004wer} 17,32\% dibandingkan 19,92\% pada \textit{Freeze Encoder} (penurunan relatif 13,1\%). Penurunan CER juga signifikan: 3,49\% vs 4,53\% (penurunan relatif 23,0\%). Keunggulan ini dicapai dengan hanya melatih 1,47\% parameter---34 kali lebih sedikit dari \textit{Freeze Encoder}.
     
     \item \textbf{LoRA Jauh Lebih Konsisten}: Standar deviasi WER LoRA (0,83\%) kurang dari sepertiga \textit{Freeze Encoder} (2,42\%), dan rentang WER antar-\textit{fold} LoRA (2,31 pp) kurang dari sepertiga \textit{Freeze Encoder} (6,93 pp). Konsistensi ini sangat penting untuk bahasa \textit{low-resource} di mana stabilitas model terhadap variasi data merupakan indikator generalisasi yang baik.
     
@@ -449,7 +642,7 @@ Gambar~\ref{fig:comparison_cv} mengilustrasikan perbandingan visual performa ked
 
 \subsection{Efektivitas LoRA pada Skenario Low-Resource}
 
-Keunggulan LoRA atas \textit{Freeze Encoder} pada skenario \textit{extremely low-resource} (1,3 jam) merupakan temuan yang signifikan dan sedikit bertentangan dengan intuisi awal. Secara konvensional, lebih banyak parameter trainable (50\% pada \textit{Freeze Encoder}) seharusnya memberikan kapasitas belajar yang lebih besar. Namun, hasil eksperimen menunjukkan sebaliknya---LoRA dengan hanya 1,47\% parameter trainable justru lebih baik. Beberapa penjelasan untuk fenomena ini:
+Keunggulan LoRA atas \textit{Freeze Encoder} pada skenario \textit{extremely low-resource} (1,3 jam) merupakan temuan yang signifikan dan sedikit bertentangan dengan intuisi awal. Secara konvensional, lebih banyak parameter trainable (50\% pada \textit{Freeze Encoder}) seharusnya memberikan kapasitas belajar yang lebih besar. Namun, hasil dari seluruh delapan percobaan (empat \textit{Freeze Encoder} dan empat LoRA, lihat Tabel~\ref{tab:all_runs_summary}) secara konsisten menunjukkan sebaliknya---LoRA dengan hanya 1,47\% parameter trainable justru lebih baik pada setiap konfigurasi yang diuji. Beberapa penjelasan untuk fenomena ini:
 
 \begin{itemize}
     \item \textbf{Regularisasi Struktural}: \textit{Low-rank constraint} ($r$=8) membatasi perubahan representasi internal ke subspace berdimensi rendah, secara efektif mencegah \textit{overfitting} tanpa memerlukan regularisasi eksplisit yang agresif. Hal ini krusial pada dataset kecil di mana \textit{overfitting} merupakan risiko utama \cite{hu2022lora}.
@@ -478,16 +671,16 @@ Konsistensi LoRA (std WER 0,83\% vs 2,42\%) merupakan keunggulan yang krusial un
 Kedua strategi menunjukkan efisiensi komputasi yang baik pada GPU RTX 5060 Ti 16GB:
 
 \begin{itemize}
-    \item \textbf{Freeze Encoder}: Total $\sim$44 menit untuk 5-fold CV ($\sim$8,74 menit/fold). Melatih $\sim$37M parameter dengan BF16 \textit{mixed precision}.
+    \item \textbf{Freeze Encoder}: Total $\sim$44 menit untuk 5-fold CV ($\sim$8,74 menit/fold). Melatih $\sim$37M parameter dengan BF16 \textit{mixed precision} \cite{micikevicius2018mixed}.
     
-    \item \textbf{LoRA}: Total $\sim$53 menit untuk 5-fold CV ($\sim$10,52 menit/fold). Melatih hanya $\sim$1,1M parameter namun dengan \textit{overhead adapter} pada 6 layer per blok.
+    \item \textbf{LoRA}: Total $\sim$53 menit untuk 5-fold CV ($\sim$10,52 menit/fold). Melatih hanya $\sim$1,1M parameter namun dengan \textit{overhead adapter} \cite{manmatha2017peft} pada 6 layer per blok.
     
     \item \textbf{Trade-Off}: LoRA membutuhkan waktu 20\% lebih lama tetapi mencapai WER 13\% lebih baik dengan parameter 34$\times$ lebih sedikit. Dalam konteks \textit{low-resource language} di mana data sangat mahal untuk dikumpulkan, efisiensi parameter LoRA sangat berharga karena memungkinkan adaptasi cepat ke bahasa baru tanpa risiko \textit{overfitting} yang signifikan.
 \end{itemize}
 
 \subsection{Transfer Learning dan Kedekatan Tipologis}
 
-Keberhasilan kedua strategi---terutama LoRA yang hanya memodifikasi 1,47\% parameter---mengkonfirmasi efektivitas \textit{transfer learning} dari Whisper yang dilatih pada 680.000 jam audio multibahasa. Penggunaan bahasa Indonesia (\texttt{id}) sebagai \textit{proxy language token} untuk bahasa Minangkabau terbukti efektif berkat kedekatan tipologis antara kedua bahasa rumpun Austronesia \cite{koto2020minangkabau,liang2025fieldmatters}.
+Keberhasilan kedua strategi---terutama LoRA yang hanya memodifikasi 1,47\% parameter---mengkonfirmasi efektivitas \textit{transfer learning} \cite{pan2010transfer} dari Whisper yang dilatih pada 680.000 jam audio multibahasa. Penggunaan bahasa Indonesia (\texttt{id}) sebagai \textit{proxy language token} untuk bahasa Minangkabau terbukti efektif berkat kedekatan tipologis antara kedua bahasa rumpun Austronesia \cite{koto2020minangkabau,liang2025fieldmatters}.
 
 Hasil ini konsisten dengan temuan penelitian terdahulu: Pillai dkk. \cite{pillai2024multistage} mencapai WER $\sim$25\% pada bahasa Malaysia dengan \textit{multi-stage fine-tuning}; Gete dkk. \cite{gete2025whispering} melaporkan WER kompetitif pada bahasa Basque dengan pendekatan serupa; dan Li dkk. \cite{li2024improving} menunjukkan efektivitas LoRA pada bahasa Tionghoa \textit{low-resource}. Performa LoRA pada penelitian ini (WER 17,32\%) tergolong sangat baik mengingat keterbatasan data ($\sim$1,3 jam) yang jauh lebih kecil dari dataset pada penelitian-penelitian tersebut.
 
@@ -504,5 +697,5 @@ Beberapa limitasi yang berlaku untuk kedua strategi:
     
     \item \textbf{Domain Spesifik}: Data dari LibriVox (pembacaan teks) mungkin tidak merepresentasikan percakapan spontan, membatasi generalisasi domain.
     
-    \item \textbf{Single Run LoRA}: Berbeda dengan \textit{Freeze Encoder} yang dioptimalkan melalui 4 kali percobaan, hasil LoRA berasal dari satu kali percobaan. Eksplorasi \textit{hyperparameter} LoRA yang lebih luas (variasi \textit{rank}, \textit{alpha}, dan \textit{learning rate}) berpotensi menghasilkan performa yang lebih baik lagi.
+    \item \textbf{Ruang Hyperparameter}: Meskipun empat percobaan dilakukan pada masing-masing strategi, eksplorasi \textit{hyperparameter} yang lebih luas (misalnya variasi \textit{rank} LoRA yang lebih ekstrem, \textit{learning rate scheduling} alternatif, atau \textit{data augmentation} yang berbeda) berpotensi menghasilkan performa yang lebih baik lagi.
 \end{itemize}

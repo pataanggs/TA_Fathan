@@ -292,7 +292,7 @@ Keterbatasan strategi ini adalah model hanya dapat beradaptasi pada level lingui
 
 \subsubsection{Parameter-Efficient Fine-Tuning (PEFT)}
 
-\textit{Parameter-Efficient Fine-Tuning} (PEFT) adalah keluarga metode yang bertujuan mengurangi jumlah parameter yang dilatih selama \textit{fine-tuning} sambil mempertahankan performa yang sebanding dengan \textit{full fine-tuning} \cite{hu2022lora}. PEFT sangat relevan untuk skenario \textit{low-resource} di mana sumber daya komputasi terbatas.
+\textit{Parameter-Efficient Fine-Tuning} (PEFT) adalah keluarga metode yang bertujuan mengurangi jumlah parameter yang dilatih selama \textit{fine-tuning} sambil mempertahankan performa yang sebanding dengan \textit{full fine-tuning} \cite{hu2022lora,manmatha2017peft}. PEFT sangat relevan untuk skenario \textit{low-resource} di mana sumber daya komputasi terbatas.
 
 Metode PEFT bekerja dengan membekukan (\textit{freeze}) sebagian besar atau seluruh parameter model \textit{pre-trained}, dan hanya melatih sebagian kecil parameter tambahan yang diinjeksikan ke dalam arsitektur. Pendekatan ini secara drastis mengurangi kebutuhan memori dan waktu pelatihan sambil tetap memungkinkan adaptasi yang efektif ke tugas target.
 
@@ -342,7 +342,7 @@ Kedua metrik ini penting karena memberikan informasi yang berbeda: WER mengukur 
 \subsection{Data Preprocessing untuk ASR}
 \label{II.Preprocessing}
 
-\textit{Preprocessing} data adalah tahap kritis dalam pengembangan sistem ASR yang memastikan data input konsisten, berkualitas tinggi, dan kompatibel dengan persyaratan model \cite{park2019specaugment}.
+\textit{Preprocessing} data adalah tahap kritis dalam pengembangan sistem ASR yang memastikan data input konsisten, berkualitas tinggi, dan kompatibel dengan persyaratan model \cite{park2019specaugment,radford2023whisper}.
 
 \subsubsection{Audio Preprocessing}
 
@@ -395,18 +395,18 @@ Untuk mencegah \textit{overfitting} pada dataset kecil dan memastikan konvergens
 \subsubsection{Regularisasi}
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Dropout}: Teknik regularisasi yang secara acak men-\textit{drop} neuron selama pelatihan untuk mengurangi \textit{co-adaptation} dan meningkatkan generalisasi.
+    \item \textbf{Dropout} \cite{srivastava2014dropout}: Teknik regularisasi yang secara acak men-\textit{drop} neuron selama pelatihan untuk mengurangi \textit{co-adaptation} dan meningkatkan generalisasi.
     
-    \item \textbf{Label Smoothing}: Teknik yang menghaluskan distribusi target saat pelatihan untuk mencegah \textit{overconfidence} pada prediksi dan meningkatkan kalibrasi model.
+    \item \textbf{Label Smoothing} \cite{szegedy2016rethinking}: Teknik yang menghaluskan distribusi target saat pelatihan untuk mencegah \textit{overconfidence} pada prediksi dan meningkatkan kalibrasi model.
     
-    \item \textbf{Gradient Clipping}: Pembatasan norma gradien untuk mencegah \textit{exploding gradients} selama \textit{backpropagation}.
+    \item \textbf{Gradient Clipping} \cite{pascanu2013difficulty}: Pembatasan norma gradien untuk mencegah \textit{exploding gradients} selama \textit{backpropagation}.
     
     \item \textbf{Early Stopping}: Menghentikan pelatihan ketika performa pada \textit{validation set} tidak lagi meningkat, mencegah \textit{overfitting} pada \textit{training set}.
 \end{enumerate}
 
 \subsubsection{Optimisasi}
 
-\textbf{AdamW} \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan secara luas untuk \textit{fine-tuning} model \textit{Transformer}. AdamW adalah varian dari Adam yang memisahkan \textit{weight decay} dari optimisasi gradien, menghasilkan regularisasi yang lebih efektif. AdamW menggunakan \textit{adaptive learning rates} per-parameter berdasarkan estimasi momen pertama dan kedua dari gradien, memungkinkan konvergensi cepat sambil mempertahankan stabilitas pelatihan.
+\textbf{AdamW} \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan secara luas untuk \textit{fine-tuning} model \textit{Transformer}. AdamW adalah varian dari Adam yang memisahkan \textit{weight decay} dari optimisasi gradien, menghasilkan regularisasi yang lebih efektif \cite{krogh1991regularization}. AdamW menggunakan \textit{adaptive learning rates} per-parameter berdasarkan estimasi momen pertama dan kedua dari gradien, memungkinkan konvergensi cepat sambil mempertahankan stabilitas pelatihan.
 
 \subsection{K-Fold Cross-Validation}
 \label{II.KFoldCV}
@@ -456,4 +456,4 @@ Untuk dataset dengan distribusi kelas atau karakteristik yang tidak seimbang, \t
 
 \subsubsection{Statistical Testing dengan Cross-Validation}
 
-Salah satu keuntungan penting \textit{K-Fold Cross-Validation} adalah kemampuan untuk melakukan \textit{statistical significance testing} ketika membandingkan beberapa model. Dengan $K$ \textit{folds}, diperoleh $K$ pasangan nilai metrik untuk setiap model yang dibandingkan. \textit{Paired t-test} dapat diterapkan untuk menentukan apakah perbedaan performa antara dua model secara statistik signifikan ($p < 0.05$), memberikan kepercayaan yang lebih tinggi terhadap kesimpulan perbandingan model.
+Salah satu keuntungan penting \textit{K-Fold Cross-Validation} adalah kemampuan untuk melakukan \textit{statistical significance testing} ketika membandingkan beberapa model. Dengan $K$ \textit{folds}, diperoleh $K$ pasangan nilai metrik untuk setiap model yang dibandingkan. \textit{Paired t-test} \cite{student1908ttest} dapat diterapkan untuk menentukan apakah perbedaan performa antara dua model secara statistik signifikan ($p < 0.05$), memberikan kepercayaan yang lebih tinggi terhadap kesimpulan perbandingan model.
