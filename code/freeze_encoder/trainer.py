@@ -39,6 +39,34 @@ from metrics_logger import (
 )
 
 
+class WhisperFreezeTrainer(Seq2SeqTrainer):
+    """
+    Custom Seq2SeqTrainer for Whisper + Freeze Encoder that handles label smoothing.
+
+    When label_smoothing_factor > 0, the base Trainer.compute_loss() pops
+    'labels' from inputs before calling model(**inputs). Whisper's forward()
+    needs labels to auto-generate decoder_input_ids via shift_tokens_right().
+    Without labels, Whisper raises:
+        ValueError: You have to specify either decoder_input_ids or decoder_inputs_embeds
+
+    Fix: pre-compute decoder_input_ids from labels and inject them into inputs
+    before the parent's compute_loss() pops labels.
+    """
+
+    def compute_loss(self, model, inputs, num_items_in_batch=None, **kwargs):
+        if "labels" in inputs and "decoder_input_ids" not in inputs:
+            labels = inputs["labels"]
+            decoder_input_ids = labels.new_zeros(labels.shape)
+            decoder_input_ids[:, 1:] = labels[:, :-1].clone()
+            decoder_input_ids[:, 0] = model.config.decoder_start_token_id
+            decoder_input_ids = decoder_input_ids.masked_fill(
+                decoder_input_ids == -100,
+                model.config.pad_token_id,
+            )
+            inputs["decoder_input_ids"] = decoder_input_ids
+
+        return super().compute_loss(model, inputs, num_items_in_batch=num_items_in_batch, **kwargs)
+
 
 def load_model() -> WhisperForConditionalGeneration:
     """
@@ -230,7 +258,7 @@ def create_trainer(
         }
         metrics_logger.log_model_config(model_config)
     
-    trainer = Seq2SeqTrainer(
+    trainer = WhisperFreezeTrainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,

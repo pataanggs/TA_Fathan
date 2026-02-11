@@ -165,6 +165,29 @@ Tabel~\ref{tab:fe_training_summary} merangkum statistik training untuk setiap \t
 
 Seluruh \textit{fold} berhasil menurunkan \textit{training loss} dari kisaran 2,7--3,1 menjadi $\sim$0,01 (penurunan $>$99\%), menunjukkan konvergensi yang sangat baik. \textit{Early stopping} (\textit{patience}=8 steps) berhasil menghentikan training sebelum batas 200 steps pada semua \textit{fold}. Total 5-\textit{fold cross-validation} selesai dalam \textbf{$\sim$44 menit} pada GPU RTX 5060 Ti 16GB.
 
+\subsection{Metrik Evaluasi Freeze Encoder}
+
+Gambar~\ref{fig:fe_eval_metrics} menunjukkan perkembangan WER dan CER selama evaluasi pada strategi \textit{Freeze Encoder}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{code/freeze_encoder/outputs/metrics/run_20260208_145119/visualizations/evaluation_metrics_detailed.png}
+\caption{Perkembangan WER dan CER --- Strategi Freeze Encoder}
+\label{fig:fe_eval_metrics}
+\end{figure}
+
+Semua \textit{fold} menunjukkan penurunan WER yang signifikan dari rentang 70--73\% pada evaluasi awal menjadi 15--23\% pada evaluasi akhir. Beberapa pola penting yang teramati:
+
+\begin{itemize}
+    \item \textbf{Penurunan WER yang Cepat}: Sebagian besar penurunan WER terjadi pada 40--60 \textit{steps} pertama ($\sim$10--15 \textit{epochs}), di mana WER turun dari $>$70\% menjadi $\sim$25--30\%. Setelah itu, penurunan berlangsung lebih lambat dan bertahap menuju nilai konvergen.
+    
+    \item \textbf{Variasi Antar-Fold yang Tinggi}: Terdapat perbedaan yang cukup besar antar-\textit{fold} pada fase akhir training. \textit{Fold}~2 mencapai WER terendah (15,65\%) sementara \textit{Fold}~3 hanya mencapai 22,58\%, dengan rentang 6,93 poin persentase. Variasi ini mengindikasikan sensitivitas tinggi terhadap komposisi data training dan evaluasi pada dataset kecil.
+    
+    \item \textbf{CER Lebih Stabil}: Dibandingkan WER, kurva CER menunjukkan konvergensi yang lebih seragam antar-\textit{fold} dengan rentang akhir yang lebih sempit (3,47\%--5,31\%), menunjukkan bahwa kesalahan karakter lebih konsisten meskipun kesalahan kata bervariasi.
+    
+    \item \textbf{Fluktuasi pada Beberapa Fold}: Beberapa \textit{fold} menunjukkan fluktuasi metrik evaluasi pada fase pertengahan training, yang mengindikasikan ketidakstabilan optimasi akibat dataset yang sangat kecil dan jumlah parameter trainable yang besar (37M, 50\% dari total).
+\end{itemize}
+
 \subsection{Prediksi Model Freeze Encoder}
 
 Tabel~\ref{tab:fe_predictions_fold2} menampilkan contoh prediksi pada \textit{Fold}~2 (fold terbaik, WER 15,65\%):

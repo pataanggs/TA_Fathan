@@ -70,7 +70,7 @@ TRAINING_ARGS = {
     "gradient_accumulation_steps": 1,        # Effective batch = 32
     "learning_rate": 1e-5,
     "warmup_ratio": 0.2,                     # Higher warmup (20%)
-    "max_steps": 200,
+    "max_steps": 120,                        
     "lr_scheduler_type": "cosine",
     "optim": "adamw_torch",
     "gradient_checkpointing": False,         # Disabled: trade VRAM for ~30% speed
@@ -79,6 +79,7 @@ TRAINING_ARGS = {
     "dataloader_pin_memory": True,
     "weight_decay": 0.1,                     # Reduced from 0.2 (risk of underfitting
                                               #   combined with 0.3 dropout)
+    "max_grad_norm": 0.5,                    # Aggressive gradient clipping (default 1.0)
     "eval_strategy": "steps",
     "eval_steps": 4,
     "save_steps": 4,
@@ -93,6 +94,7 @@ TRAINING_ARGS = {
     "predict_with_generate": True,
     "generation_max_length": 225,
     "torch_compile": False,
+    "label_smoothing_factor": 0.1,           # Prevent overconfident predictions
 }
 
 # ANTI-OVERFITTING DROPOUT
@@ -103,7 +105,7 @@ MODEL_DROPOUT_CONFIG = {
 }
 
 EARLY_STOPPING_CONFIG = {
-    "patience": 8,        # Stop if no improvement after ~1 epoch (8 steps)
+    "patience": 6,        # Tighter: stop sooner to prevent overtraining
     "threshold": 0.001,
 }
 
@@ -132,11 +134,11 @@ GENERATION_CONFIG = {
 # AUGMENTATION (CRITICAL FOR TINY DATA)
 # =============================================================================
 AUGMENTATION_CONFIG = {
-    "speed_perturbation": [0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15],
+    "speed_perturbation": [0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2],
     "noise_snr_range": (10, 30),
-    "specaugment_time_mask": 80,
-    "specaugment_freq_mask": 40,
-    "pitch_shift": 2,
+    "specaugment_time_mask": 100,            # Increased from 80 — stronger masking
+    "specaugment_freq_mask": 50,             # Increased from 40 — stronger masking
+    "pitch_shift": 3,                        # Increased from 2 — wider pitch range
 }
 
 CSV_COLUMNS = ["audio_path", "language_code", "speaker_id", "transcript"]

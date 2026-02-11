@@ -99,6 +99,51 @@ class NoiseInjection:
         return augmented.astype(np.float32)
 
 
+class PitchShift:
+    """Apply pitch shifting to audio without changing duration."""
+    
+    def __init__(self, max_semitones: int = None):
+        """
+        Args:
+            max_semitones: Maximum pitch shift in semitones (default from config)
+        """
+        self.max_semitones = max_semitones or AUGMENTATION_CONFIG.get("pitch_shift", 2)
+    
+    def __call__(self, audio: np.ndarray, sample_rate: int = SAMPLE_RATE) -> np.ndarray:
+        """
+        Apply random pitch shift.
+        
+        Args:
+            audio: Input audio array
+            sample_rate: Sample rate
+            
+        Returns:
+            Pitch-shifted audio
+        """
+        # Random semitone shift in [-max_semitones, +max_semitones]
+        n_steps = random.uniform(-self.max_semitones, self.max_semitones)
+        
+        if abs(n_steps) < 0.1:
+            return audio
+        
+        audio_tensor = torch.from_numpy(audio).float().unsqueeze(0)
+        
+        # Pitch shift via sox effects: shift pitch without changing tempo
+        effects = [
+            ["pitch", str(int(n_steps * 100))],  # pitch expects cents (100 cents = 1 semitone)
+            ["rate", str(sample_rate)],
+        ]
+        
+        try:
+            augmented, _ = torchaudio.sox_effects.apply_effects_tensor(
+                audio_tensor, sample_rate, effects
+            )
+            return augmented.squeeze(0).numpy()
+        except Exception:
+            # Fallback: no pitch shift if sox_effects unavailable
+            return audio
+
+
 class SpecAugment:
     """Apply SpecAugment to mel spectrogram."""
     
@@ -144,13 +189,15 @@ class AudioAugmenter:
         self,
         use_speed_perturbation: bool = True,
         use_noise_injection: bool = True,
+        use_pitch_shift: bool = True,
         use_specaugment: bool = True,
-        augmentation_prob: float = 0.8  # Increased for better regularization
+        augmentation_prob: float = 0.9  # Increased from 0.8 for stronger regularization
     ):
         """
         Args:
             use_speed_perturbation: Whether to use speed perturbation
             use_noise_injection: Whether to use noise injection
+            use_pitch_shift: Whether to use pitch shifting
             use_specaugment: Whether to use SpecAugment
             augmentation_prob: Probability of applying each augmentation
         """
@@ -158,6 +205,7 @@ class AudioAugmenter:
         
         self.speed_perturbation = SpeedPerturbation() if use_speed_perturbation else None
         self.noise_injection = NoiseInjection() if use_noise_injection else None
+        self.pitch_shift = PitchShift() if use_pitch_shift else None
         self.specaugment = SpecAugment() if use_specaugment else None
     
     def augment_waveform(self, audio: np.ndarray, sample_rate: int = SAMPLE_RATE) -> np.ndarray:
@@ -174,6 +222,10 @@ class AudioAugmenter:
         # Speed perturbation
         if self.speed_perturbation and random.random() < self.augmentation_prob:
             audio = self.speed_perturbation(audio, sample_rate)
+        
+        # Pitch shifting
+        if self.pitch_shift and random.random() < self.augmentation_prob:
+            audio = self.pitch_shift(audio, sample_rate)
         
         # Noise injection
         if self.noise_injection and random.random() < self.augmentation_prob:
