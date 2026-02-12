@@ -79,7 +79,7 @@ TRAINING_ARGS = {
     "dataloader_pin_memory": True,
     "weight_decay": 0.1,                     # Reduced from 0.2 (risk of underfitting
                                               #   combined with 0.3 dropout)
-    "max_grad_norm": 0.5,                    # Aggressive gradient clipping (default 1.0)
+    "max_grad_norm": 1.0,                    # Restored to default (0.5 was too aggressive)
     "eval_strategy": "steps",
     "eval_steps": 4,
     "save_steps": 4,
@@ -99,9 +99,9 @@ TRAINING_ARGS = {
 
 # ANTI-OVERFITTING DROPOUT
 MODEL_DROPOUT_CONFIG = {
-    "dropout": 0.3,
-    "attention_dropout": 0.2,
-    "activation_dropout": 0.2,
+    "dropout": 0.2,               # Reduced from 0.3 — label smoothing now shares regularization load
+    "attention_dropout": 0.15,    # Reduced from 0.2
+    "activation_dropout": 0.15,   # Reduced from 0.2
 }
 
 EARLY_STOPPING_CONFIG = {
@@ -134,11 +134,11 @@ GENERATION_CONFIG = {
 # AUGMENTATION (CRITICAL FOR TINY DATA)
 # =============================================================================
 AUGMENTATION_CONFIG = {
-    "speed_perturbation": [0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2],
+    "speed_perturbation": [0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15],
     "noise_snr_range": (10, 30),
-    "specaugment_time_mask": 100,            # Increased from 80 — stronger masking
-    "specaugment_freq_mask": 50,             # Increased from 40 — stronger masking
-    "pitch_shift": 3,                        # Increased from 2 — wider pitch range
+    "specaugment_time_mask": 80,             # Restored from 100 — less aggressive masking
+    "specaugment_freq_mask": 40,             # Restored from 50
+    "pitch_shift": 2,                        # Restored from 3 — moderate pitch range
 }
 
 CSV_COLUMNS = ["audio_path", "language_code", "speaker_id", "transcript"]

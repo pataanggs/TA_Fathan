@@ -191,7 +191,7 @@ class AudioAugmenter:
         use_noise_injection: bool = True,
         use_pitch_shift: bool = True,
         use_specaugment: bool = True,
-        augmentation_prob: float = 0.9  # Increased from 0.8 for stronger regularization
+        augmentation_prob: float = 0.8  # Increased from 0.8 for stronger regularization
     ):
         """
         Args:

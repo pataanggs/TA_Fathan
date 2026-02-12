@@ -108,7 +108,7 @@ TRAINING_ARGS = {
     "gradient_accumulation_steps": 1,    # Effective batch size = 32
     "learning_rate": 7e-4,               # Higher than v1 (5e-4) — few LoRA params need strong signal
     "warmup_ratio": 0.1,                 # 10% warmup (v1 baseline was stable)
-    "max_steps": 150,                    
+    "max_steps": 200,                    # Increased — early stopping protects, more room for slower folds
     "lr_scheduler_type": "cosine",       # Cosine annealing
     "optim": "adamw_torch",
     "gradient_checkpointing": False,     
@@ -170,11 +170,11 @@ GENERATION_CONFIG = {
 # AUGMENTATION (same as Freeze Encoder for fair comparison)
 # =============================================================================
 AUGMENTATION_CONFIG = {
-    "speed_perturbation": [0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2],
+    "speed_perturbation": [0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15],
     "noise_snr_range": (10, 30),
-    "specaugment_time_mask": 100,            # Increased from 80 — stronger masking
-    "specaugment_freq_mask": 50,             # Increased from 40 — stronger masking
-    "pitch_shift": 3,                        # Increased from 2 — wider pitch range
+    "specaugment_time_mask": 80,             # Restored from 100 — less aggressive masking
+    "specaugment_freq_mask": 40,             # Restored from 50
+    "pitch_shift": 2,                        # Restored from 3 — moderate pitch range
 }
 
 CSV_COLUMNS = ["audio_path", "language_code", "speaker_id", "transcript"]

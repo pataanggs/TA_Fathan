@@ -1,0 +1,27 @@
+{
+  "experiment_name": "run_20260212_060037",
+  "fold_idx": 0,
+  "total_training_steps": 96,
+  "total_evaluations": 25,
+  "training_summary": {
+    "initial_loss": 4.0144,
+    "final_loss": 1.7399,
+    "min_loss": 1.7399,
+    "max_loss": 4.1081,
+    "avg_loss": 2.5020562500000003,
+    "initial_lr": 0.0,
+    "final_lr": 1.5820384898856433e-06,
+    "min_lr": 0.0,
+    "max_lr": 1e-05
+  },
+  "evaluation_summary": {
+    "initial_wer": 0.717557,
+    "final_wer": 0.203562,
+    "best_wer": 0.203562,
+    "worst_wer": 0.717557,
+    "initial_cer": 0.152972,
+    "final_cer": 0.042787,
+    "best_cer": 0.042787,
+    "worst_cer": 0.152972
+  }
+}

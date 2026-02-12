@@ -1,0 +1,95 @@
+{
+  "experiment_name": "run_20260212_060037",
+  "timestamp": "2026-02-12T06:31:24.905676",
+  "strategy": "Freeze Encoder (Decoder-Only)",
+  "num_folds": 5,
+  "training_config": {
+    "learning_rate": 1e-05,
+    "batch_size": 32,
+    "gradient_accumulation_steps": 1,
+    "effective_batch_size": 32,
+    "max_steps": 120,
+    "warmup_ratio": 0.2,
+    "weight_decay": 0.1,
+    "lr_scheduler_type": "cosine"
+  },
+  "model_config": {
+    "dropout": 0.2,
+    "attention_dropout": 0.15,
+    "activation_dropout": 0.15
+  },
+  "augmentation_config": {
+    "speed_perturbation": [
+      0.85,
+      0.9,
+      0.95,
+      1.0,
+      1.05,
+      1.1,
+      1.15
+    ],
+    "noise_snr_range": [
+      10,
+      30
+    ],
+    "specaugment_time_mask": 80,
+    "specaugment_freq_mask": 40,
+    "pitch_shift": 2
+  },
+  "per_fold_results": [
+    {
+      "fold": 0,
+      "wer": 0.2035623409669211,
+      "cer": 0.042786823173040514,
+      "wer_percent": 20.35623409669211,
+      "cer_percent": 4.278682317304051,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/freeze_encoder/outputs/metrics/run_20260212_060037/fold_0"
+    },
+    {
+      "fold": 1,
+      "wer": 0.1975609756097561,
+      "cer": 0.04576090812344803,
+      "wer_percent": 19.75609756097561,
+      "cer_percent": 4.576090812344804,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/freeze_encoder/outputs/metrics/run_20260212_060037/fold_1"
+    },
+    {
+      "fold": 2,
+      "wer": 0.1681159420289855,
+      "cer": 0.035977459904638055,
+      "wer_percent": 16.81159420289855,
+      "cer_percent": 3.5977459904638054,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/freeze_encoder/outputs/metrics/run_20260212_060037/fold_2"
+    },
+    {
+      "fold": 3,
+      "wer": 0.24372759856630824,
+      "cer": 0.04904051172707889,
+      "wer_percent": 24.372759856630825,
+      "cer_percent": 4.904051172707889,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/freeze_encoder/outputs/metrics/run_20260212_060037/fold_3"
+    },
+    {
+      "fold": 4,
+      "wer": 0.20408163265306123,
+      "cer": 0.04963314630988347,
+      "wer_percent": 20.408163265306122,
+      "cer_percent": 4.9633146309883465,
+      "metrics_dir": "/home/pataangg/Developer/TA_Fathan/code/freeze_encoder/outputs/metrics/run_20260212_060037/fold_4"
+    }
+  ],
+  "cross_validation_summary": {
+    "mean_wer": 0.2034096979650064,
+    "std_wer": 0.024107528559633464,
+    "mean_cer": 0.04463976984761779,
+    "std_cer": 0.004980488199848604,
+    "min_wer": 0.1681159420289855,
+    "max_wer": 0.24372759856630824,
+    "min_cer": 0.035977459904638055,
+    "max_cer": 0.04963314630988347,
+    "mean_wer_percent": 20.34096979650064,
+    "std_wer_percent": 2.4107528559633464,
+    "mean_cer_percent": 4.463976984761779,
+    "std_cer_percent": 0.4980488199848604
+  }
+}

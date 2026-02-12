@@ -1,0 +1,27 @@
+{
+  "experiment_name": "lora_20260212_063207",
+  "fold_idx": 4,
+  "total_training_steps": 76,
+  "total_evaluations": 20,
+  "training_summary": {
+    "initial_loss": 4.1617,
+    "final_loss": 1.565,
+    "min_loss": 1.565,
+    "max_loss": 4.1617,
+    "avg_loss": 2.1824421052631577,
+    "initial_lr": 0.0,
+    "final_lr": 0.0005507517527228661,
+    "min_lr": 0.0,
+    "max_lr": 0.0007
+  },
+  "evaluation_summary": {
+    "initial_wer": 0.714286,
+    "final_wer": 0.183673,
+    "best_wer": 0.183673,
+    "worst_wer": 0.816327,
+    "initial_cer": 0.179974,
+    "final_cer": 0.044454,
+    "best_cer": 0.044022,
+    "worst_cer": 0.332758
+  }
+}
