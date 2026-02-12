@@ -314,6 +314,46 @@ def create_trainer(
     return trainer
 
 
+def save_all_predictions(
+    trainer: Seq2SeqTrainer,
+    eval_dataset,
+    processor: WhisperProcessor,
+    save_path: str,
+) -> None:
+    """
+    Run inference on the FULL eval dataset and save all predictions.
+    This enables post-processing on any run without needing model checkpoints.
+
+    Saves to: <metrics_dir>/all_predictions.json
+    Format: [{"prediction": str, "reference": str}, ...]
+    """
+    import json
+    from pathlib import Path
+
+    print(f"  💾 Saving all {len(eval_dataset)} eval predictions...")
+
+    predict_output = trainer.predict(eval_dataset)
+    pred_ids = predict_output.predictions
+    label_ids = predict_output.label_ids
+
+    # Replace -100 with pad token for decoding
+    label_ids[label_ids == -100] = processor.tokenizer.pad_token_id
+
+    pred_strs = processor.tokenizer.batch_decode(pred_ids, skip_special_tokens=True)
+    label_strs = processor.tokenizer.batch_decode(label_ids, skip_special_tokens=True)
+
+    all_predictions = [
+        {"prediction": pred, "reference": ref}
+        for pred, ref in zip(pred_strs, label_strs)
+    ]
+
+    save_file = Path(save_path) / "all_predictions.json"
+    with open(save_file, "w", encoding="utf-8") as f:
+        json.dump(all_predictions, f, indent=2, ensure_ascii=False)
+
+    print(f"     Saved {len(all_predictions)} predictions → {save_file}")
+
+
 def train_fold(
     fold_idx: int,
     train_dataset,
@@ -400,6 +440,14 @@ def train_fold(
     print(f"\n✅ Fold {fold_idx + 1} Results:")
     print(f"   WER: {eval_results['eval_wer']:.4f} ({eval_results['eval_wer'] * 100:.2f}%)")
     print(f"   CER: {eval_results['eval_cer']:.4f} ({eval_results['eval_cer'] * 100:.2f}%)")
+
+    # Save ALL eval predictions for post-processing
+    save_all_predictions(
+        trainer=trainer,
+        eval_dataset=eval_dataset,
+        processor=processor,
+        save_path=str(metrics_logger.metrics_dir),
+    )
 
     # Create and save summary report
     summary = metrics_logger.create_summary_report()

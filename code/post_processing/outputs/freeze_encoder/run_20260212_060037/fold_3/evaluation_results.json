@@ -1,0 +1,476 @@
+{
+  "fold": 3,
+  "num_samples": 31,
+  "raw_metrics": {
+    "wer": 0.24372759856630824,
+    "cer": 0.04904051172707889,
+    "wer_percent": 24.3728,
+    "cer_percent": 4.9041
+  },
+  "normalized_metrics": {
+    "wer": 0.24372759856630824,
+    "cer": 0.04904051172707889,
+    "wer_percent": 24.3728,
+    "cer_percent": 4.9041
+  },
+  "corrected_metrics": {
+    "wer": 0.24014336917562723,
+    "cer": 0.050106609808102345,
+    "wer_percent": 24.0143,
+    "cer_percent": 5.0107
+  },
+  "num_corrections": 12,
+  "unique_corrections": 11,
+  "sample_corrections": [
+    {
+      "original": "pandapek",
+      "corrected": "mandapek",
+      "distance": 1
+    },
+    {
+      "original": "mareka",
+      "corrected": "mardeka",
+      "distance": 1
+    },
+    {
+      "original": "baradok",
+      "corrected": "taradok",
+      "distance": 1
+    },
+    {
+      "original": "mareka",
+      "corrected": "mardeka",
+      "distance": 1
+    },
+    {
+      "original": "bayak",
+      "corrected": "baiak",
+      "distance": 1
+    },
+    {
+      "original": "dimaso",
+      "corrected": "dipaso",
+      "distance": 1
+    },
+    {
+      "original": "perkawinan",
+      "corrected": "parkawinan",
+      "distance": 1
+    },
+    {
+      "original": "kaluargo",
+      "corrected": "kaluarga",
+      "distance": 1
+    },
+    {
+      "original": "melalui",
+      "corrected": "malalui",
+      "distance": 1
+    },
+    {
+      "original": "bantuan",
+      "corrected": "bantuak",
+      "distance": 1
+    },
+    {
+      "original": "kanyo",
+      "corrected": "hanyo",
+      "distance": 1
+    },
+    {
+      "original": "pembedaan",
+      "corrected": "pambedaan",
+      "distance": 1
+    }
+  ],
+  "per_sample_results": [
+    {
+      "index": 0,
+      "raw_prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+      "raw_reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+      "normalized_prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+      "normalized_reference": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+      "corrected_prediction": "manggiatkan dan malinduangi hak hak asasi tiok urang",
+      "wer": 0.0,
+      "cer": 0.0
+    },
+    {
+      "index": 1,
+      "raw_prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+      "raw_reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+      "normalized_prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+      "normalized_reference": "tekad ko bamulo dari piagam perserikatan bangsa bangsa",
+      "corrected_prediction": "tekat ko bambulo dari piagam perserikatan bangsa bangsa",
+      "wer": 0.25,
+      "cer": 0.037037037037037035
+    },
+    {
+      "index": 2,
+      "raw_prediction": "perserikatan basa bangsa mawurahikan sacaro jalehak hak nan dimiliki tiok urang",
+      "raw_reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+      "normalized_prediction": "perserikatan basa bangsa mawurahikan sacaro jalehak hak nan dimiliki tiok urang",
+      "normalized_reference": "perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang",
+      "corrected_prediction": "perserikatan basa bangsa mawurahikan sacaro jalehak hak nan dimiliki tiok urang",
+      "wer": 0.3333333333333333,
+      "cer": 0.07407407407407407
+    },
+    {
+      "index": 3,
+      "raw_prediction": "hak hak ko adolah milik awak",
+      "raw_reference": "hak hak ko adolah milik awak",
+      "normalized_prediction": "hak hak ko adolah milik awak",
+      "normalized_reference": "hak hak ko adolah milik awak",
+      "corrected_prediction": "hak hak ko adolah milik awak",
+      "wer": 0.0,
+      "cer": 0.0
+    },
+    {
+      "index": 4,
+      "raw_prediction": "itu lahaha awak",
+      "raw_reference": "itulah hak hak awak",
+      "normalized_prediction": "itu lahaha awak",
+      "normalized_reference": "itulah hak hak awak",
+      "corrected_prediction": "itu lahaha awak",
+      "wer": 0.75,
+      "cer": 0.3157894736842105
+    },
+    {
+      "index": 5,
+      "raw_prediction": "dan alah dicanangkan jo suatu dunia dimata tiok urang dapek manikmati kabebasan manyampaikan pandapek",
+      "raw_reference": "dan alah dicanangkannyo suatu dunia di ma tiok urang dapek manikmati kabebasan manyampaikan pandapek",
+      "normalized_prediction": "dan alah dicanangkan jo suatu dunia dimata tiok urang dapek manikmati kabebasan manyampaikan pandapek",
+      "normalized_reference": "dan alah dicanangkannyo suatu dunia di ma tiok urang dapek manikmati kabebasan manyampaikan pandapek",
+      "corrected_prediction": "dan alah dicanangkan jo suatu dunia dimata tiok urang dapek manikmati kabebasan manyampaikan mandapek",
+      "wer": 0.35714285714285715,
+      "cer": 0.06,
+      "corrections": [
+        {
+          "original": "pandapek",
+          "corrected": "mandapek",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "raw_prediction": "hak hak asasi manusia paralu di jamin malalui tartib hukum",
+      "raw_reference": "hak hak asasi manusia paralu dijamin malalui tartib hukum",
+      "normalized_prediction": "hak hak asasi manusia paralu di jamin malalui tartib hukum",
+      "normalized_reference": "hak hak asasi manusia paralu dijamin malalui tartib hukum",
+      "corrected_prediction": "hak hak asasi manusia paralu di jamin malalui tartib hukum",
+      "wer": 0.2222222222222222,
+      "cer": 0.017543859649122806
+    },
+    {
+      "index": 7,
+      "raw_prediction": "mareka di karunnyai akai jo hati nurani supayo satu samo lain bagaul sarupo urang badun sana",
+      "raw_reference": "mareka dikaruniai aka jo hati nurani supayo satu samo lain bagaul sarupo urang badunsanak",
+      "normalized_prediction": "mareka di karunnyai akai jo hati nurani supayo satu samo lain bagaul sarupo urang badun sana",
+      "normalized_reference": "mareka dikaruniai aka jo hati nurani supayo satu samo lain bagaul sarupo urang badunsanak",
+      "corrected_prediction": "mardeka di karunnyai akai jo hati nurani supayo satu samo lain bagaul sarupo urang badun sana",
+      "wer": 0.42857142857142855,
+      "cer": 0.07865168539325842,
+      "corrections": [
+        {
+          "original": "mareka",
+          "corrected": "mardeka",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "raw_prediction": "pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tajantum dalam deklarasi ko",
+      "raw_reference": "pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tacantum dalam deklarasi ko",
+      "normalized_prediction": "pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tajantum dalam deklarasi ko",
+      "normalized_reference": "pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tacantum dalam deklarasi ko",
+      "corrected_prediction": "pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tajantum dalam deklarasi ko",
+      "wer": 0.0625,
+      "cer": 0.010416666666666666
+    },
+    {
+      "index": 9,
+      "raw_prediction": "asa usua kaban suann atau tinggi sosial kakayaan kalahiran atau pun kadudukan nainyo",
+      "raw_reference": "asa usua kabansoan atau tingkek sosial kakayaan kalahiran ataupun kadudukan lainnyo",
+      "normalized_prediction": "asa usua kaban suann atau tinggi sosial kakayaan kalahiran atau pun kadudukan nainyo",
+      "normalized_reference": "asa usua kabansoan atau tingkek sosial kakayaan kalahiran ataupun kadudukan lainnyo",
+      "corrected_prediction": "asa usua kaban suann atau tinggi sosial kakayaan kalahiran atau pun kadudukan nainyo",
+      "wer": 0.5454545454545454,
+      "cer": 0.10843373493975904
+    },
+    {
+      "index": 10,
+      "raw_prediction": "mampabudak nan mampadagangkan budak dalam sagalo bantuak musti dilarang",
+      "raw_reference": "mampabudak dan mampadagangkan budak dalam sagalo bantuak musti dilarang",
+      "normalized_prediction": "mampabudak nan mampadagangkan budak dalam sagalo bantuak musti dilarang",
+      "normalized_reference": "mampabudak dan mampadagangkan budak dalam sagalo bantuak musti dilarang",
+      "corrected_prediction": "mampabudak nan mampadagangkan budak dalam sagalo bantuak musti dilarang",
+      "wer": 0.1111111111111111,
+      "cer": 0.014084507042253521
+    },
+    {
+      "index": 11,
+      "raw_prediction": "pasal enam dimasajo baradok",
+      "raw_reference": "pasal enam di ma sajo barado",
+      "normalized_prediction": "pasal enam dimasajo baradok",
+      "normalized_reference": "pasal enam di ma sajo barado",
+      "corrected_prediction": "pasal enam dimasajo taradok",
+      "wer": 0.6666666666666666,
+      "cer": 0.14285714285714285,
+      "corrections": [
+        {
+          "original": "baradok",
+          "corrected": "taradok",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "raw_prediction": "sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko",
+      "raw_reference": "sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko",
+      "normalized_prediction": "sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko",
+      "normalized_reference": "sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko",
+      "corrected_prediction": "sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko",
+      "wer": 0.0,
+      "cer": 0.0
+    },
+    {
+      "index": 13,
+      "raw_prediction": "baitu pulo ka hormatan jo nan mo baiknyo",
+      "raw_reference": "baitu pulo kahormatan jo namo baiaknyo",
+      "normalized_prediction": "baitu pulo ka hormatan jo nan mo baiknyo",
+      "normalized_reference": "baitu pulo kahormatan jo namo baiaknyo",
+      "corrected_prediction": "baitu pulo ka hormatan jo nan mo baiknyo",
+      "wer": 0.8333333333333334,
+      "cer": 0.10526315789473684
+    },
+    {
+      "index": 14,
+      "raw_prediction": "mareka punyo hak nan samo dalam urusan kawin mawin bayak dimaso perkawinan atau katiko carai",
+      "raw_reference": "mareka punyo hak nan samo dalam urusan kawin mawin baiak di maso parkawinan atau katiko carai",
+      "normalized_prediction": "mareka punyo hak nan samo dalam urusan kawin mawin bayak dimaso perkawinan atau katiko carai",
+      "normalized_reference": "mareka punyo hak nan samo dalam urusan kawin mawin baiak di maso parkawinan atau katiko carai",
+      "corrected_prediction": "mardeka punyo hak nan samo dalam urusan kawin mawin baiak dipaso parkawinan atau katiko carai",
+      "wer": 0.1875,
+      "cer": 0.03225806451612903,
+      "corrections": [
+        {
+          "original": "mareka",
+          "corrected": "mardeka",
+          "distance": 1
+        },
+        {
+          "original": "bayak",
+          "corrected": "baiak",
+          "distance": 1
+        },
+        {
+          "original": "dimaso",
+          "corrected": "dipaso",
+          "distance": 1
+        },
+        {
+          "original": "perkawinan",
+          "corrected": "parkawinan",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "raw_prediction": "kaluargo adolah kalompok alamian dan mandasar dari masyarakat",
+      "raw_reference": "kaluarga adolah kalompok alamiah dan mandasar dari masyarakat",
+      "normalized_prediction": "kaluargo adolah kalompok alamian dan mandasar dari masyarakat",
+      "normalized_reference": "kaluarga adolah kalompok alamiah dan mandasar dari masyarakat",
+      "corrected_prediction": "kaluarga adolah kalompok alamian dan mandasar dari masyarakat",
+      "wer": 0.125,
+      "cer": 0.01639344262295082,
+      "corrections": [
+        {
+          "original": "kaluargo",
+          "corrected": "kaluarga",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "raw_prediction": "dan punyo kamardekaan untuak manyatokan agamo atau kapasayaannyo melalui ajaran",
+      "raw_reference": "dan punyo kamardekaan untuak manyatokan agamo atau kaparcayaannyo malalui ajaran",
+      "normalized_prediction": "dan punyo kamardekaan untuak manyatokan agamo atau kapasayaannyo melalui ajaran",
+      "normalized_reference": "dan punyo kamardekaan untuak manyatokan agamo atau kaparcayaannyo malalui ajaran",
+      "corrected_prediction": "dan punyo kamardekaan untuak manyatokan agamo atau kapasayaannyo malalui ajaran",
+      "wer": 0.1,
+      "cer": 0.025,
+      "corrections": [
+        {
+          "original": "melalui",
+          "corrected": "malalui",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "raw_prediction": "tamasuak kabebasan untuak mampatahankan pandepekan ditakankan",
+      "raw_reference": "tamasuak kabebasan untuak mampatahankan pandapek jan ditakan",
+      "normalized_prediction": "tamasuak kabebasan untuak mampatahankan pandepekan ditakankan",
+      "normalized_reference": "tamasuak kabebasan untuak mampatahankan pandapek jan ditakan",
+      "corrected_prediction": "tamasuak kabebasan untuak mampatahankan pandepekan ditakankan",
+      "wer": 0.42857142857142855,
+      "cer": 0.1
+    },
+    {
+      "index": 18,
+      "raw_prediction": "pasal dua puluh tiok urang punyo hak untu kamardekaan bakumpua dan basua rikat sacaro damai",
+      "raw_reference": "pasal dua puluh tiok urang punyo hak untuk kamardekaan bakumpua dan basyarikat sacaro damai",
+      "normalized_prediction": "pasal dua puluh tiok urang punyo hak untu kamardekaan bakumpua dan basua rikat sacaro damai",
+      "normalized_reference": "pasal dua puluh tiok urang punyo hak untuk kamardekaan bakumpua dan basyarikat sacaro damai",
+      "corrected_prediction": "pasal dua puluh tiok urang punyo hak untu kamardekaan bakumpua dan basua rikat sacaro damai",
+      "wer": 0.21428571428571427,
+      "cer": 0.03296703296703297
+    },
+    {
+      "index": 19,
+      "raw_prediction": "pasal dua puluh dua sabagai anggota masyarakat",
+      "raw_reference": "pasal dua puluh dua sabagai anggota masyarakat",
+      "normalized_prediction": "pasal dua puluh dua sabagai anggota masyarakat",
+      "normalized_reference": "pasal dua puluh dua sabagai anggota masyarakat",
+      "corrected_prediction": "pasal dua puluh dua sabagai anggota masyarakat",
+      "wer": 0.0,
+      "cer": 0.0
+    },
+    {
+      "index": 20,
+      "raw_prediction": "nan mutlak paralu untuak untuak martabat dan parkambangan bebas dari pribadinyo",
+      "raw_reference": "nan mutlak paralu untuak martabat dan parkambangan bebas dari pribadinyo",
+      "normalized_prediction": "nan mutlak paralu untuak untuak martabat dan parkambangan bebas dari pribadinyo",
+      "normalized_reference": "nan mutlak paralu untuak martabat dan parkambangan bebas dari pribadinyo",
+      "corrected_prediction": "nan mutlak paralu untuak untuak martabat dan parkambangan bebas dari pribadinyo",
+      "wer": 0.1,
+      "cer": 0.09722222222222222
+    },
+    {
+      "index": 21,
+      "raw_prediction": "tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantianyo",
+      "raw_reference": "tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantiangannyo",
+      "normalized_prediction": "tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantianyo",
+      "normalized_reference": "tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantiangannyo",
+      "corrected_prediction": "tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantianyo",
+      "wer": 0.07692307692307693,
+      "cer": 0.0392156862745098
+    },
+    {
+      "index": 22,
+      "raw_prediction": "kam ibu jo anak anak punyo hak mandapek linduangan dan bantuan kusus",
+      "raw_reference": "kaum ibu jo anak anak punyo hak mandapek linduangan dan bantuan khusus",
+      "normalized_prediction": "kam ibu jo anak anak punyo hak mandapek linduangan dan bantuan kusus",
+      "normalized_reference": "kaum ibu jo anak anak punyo hak mandapek linduangan dan bantuan khusus",
+      "corrected_prediction": "kam ibu jo anak anak punyo hak mandapek linduangan dan bantuak kusus",
+      "wer": 0.25,
+      "cer": 0.04285714285714286,
+      "corrections": [
+        {
+          "original": "bantuan",
+          "corrected": "bantuak",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "raw_prediction": "pandidikan kazuruuan dan kaahliann musti tasadio untuak tiok urang",
+      "raw_reference": "pandidikan kajuruan dan kaahlian musti tasadio untuak tiok urang",
+      "normalized_prediction": "pandidikan kazuruuan dan kaahliann musti tasadio untuak tiok urang",
+      "normalized_reference": "pandidikan kajuruan dan kaahlian musti tasadio untuak tiok urang",
+      "corrected_prediction": "pandidikan kazuruuan dan kaahliann musti tasadio untuak tiok urang",
+      "wer": 0.2222222222222222,
+      "cer": 0.046875
+    },
+    {
+      "index": 24,
+      "raw_prediction": "sarapan agamo",
+      "raw_reference": "sarato agamo",
+      "normalized_prediction": "sarapan agamo",
+      "normalized_reference": "sarato agamo",
+      "corrected_prediction": "sarapan agamo",
+      "wer": 0.5,
+      "cer": 0.25
+    },
+    {
+      "index": 25,
+      "raw_prediction": "sastra atau kasanian nan dicipta kanyo",
+      "raw_reference": "sastra atau kasenian nan diciptakannyo",
+      "normalized_prediction": "sastra atau kasanian nan dicipta kanyo",
+      "normalized_reference": "sastra atau kasenian nan diciptakannyo",
+      "corrected_prediction": "sastra atau kasanian nan dicipta hanyo",
+      "wer": 0.6,
+      "cer": 0.10526315789473684,
+      "corrections": [
+        {
+          "original": "kanyo",
+          "corrected": "hanyo",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "raw_prediction": "kalompok atau sasa urang",
+      "raw_reference": "kalompok atau sasaurang",
+      "normalized_prediction": "kalompok atau sasa urang",
+      "normalized_reference": "kalompok atau sasaurang",
+      "corrected_prediction": "kalompok atau sasa urang",
+      "wer": 0.6666666666666666,
+      "cer": 0.043478260869565216
+    },
+    {
+      "index": 27,
+      "raw_prediction": "atahui bana hak hak awak",
+      "raw_reference": "katahui bana hak hak awak ko",
+      "normalized_prediction": "atahui bana hak hak awak",
+      "normalized_reference": "katahui bana hak hak awak ko",
+      "corrected_prediction": "atahui bana hak hak awak",
+      "wer": 0.3333333333333333,
+      "cer": 0.14285714285714285
+    },
+    {
+      "index": 28,
+      "raw_prediction": "dan kabebasan dari raso takwik dan dari kakurangan",
+      "raw_reference": "dan kabebasan dari raso takuik dan dari kakurangan",
+      "normalized_prediction": "dan kabebasan dari raso takwik dan dari kakurangan",
+      "normalized_reference": "dan kabebasan dari raso takuik dan dari kakurangan",
+      "corrected_prediction": "dan kabebasan dari raso takwik dan dari kakurangan",
+      "wer": 0.125,
+      "cer": 0.02
+    },
+    {
+      "index": 29,
+      "raw_prediction": "indak diadokan pembedaan badasar kadudukan politik",
+      "raw_reference": "indak diadokan pambedaan badasar kadudukan politik",
+      "normalized_prediction": "indak diadokan pembedaan badasar kadudukan politik",
+      "normalized_reference": "indak diadokan pambedaan badasar kadudukan politik",
+      "corrected_prediction": "indak diadokan pambedaan badasar kadudukan politik",
+      "wer": 0.0,
+      "cer": 0.0,
+      "corrections": [
+        {
+          "original": "pembedaan",
+          "corrected": "pambedaan",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "raw_prediction": "pahiak babantuak negara mardeka",
+      "raw_reference": "baiak babantuak negara mardeka",
+      "normalized_prediction": "pahiak babantuak negara mardeka",
+      "normalized_reference": "baiak babantuak negara mardeka",
+      "corrected_prediction": "pahiak babantuak negara mardeka",
+      "wer": 0.25,
+      "cer": 0.06666666666666667
+    }
+  ]
+}

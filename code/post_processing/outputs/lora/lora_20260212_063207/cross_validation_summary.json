@@ -1,0 +1,82 @@
+{
+  "raw_metrics": {
+    "mean_wer": 20.7951,
+    "std_wer": 2.997,
+    "min_wer": 17.3913,
+    "max_wer": 26.1649,
+    "mean_cer": 4.3259,
+    "std_cer": 0.2526,
+    "min_cer": 4.0085,
+    "max_cer": 4.6612,
+    "per_fold_wer": [
+      20.3562,
+      18.7805,
+      17.3913,
+      26.1649,
+      21.2828
+    ],
+    "per_fold_cer": [
+      4.3544,
+      4.0085,
+      4.0746,
+      4.5309,
+      4.6612
+    ]
+  },
+  "normalized_metrics": {
+    "mean_wer": 20.6785,
+    "std_wer": 2.9871,
+    "min_wer": 17.3913,
+    "max_wer": 26.1649,
+    "mean_cer": 4.3173,
+    "std_cer": 0.2415,
+    "min_cer": 4.0085,
+    "max_cer": 4.618,
+    "per_fold_wer": [
+      20.3562,
+      18.7805,
+      17.3913,
+      26.1649,
+      20.6997
+    ],
+    "per_fold_cer": [
+      4.3544,
+      4.0085,
+      4.0746,
+      4.5309,
+      4.618
+    ]
+  },
+  "corrected_metrics": {
+    "mean_wer": 19.1388,
+    "std_wer": 3.3414,
+    "min_wer": 14.4928,
+    "max_wer": 24.7312,
+    "mean_cer": 4.1633,
+    "std_cer": 0.3652,
+    "min_cer": 3.6411,
+    "max_cer": 4.5749,
+    "per_fold_wer": [
+      19.084,
+      17.561,
+      14.4928,
+      24.7312,
+      19.8251
+    ],
+    "per_fold_cer": [
+      4.203,
+      3.8666,
+      3.6411,
+      4.5309,
+      4.5749
+    ]
+  },
+  "improvement": {
+    "wer_absolute": 1.6563,
+    "cer_absolute": 0.1626,
+    "wer_relative_percent": 7.96,
+    "cer_relative_percent": 3.76
+  },
+  "total_corrections": 68,
+  "total_unique_corrections": 59
+}
