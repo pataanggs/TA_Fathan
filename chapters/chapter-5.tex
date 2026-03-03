@@ -2,7 +2,95 @@
 \chapter{KESIMPULAN DAN SARAN} \label{Bab V}
 
 \section{Kesimpulan} \label{V.Kesimpulan}
-Berisi kesimpulan dari hasil dan pembahasan terkait penelitian yang dilakukan, dapat juga berupa temuan yang Anda dapatkan setelah melakukan penelitian atau analisis terhadap tugas akhir Anda. Memberikan jawaban dari poin pada subbab \nameref{I.Rumusan Masalah} dan \nameref{I.Tujuan}. \par
+
+Penelitian ini telah berhasil mengadaptasi model \textit{Automatic Speech Recognition} (ASR) OpenAI Whisper Base untuk bahasa Minangkabau melalui \textit{fine-tuning} dengan dua strategi yang berbeda. Berdasarkan serangkaian 18 percobaan eksperimen dan analisis menyeluruh yang disajikan pada Bab~\ref{Bab IV}, kesimpulan penelitian ini disusun untuk menjawab kelima poin rumusan masalah secara berurutan.
+
+\begin{enumerate}
+
+    \item \textbf{Adaptasi Whisper Base untuk Bahasa Minangkabau (\textit{Low-Resource})}
+
+    Model Whisper Base berhasil diadaptasi untuk mengenali ucapan bahasa Minangkabau melalui proses \textit{fine-tuning} pada dataset \textit{extremely low-resource} (156 file audio, $\sim$1,3 jam). Strategi adaptasi terbaik yang ditemukan merupakan kombinasi dari: (a) pemilihan \textit{hyperparameter} yang tepat melalui eksplorasi iteratif selama sembilan percobaan per strategi, (b) augmentasi data yang terkalibrasi (\textit{speed perturbation} 0,85--1,15, \textit{SpecAugment} minimal, \textit{pitch shifting}), (c) regularisasi berlapis (\textit{label smoothing} 0,1, \textit{weight decay} minimal, \textit{dropout} adaptif), dan (d) penerapan \textit{Weighted Cross-Entropy} (WCE) yang dirancang berdasarkan analisis pola kesalahan historis untuk memperkuat sinyal gradien pada token-token yang sulit.
+
+    Penggunaan \textit{language token} bahasa Indonesia (\texttt{id}) sebagai \textit{proxy} terbukti efektif memanfaatkan kedekatan tipologis antara bahasa Indonesia dan bahasa Minangkabau sebagai sesama anggota rumpun Austronesia \cite{koto2020minangkabau}. Pendekatan \textit{transfer learning} ini memungkinkan model memanfaatkan representasi fonotaktik dan leksikal yang sudah dipelajari tanpa perlu pelatihan dari nol, sehingga keterbatasan data (1,3 jam) dapat diatasi secara signifikan.
+
+    \item \textbf{Implementasi Sistem ASR Berbasis Python, PyTorch, dan Hugging Face Transformers}
+
+    Sistem ASR bahasa Minangkabau berhasil dirancang dan diimplementasikan menggunakan ekosistem \textit{open-source}: Python sebagai bahasa pemrograman utama, PyTorch sebagai \textit{framework} \textit{deep learning}, Hugging Face Transformers untuk manajemen model dan \textit{tokenizer}, serta PEFT (\textit{Parameter-Efficient Fine-Tuning}) library untuk implementasi LoRA. \textit{Pipeline} yang dibangun mencakup modul \textit{audio preprocessing} (konversi format, \textit{resampling} ke 16 kHz, validasi durasi), \textit{text preprocessing} (normalisasi teks Minangkabau), augmentasi data (\textit{SpecAugment}, \textit{speed perturbation}, \textit{noise injection}), dan infrastruktur \textit{training} dengan \textit{monitoring} real-time melalui \textit{Weights \& Biases}. Seluruh kode diimplementasikan dengan desain modular yang memungkinkan konfigurasi fleksibel dan reprodusibilitas eksperimen.
+
+    \item \textbf{Perbandingan Strategi \textit{Freeze Encoder} vs LoRA}
+
+    Perbandingan komprehensif antara dua strategi \textit{fine-tuning} menghasilkan temuan-temuan berikut:
+
+    \begin{enumerate}
+
+        \item \textbf{LoRA unggul secara konsisten}: Strategi LoRA (L-9) mencapai WER rata-rata \textbf{16,33\% $\pm$ 2,03\%} dan CER \textbf{3,37\% $\pm$ 0,35\%}, mengungguli strategi \textit{Freeze Encoder} terbaik (FE-9) yang mencapai WER \textbf{18,24\% $\pm$ 2,18\%} dan CER \textbf{3,87\% $\pm$ 0,61\%}. Keunggulan LoRA bersifat \textit{robust} dan sistematis: seluruh rentang WER percobaan LoRA (16,33\%--18,37\%) berada di bawah atau sebanding dengan percobaan \textit{Freeze Encoder} terbaik.
+
+        \item \textbf{Efisiensi parameter LoRA sangat signifikan}: LoRA (L-9, \textit{rank} 16) hanya melatih $\sim$2,93\% parameter ($\sim$2,16 juta dari 74 juta total), 17 kali lebih efisien dari \textit{Freeze Encoder} yang melatih 50\% parameter ($\sim$37 juta). Meskipun demikian, LoRA menghasilkan WER rata-rata yang 1,91 poin persentase lebih rendah dan \textit{worst-case fold} yang 3,90 poin persentase lebih baik (18,32\% vs 22,22\%).
+
+        \item \textbf{\textit{Best single-fold} dicapai oleh LoRA}: L-9 Fold~4 mencapai WER \textbf{12,83\%} dan L-9 Fold~2 mencapai CER \textbf{2,77\%}, merupakan nilai terbaik di antara seluruh 18 percobaan dan 90 evaluasi fold yang dilakukan.
+
+        \item \textbf{WCE memberikan peningkatan bertahap}: Penerapan \textit{Weighted Cross-Entropy} pada fase akhir (Run 7--9) berkontribusi pada penurunan WER sebesar 1,68 poin persentase pada \textit{Freeze Encoder} (dari FE-4: 19,92\% ke FE-9: 18,24\%) dan 0,99 poin persentase pada LoRA (dari L-1: 17,32\% ke L-9: 16,33\%). WCE paling efektif ketika dikombinasikan dengan jumlah \textit{training steps} yang cukup ($\geq$400) dan konfigurasi \textit{hyperparameter} yang optimal \cite{pineiromartin2024weighted}.
+
+        \item \textbf{Augmentasi perlu dikalibrasi hati-hati}: Augmentasi berlebihan (FE-5, WER 21,14\%; L-5, WER 18,37\%) secara konsisten menurunkan performa dibandingkan konfigurasi augmentasi standar, mengkonfirmasi bahwa pada dataset sangat terbatas, keseimbangan antara diversifikasi data dan preservasi informasi linguistik sangat kritis.
+
+    \end{enumerate}
+
+    \item \textbf{Evaluasi dan Analisis Kesalahan Model}
+
+    Evaluasi menggunakan skema 5-\textit{fold cross-validation} menghasilkan estimasi performa yang andal dan tidak bias. Analisis kualitatif terhadap prediksi model mengidentifikasi tiga pola kesalahan dominan yang bersifat sistematis:
+
+    \begin{enumerate}
+        \item \textbf{Substitusi fonetik}: Penggantian konsonan dengan artikulasi serupa (contoh: \textit{paralu} $\rightarrow$ \textit{palu}, \textit{barontak} $\rightarrow$ \textit{barantak}, \textit{kazaliman} $\rightarrow$ \textit{kajaliman}, \textit{mandorong} $\rightarrow$ \textit{mandaurang}). Pola ini dominan pada strategi \textit{Freeze Encoder} dan mencerminkan keterbatasan representasi akustik dari encoder yang dibekukan dalam membedakan konsonan-konsonan yang memiliki kemiripan akustik tinggi dalam bahasa Minangkabau.
+
+        \item \textbf{Segmentasi kata}: Kesalahan pada batas kata (\textit{kaadilan} $\rightarrow$ \textit{ka adilan}, \textit{mangukuahkan} $\rightarrow$ \textit{manguku hakkan}), mencerminkan tantangan intrinsik yang belum sepenuhnya terselesaikan oleh kedua strategi. Fenomena ini berkaitan dengan ketiadaan standar ortografi resmi bahasa Minangkabau.
+
+        \item \textbf{Substitusi vokal}: Pengubahan bunyi vokal pada suku kata tertentu (contoh: \textit{elok} $\rightarrow$ \textit{elo}), bersifat ringan dengan kontribusi kecil pada CER.
+    \end{enumerate}
+
+    Dibandingkan dengan \textit{Freeze Encoder}, \textit{Fold}~4 dari LoRA L-9 berhasil memprediksi sempurna (WER 0\%, CER 0\%) sejumlah kalimat panjang yang kompleks, membuktikan efektivitas adaptasi LoRA di seluruh lapisan encoder dan decoder model.
+
+    \item \textbf{Kontribusi terhadap Pelestarian Bahasa Daerah}
+
+    Penelitian ini berhasil menghasilkan prototipe sistem ASR bahasa Minangkabau pertama berbasis Whisper dengan WER 16,33\% pada domain pembacaan formal. Kontribusi utama terhadap pelestarian bahasa daerah mencakup: (1) terbentuknya \textit{pipeline} teknis yang sepenuhnya terdokumentasi dan dapat direproduksi untuk adaptasi model ASR ke bahasa-bahasa daerah Indonesia lain yang juga \textit{low-resource}, (2) penyediaan \textit{baseline} performa kuantitatif (WER 16,33\%, CER 3,37\%) yang dapat dijadikan titik acuan bagi penelitian lanjutan, (3) demonstrasi bahwa dengan hanya $\sim$1,3 jam data audio, sistem ASR fungsional untuk bahasa daerah dapat dibangun menggunakan metode PEFT yang efisien secara komputasi \cite{hu2022lora, gupta2024parameter}, serta (4) dokumentasi pola kesalahan sistematis yang dapat memandu pengembangan dataset dan standarisasi ortografi bahasa Minangkabau di masa depan \cite{koto2020minangkabau, sovia2022minangkabau}.
+
+\end{enumerate}
+
+Secara keseluruhan, penelitian ini menunjukkan bahwa \textit{fine-tuning} Whisper Base dengan strategi LoRA merupakan pendekatan yang paling efektif dan efisien untuk skenario ASR bahasa \textit{low-resource} seperti bahasa Minangkabau. Keunggulan LoRA tidak hanya terletak pada efisiensi parameter, tetapi juga pada kemampuannya menghasilkan adaptasi yang lebih menyeluruh dengan risiko \textit{overfitting} yang lebih rendah melalui regularisasi struktural dari \textit{low-rank constraint} \cite{hu2022lora, song2024lorawhisper}.
+
+%% ===================================================================
 
 \section{Saran} \label{V.Saran}
-Berisi saran mengenai aspek tugas akhir atau temuan yang dapat dikembangkan dan diperkaya di tugas akhir selanjutnya. Saran dapat berkaitan erat pada subbab \nameref{IV.Analisis}. \par
+
+Berdasarkan temuan dan limitasi yang diidentifikasi dalam penelitian ini, berikut adalah saran-saran untuk pengembangan lebih lanjut:
+
+\begin{enumerate}
+
+    \item \textbf{Perluasan dan Diversifikasi Dataset}
+
+    Keterbatasan utama penelitian ini adalah ukuran dan domain dataset yang sangat spesifik (1,3 jam, pembacaan teks formal UDHR). Penelitian lanjutan sangat disarankan untuk: (a) mengumpulkan data percakapan spontan, podcast, siaran radio, dan konten \textit{informal} dalam bahasa Minangkabau guna meningkatkan generalisasi model; (b) merepresentasikan variasi dialek regional Minangkabau (mis. dialek Agam, Lima Puluh Kota, Pasaman) yang masing-masing memiliki karakteristik fonetik berbeda; serta (c) mengembangkan standar anotasi dan ortografi untuk transkripsi bahasa Minangkabau agar konsistensi data training dapat ditingkatkan dan nilai WER tidak lagi dipengaruhi oleh inkonsistensi ejaan.
+
+    \item \textbf{Eksplorasi Varian Model yang Lebih Besar}
+
+    Penelitian ini dibatasi pada Whisper Base (74M parameter) karena risiko \textit{overfitting} pada dataset 1,3 jam. Seiring bertambahnya ketersediaan data, varian Whisper Small (244M) atau Medium (769M) berpotensi menghasilkan WER yang lebih rendah karena kapasitas representasi yang lebih besar. Dengan strategi LoRA, biaya komputasi untuk melatih varian lebih besar tetap terjangkau karena hanya $<$3\% parameter yang dilatih, sehingga eksplorasi ini layak dilakukan bahkan dengan data tambahan yang relatif terbatas.
+
+    \item \textbf{Penerapan \textit{Multi-Stage Fine-Tuning}}
+
+    Strategi \textit{multi-stage fine-tuning} yang pertama kali melatih model pada bahasa Indonesia (yang lebih banyak datanya) sebelum melakukan adaptasi akhir ke bahasa Minangkabau berpotensi meningkatkan performa secara signifikan \cite{pillai2024multistage}. Kedekatan tipologis antara bahasa Indonesia dan Minangkabau menjadikan transfer bertahap ini lebih efektif dibandingkan adaptasi langsung dari model multibahasa ke bahasa Minangkabau. Pendekatan ini juga dapat dikombinasikan dengan \textit{data augmentation} yang lebih agresif pada tahap pelatihan bahasa Indonesia.
+
+    \item \textbf{Integrasi \textit{Language Model} pada Tahap \textit{Decoding}}
+
+    Penelitian ini hanya menggunakan \textit{beam search} standar pada tahap \textit{decoding} tanpa \textit{external language model}. Arisaputra dan Zahra \cite{arisaputra2022xlsr53} menunjukkan bahwa integrasi \textit{language model} berbasis KenLM 4-gram menurunkan WER bahasa Indonesia dari $\sim$20\% ke $\sim$12\%, mengindikasikan potensi perbaikan yang serupa untuk bahasa Minangkabau. Pembangunan \textit{language model} bahasa Minangkabau dari sumber teks yang tersedia (Wikipedia, teks sastra digital, majalah daerah) dapat menjadi langkah praktis yang berdampak besar tanpa memerlukan data audio tambahan.
+
+    \item \textbf{Penerapan Teknik Regularisasi dan Optimisasi Lanjutan}
+
+    Beberapa teknik yang belum dieksplor dalam penelitian ini dan berpotensi meningkatkan performa di antaranya: (a) \textit{monotonic alignment loss} \cite{zhuang2025monotonic} yang secara eksplisit mengoptimalkan keselarasan antara sekuens audio dan teks selama \textit{fine-tuning}; (b) \textit{Mixture of LoRA Experts} \cite{bagat2025mixture} untuk menangani variasi dialek dalam satu model secara adaptif; serta (c) \textit{curriculum learning} yang menyajikan sampel dari yang mudah ke sulit selama pelatihan, membantu model membangun representasi secara bertahap pada dataset yang sangat terbatas \cite{liang2025fieldmatters}.
+
+    \item \textbf{Perbaikan Metodologi Evaluasi}
+
+    Untuk menghilangkan potensi bias dari penggunaan \textit{evaluation set} yang sama untuk \textit{early stopping} dan pelaporan, penelitian lanjutan disarankan untuk menggunakan skema evaluasi yang lebih ketat: (a) memisahkan \textit{validation set} dari \textit{training set} dalam setiap \textit{fold} ketika ukuran dataset sudah cukup besar ($>$5 jam), atau (b) menggunakan \textit{held-out test set} yang sama sekali tidak disentuh selama proses \textit{training} untuk evaluasi akhir yang benar-benar independen.
+
+    \item \textbf{Pengembangan ke Sistem \textit{End-to-End}}
+
+    Prototipe yang dihasilkan dalam penelitian ini merupakan komponen model saja. Untuk menghasilkan dampak praktis yang lebih besar terhadap pelestarian dan pengembangan bahasa Minangkabau, penelitian lanjutan dapat mengintegrasikan model ini ke dalam sistem yang lebih lengkap, misalnya: (a) aplikasi transkripsi berbasis web atau \textit{mobile} yang memungkinkan masyarakat Minangkabau mengunggah rekaman audio dan mendapatkan transkripsi otomatis; (b) alat bantu pembuatan \textit{subtitle} untuk konten video berbahasa Minangkabau; atau (c) sistem digitalisasi arsip audio budaya (rekaman \textit{kaba}, cerita rakyat, lagu tradisional) yang dapat diakses dan ditelusuri secara digital.
+
+\end{enumerate}

@@ -2,27 +2,39 @@
 OPTIMIZED FOR TINY DATASET (156 Files / 1.3 Hours).
 Strategy: Parameter-Efficient Fine-Tuning (PEFT) with Low-Rank Adaptation (LoRA).
 
-v3 Sweet-Spot (based on v1 & v2 comparison):
-    v1 (17.32% WER): r=8, LR=5e-4, WD=0.01, LS=0.1, dropout=0.1/0.05/0.05
-    v2 (18.03% WER): r=16, LR=3e-4, WD=0.03, LS=0.05, dropout=0.15/0.1/0.1
-    → r=16 too many params for 1.3h; LR=3e-4 too weak for few LoRA params
-    → LS=0.05 hurt fold stability (std 1.01% vs 0.83%)
+Version history:
+    v1 (17.32% WER): r=8,  alpha=16, LR=5e-4,   WD=0.01, LS=0.1, batch=32, steps=400
+    v2 (18.03% WER): r=16, alpha=32, LR=3e-4,   WD=0.03, LS=0.05, batch=32, steps=250
+    v3 (17.87% WER): r=8,  alpha=16, LR=7e-4,   WD=0.05, LS=0.1,  batch=32, steps=200
+    v4 (18.20% WER): r=8,  alpha=16, LR=1.4e-3, WD=0.05, LS=0.1,  batch=64, steps=100
 
-    v3 strategy:
-    - Revert r=8, alpha=16 (low-rank = structural regularization for tiny data)
-    - Raise LR to 7e-4 (LoRA params need stronger gradient signal)
-    - Restore label_smoothing=0.1 (critical for fold consistency)
-    - Increase weight_decay to 0.05 (midpoint: stronger than v1's 0.01)
-    - Keep lora_dropout=0.15 (v2 showed this helps vs v1's 0.1)
-    - Revert warmup_ratio=0.1 (v1 was fine; 0.15 wastes steps)
-    - Revert model dropout to v1 levels (0.1/0.05/0.05)
+v5 Fixes (addressing v4 failure modes):
+    Problem 1 — Batch/dataset mismatch:
+        Effective batch 64 on ~125 files/fold = only 2 steps per epoch.
+        AdamW needs more frequent updates to build reliable momentum.
+        Fix: batch_size=16, grad_accum=1 (eff. batch=16), max_steps=400.
+
+    Problem 2 — LR × Weighted-CE collision:
+        max_weight=3.0 amplifies gradients 3× on hard tokens.
+        LR=1.4e-3 × weight=3.0 risks gradient explosion on LoRA weights.
+        Fix: lower LR back to 5e-4 (stable zone for r=16 with WCE).
+
+    Problem 3 — LoRA capacity dilution:
+        r=8 spread across 6 module types = too little capacity per layer.
+        Fix: increase to r=16, alpha=32 to support all target modules.
+
+    Problem 4 — SpecAugment blinding:
+        time_mask=80 blocks large audio chunks; model can't hear clean phonemes
+        in only ~400 short steps.
+        Fix: reduce specaugment_time_mask to 50.
 
 Applies LoRA to all attention + feed-forward linear layers.
 
 References:
-    - Hu et al. (2022). LoRA: Low-Rank Adaptation of Large Language Models. ICLR.
+    - Hu et al. (2022). LoRA: Low-Rank Adaptation of Large Language Models.
+      ICLR. DOI: 10.48550/arXiv.2106.09685
     - Yadav et al. (2025). Optimizer-Aware Fine-Tuning of Whisper Small with
-      Low-Rank Adaption. Information, 16(11), 928.
+      Low-Rank Adaption. Information, 16(11), 928. DOI: 10.3390/info16110928
     - Sharma et al. (2025). Fine-tuning Whisper Tiny for Swahili ASR. AfricanNLP.
 """
 
@@ -56,7 +68,7 @@ CHECKPOINT_DIR.mkdir(exist_ok=True)
 # =============================================================================
 WANDB_API_KEY = os.getenv("API_KEY")
 WANDB_PROJECT = "whisper-minangkabau"
-WANDB_GROUP = "whisper-minang-lora-v1"
+WANDB_GROUP = "whisper-minang-lora-v5"
 
 # =============================================================================
 # MODEL
@@ -79,8 +91,8 @@ MAX_DURATION_SECONDS = 30.0
 # LoRA CONFIGURATION (PEFT)
 # =============================================================================
 LORA_CONFIG = {
-    "r": 8,                          # Low rank = structural regularization for 1.3h data
-    "lora_alpha": 16,                # Scaling factor (alpha/r = 2x scaling)
+    "r": 16,                         # Increased from 8: r=8 across 6 modules was under-capacity
+    "lora_alpha": 32,                # Scaling factor (alpha/r = 2x scaling, consistent with v2)
     "lora_dropout": 0.15,            # Dropout on LoRA layers (↑ from v1's 0.1)
     "target_modules": [              # All attention + FFN linear layers
         "q_proj",                    # Query projection
@@ -103,12 +115,12 @@ RANDOM_STATE = 42
 
 TRAINING_ARGS = {
     "output_dir": str(CHECKPOINT_DIR),
-    "per_device_train_batch_size": 32,   
+    "per_device_train_batch_size": 16,   # Reduced: eff. batch 64 was too large for ~125 samples/fold
     "per_device_eval_batch_size": 64,    # Max out eval throughput
-    "gradient_accumulation_steps": 2,    # Effective batch size = 64 (doubled from 32)
-    "learning_rate": 1.4e-3,             # 2x from 7e-4 (linear scaling with batch)
-    "warmup_ratio": 0.1,                 # 10% warmup (v1 baseline was stable)
-    "max_steps": 100,                    # Halved (effective batch doubled = same data seen)
+    "gradient_accumulation_steps": 1,    # No accumulation: eff. batch = 16, more frequent updates
+    "learning_rate": 5e-4,               # Lowered from 1.4e-3: safer with max_weight=3.0 in Weighted CE
+    "warmup_ratio": 0.1,                 # 10% warmup (consistent with v1/v3)
+    "max_steps": 400,                    # 4× increase to match total data exposure at eff. batch=16
     "lr_scheduler_type": "cosine",       # Cosine annealing
     "optim": "adamw_torch",
     "gradient_checkpointing": False,     
@@ -130,7 +142,7 @@ TRAINING_ARGS = {
     "predict_with_generate": True,
     "generation_max_length": 225,
     "torch_compile": False,
-    "label_smoothing_factor": 0.1,       # Restored — critical for fold consistency on tiny data
+    "label_smoothing_factor": 0.1,       # Critical for fold consistency on tiny data
 }
 
 # LoRA has implicit regularization, so lower dropout than Freeze Encoder
@@ -191,8 +203,8 @@ WEIGHTED_CE_CONFIG = {
 AUGMENTATION_CONFIG = {
     "speed_perturbation": [0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15],
     "noise_snr_range": (10, 30),
-    "specaugment_time_mask": 80,             # Restored from 100 — less aggressive masking
-    "specaugment_freq_mask": 40,             # Restored from 50
+    "specaugment_time_mask": 50,             # Reduced from 80: heavy masking blinds model on tiny data
+    "specaugment_freq_mask": 40,             # Kept at 40 — moderate frequency masking
     "pitch_shift": 2,                        # Restored from 3 — moderate pitch range
 }
 

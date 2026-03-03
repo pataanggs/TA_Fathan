@@ -102,6 +102,18 @@ Transkripsi bahasa dengan data sangat minimal ($<$1 jam) dalam konteks linguisti
 MMS unggul pada $<$1 jam data; paritas dengan XLS-R saat data bertambah; memberikan konteks batas bawah data untuk \textit{fine-tuning} efektif \\
 \hline
 
+7 & 
+\textit{From Speech to Summary: A Pipeline-Based Evaluation of Whisper and Transformer Models for Indonesian Dialogue Summarization}
+
+Martin et al.\ \cite{martin2026speechsummary} (2026) & 
+
+Evaluasi varian Whisper (tiny hingga turbo) untuk ASR bahasa Indonesia dan \textit{benchmark} model \textit{summarization} zero-shot & 
+
+Evaluasi enam varian Whisper pada dataset percakapan Indonesia sintetis; \textit{benchmark} 13 model \textit{zero-shot summarization} berdasarkan metrik leksikal dan semantik & 
+
+Whisper turbo (\textit{distil-large-v2}) terbaik untuk bahasa Indonesia dengan WER 7,97\% dan inferensi 1,25 detik; memberikan \textit{baseline} perbandingan Whisper pada bahasa Indonesia sebagai acuan terhadap penelitian Minangkabau ini \\
+\hline
+
 \end{tabularx}
 }
 }
@@ -168,7 +180,7 @@ Dalam konteks bahasa Indonesia dan dialeknya, pendekatan \textit{transfer learni
 
 \subsection{Sintesis dan Posisi Penelitian}
 
-Tinjauan terhadap literatur terbaru mengungkapkan beberapa temuan penting yang menjadi landasan penelitian ini. Pertama, pelatihan skala besar dengan paradigma \textit{weak supervision} seperti yang dilakukan pada Whisper \cite{radford2023whisper} memberikan fondasi representasi multibahasa yang kuat untuk adaptasi bahasa \textit{low-resource}. Kedua, pemilihan strategi \textit{fine-tuning} harus mempertimbangkan \textit{trade-off} antara akurasi dan efisiensi komputasi \cite{liu2024exploration}, di mana metode seperti LoRA menawarkan alternatif yang efisien dibandingkan melatih lebih banyak parameter. Ketiga, rekayasa korpus \textit{long-form} dapat membantu mempertahankan kemampuan segmentasi dan \textit{timestamping} untuk aplikasi dunia nyata \cite{timmel2024finetune}. Keempat, modifikasi fungsi objektif seperti \textit{monotonic alignment loss} dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}. Kelima, pembelajaran multibahasa dapat ditransfer secara efektif ke bahasa lokal dan daerah \cite{arisaputra2022xlsr53}.
+Tinjauan terhadap literatur terbaru mengungkapkan beberapa temuan penting yang menjadi landasan penelitian ini. Pertama, pelatihan skala besar dengan paradigma \textit{weak supervision} seperti yang dilakukan pada Whisper \cite{radford2023whisper} memberikan fondasi representasi multibahasa yang kuat untuk adaptasi bahasa \textit{low-resource}. Kedua, pemilihan strategi \textit{fine-tuning} harus mempertimbangkan \textit{trade-off} antara akurasi dan efisiensi komputasi \cite{liu2024exploration}, di mana metode seperti LoRA menawarkan alternatif yang efisien dibandingkan melatih lebih banyak parameter. Ketiga, rekayasa korpus \textit{long-form} dapat membantu mempertahankan kemampuan segmentasi dan \textit{timestamping} untuk aplikasi dunia nyata \cite{timmel2024finetune}. Keempat, modifikasi fungsi objektif seperti \textit{monotonic alignment loss} dapat meningkatkan akurasi tanpa mengubah arsitektur \cite{zhuang2025monotonic}. Kelima, pembelajaran multibahasa dapat ditransfer secara efektif ke bahasa lokal dan daerah \cite{arisaputra2022xlsr53}. Keenam, bahkan pada bahasa Indonesia baku, Whisper turbo (\textit{distil-large-v2}) masih menghasilkan WER 7,97\% tanpa \textit{fine-tuning} khusus (\textit{zero-shot benchmark}) \cite{martin2026speechsummary}, mengindikasikan bahwa bahasa daerah seperti Minangkabau yang jauh lebih \textit{low-resource} membutuhkan adaptasi yang lebih intensif.
 
 Berdasarkan temuan-temuan tersebut, penelitian ini mengidentifikasi beberapa peluang pengembangan. Pertama, perbandingan sistematis antara \textit{Freeze Encoder} dan LoRA pada Whisper Base untuk bahasa Minangkabau akan memberikan \textit{insights} praktis tentang efisiensi penggunaan memori GPU tanpa mengorbankan akurasi secara signifikan. Kedua, jika data \textit{long-form} Minangkabau terbatas, penyusunan korpus \textit{long-form} sintetis dapat diadopsi untuk meningkatkan kemampuan model dalam konteks yang lebih panjang. Ketiga, eksplorasi \textit{alignment-based loss} dan/atau integrasi \textit{language model} pada tahap \textit{decoding} dapat menjadi strategi lanjutan untuk penurunan WER lebih lanjut.
 
@@ -407,6 +419,67 @@ Untuk mencegah \textit{overfitting} pada dataset kecil dan memastikan konvergens
 \subsubsection{Optimisasi}
 
 \textbf{AdamW} \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan secara luas untuk \textit{fine-tuning} model \textit{Transformer}. AdamW adalah varian dari Adam yang memisahkan \textit{weight decay} dari optimisasi gradien, menghasilkan regularisasi yang lebih efektif \cite{krogh1991regularization}. AdamW menggunakan \textit{adaptive learning rates} per-parameter berdasarkan estimasi momen pertama dan kedua dari gradien, memungkinkan konvergensi cepat sambil mempertahankan stabilitas pelatihan.
+
+\subsection{Weighted Cross-Entropy Loss}
+\label{II.WCE}
+
+\textit{Weighted Cross-Entropy} (WCE) adalah variasi dari fungsi \textit{loss} \textit{cross-entropy} standar yang memberikan bobot berbeda pada setiap kelas atau token selama pelatihan, sehingga optimasi diarahkan lebih agresif pada token-token yang sulit diprediksi \cite{pineiromartin2024weighted}. WCE sangat relevan dalam konteks pemodelan sekuensial seperti ASR, di mana distribusi token bersifat tidak seimbang: beberapa token muncul dengan frekuensi sangat tinggi sementara yang lain sangat jarang, dan setiap kelompok memiliki tingkat kesalahan yang berbeda.
+
+\subsubsection{Cross-Entropy Standar}
+
+Dalam pelatihan model ASR berbasis \textit{sequence-to-sequence}, fungsi \textit{loss cross-entropy} standar mengukur divergensi antara distribusi probabilitas yang diprediksi model $\hat{y}$ dan distribusi target \textit{one-hot} $y$ pada setiap posisi token. Untuk sekuens dengan panjang $T$, \textit{loss} total adalah:
+
+\vspace{0.5cm}
+\begin{equation}
+\label{eq:ce}
+\mathcal{L}_{\text{CE}} = -\frac{1}{T} \sum_{t=1}^{T} \log P(y_t \mid y_{<t},\, \mathbf{x})
+\end{equation}
+\myequations{Formula Cross-Entropy Loss}
+\vspace{0.5cm}
+
+\noindent di mana $y_t$ adalah token referensi pada posisi $t$ dan $\mathbf{x}$ adalah representasi audio dari encoder. Pada formulasi standar ini, setiap token memberikan kontribusi yang sama terhadap nilai \textit{loss} total, terlepas dari tingkat kesulitan prediksinya.
+
+\subsubsection{Weighted Cross-Entropy}
+
+Pada \textit{Weighted Cross-Entropy}, setiap token $t$ diberi bobot skalar $w_t \geq 0$ yang diskalakan berdasarkan statistik kesalahan historis. Fungsi \textit{loss} termodifikasi menjadi:
+
+\vspace{0.5cm}
+\begin{equation}
+\label{eq:wce}
+\mathcal{L}_{\text{WCE}} = -\frac{1}{\sum_{t=1}^{T} w_t} \sum_{t=1}^{T} w_t \cdot \log P(y_t \mid y_{<t},\, \mathbf{x})
+\end{equation}
+\myequations{Formula Weighted Cross-Entropy Loss}
+\vspace{0.5cm}
+
+\noindent di mana $w_t$ adalah bobot yang ditetapkan untuk token $y_t$. Token yang sering mengalami kesalahan prediksi mendapatkan bobot lebih tinggi ($w_t > 1$), sehingga \textit{loss} yang dikontribusikan oleh prediksi yang salah pada token tersebut lebih besar, dan model didorong untuk belajar lebih keras pada token-token tersebut \cite{pineiromartin2024weighted}.
+
+\subsubsection{Penentuan Bobot Berbasis Error Rate}
+
+Bobot per-token dapat ditentukan secara otomatis dari analisis prediksi model pada data sebelumnya. Salah satu pendekatan yang digunakan adalah memetakan \textit{error rate} per-token $e_t \in [0,1]$ ke dalam skala bobot menggunakan fungsi sigmoid yang diperhalus (\textit{smooth sigmoid mapping}):
+
+\vspace{0.5cm}
+\begin{equation}
+\label{eq:wce_weight}
+w_t = w_{\text{base}} + (w_{\text{max}} - w_{\text{base}}) \cdot \sigma\!\left(\frac{e_t - \theta}{\lambda}\right)
+\end{equation}
+\myequations{Formula Penentuan Bobot Weighted Cross-Entropy}
+\vspace{0.5cm}
+
+\noindent di mana $\sigma(\cdot)$ adalah fungsi sigmoid, $w_{\text{base}}$ adalah bobot minimum (nilai \textit{default} untuk token tanpa riwayat kesalahan), $w_{\text{max}}$ adalah bobot maksimum untuk token dengan \textit{error rate} tertinggi, $\theta$ adalah ambang batas \textit{error rate} di sekitar mana transisi bobot terjadi, dan $\lambda$ adalah parameter \textit{smoothing} yang mengontrol ketajaman transisi. Formulasi sigmoid memastikan bahwa bobot bersifat kontinu dan tidak terjadi perubahan drastis yang dapat mendestabilisasi pelatihan.
+
+\subsubsection{Manfaat dalam Konteks ASR Low-Resource}
+
+WCE memberikan beberapa keuntungan dalam konteks ASR untuk bahasa \textit{low-resource}:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Fokus pada Token Sulit}: Dengan memberikan bobot lebih pada token yang sering salah diprediksi, sinyal gradien diarahkan lebih efisien ke bagian model yang paling memerlukan perbaikan.
+
+    \item \textbf{Mitigasi Ketidakseimbangan Distribusi Token}: Dalam bahasa seperti Minangkabau, beberapa token fonetik atau morfologis muncul jarang namun sangat penting untuk kebermaknaan transkripsi. WCE memastikan token-token tersebut mendapatkan perhatian yang memadai selama pelatihan \cite{pineiromartin2024weighted}.
+
+    \item \textbf{Kompatibilitas dengan Teknik Regularisasi Lain}: WCE dapat dikombinasikan secara langsung dengan \textit{label smoothing} \cite{szegedy2016rethinking}, \textit{dropout} \cite{srivastava2014dropout}, dan \textit{weight decay} tanpa modifikasi arsitektur.
+
+    \item \textbf{Adaptif Terhadap Pola Kesalahan}: Bobot yang dibangun dari statistik kesalahan historis mencerminkan karakteristik spesifik kesulitan bahasa target, menjadikan WCE sebagai teknik yang \textit{data-driven} dan tidak memerlukan penentuan bobot secara manual.
+\end{itemize}
 
 \subsection{K-Fold Cross-Validation}
 \label{II.KFoldCV}

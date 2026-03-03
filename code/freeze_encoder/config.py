@@ -2,9 +2,31 @@
 Configuration for Freeze Encoder (Decoder-Only) Fine-tuning strategy.
 Whisper Base on Minangkabau language.
 OPTIMIZED FOR TINY DATASET (156 Files / 1.3 Hours).
-Focus: Anti-Overfitting & Aggressive Augmentation.
 
 Strategy: Freeze entire encoder, train full decoder (~37M params, 50%).
+
+Version history:
+    v1 (19.57% WER): batch=64, LR=2e-5, WD=0.1,  dropout=0.2, time_mask=80, steps=60
+    v2          ---: batch=16, LR=1e-5, WD=0.05, dropout=0.1, time_mask=20, steps=400
+
+v3 Fixes (addressing v2 failure modes):
+    Problem 1 — Conservative LR with unstable single-sample updates:
+        LR=1e-5 with batch_size=1 per step (eff. batch=16 via single accum) means
+        each individual step is high-variance. Using grad_accum=2 smooths gradient
+        estimates before each update, allowing a slightly higher LR to be safe.
+        Fix: batch=8, grad_accum=2 (eff. batch=16 preserved), LR=2e-5.
+
+    Problem 2 — Weight decay still constraining tiny-data learning:
+        WD=0.05 + dropout=0.1 + label_smoothing=0.1 is still a triple penalty.
+        With only 1.3h of data the decoder needs maximum freedom to absorb
+        Minangkabau patterns from very few examples.
+        Fix: weight_decay=0.01 (minimal L2, near-zero constraint).
+
+    Problem 3 — SpecAugment masking still corrupting frozen-encoder output:
+        Even time_mask=20 can cut 20 mel-frames (~200ms) from a short clip;
+        the decoder still receives some corrupted input. At this stage, get
+        the baseline solid before reintroducing masking.
+        Fix: time_mask=10, freq_mask=10 (minimal regularization floor).
 """
 
 import os
@@ -38,7 +60,7 @@ PROCESSED_AUDIO_DIR.mkdir(exist_ok=True)
 # =============================================================================
 WANDB_API_KEY = os.getenv("API_KEY")
 WANDB_PROJECT = "whisper-minangkabau"
-WANDB_GROUP = "whisper-minang-freeze-encoder-v1"
+WANDB_GROUP = "whisper-minang-freeze-encoder-v3"
 
 # =============================================================================
 # MODEL
@@ -65,20 +87,19 @@ RANDOM_STATE = 42
 
 TRAINING_ARGS = {
     "output_dir": str(CHECKPOINT_DIR),
-    "per_device_train_batch_size": 32,       # Increased (16GB VRAM headroom)
-    "per_device_eval_batch_size": 64,        # Max out eval throughput
-    "gradient_accumulation_steps": 2,        # Effective batch = 64 (doubled from 32)
-    "learning_rate": 2e-5,                   # 2x from 1e-5 (linear scaling with batch)
-    "warmup_ratio": 0.2,                     # Higher warmup (20%)
-    "max_steps": 100,                         # Halved (effective batch doubled = same data seen)
+    "per_device_train_batch_size": 16,       
+    "per_device_eval_batch_size": 64,        
+    "gradient_accumulation_steps": 1,        # Effective batch=16 preserved; smoother gradient estimate per update
+    "learning_rate": 2e-5,                   # Slightly raised: grad_accum smoothing makes this safe
+    "warmup_ratio": 0.1,                     # 10% warmup (lower now that steps=400)
+    "max_steps": 400,                        # 4x increase: AdamW needs time to build momentum
     "lr_scheduler_type": "cosine",
     "optim": "adamw_torch",
     "gradient_checkpointing": False,         # Disabled: trade VRAM for ~30% speed
     "bf16": True,
     "dataloader_num_workers": 4,
     "dataloader_pin_memory": True,
-    "weight_decay": 0.1,                     # Reduced from 0.2 (risk of underfitting
-                                              #   combined with 0.3 dropout)
+    "weight_decay": 0.01,                    # Near-zero: triple-penalty (WD+dropout+LS) still too tight on 1.3h data
     "max_grad_norm": 1.0,                    # Restored to default (0.5 was too aggressive)
     "eval_strategy": "steps",
     "eval_steps": 4,
@@ -97,11 +118,11 @@ TRAINING_ARGS = {
     "label_smoothing_factor": 0.1,           # Prevent overconfident predictions
 }
 
-# ANTI-OVERFITTING DROPOUT
+# DECODER DROPOUT — standard Whisper defaults (over-regularization removed)
 MODEL_DROPOUT_CONFIG = {
-    "dropout": 0.2,               # Reduced from 0.3 — label smoothing now shares regularization load
-    "attention_dropout": 0.15,    # Reduced from 0.2
-    "activation_dropout": 0.15,   # Reduced from 0.2
+    "dropout": 0.1,               # Whisper default: triple-penalty (WD+dropout+LS) caused underfitting
+    "attention_dropout": 0.1,     # Whisper default
+    "activation_dropout": 0.1,    # Whisper default
 }
 
 EARLY_STOPPING_CONFIG = {
@@ -155,8 +176,9 @@ WEIGHTED_CE_CONFIG = {
 AUGMENTATION_CONFIG = {
     "speed_perturbation": [0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15],
     "noise_snr_range": (10, 30),
-    "specaugment_time_mask": 80,             # Restored from 100 — less aggressive masking
-    "specaugment_freq_mask": 40,             # Restored from 50
+    "specaugment_time_mask": 10,             # Minimal floor: frozen encoder still can't recover masked signal;
+                                             #   establish clean baseline before reintroducing masking
+    "specaugment_freq_mask": 10,             # Minimal floor — same rationale
     "pitch_shift": 2,                        # Restored from 3 — moderate pitch range
 }
 

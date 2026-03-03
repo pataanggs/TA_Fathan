@@ -1,0 +1,17 @@
+{
+  "learning_rate": 0.0005,
+  "batch_size": 16,
+  "gradient_accumulation_steps": 1,
+  "effective_batch_size": 16,
+  "max_steps": 400,
+  "num_train_epochs": 3.0,
+  "warmup_ratio": 0.1,
+  "warmup_steps": 0,
+  "weight_decay": 0.05,
+  "lr_scheduler_type": "SchedulerType.COSINE",
+  "eval_steps": 4,
+  "save_steps": 4,
+  "logging_steps": 1,
+  "bf16": true,
+  "fp16": false
+}
