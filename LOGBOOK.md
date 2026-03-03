@@ -67,3 +67,9 @@
 | 1 Februari 2026  | Training ulang untuk mencari performa WER dan CER terbaik                                   |
 | 4 Februari 2026  | Training terakhir freeze encoder                                                            |
 | 8 Februari 2026  | Membuat config untuk training menggunakan PEFT LORA dan melakukan training LORA             |
+
+# Maret 2026
+|       DATE       | TASK                                                                                        |
+| :--------------: | ------------------------------------------------------------------------------------------- |
+| 2 Maret 2026     | Melakukan eksperimen Weighted Cross entropy                                                 |
+| 3 Maret 2026     | Menuliskan BAB 4 dan BAB 5 dan merangkum hasil 18x run untuk kedua metode                   |
