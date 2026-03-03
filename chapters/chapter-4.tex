@@ -751,11 +751,11 @@ Terdapat beberapa penjelasan mekanistik untuk fenomena ini:
 Teknik WCE yang diimplementasikan dalam penelitian ini bekerja dengan cara menganalisis frekuensi kesalahan token di seluruh prediksi dari percobaan-percobaan sebelumnya, kemudian membangun bobot per-token berdasarkan rumus:
 
 \begin{equation}
-    w_t = w_{\text{base}} + (w_{\text{max}} - w_{\text{base}}) \cdot \sigma\!\left(\frac{e_t - 0{,}3}{\lambda}\right)
+    w_t = w_{\text{base}} + (w_{\text{max}} - w_{\text{base}}) \cdot \sigma\!\left(\frac{e_t - \theta}{\lambda}\right)
 \end{equation}
 \vspace{1cm}
 
-\noindent di mana $w_t$ adalah bobot token $t$, $e_t$ adalah \textit{error rate} token tersebut, $w_{\text{base}} = 1{,}0$, $w_{\text{max}} = 3{,}0$, dan $\lambda = 0{,}5$ adalah parameter \textit{smoothing sigmoid}. Dengan konfigurasi ini, token yang memiliki \textit{error rate} tinggi mendapatkan bobot hingga $3\times$ dari bobot standar, sehingga loss yang dikontribusikan oleh prediksi yang salah pada token tersebut lebih besar \cite{pineiromartin2024weighted}.
+\noindent di mana $w_t$ adalah bobot token $t$, $e_t$ adalah \textit{error rate} token tersebut, $\theta$ adalah ambang batas \textit{error rate} (lihat Persamaan~\ref{eq:wce_weight} pada Bab~\ref{Bab II}). Dalam implementasi penelitian ini digunakan $w_{\text{base}} = 1{,}0$, $w_{\text{max}} = 3{,}0$, $\theta = 0{,}3$, dan $\lambda = 0{,}5$. Dengan konfigurasi ini, token yang memiliki \textit{error rate} tinggi mendapatkan bobot hingga $3\times$ dari bobot standar, sehingga loss yang dikontribusikan oleh prediksi yang salah pada token tersebut lebih besar \cite{pineiromartin2024weighted}.
 
 Analisis dampak WCE menunjukkan:
 

@@ -194,8 +194,8 @@ Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{teta
     \item \textbf{Frozen Components}: Seluruh 6 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
     \item \textbf{Trainable Components}: Seluruh 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter, 50\% dari total)
     \item \textbf{Optimizer}: AdamW (\textit{Adam with Weight Decay}) \cite{loshchilov2019adamw} dengan \textit{cosine annealing scheduler}
-    \item \textbf{Effective Batch Size}: 32 sampel (melalui kombinasi \textit{batch size} dan \textit{gradient accumulation})
-    \item \textbf{Max Steps}: 200 \textit{steps} ($\sim$50 epochs untuk dataset 1,3 jam)
+    \item \textbf{Effective Batch Size}: Divariasikan antar percobaan; lihat Tabel~\ref{tab:fe_search_space}
+    \item \textbf{Max Steps}: Divariasikan antar percobaan; lihat Tabel~\ref{tab:fe_search_space}
     \item \textbf{Mixed Precision}: BF16 (\textit{Brain Floating Point 16-bit}) untuk efisiensi komputasi \cite{micikevicius2018mixed}
     \item \textbf{Dropout}: \textit{Standard dropout} 0,3; \textit{attention dropout} 0,2; \textit{activation dropout} 0,2 (agresif untuk mencegah \textit{overfitting} pada 37M parameter trainable) \cite{srivastava2014dropout}
     \item \textbf{Early Stopping}: \textit{Patience} 8 \textit{evaluation steps} dengan evaluasi setiap 4 \textit{training steps}
@@ -215,26 +215,27 @@ Sementara itu, beberapa \textit{hyperparameter} kunci \textbf{divariasikan} anta
 
 \begin{table}[H]
 \centering
+\renewcommand{\arraystretch}{1.5}
 \caption{Ruang Pencarian Hyperparameter --- Freeze Encoder}
 \label{tab:fe_search_space}
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Hyperparameter} & \textbf{Nilai yang Diuji} & \textbf{Justifikasi} \\
 \hline
-Learning Rate & $5 \times 10^{-6}$, $1 \times 10^{-5}$ & \parbox{4cm}{Rentang konservatif untuk \textit{fine-tuning} decoder} \\
+Learning Rate & $5 \times 10^{-6}$, $1 \times 10^{-5}$, $2 \times 10^{-5}$ & \parbox{4cm}{Rentang konservatif--moderat untuk \textit{fine-tuning} decoder} \\
 \hline
-Batch Size & 16 ($\times$2 akum.), 32 ($\times$1) & \parbox{4cm}{Pengaruh paralelisasi GPU vs \textit{gradient accumulation}} \\
+Effective Batch Size & 16, 32, 64 & \parbox{4cm}{Pengaruh frekuensi pembaruan bobot vs stabilitas estimasi gradien} \\
 \hline
-Weight Decay & 0,1; 0,2 & \parbox{4cm}{Kekuatan regularisasi L2 pada parameter decoder} \\
+Max Steps & 60, 100, 120, 200, 400 & \parbox{4cm}{Batas \textit{training}; diperbesar seiring eksplorasi} \\
 \hline
-Warmup Ratio & 0,2 & Stabilisasi awal \textit{training} \\
+Weight Decay & 0,01; 0,05; 0,1; 0,2 & \parbox{4cm}{Kekuatan regularisasi L2 pada parameter decoder} \\
 \hline
 Beam Width & 1 (greedy), 5 & \parbox{4cm}{Strategi dekoding: greedy vs \textit{beam search}} \\
 \hline
 \end{tabular}
 \end{table}
 
-Total dilakukan \textbf{empat percobaan} dengan kombinasi \textit{hyperparameter} yang berbeda. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:fe_run_configs} dan Tabel~\ref{tab:fe_run_comparison}). Desain eksperimen ini dirancang untuk mengidentifikasi pengaruh masing-masing \textit{hyperparameter}: percobaan awal menguji pengaruh \textit{learning rate}, percobaan selanjutnya mengevaluasi reproduktibilitas, dan percobaan terakhir mengkombinasikan optimasi \textit{batch size}, \textit{weight decay}, dan strategi dekoding.
+Total dilakukan \textbf{sembilan percobaan} dengan kombinasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam dua fase: Fase 1 (FE-1 hingga FE-6, Januari--Februari 2026) berfokus pada eksplorasi \textit{learning rate}, \textit{weight decay}, augmentasi, dan strategi dekoding; Fase 2 (FE-7 hingga FE-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy} dikombinasikan dengan optimasi lebih lanjut. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:fe_run_configs} dan Tabel~\ref{tab:fe_run_comparison}).
 
 \subsubsection{LoRA Fine-Tuning}
 
@@ -247,7 +248,7 @@ Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{teta
     \item \textbf{Scaling}: Rasio $\alpha / r$ dijaga konstan pada 2,0$\times$ untuk seluruh percobaan
     \item \textbf{Bias}: None (tidak melatih parameter \textit{bias})
     \item \textbf{Optimizer}: AdamW \cite{loshchilov2019adamw} dengan \textit{cosine annealing scheduler}
-    \item \textbf{Batch Size}: 32 sampel per \textit{batch}
+    \item \textbf{Effective Batch Size}: Divariasikan antar percobaan; lihat Tabel~\ref{tab:lora_search_space}
     \item \textbf{Mixed Precision}: BF16 untuk efisiensi komputasi \cite{micikevicius2018mixed}
     \item \textbf{Early Stopping}: \textit{Patience} 8 \textit{evaluation steps} dengan evaluasi setiap 4 \textit{training steps}
     \item \textbf{Best Model Selection}: Berdasarkan \textit{lowest evaluation WER}
@@ -259,6 +260,7 @@ Berbeda dengan \textit{Freeze Encoder}, LoRA memiliki \textit{hyperparameter} ta
 
 \begin{table}[H]
 \centering
+\renewcommand{\arraystretch}{1.5}
 \caption{Ruang Pencarian Hyperparameter --- LoRA}
 \label{tab:lora_search_space}
 \begin{tabular}{|l|l|l|}
@@ -271,20 +273,20 @@ Alpha ($\alpha$) & 16, 32 & \parbox{4cm}{Disesuaikan dengan rank (rasio $\alpha/
 \hline
 LoRA Dropout & 0,1; 0,15 & \parbox{4cm}{Regularisasi pada \textit{adapter}} \\
 \hline
-Learning Rate & $3{-}7 \times 10^{-4}$ & \parbox{4cm}{Lebih tinggi dari FE karena parameter trainable sedikit} \\
+Learning Rate & $3 \times 10^{-4}$--$1{,}4 \times 10^{-3}$ & \parbox{4cm}{Lebih tinggi dari FE karena parameter trainable sedikit} \\
+\hline
+Effective Batch Size & 16, 32, 64 & \parbox{4cm}{Pengaruh frekuensi pembaruan bobot vs stabilitas gradien} \\
 \hline
 Weight Decay & 0,01; 0,03; 0,05 & Kekuatan regularisasi L2 \\
 \hline
 Label Smoothing & 0,05; 0,1 & \parbox{4cm}{Kalibrasi probabilistik dan anti-\textit{overconfidence}} \\
 \hline
-Max Steps & 250, 400 & Batas \textit{training} \\
-\hline
-Model Dropout & 0,1/0,05/0,05; 0,15/0,1/0,1 & \parbox{4cm}{Dropout decoder/attention/activation} \\
+Max Steps & 100, 150, 200, 250, 400 & Batas \textit{training} \\
 \hline
 \end{tabular}
 \end{table}
 
-Dengan konfigurasi \textit{rank} 8 dan \textit{target modules} yang mencakup seluruh \textit{linear layer}, LoRA hanya melatih $\sim$\textbf{1,47\%} dari total parameter ($\sim$1,08 juta dari 74 juta parameter), yang secara drastis lebih efisien dibandingkan \textit{Freeze Encoder} (50\%). Total dilakukan \textbf{empat percobaan} dengan variasi \textit{hyperparameter} yang berbeda, termasuk satu percobaan dengan \textit{rank} yang lebih tinggi ($r$=16, $\sim$2,9\% parameter trainable). Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:lora_run_configs} dan Tabel~\ref{tab:lora_run_comparison}).
+Dengan konfigurasi \textit{rank} 8 dan \textit{target modules} yang mencakup seluruh \textit{linear layer}, LoRA hanya melatih $\sim$\textbf{1,47\%} dari total parameter ($\sim$1,08 juta dari 74 juta parameter), yang secara drastis lebih efisien dibandingkan \textit{Freeze Encoder} (50\%). Total dilakukan \textbf{sembilan percobaan} dengan variasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam dua fase: Fase 1 (L-1 hingga L-6, Februari 2026) berfokus pada eksplorasi \textit{rank}, \textit{learning rate}, augmentasi, dan regularisasi; Fase 2 (L-7 hingga L-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy}, termasuk satu percobaan dengan \textit{rank} yang lebih tinggi ($r$=16, $\sim$2,93\% parameter trainable). Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:lora_run_configs} dan Tabel~\ref{tab:lora_run_comparison}).
 
 \subsubsection{Regularization}
 
@@ -695,6 +697,7 @@ Misalkan kita memiliki pasangan reference-hypothesis berikut:
 \textbf{Alignment:}
 \begin{table}[H]
 \centering
+\renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|l|c|c|c|c|c|c|c|}
 \hline
 \textbf{Reference} & awak & ingin & pai & ka & pasar & pagi & iko \\
