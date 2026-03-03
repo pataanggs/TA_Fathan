@@ -7,6 +7,7 @@ Uses Parameter-Efficient Fine-Tuning to train only ~0.27% of parameters.
 import torch
 import evaluate
 from typing import Dict, Any, Optional, List
+from pathlib import Path
 from transformers import (
     WhisperForConditionalGeneration,
     WhisperProcessor,
@@ -33,6 +34,7 @@ from config import (
     LORA_CONFIG,
     EARLY_STOPPING_CONFIG,
     METRICS_LOGGING_CONFIG,
+    WEIGHTED_CE_CONFIG,
     OUTPUT_DIR,
 )
 
@@ -44,37 +46,22 @@ from metrics_logger import (
     PredictionLoggingCallback,
 )
 
+# Add parent dir (code/) to path for shared modules
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from weighted_ce import WeightedCEMixin, build_token_weights
 
-class WhisperLoRATrainer(Seq2SeqTrainer):
+
+class WhisperLoRATrainer(WeightedCEMixin, Seq2SeqTrainer):
     """
-    Custom Seq2SeqTrainer for Whisper + LoRA that handles label smoothing.
-
-    When label_smoothing_factor > 0, the base Trainer.compute_loss() pops
-    'labels' from inputs before calling model(**inputs). Whisper's forward()
-    needs labels to auto-generate decoder_input_ids via shift_tokens_right().
-    Without labels, Whisper raises:
-        ValueError: You have to specify either decoder_input_ids or decoder_inputs_embeds
-
-    Fix: pre-compute decoder_input_ids from labels and inject them into inputs
-    before the parent's compute_loss() pops labels.
+    Custom Seq2SeqTrainer for Whisper + LoRA.
+    
+    Inherits WeightedCEMixin which handles:
+    1. Pre-computing decoder_input_ids for label smoothing compatibility
+    2. Weighted cross-entropy loss when token_weights is provided
+    3. Falls back to standard CE when token_weights is None
     """
-
-    def compute_loss(self, model, inputs, num_items_in_batch=None, **kwargs):
-        if "labels" in inputs and "decoder_input_ids" not in inputs:
-            labels = inputs["labels"]
-            # Shift labels right to create decoder_input_ids
-            # (same logic as WhisperForConditionalGeneration.forward)
-            decoder_input_ids = labels.new_zeros(labels.shape)
-            decoder_input_ids[:, 1:] = labels[:, :-1].clone()
-            decoder_input_ids[:, 0] = model.config.decoder_start_token_id
-            # Replace -100 (ignore index) with pad_token_id
-            decoder_input_ids = decoder_input_ids.masked_fill(
-                decoder_input_ids == -100,
-                model.config.pad_token_id,
-            )
-            inputs["decoder_input_ids"] = decoder_input_ids
-
-        return super().compute_loss(model, inputs, num_items_in_batch=num_items_in_batch, **kwargs)
+    pass
 
 
 def load_model() -> WhisperForConditionalGeneration:
@@ -300,7 +287,30 @@ def create_trainer(
         }
         metrics_logger.log_model_config(model_config)
 
+    # --- Weighted Cross-Entropy ---
+    token_weights = None
+    if WEIGHTED_CE_CONFIG.get("enabled", False):
+        pred_dirs = WEIGHTED_CE_CONFIG.get("predictions_dirs", [])
+        existing_dirs = [d for d in pred_dirs if Path(d).exists()]
+        if existing_dirs:
+            print("\n⚖️  Building weighted CE token weights from ALL previous predictions...")
+            token_weights = build_token_weights(
+                predictions_dirs=existing_dirs,
+                tokenizer=processor.tokenizer,
+                num_folds=5,
+                base_weight=WEIGHTED_CE_CONFIG.get("base_weight", 1.0),
+                max_weight=WEIGHTED_CE_CONFIG.get("max_weight", 3.0),
+                min_error_count=WEIGHTED_CE_CONFIG.get("min_error_count", 3),
+                smoothing=WEIGHTED_CE_CONFIG.get("smoothing", 0.5),
+                model_vocab_size=model.config.vocab_size,
+            )
+            print(f"   ✅ Token weights ready — {(token_weights > WEIGHTED_CE_CONFIG.get('base_weight', 1.0)).sum().item()} boosted tokens")
+        else:
+            print(f"\n⚠️  Weighted CE enabled but no predictions_dirs found: {pred_dirs}")
+            print("   → Falling back to standard CE loss")
+
     trainer = WhisperLoRATrainer(
+        token_weights=token_weights,
         model=model,
         args=training_args,
         train_dataset=train_dataset,

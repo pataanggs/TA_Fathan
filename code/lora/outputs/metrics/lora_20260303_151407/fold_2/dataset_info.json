@@ -1,0 +1,5 @@
+{
+  "train_size": 125,
+  "eval_size": 31,
+  "total_audio_duration_hours": null
+}

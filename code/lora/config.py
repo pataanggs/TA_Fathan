@@ -105,10 +105,10 @@ TRAINING_ARGS = {
     "output_dir": str(CHECKPOINT_DIR),
     "per_device_train_batch_size": 32,   
     "per_device_eval_batch_size": 64,    # Max out eval throughput
-    "gradient_accumulation_steps": 1,    # Effective batch size = 32
-    "learning_rate": 7e-4,               # Higher than v1 (5e-4) — few LoRA params need strong signal
+    "gradient_accumulation_steps": 2,    # Effective batch size = 64 (doubled from 32)
+    "learning_rate": 1.4e-3,             # 2x from 7e-4 (linear scaling with batch)
     "warmup_ratio": 0.1,                 # 10% warmup (v1 baseline was stable)
-    "max_steps": 200,                    # Increased — early stopping protects, more room for slower folds
+    "max_steps": 100,                    # Halved (effective batch doubled = same data seen)
     "lr_scheduler_type": "cosine",       # Cosine annealing
     "optim": "adamw_torch",
     "gradient_checkpointing": False,     
@@ -164,6 +164,25 @@ GENERATION_CONFIG = {
     "max_length": 225,
     "language": LANGUAGE,
     "task": TASK,
+}
+
+# =============================================================================
+# WEIGHTED CROSS-ENTROPY CONFIGURATION
+# Analyzes previous run predictions to boost loss on error-prone tokens.
+# Set "enabled" to False to use standard CE loss.
+# =============================================================================
+WEIGHTED_CE_CONFIG = {
+    "enabled": True,
+    # List of metrics directories to scan for predictions.
+    # Auto-discovers ALL run subdirectories — aggregates error statistics across every run.
+    "predictions_dirs": [
+        str(CODE_DIR / "lora" / "outputs" / "metrics"),
+        str(CODE_DIR / "freeze_encoder" / "outputs" / "metrics"),
+    ],
+    "base_weight": 1.0,          # Default weight for normal tokens
+    "max_weight": 3.0,           # Maximum weight for most error-prone tokens
+    "min_error_count": 3,        # Minimum errors to apply boosted weight (noise filter)
+    "smoothing": 0.5,            # Sigmoid steepness (lower = smoother transition)
 }
 
 # =============================================================================
