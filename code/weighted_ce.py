@@ -28,6 +28,7 @@ from transformers import WhisperTokenizer
 def _discover_prediction_files(
     predictions_dirs: list[str],
     num_folds: int = 5,
+    exclude_run_id: str | None = None,
 ) -> list[Path]:
     """
     Auto-discover all_predictions.json files from one or more metrics directories.
@@ -40,6 +41,11 @@ def _discover_prediction_files(
     Args:
         predictions_dirs: List of directory paths to scan.
         num_folds: Number of CV folds per run.
+        exclude_run_id: If provided, any run directory whose name matches this
+            string is skipped entirely. This implements Temporal Separation —
+            ensuring weights are built only from runs that completed BEFORE the
+            current run, preventing the model from indirectly "seeing" its own
+            validation labels while training (data leakage).
 
     Returns:
         List of Path objects pointing to all_predictions.json files found.
@@ -65,6 +71,15 @@ def _discover_prediction_files(
         for run_dir in run_dirs:
             if run_dir.name in seen_runs:
                 continue
+
+            # --- Temporal Separation: skip the current run to prevent data leakage ---
+            # Predictions from the current run were generated on the same validation
+            # splits used in training; including them would allow error weights to
+            # reflect fold-specific labels the model hasn't been trained on yet.
+            if exclude_run_id is not None and run_dir.name == exclude_run_id:
+                print(f"   🔒 Excluded (current run): {run_dir.name}")
+                continue
+
             seen_runs.add(run_dir.name)
 
             for fold in range(num_folds):
@@ -79,6 +94,7 @@ def analyze_token_errors(
     predictions_dirs: list[str],
     tokenizer: WhisperTokenizer,
     num_folds: int = 5,
+    exclude_run_id: str | None = None,
 ) -> Tuple[Counter, Counter]:
     """
     Analyze all_predictions.json from ALL available runs to find token-level errors.
@@ -93,11 +109,13 @@ def analyze_token_errors(
         predictions_dirs: List of metrics directory paths (base dirs or specific runs).
         tokenizer: WhisperTokenizer for encoding text → token IDs
         num_folds: Number of CV folds per run
+        exclude_run_id: Run directory name to exclude (Temporal Separation).
+            See _discover_prediction_files for full explanation.
 
     Returns:
         (error_counts, ref_counts): Counters of per-token error and reference frequencies
     """
-    pred_files = _discover_prediction_files(predictions_dirs, num_folds)
+    pred_files = _discover_prediction_files(predictions_dirs, num_folds, exclude_run_id)
 
     if not pred_files:
         print("  ⚠️  No prediction files found in any of the provided directories")
@@ -155,6 +173,7 @@ def build_token_weights(
     min_error_count: int = 3,
     smoothing: float = 0.5,
     model_vocab_size: int | None = None,
+    exclude_run_id: str | None = None,
 ) -> torch.Tensor:
     """
     Build a per-token weight vector from previous prediction errors.
@@ -170,6 +189,16 @@ def build_token_weights(
     Tokens with < min_error_count errors keep base_weight to avoid
     noise from rare tokens.
 
+    Temporal Separation (Anti-Leakage):
+        Pass exclude_run_id=<current_run_name> to ensure weights are derived
+        solely from runs that completed before the current training session.
+        This prevents error statistics from the current run's own validation
+        folds from influencing the loss weights used in that same run.
+
+        Cold-start behaviour: if no prior-run predictions exist after filtering
+        (e.g. this is the very first run), uniform base_weight is returned
+        automatically — no error is raised.
+
     Args:
         predictions_dirs: List of metrics directory paths. Each can be a base
             metrics dir (auto-discovers all runs) or a specific run dir.
@@ -183,6 +212,9 @@ def build_token_weights(
             match the model's output dim, which may be larger than
             tokenizer.vocab_size due to special tokens). If None, uses
             tokenizer.vocab_size.
+        exclude_run_id: Run directory name to exclude from weight computation.
+            Typically set to the name of the currently-executing run to enforce
+            strict Temporal Separation and prevent data leakage.
 
     Returns:
         torch.Tensor of shape (vocab_size,) with per-token weights
@@ -191,8 +223,17 @@ def build_token_weights(
     weights = torch.full((vocab_size,), base_weight, dtype=torch.float32)
 
     error_counts, ref_counts = analyze_token_errors(
-        predictions_dirs, tokenizer, num_folds
+        predictions_dirs, tokenizer, num_folds, exclude_run_id
     )
+
+    # --- Cold-start guard: no prior-run data available ---
+    # This happens on the very first training run (or when exclude_run_id
+    # filters out every available run). Returning uniform weights is equivalent
+    # to standard cross-entropy — safe and correct.
+    if not error_counts and not ref_counts:
+        print(f"\n⚖️  Weighted Cross-Entropy: no prior-run predictions found.")
+        print(f"   Cold-start detected — returning uniform weights (base_weight={base_weight}).")
+        return weights
 
     boosted = 0
     for tid, err_count in error_counts.items():

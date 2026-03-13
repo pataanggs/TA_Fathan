@@ -230,6 +230,7 @@ def create_trainer(
     eval_dataset,
     data_collator,
     metrics_logger: MetricsLogger = None,
+    experiment_name: Optional[str] = None,
 ) -> Seq2SeqTrainer:
     """
     Create Seq2SeqTrainer for Whisper LoRA fine-tuning.
@@ -303,6 +304,7 @@ def create_trainer(
                 min_error_count=WEIGHTED_CE_CONFIG.get("min_error_count", 3),
                 smoothing=WEIGHTED_CE_CONFIG.get("smoothing", 0.5),
                 model_vocab_size=model.config.vocab_size,
+                exclude_run_id=experiment_name,  # 🔒 Temporal Separation (Anti-Leakage)
             )
             print(f"   ✅ Token weights ready — {(token_weights > WEIGHTED_CE_CONFIG.get('base_weight', 1.0)).sum().item()} boosted tokens")
         else:
@@ -437,6 +439,7 @@ def train_fold(
         eval_dataset=eval_dataset,
         data_collator=data_collator,
         metrics_logger=metrics_logger,
+        experiment_name=experiment_name,
     )
 
     # Train

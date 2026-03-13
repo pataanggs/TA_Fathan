@@ -196,6 +196,7 @@ def create_trainer(
     eval_dataset,
     data_collator,
     metrics_logger: MetricsLogger = None,
+    experiment_name: Optional[str] = None,
 ) -> Seq2SeqTrainer:
     """
     Create Seq2SeqTrainer for Whisper fine-tuning.
@@ -263,6 +264,7 @@ def create_trainer(
                 min_error_count=WEIGHTED_CE_CONFIG.get("min_error_count", 3),
                 smoothing=WEIGHTED_CE_CONFIG.get("smoothing", 0.5),
                 model_vocab_size=model.config.vocab_size,
+                exclude_run_id=experiment_name,  # 🔒 Temporal Separation (Anti-Leakage)
             )
         else:
             print(f"  ⚠️  WCE enabled but no predictions_dirs found: {pred_dirs}")
@@ -393,6 +395,7 @@ def train_fold(
         eval_dataset=eval_dataset,
         data_collator=data_collator,
         metrics_logger=metrics_logger,
+        experiment_name=experiment_name,
     )
     
     # Train
