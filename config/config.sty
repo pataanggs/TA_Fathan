@@ -1,7 +1,7 @@
 %-------------------------------------------------------------------%
 %
 % Konfigurasi dokumen LaTeX untuk laporan tesis IF ITB
-% 
+%
 %
 % @author Radhinka Bagaskara, Petra Novandi (ITB)
 %
@@ -56,12 +56,13 @@
 \hyphenpenalty=10000
 
 % Font
-%\usepackage{mathptmx} 
-\usepackage{newtx} 
+%\usepackage{mathptmx}
+\usepackage{newtx}
 % Times New Roman itu copyright dari Microsoft. Ini alternatifnya (RDB)
 
 % Judul bahasa Indonesia
-\usepackage[bahasa]{babel}
+\usepackage{babel}
+\babelprovide[import, main]{indonesian}
 
 % Format tanggal
 \usepackage[style=ddmmyyyy,datesep=-]{datetime2}
@@ -89,12 +90,12 @@
 \DeclareFieldFormat{doi}{#1}        % Use default font for DOI
 
 % Remove DOI and URL fields if not needed (optional)
-\AtEveryBibitem{
-  \clearfield{doi}
-  \clearfield{url}
-}
+%\AtEveryBibitem{
+%  \clearfield{doi}
+%  \clearfield{url}
+%}
 
-\DeclareLanguageMapping{bahasa}{english}
+\DeclareLanguageMapping{indonesian}{english}
 
 % Package untuk link di daftar isi.
 %\usepackage{titlesec}       % Package Format judul
@@ -193,7 +194,7 @@
 %  }}
 %\makeatother
 
-    
+
 % Setting spacing di setiap judul chapter
 \titlespacing*{\chapter}{0pt}{0pt}{10pt}
 \titlespacing*{\section}{0pt}{10pt}{0pt}
@@ -238,7 +239,7 @@
   \apptocmd {\listoftables} { \endgroup}{}{}
 \makeatother
 
-\setcounter{tocdepth}{3} 
+\setcounter{tocdepth}{3}
 
 % Tambahkan kata "BAB" sebelum nomor bab di daftar isi
 \renewcommand*\cftchappresnum{\MakeUppercase{BAB}~}
@@ -249,7 +250,7 @@
 	\protect\renewcommand*\protect\cftchappresnum{\MakeUppercase{\chaptername}~}
 }
 
-\renewcommand{\cftchapleader}{\dotfill} 
+\renewcommand{\cftchapleader}{\dotfill}
 \renewcommand{\cftsecleader}{\dotfill}
 \renewcommand{\cftsubsecleader}{\dotfill}
 \renewcommand{\cftsubsubsecleader}{\dotfill}
@@ -257,7 +258,7 @@
 \renewcommand{\cfttableader}{\dotfill}
 
 % Nama daftar isi, gambar, tabel, rumus dalam bahasa Indonesia
-\addto\captionsbahasa{%
+\addto\captionsindonesian{%
 	\renewcommand{\contentsname}{DAFTAR ISI}%
 	\renewcommand{\listfigurename}{DAFTAR GAMBAR}%
 	\renewcommand{\listtablename}{DAFTAR TABEL}%
@@ -401,12 +402,12 @@
 
 % Untuk mengganti nama bulan di babel bahasa
 % tapi belum jalan (RDB)
-\StartBabelCommands*{bahasa}{date}
+\StartBabelCommands*{indonesian}{date}
 \SetStringLoop{month#1name}{%
 	Januari,Februari,Maret,April,Mei,Juni,%
 	Juli,Agustus,September,Oktober,November,%
 	Desember}
-\EndBabelCommands     
+\EndBabelCommands
 
 % english title
 \providecommand\titleEN[1]{\providecommand\thetitleEN{#1}}
@@ -459,4 +460,3 @@
 }
 
 \makeatother % Jangan dihapus
-

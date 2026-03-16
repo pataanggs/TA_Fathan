@@ -58,7 +58,7 @@ Hasil dari studi literatur ini menjadi landasan teoritis yang kokoh dalam memili
 \subsection{Pengumpulan Dataset}
 \label{III.Langkah3}
 
-Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0, yang merupakan koleksi rekaman audio dari buku-buku domain publik dalam berbagai bahasa daerah Indonesia. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{156 file audio} yang sudah \textbf{tersegmentasi} (\textit{pre-segmented}) dengan durasi rata-rata 30 detik per segmen. 
+Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0, yang merupakan koleksi rekaman audio dari buku-buku domain publik dalam berbagai bahasa daerah Indonesia. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{156 file audio} yang sudah \textbf{tersegmentasi} (\textit{pre-segmented}) dengan durasi rata-rata 30 detik per segmen.
 
 \textbf{Penting untuk dicatat}: Dataset ini diterima dalam kondisi sudah tersegmentasi oleh \textit{maintainer} LibriVox Indonesia, yang telah membagi rekaman pembacaan panjang menjadi klip-klip pendek berdasarkan jeda natural dalam pembacaan. Proses segmentasi ini dilakukan oleh \textit{maintainer}, bukan sebagai bagian dari \textit{preprocessing} penelitian ini. Sebagian besar segmen memiliki durasi yang mendekati batas maksimal input Whisper (30 detik), dengan distribusi durasi berkisar antara 15-35 detik dan median sekitar 28-30 detik.
 
@@ -347,11 +347,11 @@ Selain evaluasi kuantitatif menggunakan WER dan CER, penelitian ini juga melakuk
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Kesalahan Fonetik (Phonetic Errors)}: Kesalahan yang terjadi akibat misrecognition fonem-fonem spesifik bahasa Minangkabau yang berbeda dari bahasa Indonesia standar. Contohnya termasuk kesalahan pengenalan vokal (misalnya, "a" vs "o" dalam konteks tertentu) atau konsonan khas Minangkabau yang tidak ada dalam bahasa Indonesia. Analisis kesalahan fonetik dapat mengungkap fonem-fonem yang paling sulit dikenali oleh model dan memerlukan perhatian khusus dalam \textit{fine-tuning}.
-    
+
     \item \textbf{Kesalahan Leksikal (Lexical Errors)}: Kesalahan pada level kata, terutama pada kosakata spesifik Minangkabau, kata serapan dari bahasa Indonesia atau bahasa asing yang diucapkan dalam konteks bahasa Minangkabau, serta kata-kata yang memiliki ejaan atau pengucapan yang ambigu. Kategori ini mencakup kesalahan penggantian kata dengan kata lain yang mirip secara fonetik tetapi berbeda makna, atau kesalahan pada kata-kata yang jarang muncul dalam dataset \textit{training}.
-    
+
     \item \textbf{Kesalahan Kontekstual (Contextual Errors)}: Kesalahan pada kata-kata yang pengenalan yang benarnya bergantung pada konteks kalimat. Misalnya, kata yang secara fonetik ambigu tetapi dapat dikenali dengan benar jika model memahami konteks semantik atau sintaksis kalimat. Kesalahan kontekstual mengindikasikan keterbatasan model dalam memahami struktur bahasa atau memanfaatkan informasi konteks untuk disambiguasi.
-    
+
     \item \textbf{Kesalahan Halusinasi (Hallucination Errors)}: Kategori error yang spesifik untuk model Whisper, di mana model menghasilkan teks yang tidak sesuai dengan audio input, terutama selama periode hening atau \textit{silence}. Manifestasi umum termasuk pengulangan frasa secara berulang-ulang (\textit{phrase repetition}) atau munculnya teks acak yang tidak relevan dengan konten audio. Kesalahan halusinasi merupakan karakteristik intrinsik dari model \textit{autoregressive} seperti Whisper yang dilatih pada data skala besar dengan \textit{weak supervision}, dan sering terjadi ketika model tidak memiliki informasi audio yang cukup untuk diprediksi tetapi tetap dipaksa menghasilkan output. Monitoring halusinasi penting untuk memahami \textit{robustness} model terhadap variasi kualitas audio dan periode hening dalam dataset Minangkabau.
 \end{enumerate}
 
@@ -595,7 +595,7 @@ Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$1,
 \begin{enumerate}[noitemsep]
     \item Initialize dari pre-trained Whisper Base checkpoint
     \item \textbf{Freeze Components}: Seluruh base model parameters (74M params)
-    \item \textbf{Inject LoRA Adapters}: 
+    \item \textbf{Inject LoRA Adapters}:
     \begin{itemize}[noitemsep]
         \item Rank r=8, Alpha=16
         \item Target modules: Seluruh linear layer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2})
@@ -754,28 +754,28 @@ di mana:
 
 Menggunakan contoh yang sama:
 
-\textbf{Reference:} ``\textit{awakinginpaiakapasarpagiko}'' (tanpa spasi: 30 karakter)
+\textbf{Reference:} ``\textit{awakinginpaikapasarpagiiko}'' (tanpa spasi: 26 karakter)
 
-\textbf{Hypothesis:} ``\textit{awakinginpergipasarpagini}'' (tanpa spasi: 28 karakter)
+\textbf{Hypothesis:} ``\textit{awakinginpergipasarpagiini}'' (tanpa spasi: 26 karakter)
 
 \textbf{Perhitungan:}
 \begin{itemize}[noitemsep]
-    \item Character substitutions ($S_c$): 5 (``p''→``p'', ``a''→``e'', ``i''→``r'', ``k''→``g'', ``o''→``i'')
-    \item Character deletions ($D_c$): 2 (``k'', ``a'' dari kata ``ka'')
+    \item Character substitutions ($S_c$): 6 (``a''→``e'', ``i''→``r'', ``k''→``g'', ``a''→``i'', ``k''→``n'', ``o''→``i'')
+    \item Character deletions ($D_c$): 0
     \item Character insertions ($I_c$): 0
-    \item Total characters ($N_c$): 30
+    \item Total characters ($N_c$): 26
 \end{itemize}
 
 \vspace{0.3cm}
 \begin{equation}
 \label{eq:cer_example}
-\text{CER} = \frac{5 + 2 + 0}{30} \times 100\% = \frac{7}{30} \times 100\% = 23.33\%
+\text{CER} = \frac{6 + 0 + 0}{26} \times 100\% = \frac{6}{26} \times 100\% = 23.08\%
 \end{equation}
 \myequations{Contoh Perhitungan CER}
 \vspace{0.2cm}
 
 \noindent
-Perhatikan bahwa CER (23.33\%) lebih rendah dari WER (42.86\%) karena partial word matches dihargai pada level karakter.
+Perhatikan bahwa CER (23.08\%) lebih rendah dari WER (42.86\%) karena partial word matches dihargai pada level karakter.
 
 \subsection{Perhitungan LoRA Parameters}
 \label{III.Ilustrasi_LoRA}
@@ -851,4 +851,3 @@ Whisper Base memiliki:
 
 \noindent
 Ini menunjukkan bahwa LoRA melatih $\sim$1,47\% dari total parameters Whisper Base, tetap sangat efisien dibanding \textit{Freeze Encoder} yang melatih 50\% (37M parameters).
-

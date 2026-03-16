@@ -549,6 +549,8 @@ susungguahnyo ikar negara negara negara anggota &
 }
 \end{table}
 
+Pada Tabel~\ref{tab:lora_predictions_fold4}, dapat diamati salah satu bentuk kesalahan prediksi berupa \textit{hallucination error} pada baris terakhir, di mana model menghasilkan output ``negara negara negara'' (kata ``negara'' diulang tiga kali) padahal pada teks referensi hanya terdapat frasa ``negara negara''. Seperti yang telah dibahas pada Subbab 3.2.8.1, halusinasi berupa pengulangan kata atau frasa (\textit{phrase repetition}) adalah karakteristik intrinsik yang umum ditemui pada model \textit{autoregressive} seperti Whisper. Hal ini dapat terjadi ketika model kurang mendapatkan konteks akustik yang cukup, seperti pada bagian yang pengucapannya kurang jelas atau pada saat terdapat jeda hening (\textit{silence}), sehingga model terjebak dalam siklus pengulangan token sebelumnya saat dipaksa menghasilkan teks.
+
 Tabel~\ref{tab:lora_predictions_fold2} menampilkan contoh prediksi pada \textit{Fold}~1 (WER 14,63\%), \textit{fold} dengan performa terbaik kedua:
 
 \begin{table}[H]
@@ -833,6 +835,37 @@ Konsistensi temuan ini pada kedua strategi memperkuat kesimpulan bahwa augmentas
 Keberhasilan kedua strategi, terutama LoRA yang hanya memodifikasi 2,93\% parameter, mengkonfirmasi efektivitas \textit{transfer learning} \cite{pan2010transfer} dari model Whisper Base yang telah dilatih pada 680.000 jam audio dengan 96 bahasa. Penggunaan \textit{language token} bahasa Indonesia (\texttt{id}) sebagai \textit{proxy} untuk bahasa Minangkabau terbukti efektif, yang dapat dijelaskan melalui kedekatan tipologis antara kedua bahasa sebagai anggota rumpun Austronesia \cite{koto2020minangkabau}. Pengetahuan fonotaktik dan leksikal yang tumpang tindih antara bahasa Indonesia dan Minangkabau memungkinkan model untuk memanfaatkan representasi yang sudah dipelajari tanpa perlu pelatihan dari nol.
 
 WER terbaik yang dicapai dalam penelitian ini (L-10, 15,67\%) berada dalam kisaran yang kompetitif dengan penelitian serupa pada bahasa-bahasa dengan sumber daya serupa. Pillai dkk. \cite{pillai2024multistage} melaporkan perbaikan WER yang signifikan melalui \textit{multi-stage fine-tuning} pada bahasa-bahasa \textit{low-resource}; Li dkk. \cite{li2024improving} menunjukkan perbaikan signifikan melalui pemanfaatan data teks tambahan tanpa pasangan audio pada bahasa Kazakh dengan data audio terbatas; Gupta dkk. \cite{gupta2024parameter} mendemonstrasikan efisiensi \textit{parameter-efficient fine-tuning} (PEFT) pada ASR multibahasa dan menemukan bahwa metode PEFT secara konsisten lebih efektif dari \textit{full fine-tuning} pada data kecil; Song dkk. \cite{song2024lorawhisper} mengaplikasikan LoRA pada Whisper untuk skenario ekspansi multibahasa; Gete dkk. \cite{gete2025whispering} berhasil melakukan \textit{fine-tuning} Whisper pada bahasa Amharik (bahasa Afrika yang juga \textit{low-resource}) dengan dataset sangat terbatas; serta Timmel dkk. \cite{timmel2024finetune} menunjukkan efektivitas \textit{fine-tuning} Whisper pada berbagai bahasa \textit{low-resource} untuk aplikasi nyata. Sebagai titik acuan, pada bahasa Indonesia baku (bukan bahasa Minangkabau) model Whisper turbo tanpa \textit{fine-tuning} khusus dilaporkan mencapai WER 7,97\% \cite{martin2026speechsummary}; perbedaan ini mencerminkan ketersediaan sumber daya pra-latih yang jauh lebih besar untuk bahasa Indonesia dibandingkan bahasa Minangkabau yang merupakan bahasa \textit{low-resource} tanpa dukungan \textit{pre-training} eksplisit dalam model Whisper. Mempertimbangkan bahwa dataset yang digunakan dalam penelitian ini ($\sim$1,3 jam) jauh lebih kecil dari kebanyakan penelitian tersebut, hasil WER 15,67\% yang dicapai dalam penelitian ini dapat dianggap sangat kompetitif.
+
+\subsection{Pemetaan Kesalahan Berdasarkan Kelas Fonetik dan Linguistik Minangkabau}
+
+Berdasarkan analisis kesalahan pada Subbab~\ref{IV.FreezeEncoder} (model \textit{Freeze Encoder}) dan Subbab~\ref{IV.LoRA} (model LoRA), performa model dalam bahasa Minangkabau dapat dibedah lebih dalam dari kacamata fonetik spesifik. Pengelompokan jenis kegagalan model dalam mengenali pola-pola bunyi lokal dapat memberikan nilai tambah akademis untuk membuktikan di mana letak kelemahan laten representasi akustik internal yang dihasilkan Whisper.
+
+Tabel~\ref{tab:phonetic_errors} mengategorikan beberapa kesalahan model yang persisten ke dalam kelas fonetik dan struktur linguistik Minangkabau.
+
+\begin{table}[H]
+\centering
+\caption{Pemetaan Kesalahan Kata Berdasarkan Kelas Fonetik Spesifik Minangkabau}
+\label{tab:phonetic_errors}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|p{0.4\textwidth}|}
+\hline
+\textbf{Kategori Fonetik / Linguistik} & \textbf{Referensi} & \textbf{Contoh Prediksi Model} & \textbf{Analisis Fonologis} \\
+\hline
+Deret Vokal \& Diftong (\textit{-ao, -ua}) & mambao, kaluarga & mambo, mambuh, keluarga & Kesalahan paling sering terjadi saat model mereduksi diftong atau deret vokal (seperti /ao/ menjadi /o/ tunggal pada \textit{mambo}). Hal ini juga mengindikasikan interferensi (\textit{bias}) kuat dari kata kognat dalam bahasa Indonesia (\textit{keluarga}). \\
+\hline
+Substitusi Vokal Depan & sasungguahnyo & susungguahnyo & Kegagalan membedakan vokal terbuka /a/ dan tertutup /u/ pada silabel sebelum penekanan, diakibatkan rentang frekuensi forman yang saling tumpang tindih dalam wicara lisan. \\
+\hline
+Kesalahan Akhiran Nasal / Sengau & ka dunia & kadunian & Munculnya bunyi nasal epentetis (\textit{-n}) di akhir kata padahal secara leksikal tidak ada. Ini menunjukkan ambiguitas fitur akustik hening di akhir tuturan. \\
+\hline
+Kesalahan Substitusi Konsonan & dasar, panghormatan & tasar, pangormatan & Penggantian antara \textit{voiced} (/d/) dan \textit{voiceless} (/t/), serta pelemahan atau hilangnya frikatif glotal /h/ di tengah kata. Menandakan resolusi encoder yang belum sepenuhnya mapan untuk membedakan fitur \textit{voicing}. \\
+\hline
+Batas Kata (Segmentasi) & mukadimah & muka di ma & Kegagalan dalam \textit{tokenization}, model memecah kata utuh menjadi fragmen silabis yang dianggap memiliki batas jeda. \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+Pengelompokan ini menegaskan bahwa meskipun LoRA berhasil memperbaiki WER secara keseluruhan berkat adaptasinya pada lapisan \textit{encoder}, namun sifat akustik khusus seperti diftong (\textit{mambao}), pergeseran vokal (\textit{sasungguahnyo}), serta pengaruh dominan dari ortografi bahasa Indonesia (\textit{keluarga}) masih sering ``membajak'' keluaran dekoder akibat kuatnya \textit{prior} bahasa Indonesia di dalam representasi model.
 
 \subsection{Limitasi dan Tantangan}
 

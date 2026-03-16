@@ -9,7 +9,7 @@
 % Berdasarkan "Templat LaTeX Tesis Informatika ITB" oleh Petra Barus & Peb Ruswono Aryan
 % https://github.com/petrabarus/if-itb-latex
 % Berdasarkan Panduan Tugas Akhir Teknik Informatika ITERA v1.3
-% https://docs.google.com/document/d/1SYtSpRevbRvscXIJRAxuT41kJqqzsHyw/edit?usp=sharing&ouid=103935211052656359121&rtpof=true&sd=true 
+% https://docs.google.com/document/d/1SYtSpRevbRvscXIJRAxuT41kJqqzsHyw/edit?usp=sharing&ouid=103935211052656359121&rtpof=true&sd=true
 %
 %--------------------------------------------------------------------%
 %
@@ -21,14 +21,14 @@
 \documentclass{report} % Untuk versi perpustakaan
 \usepackage[paperwidth=155mm, % Setting layout kertas UNESCO (155 x 230 mm)
 			paperheight=230mm,
-			top=2cm, 
-			bottom=2cm, 
+			top=2cm,
+			bottom=2cm,
 			left=2cm,
-			right=2cm, 
-			includefoot, 
-			heightrounded, 
+			right=2cm,
+			includefoot,
+			heightrounded,
 			bindingoffset=0.5cm]
-			{geometry} 
+			{geometry}
 
 \input{config/config.sty} % Import konfigurasi laporan
 \addbibresource{references.bib} % Import list Daftar Pustaka (gunakan addbibresource untuk biblatex)
@@ -38,23 +38,23 @@
     %----------------------------------------------------------------%
     % Konfigurasi Informasi Tugas Akhir
     %----------------------------------------------------------------%
-    
-    % Judul Tugas Akhir, dalam Bahasa Indonesia	
+
+    % Judul Tugas Akhir, dalam Bahasa Indonesia
     \title{Implementasi Fine-Tuning OpenAI Whisper Base untuk Automatic Speech Recognition Bahasa Minangkabau}
     % Judul Tugas Akhir dalam Bahasa Inggris
-    \titleEN{Thesis Title With ABC Method (Case Study: XYZ)}
+    \titleEN{Implementation of OpenAI Whisper Base Fine-Tuning for Minangkabau Automatic Speech Recognition}
     % JUDUL AKAN DITULIS DALAM HURUF KAPITAL; Font size 16 pt; Bold; Tidak melebihi 4 baris
-    
+
     % Informasi Mahasiswa
 	\author{Fathan Andi Kartagama}		% Nama Mahasiswa
 	\nim{122140055}				% NIM Mahasiswa
-	
+
 	%Informasi Dosen Pembimbing
 	\dosbingA%
 		{Martin Clinton Tosima Manullang, Ph.D.}%			% Nama Dosen Pembimbing 1
 		{19930109 201903 1 017}	% NIP Dosen Pembimbing 1
 
-		
+
 	%Informasi Dosen Penguji
 	\pengujiA%
 		{I Wayan Wiprayoga Wisesa, S.Kom., M.Kom.}%				% Nama Dosen Penguji 1
@@ -93,32 +93,32 @@
 	\input{chapters/forewords} 		% Kata Pengantar
 	\input{chapters/summary} 		% Ringkasan
 	\input{chapters/abstract-id} 	% Abstrak (Indonesia)
-	\input{chapters/abstract-en} 	% Abstrak (Inggris)    
+	\input{chapters/abstract-en} 	% Abstrak (Inggris)
     %----------------------------------------------------------------%
     % Halaman Daftar
-    %----------------------------------------------------------------%    
+    %----------------------------------------------------------------%
 	% Daftar Isi
-	\phantomsection% 
+	\phantomsection%
 	\addcontentsline{toc}{chapter}{DAFTAR ISI}
 	\tableofcontents
 	% Daftar tabel
-	\phantomsection% 
+	\phantomsection%
 	\addcontentsline{toc}{chapter}{DAFTAR TABEL}
 	\listoftables
 	% Daftar gambar
-	\phantomsection% 
+	\phantomsection%
 	\addcontentsline{toc}{chapter}{DAFTAR GAMBAR} % TODO: No halaman ga selang-seling di Daftar? (RDB)
 	\listoffigures
 	% Daftar rumus
 	% \pagestyle{daftarrumusstyle}
-	\phantomsection% 
+	\phantomsection%
 	\addcontentsline{toc}{chapter}{DAFTAR RUMUS}
 	\listofmyequations
 	% \thispagestyle{daftarrumusstyle}
 	% \pagebreak
 	%    \input{chapters/symbols}
 	% Daftar kode
-	\phantomsection% 
+	\phantomsection%
 	\addcontentsline{toc}{chapter}{DAFTAR KODE}
 	\lstlistoflistings
 	\pagebreak
@@ -140,7 +140,7 @@
     }
     % Reset penomoran halaman menjadi 1
     \setcounter{page}{1}
-    \pagenumbering{arabic}    
+    \pagenumbering{arabic}
     \justifying
     % Mulai selang-seling halaman
     \forceoddpage
@@ -158,7 +158,7 @@
 	%----------------------------------------------------------------%
     % Daftar Pustaka
     \newpage
-    \phantomsection% 
+    \phantomsection%
     \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
     \printbibliography[title={Daftar Pustaka}]
 	%----------------------------------------------------------------%

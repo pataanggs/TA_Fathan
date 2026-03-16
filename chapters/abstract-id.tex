@@ -4,18 +4,18 @@
 \thispagestyle{fancy}
 
 \begin{center}
-	\large \bfseries \MakeUppercase{Abstrak}\\
-	\normalsize \normalfont {\thetitle}\\
-	\normalsize \normalfont {\theauthor}\\
-	\bigskip
-	
-	\normalsize \normalfont \justifying \singlespacing
-	Halaman ABSTRAK berisi uraian tentang latar belakang, tujuan, metodologi penelitian, hasil / kesimpulan. Ditulis dalam BAHASA INDONESIA tidak lebih dari 250 kata, dengan jarak antar baris satu spasi. Pada akhir abstrak ditulis kata “Kata Kunci” yang dicetak tebal, diikuti tanda titik dua dan kata kunci yang tidak lebih dari 5 kata. Kata kunci terdiri dari kata-kata yang khusus menunjukkan dan berkaitan dengan bahan yang diteliti, metode/instrumen yang digunakan, topik penelitian. Kata kunci diketik pada jarak dua spasi dari baris akhir isi abstrak.\par
+    \large \bfseries \MakeUppercase{Abstrak}\\
+    \normalsize \normalfont {\thetitle}\\
+    \normalsize \normalfont {\theauthor}\\
+    \bigskip
+    
+    \normalsize \normalfont \justifying \singlespacing
+    Teknologi pengenalan wicara atau \textit{Automatic Speech Recognition} (ASR) saat ini mayoritas terpusat pada bahasa dengan sumber daya besar (\textit{high-resource}), sementara bahasa daerah seperti Minangkabau yang berstatus \textit{extremely low-resource} (1,3 jam data latih) belum terfasilitasi dengan baik. Hal ini mengakibatkan rendahnya akurasi sistem ASR generik akibat kompleksitas ragam dialek lokal. Penelitian ini bertujuan untuk meningkatkan akurasi sistem ASR bahasa Minangkabau melalui implementasi \textit{fine-tuning} pada model \textit{pre-trained} OpenAI Whisper Base. Metodologi difokuskan pada teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) menggunakan \textit{Low-Rank Adaptation} (LoRA) untuk meminimalisasi beban komputasi, serta dibandingkan dengan strategi \textit{Freeze Encoder}. Selain itu, fungsi \textit{Weighted Cross-Entropy} (WCE) dengan pemisahan temporal diperkenalkan untuk menangani ketidakseimbangan sebaran fonem tanpa membocorkan data validasi. Performa model dievaluasi menggunakan skema 5-\textit{Fold Cross-Validation} dengan metrik \textit{Word Error Rate} (WER) dan \textit{Character Error Rate} (CER). Hasil pengujian mengonfirmasi bahwa LoRA secara konsisten mengungguli \textit{Freeze Encoder}, mencapai rata-rata WER 15,67\% dan CER 3,32\% dengan hanya melatih 2,93\% parameter model. Kesimpulannya, kombinasi LoRA dan pembobotan WCE terbukti efektif dan efisien dalam mentranskripsi bahasa Minangkabau, meskipun masih menyisakan sedikit tantangan pada tuturan fonetik logat spesifik. Di masa depan, perluasan korpus wicara melalui skema \textit{crowdsourcing} menjadi rekomendasi untuk penelitian lanjutan.\par
 
     \vspace{20pt}
-	\raggedright \textbf{Kata Kunci: kunci1, kunci2}
-	
-	\vfill
-	
+    \raggedright \textbf{Kata Kunci}: Pengenalan Wicara, OpenAI Whisper, Minangkabau, \textit{Fine-Tuning}, LoRA
+    
+    \vfill
+    
 \end{center}
 \clearpage
