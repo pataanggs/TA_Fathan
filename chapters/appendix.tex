@@ -1,4 +1,11 @@
 \section{Dataset}
+Dataset yang digunakan dalam penelitian ini adalah dataset publik LibriVox Indonesia versi 1.0 yang disediakan oleh \textit{Indonesian-nlp} melalui platform Hugging Face (\url{https://huggingface.co/datasets/indonesian-nlp/librivox-indonesia}).
+
+Dataset ini terdiri dari audio berformat MP3 dan file teks transkrip terkait yang dihasilkan dari buku-buku audio domain publik LibriVox. Pengumpulan data dalam repositori tersebut difokuskan secara khusus pada bahasa-bahasa di Indonesia. Durasi asli buku audio LibriVox bervariasi dari beberapa menit hingga beberapa jam. Namun, pada dataset ini, setiap file audio telah disegmentasi sehingga memiliki durasi mulai dari beberapa detik hingga maksimal 20 detik.
+
+Konversi buku audio tersebut menjadi dataset ucapan dilakukan menggunakan perangkat lunak penyelarasan paksa (\textit{forced alignment}) yang dikembangkan oleh pihak pengembang. Perangkat lunak ini dirancang untuk mendukung multibahasa, termasuk bahasa-bahasa dengan sumber daya terbatas (\textit{low-resource}), seperti Aceh, Bali, maupun Minangkabau, tanpa memerlukan pekerjaan tambahan untuk melatih model penjajaran. Secara keseluruhan, dataset dari repositori utama saat ini terdiri dari total 8 jam rekaman dalam 7 bahasa dari Indonesia.
+
+Meskipun repositori utama menyediakan berbagai bahasa daerah, penelitian ini secara khusus hanya mengekstraksi dan menggunakan subset penyusun dataset berbahasa Minangkabau. Bahasa daerah lain (seperti Aceh, Bali, Jawa, dll.) yang terdapat di dalam koleksi LibriVox Indonesia tersebut tidak digunakan sama sekali dalam proses pelatihan maupun evaluasi model pada penelitian ini.
 
 \section{Hasil Wawancara}
 

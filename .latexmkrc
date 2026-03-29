@@ -11,7 +11,7 @@ $pdf_mode = 1;
 $pdflatex = 'pdflatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
 
 # Use bibtex for bibliography
-$bibtex_use = 2;
+$bibtex_use = 1;
 
 # Output directory (optional, comment out if not needed)
 # $out_dir = '.';

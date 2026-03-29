@@ -1,14 +1,14 @@
-\contentsline {myequations}{\numberline {Rumus~2.1}Formula LoRA (Low-Rank Adaptation)}{22}{equation.2.2.1}%
-\contentsline {myequations}{\numberline {Rumus~2.2}Formula WER (Word Error Rate)}{23}{equation.2.2.2}%
-\contentsline {myequations}{\numberline {Rumus~2.3}Formula Cross-Entropy Loss}{26}{equation.2.2.3}%
-\contentsline {myequations}{\numberline {Rumus~2.4}Formula Weighted Cross-Entropy Loss}{26}{equation.2.2.4}%
-\contentsline {myequations}{\numberline {Rumus~2.5}Formula Penentuan Bobot Weighted Cross-Entropy}{26}{equation.2.2.5}%
-\contentsline {myequations}{\numberline {Rumus~3.1}Definisi WER (Word Error Rate)}{56}{equation.3.5.1}%
-\contentsline {myequations}{\numberline {Rumus~3.2}Contoh Perhitungan WER}{56}{equation.3.5.2}%
-\contentsline {myequations}{\numberline {Rumus~3.3}Definisi CER (Character Error Rate)}{57}{equation.3.5.3}%
-\contentsline {myequations}{\numberline {Rumus~3.4}Contoh Perhitungan CER}{57}{equation.3.5.4}%
-\contentsline {myequations}{\numberline {Rumus~3.5}Formula Parameter LoRA}{57}{equation.3.5.5}%
-\contentsline {myequations}{\numberline {Rumus~3.6}Parameter LoRA Per Projection}{58}{equation.3.5.6}%
-\contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{58}{equation.3.5.7}%
-\contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA (Matriks A dan B)}{58}{equation.3.5.8}%
-\contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{58}{equation.3.5.9}%
+\contentsline {myequations}{\numberline {Rumus~2.1}Formula LoRA (Low-Rank Adaptation)}{21}{equation.2.2.1}%
+\contentsline {myequations}{\numberline {Rumus~2.2}Formula WER (Word Error Rate)}{22}{equation.2.2.2}%
+\contentsline {myequations}{\numberline {Rumus~2.3}Formula Cross-Entropy Loss}{24}{equation.2.2.3}%
+\contentsline {myequations}{\numberline {Rumus~2.4}Formula Weighted Cross-Entropy Loss}{25}{equation.2.2.4}%
+\contentsline {myequations}{\numberline {Rumus~2.5}Formula Penentuan Bobot Weighted Cross-Entropy}{25}{equation.2.2.5}%
+\contentsline {myequations}{\numberline {Rumus~3.1}Definisi WER (Word Error Rate)}{57}{equation.3.5.1}%
+\contentsline {myequations}{\numberline {Rumus~3.2}Contoh Perhitungan WER}{57}{equation.3.5.2}%
+\contentsline {myequations}{\numberline {Rumus~3.3}Definisi CER (Character Error Rate)}{58}{equation.3.5.3}%
+\contentsline {myequations}{\numberline {Rumus~3.4}Contoh Perhitungan CER}{58}{equation.3.5.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5}Formula Parameter LoRA}{58}{equation.3.5.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6}Parameter LoRA Per Projection}{59}{equation.3.5.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{59}{equation.3.5.7}%
+\contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA (Matriks A dan B)}{59}{equation.3.5.8}%
+\contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{59}{equation.3.5.9}%

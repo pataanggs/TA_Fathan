@@ -58,7 +58,9 @@ Hasil dari studi literatur ini menjadi landasan teoritis yang kokoh dalam memili
 \subsection{Pengumpulan Dataset}
 \label{III.Langkah3}
 
-Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0, yang merupakan koleksi rekaman audio dari buku-buku domain publik dalam berbagai bahasa daerah Indonesia. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{156 file audio} yang sudah \textbf{tersegmentasi} (\textit{pre-segmented}) dengan durasi rata-rata 30 detik per segmen.
+Dataset LibriVox Indonesia (\url{https://huggingface.co/datasets/indonesian-nlp/librivox-indonesia}) terdiri dari audio MP3 dan file teks yang sesuai yang dihasilkan dari buku audio domain publik LibriVox. Pengumpulan data dikhususkan pada bahasa-bahasa di Indonesia. Durasi buku audio atau file suara LibriVox asli bervariasi dari beberapa menit hingga beberapa jam, namun setiap file audio dalam dataset ucapan telah diproses menjadi berdurasi dari beberapa detik hingga maksimal 20 detik. Konversi buku audio menjadi dataset ucapan ini menggunakan perangkat lunak penyelarasan paksa (\textit{forced alignment}) yang dikembangkan oleh pihak pembuat dataset. Perangkat lunak ini mendukung multibahasa, termasuk bahasa-bahasa dengan sumber daya terbatas, seperti Aceh, Bali, atau Minangkabau, dan dapat digunakan untuk bahasa lain tanpa pekerjaan tambahan untuk melatih model. Dataset saat ini secara keseluruhan terdiri dari 8 jam rekaman dalam 7 bahasa dari Indonesia, dan akan ditambahkan lebih banyak bahasa atau file audio seiring dengan pengumpulannya.
+
+Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0 tersebut sebagai sumber data. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{156 file audio} yang sudah \textbf{tersegmentasi} (\textit{pre-segmented}) dengan durasi rata-rata 30 detik per segmen.
 
 \textbf{Penting untuk dicatat}: Dataset ini diterima dalam kondisi sudah tersegmentasi oleh \textit{maintainer} LibriVox Indonesia, yang telah membagi rekaman pembacaan panjang menjadi klip-klip pendek berdasarkan jeda natural dalam pembacaan. Proses segmentasi ini dilakukan oleh \textit{maintainer}, bukan sebagai bagian dari \textit{preprocessing} penelitian ini. Sebagian besar segmen memiliki durasi yang mendekati batas maksimal input Whisper (30 detik), dengan distribusi durasi berkisar antara 15-35 detik dan median sekitar 28-30 detik.
 
@@ -112,6 +114,42 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
 \noindent
 Ketiga teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, dan \textit{Noise Injection}) \textbf{hanya diterapkan pada data training} di dalam setiap \textit{fold}, dan \textbf{TIDAK PERNAH diterapkan pada test set}. Pipeline yang benar adalah: \textbf{(1) Split Fold, (2) Augment Training Data Only, (3) Train}. Augmentasi tidak boleh dilakukan sebelum proses splitting karena akan menyebabkan \textit{data leakage} di mana informasi dari \textit{test set} bocor ke \textit{training set} melalui versi teraugmentasi. Hal ini sangat krusial untuk memastikan evaluasi yang valid dan tidak bias.
 
+Potongan Kode~\ref{lst:data_augmentation} menampilkan cuplikan dari kelas pipeline augmentasi menggunakan pustaka \texttt{torchaudio} yang diimplementasikan pada file \texttt{augmentation.py}.
+
+\begin{lstlisting}[language=Python, caption={Implementasi Kelas Pemrosesan Data Augmentation}, label={lst:data_augmentation}]
+import torch
+import torchaudio.transforms as T
+import random
+
+class SpecAugment:
+    """Apply SpecAugment to mel spectrogram."""
+    
+    def __init__(
+        self, 
+        time_mask_param: int = None, 
+        freq_mask_param: int = None
+    ):
+        """
+        Args:
+            time_mask_param: Maximum time mask length (T parameter)
+            freq_mask_param: Maximum frequency mask length (F parameter)
+        """
+        self.time_mask_param = time_mask_param or AUGMENTATION_CONFIG["specaugment_time_mask"]
+        self.freq_mask_param = freq_mask_param or AUGMENTATION_CONFIG["specaugment_freq_mask"]
+        
+        self.time_masking = T.TimeMasking(time_mask_param=self.time_mask_param)
+        self.freq_masking = T.FrequencyMasking(freq_mask_param=self.freq_mask_param)
+
+    def __call__(self, mel_spectrogram: torch.Tensor) -> torch.Tensor:
+        """Apply time and frequency masking to mel spectrogram."""
+        # Apply time masking
+        augmented = self.time_masking(mel_spectrogram)
+        
+        # Apply frequency masking
+        augmented = self.freq_masking(augmented)
+        
+        return augmented
+\end{lstlisting}
 
 \subsubsection{Text Preprocessing}
 
@@ -186,7 +224,34 @@ Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-
 
 \subsubsection{Freeze Encoder Fine-Tuning}
 
-Pada metode \textit{Freeze Encoder (Decoder-Only Fine-Tuning)}, seluruh parameter \textit{encoder} Whisper Base (yang berfungsi memproses input audio) dibekukan (\textit{frozen}), dan hanya parameter \textit{decoder} (yang menghasilkan teks transkrip) yang di-\textit{update} selama proses \textit{training}. Pendekatan ini merupakan strategi standar untuk skenario \textit{low-resource} karena mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara hanya mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau. Dengan hanya melatih \textit{decoder} ($\sim$37 juta dari 74 juta parameter total), pendekatan ini lebih efisien dibandingkan melatih seluruh model (\textit{full fine-tuning}).
+Pada metode \textit{Freeze Encoder (Decoder-Only Fine-Tuning)}, seluruh parameter \textit{encoder} Whisper Base (yang berfungsi memproses input audio) dibekukan (\textit{frozen}), dan hanya parameter \textit{decoder} (yang menghasilkan teks transkrip) yang di-\textit{update} selama proses \textit{training}. Pendekatan ini merupakan strategi standar untuk skenario \textit{low-resource} karena mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara hanya mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau. Dengan hanya melatih \textit{decoder} ($\sim$37 juta dari 74 juta parameter total), pendekatan ini lebih efisien dibandingkan melatih seluruh model (\textit{full fine-tuning}). Implementasi pembekuan \textit{encoder} diilustrasikan pada Potongan Kode~\ref{lst:freeze_encoder}.
+
+\begin{lstlisting}[language=Python, caption={Implementasi Fungsi Pembekuan Parameter Encoder (\textit{Freeze Encoder})}, label={lst:freeze_encoder}]
+def freeze_encoder(model: WhisperForConditionalGeneration) -> WhisperForConditionalGeneration:
+    """
+    Freeze the encoder weights; only train the decoder.
+    
+    Args:
+        model: Whisper model
+        
+    Returns:
+        Model with frozen encoder
+    """
+    # Freeze encoder
+    model.model.encoder.requires_grad_(False)
+    
+    # Ensure decoder is trainable
+    model.model.decoder.requires_grad_(True)
+    
+    # Count trainable parameters
+    total_params = sum(p.numel() for p in model.parameters())
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"Total parameters: {total_params:,}")
+    print(f"Trainable parameters: {trainable_params:,}")
+    print(f"Percentage trainable: {(trainable_params / total_params) * 100:.2f}%")
+    
+    return model
+\end{lstlisting}
 
 Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{tetap} (tidak divariasikan) pada seluruh percobaan \textit{Freeze Encoder} adalah:
 
@@ -236,6 +301,46 @@ Beam Width & 1 (greedy), 5 & \parbox{4cm}{Strategi dekoding: greedy vs \textit{b
 \end{table}
 
 Total dilakukan \textbf{sepuluh percobaan} dengan kombinasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (FE-1 hingga FE-6, Januari--Februari 2026) berfokus pada eksplorasi \textit{learning rate}, \textit{weight decay}, augmentasi, dan strategi dekoding; Fase 2 (FE-7 hingga FE-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy} dikombinasikan dengan optimasi lebih lanjut; Fase 3 (FE-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:fe_run_configs} dan Tabel~\ref{tab:fe_run_comparison}).
+
+Implementasi modifikasi fungsi \textit{loss} menjadi \textit{Weighted Cross-Entropy} beserta \textit{Label Smoothing} menggunakan kerangka kelas bawaan dari pustaka \texttt{transformers} ditunjukkan pada Potongan Kode~\ref{lst:wce_loss}.
+
+\begin{lstlisting}[language=Python, caption={Implementasi Modifikasi \textit{Weighted Cross-Entropy Loss}}, label={lst:wce_loss}]
+class WeightedCEMixin:
+    """
+    Mixin that overrides compute_loss() to use weighted cross-entropy.
+    Supports label_smoothing_factor from training args.
+    """
+
+    def __init__(self, *args, token_weights: Optional[torch.Tensor] = None, **kwargs):
+        self._token_weights = token_weights
+        super().__init__(*args, **kwargs)
+
+    def compute_loss(self, model, inputs, num_items_in_batch=None, **kwargs):
+        # If no token weights, fall back to parent (standard CE)
+        if self._token_weights is None:
+            return super().compute_loss(model, inputs, num_items_in_batch=num_items_in_batch, **kwargs)
+            
+        # --- Weighted CE path ---
+        labels = inputs.pop("labels")
+        outputs = model(**inputs)
+        logits = outputs.logits  # (batch, seq_len, vocab_size)
+
+        # Move weights to same device as logits, pad if vocab size changed
+        weights = self._token_weights.to(logits.device)
+        model_vocab = logits.size(-1)
+        if weights.size(0) < model_vocab:
+            pad = torch.full((model_vocab - weights.size(0),), weights[0].item(), device=weights.device, dtype=weights.dtype)
+            weights = torch.cat([weights, pad])
+
+        log_probs = F.log_softmax(logits, dim=-1)
+        loss = F.nll_loss(
+            log_probs.view(-1, model_vocab),
+            labels.view(-1),
+            weight=weights,
+            ignore_index=-100,
+        )
+        return (loss, outputs) if kwargs.get("return_outputs") else loss
+\end{lstlisting}
 
 \subsubsection{LoRA Fine-Tuning}
 
@@ -287,6 +392,30 @@ Max Steps & 100, 150, 200, 250, 400 & Batas \textit{training} \\
 \end{table}
 
 Dengan variasi konfigurasi \textit{rank} (8 atau 16), LoRA melatih $\sim$\textbf{1,47\%--2,93\%} dari total parameter ($\sim$1,08--2,16 juta dari 74 juta parameter), yang secara drastis lebih efisien dibandingkan \textit{Freeze Encoder} (50\%). Total dilakukan \textbf{sepuluh percobaan} dengan variasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (L-1 hingga L-6, Februari 2026) berfokus pada eksplorasi \textit{rank}, \textit{learning rate}, augmentasi, dan regularisasi; Fase 2 (L-7 hingga L-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy}, termasuk satu percobaan dengan \textit{rank} yang lebih tinggi ($r$=16, $\sim$2,93\% parameter trainable); Fase 3 (L-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:lora_run_configs} dan Tabel~\ref{tab:lora_run_comparison}).
+
+Potongan Kode~\ref{lst:lora_config} menunjukkan implementasi dari konfigurasi LoRA menggunakan pustaka PEFT (\textit{Parameter-Efficient Fine-Tuning}) dari Hugging Face yang digunakan dalam pengembangan model ini.
+
+\begin{lstlisting}[language=Python, caption={Implementasi Definisi Parameter LoRA Menggunakan Pustaka PEFT}, label={lst:lora_config}]
+from peft import LoraConfig, get_peft_model
+
+# Definisi parameter LoRA (dari LORA_CONFIG)
+lora_config = LoraConfig(
+    r=16,                            # Rank dimensi matriks
+    lora_alpha=32,                   # Faktor skala (alpha/r = 2x scaling)
+    lora_dropout=0.15,               # Probabilitas dropout
+    target_modules=[                 # All attention + FFN linear layers
+        "q_proj", "v_proj", "k_proj", 
+        "out_proj", "fc1", "fc2"
+    ],
+    bias="none",                     # Don't train bias parameters
+    task_type=None,
+    modules_to_save=[]
+)
+
+# Integrasi LoRA pada model Whisper pre-trained
+model = get_peft_model(model, lora_config)
+model.print_trainable_parameters()
+\end{lstlisting}
 
 \subsubsection{Regularization}
 
