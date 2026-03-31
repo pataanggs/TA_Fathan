@@ -75,12 +75,12 @@ Data/**/*.wav
 # Model checkpoints and outputs
 # outputs/
 processed_audio/
-checkpoints/
-*.pt
-*.pth
-*.bin
-*.safetensors
-*.onnx
+# checkpoints/
+# *.pt
+# *.pth
+# *.bin
+# *.safetensors
+# *.onnx
 
 # Hugging Face cache
 .cache/

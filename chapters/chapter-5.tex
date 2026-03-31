@@ -55,6 +55,7 @@ Penelitian ini telah berhasil mengadaptasi model \textit{Automatic Speech Recogn
 
 \end{enumerate}
 
+\par
 Secara keseluruhan, penelitian ini menunjukkan bahwa \textit{fine-tuning} Whisper Base dengan strategi LoRA merupakan pendekatan yang paling efektif dan efisien untuk skenario ASR bahasa \textit{low-resource} seperti bahasa Minangkabau. Keunggulan LoRA tidak hanya terletak pada efisiensi parameter, tetapi juga pada kemampuannya menghasilkan adaptasi yang lebih menyeluruh dengan risiko \textit{overfitting} yang lebih rendah melalui regularisasi struktural dari \textit{low-rank constraint} \cite{hu2022lora, song2024lorawhisper}. Penambahan WCE dengan \textit{Temporal Separation} membuktikan bahwa pada skenario \textit{extremely low-resource} tanpa korpus eksternal seperti KBBI, model dapat menyempurnakan dirinya sendiri secara iteratif\textit{belajar dari kesalahan historisnya} dengan integritas metodologis yang terjamin menghasilkan model akhir (L-10) dengan WER terbaik keseluruhan (\textbf{15,67\%} $\pm$ 1,02\%) dan konsistensi tertinggi di antara seluruh 20 percobaan.
 
 %% ===================================================================
