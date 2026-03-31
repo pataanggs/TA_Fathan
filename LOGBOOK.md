@@ -72,4 +72,8 @@
 |       DATE       | TASK                                                                                        |
 | :--------------: | ------------------------------------------------------------------------------------------- |
 | 2 Maret 2026     | Melakukan eksperimen Weighted Cross entropy                                                 |
-| 3 Maret 2026     | Menuliskan BAB 4 dan BAB 5 dan merangkum hasil 18x run untuk kedua metode                   |
+| 3 Maret 2026     | Menuliskan BAB 4 dan BAB 5 dan merangkum hasil 20x run untuk kedua metode                   |
+| 14 Maret 2026    | Melanjutkan menulis BAB 4 dan 5 serta melakukan analisis terkait hasil training             |
+| 16 Maret 2026    | Penulisan bagian Abstrak                                                                    |
+| 29 Maret 2026    | Revisi bab 4, 5, dan bagian lampiran                                                        |
+| 31 Maret 2026    | Update revisi bab 4 terkait Zero shot Whisper Base dan pembuatan script untuk inference     |
