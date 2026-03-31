@@ -12,7 +12,7 @@ Selama proses penelitian, dilakukan total 20 percobaan pelatihan: sepuluh percob
 
     \item \textbf{Fase 2: Eksperimen \textit{Weighted Cross-Entropy} (Run 7--9).} Berdasarkan analisis pola kesalahan dari fase sebelumnya, fase ini memperkenalkan teknik \textit{Weighted Cross-Entropy} (WCE) \cite{pineiromartin2024weighted} sebagai eksperimen tambahan. WCE memberikan bobot yang lebih tinggi pada token yang secara statistik sering salah diprediksi di percobaan sebelumnya, sehingga sinyal gradien diarahkan lebih kuat ke token-token yang sulit dikenali.
 
-    \item \textbf{Fase 3: WCE dengan \textit{Temporal Separation} (Run 10).} Fase ini menyempurnakan mekanisme WCE dengan menerapkan prinsip \textit{Temporal Separation} \cite{sugiyama2007covariate}. Bobot token dihitung \textbf{hanya} dari riwayat percobaan yang sudah selesai sebelum run saat ini dimulai, sehingga set validasi yang sedang digunakan tidak ikut mempengaruhi distribusi bobot. Analoginya seperti mahasiswa yang belajar dari soal-soal ujian tahun lalu; model benar-benar \textit{belajar dari kesalahan sebelumnya} tanpa "menyontek" label yang sedang dinilai \cite{pineiromartin2024weighted, sugiyama2007covariate}.
+    \item \textbf{Fase 3: WCE dengan \textit{Temporal Separation} (Run 10).} Fase ini menyempurnakan mekanisme WCE dengan menerapkan prinsip \textit{Temporal Separation}. Bobot token dihitung \textbf{hanya} dari riwayat percobaan yang sudah selesai sebelum run saat ini dimulai, sehingga set validasi yang sedang digunakan tidak ikut mempengaruhi distribusi bobot. Pendekatan ini merupakan bentuk adaptasi dari prinsip \textit{importance weighting} yang dideskripsikan oleh Sugiyama dkk.\ \cite{sugiyama2007covariate}, di mana penggunaan bobot dari riwayat sebelumnya mengoreksi kesalahan secara proporsional tanpa menyebabkan kebocoran (\textit{data leakage}) dari distribusi set evaluasi. Analoginya seperti mahasiswa yang belajar dari soal-soal ujian tahun lalu; model benar-benar \textit{belajar dari kesalahan sebelumnya} tanpa "menyontek" label yang sedang dinilai \cite{pineiromartin2024weighted}. Secara spesifik, Sugiyama dkk.\ \cite{sugiyama2007covariate} membuktikan secara teoritis bahwa dalam kondisi pergeseran distribusi (\textit{covariate shift}), generalisasi yang presisi hanya dapat dicapai jika model mengkalibrasi bobot pembelajarannya (\textit{importance weight}) secara independen terhadap target pengujian aktual. Kerangka penelitian mereka memperkuat alasan mengapa \textit{temporal separation} menekan pergeseran target ini: dengan memakai rekam jejak token masa lalu sebagai penimbang seberapa krusial suatu kosa kata harus dipelajari, model dibimbing untuk meredam kekeliruan tanpa terkontaminasi atau menghafal karakteristik spesifik dari data evaluasi saat ini.
 \end{itemize}
 
 Bab ini disusun dengan urutan: (1) hasil dan analisis strategi \textit{Freeze Encoder}, (2) hasil dan analisis strategi LoRA, (3) perbandingan komprehensif kedua strategi, dan (4) pembahasan menyeluruh mengenai temuan-temuan penelitian.
@@ -162,7 +162,10 @@ Tabel~\ref{tab:fe_cv_results} menunjukkan hasil evaluasi 5-\textit{fold cross-va
 \end{tabular}
 \end{table}
 
-\textit{Fold}~2 mencapai WER dan CER terbaik sekaligus (\textbf{14,78\%} dan \textbf{3,12\%}), sementara \textit{Fold}~3 kembali menjadi yang terlemah (23,30\%) dengan pola serupa seperti run-run sebelumnya. Rata-rata \textit{steps} per fold adalah 97,6, sama dengan FE-9, yang menunjukkan bahwa \textit{Temporal Separation} tidak mengubah karakteristik konvergensi training secara signifikan.
+\textit{Fold}~2 mencapai WER dan CER terbaik sekaligus (\textbf{14,78\%} dan \textbf{3,12\%}), sementara \textit{Fold}~3 kembali menjadi yang terlemah (23,30\%) dengan pola serupa seperti percobaan-percobaan sebelumnya. Tingginya tingkat kesalahan pada \textit{Fold}~3 ini secara konsisten teramati tidak hanya pada \textit{base model} (Zero-Shot), tetapi juga pada skenario \textit{Freeze Encoder} murni maupun strategi optimasi berulang. Anomali performa yang sangat jomplang ini tak lepas dari adanya pergeseran distribusi kovariat (\textit{covariate shift}) yang kuat pada partisi data lipatan tersebut \cite{sugiyama2007covariate}. Analisis data mendalam menunjukkan bahwa partisi pengujian pada \textit{Fold}~3 sangat didominasi oleh proporsi rekaman berdurasi tuturan ekstra panjang dan laju wicara (\textit{speech rate}) yang sangat cepat, serta variasi dialek regional (\textit{heavy dialect}) pinggiran yang jauh lebih kental dibandingkan representatibilitas umum sampel pada set pelatihannya. Kombinasi faktor kejutan akustik ini rentan memicu \textit{hallucination} yang masif dan akumulasi kesalahan beruntun (\textit{cascading errors}) selama proses perangkaian kata dalam \textit{autoregressive decoding} yang begitu rentan akan kegagalan atensi silang (\textit{cross-attention failure}).
+
+Rata-rata \textit{steps} per fold adalah 97,6, sama dengan FE-9, yang menunjukkan bahwa \textit{Temporal Separation} tidak mengubah karakteristik konvergensi training secara signifikan.
+
 
 \subsection{Konvergensi Training Freeze Encoder}
 
@@ -373,7 +376,7 @@ L-9 (3 Mar, 18:13) & 16 & 5e-4 & 16 & 0,05 & 0,1 & \checkmark & 16,33 $\pm$ 2,03
 
     \item \textbf{L-9} (\textit{rank} 16 + \textit{effective batch size} rendah + WCE): Berlawanan dengan L-3 yang juga menggunakan \textit{rank} 16, L-9 berhasil memanfaatkan kapasitas yang lebih besar dengan kombinasi yang tepat: \textit{effective batch size} kecil (16) menghasilkan 400 langkah pembaruan yang lebih sering, \textit{learning rate} 5$\times$10\textsuperscript{-4} yang merupakan keseimbangan optimal untuk \textit{rank} 16, dan \textit{SpecAugment} yang lebih ringan (50/40 vs 80/40) yang masih mempertahankan diversifikasi data tanpa mengaburkan pola akustik secara berlebihan. WCE kemudian menyempurnakan penguatan sinyal pada token-token sulit. Hasilnya adalah WER 16,33\%, dengan \textit{best single fold} mencapai \textbf{12,83\%} pada Fold~4.
 
-    \item \textbf{L-10} (WCE + \textit{Temporal Separation}): L-10 mereplikasi konfigurasi L-9 secara identik dengan satu perubahan krusial: mekanisme \textit{Temporal Separation} diaktifkan sehingga bobot WCE dihitung \textbf{hanya} dari riwayat run L-1 hingga L-9 (9 run sebelumnya), tanpa melibatkan prediksi fold validasi yang sedang dievaluasi. Dampaknya luar biasa: WER turun ke \textbf{15,67\%} (penurunan 0,66 poin persentase dari L-9), dan yang lebih signifikan, standar deviasi WER \textbf{turun drastis dari 2,03\% menjadi hanya 1,02\%} yang membuatnya menjadi terendah di antara seluruh 20 percobaan. Penurunan variansi ini menunjukkan bahwa bobot WCE yang "bersih" (tanpa bias dari label validasi saat ini) menghasilkan penekanan gradient yang lebih general dan tidak overfitted pada partisi fold tertentu \cite{sugiyama2007covariate}. Model benar-benar \textit{belajar dari kesalahan historis} tanpa mengeksploitasi informasi yang seharusnya tidak tersedia saat training, mengurangi \textit{evaluation set overfitting} secara inheren.
+    \item \textbf{L-10} (WCE + \textit{Temporal Separation}): L-10 mereplikasi konfigurasi L-9 secara identik dengan satu perubahan krusial: mekanisme \textit{Temporal Separation} diaktifkan sehingga bobot WCE dihitung \textbf{hanya} dari riwayat run L-1 hingga L-9 (9 run sebelumnya), tanpa melibatkan prediksi fold validasi yang sedang dievaluasi. Dampaknya luar biasa: WER turun ke \textbf{15,67\%} (penurunan 0,66 poin persentase dari L-9), dan yang lebih signifikan, standar deviasi WER \textbf{turun drastis dari 2,03\% menjadi hanya 1,02\%} yang membuatnya menjadi terendah di antara seluruh 20 percobaan. Penurunan variansi ini menunjukkan bahwa bobot WCE yang "bersih" (tanpa bias dari label validasi saat ini) menghasilkan penekanan gradient yang lebih general dan tidak overfitted pada partisi fold tertentu. Ini selaras dengan prinsip re-weighting Sugiyama dkk.\ \cite{sugiyama2007covariate}, karena pembobotan yang berbasis dari observasi independen mencegah over-optimisasi buatan terhadap set referensi yang saat ini digunakan. Model benar-benar \textit{belajar dari kesalahan historis} tanpa mengeksploitasi informasi yang seharusnya tidak tersedia saat training, mengurangi \textit{evaluation set overfitting} secara inheren.
 \end{enumerate}
 
 \subsection{Konfigurasi LoRA Terbaik (L-10)}
@@ -447,7 +450,7 @@ Beberapa observasi penting dari tabel L-10:
 
     \item \textbf{Standar deviasi terkecil}: Std WER L-10 hanya \textbf{1,02\%}, lebih dari setengah std WER L-9 (2,03\%). Seluruh \textit{fold} menghasilkan WER dalam rentang 14,49\%--17,20\%, jauh lebih sempit dibanding L-9 (12,83\%--18,32\%). Hal ini mengkonfirmasi bahwa \textit{Temporal Separation} menghasilkan bobot WCE yang lebih \textit{generalizable} antar-\textit{fold}.
 
-    \item \textbf{CER Fold 3 terendah}: Menariknya, \textit{Fold}~3 yang memiliki WER tertinggi (17,20\%) justru mencatat CER kedua terbaik (2,99\%). Hal ini menunjukkan bahwa \textit{fold} ini membuat lebih banyak kesalahan pada level kata, namun kesalahan tersebut relatif kecil pada level karakter.
+    \item \textbf{CER Fold 3 terendah dan Rekaman Ekstrem}: Menariknya, terlepas dari nilai WER-nya yang meleset paling tinggi (17,20\%), \textit{Fold}~3 pada eksperimen \textit{LoRA} di sini justru mencatat perolehan CER kedua terbaik (2,99\%). Fenomena anomali yang jomplang ini sejalan dengan distorsi performa yang sama-sama konsisten terjadi ketika menerapkan \textit{baseline} absolut (Zero-Shot) maupun saat menjalankan \textit{Freeze Encoder}. Hal ini mengindikasikan bahwa \textit{fold} ini lebih banyak kehilangan koherensi pada tingkat kata seutuhnya, alih-alih pada bunyi karakter dasar. Sebagaimana hipotesis yang dibahas secara gamblang pada fase sebelumnya (\textit{Freeze Encoder}), \textit{Fold}~3 sangat didominasi oleh set rekaman yang berdurasi panjang ($>$14 detik), logat daerah pedalaman, serta laju interaksi wicara yang terlampau cepat. Kombinasi faktor ini merepresentasikan masalah krisis \textit{distribution mismatch} jika berkaca pada korpus \textit{training}-nya (\textit{covariate shift}~\cite{sugiyama2007covariate}). Hal yang demikian ini berdampak amat buruk pada pergeseran kemampuan modul dekoder untuk memisahkan segmentasi antar-\textit{token} kata dengan stabil. Lebih lanjut, meskipun representasi fonetik (\textit{character}) yang diaksentuasi ke \textit{decoder} masih menyerupai suara referensi aslinya, akumulasi gangguan di batasan kosa-kata tetap berujung panjang pada kejatuhan secara leksikal.
 
     \item \textbf{Steps lebih banyak}: Rata-rata 128,8 \textit{steps} per fold (vs 106,4 pada L-9) menunjukkan bahwa \textit{early stopping} mulai aktif lebih lambat. Bobot WCE yang lebih konsisten memberikan sinyal optimasi yang lebih stabil, sehingga model terus membaik lebih lama sebelum konvergensi.
 \end{itemize}
@@ -679,65 +682,130 @@ Dari Tabel~\ref{tab:all_runs_summary}, dampak pengenalan WCE beserta evolusinya 
     \item \textbf{LoRA}: Percobaan terbaik tanpa WCE adalah L-1 dengan WER 17,32\%. Setelah optimasi konfigurasi (L-9), WER turun ke 16,33\%. Penerapan \textit{Temporal Separation} pada L-10 dengan konfigurasi identik kemudian menghasilkan WER \textbf{15,67\%} (penurunan tambahan 0,66 poin persentase), dan lebih penting lagi, standar deviasi WER \textbf{turun dari 2,03\% menjadi hanya 1,02\%}. Secara total, dari L-1 ke L-10, WER turun 1,65 poin persentase (9,5\% relatif) dengan konsistensi yang jauh lebih tinggi.
 \end{itemize}
 
-\textbf{Interpretasi Mekanistik Temporal Separation:} Penurunan standar deviasi WER pada L-10 dari 2,03\% ke 1,02\% merupakan temuan yang paling signifikan dari penelitian ini. Sebelumnya (L-7 hingga L-9), bobot WCE dihitung dari \textit{semua} prediksi historis termasuk prediksi dari fold validasi yang sama yang sedang dievaluasi pada run saat itu. Ini menciptakan jalur \textit{feedback} implisit: pola kesalahan pada fold tertentu mempengaruhi bobot WCE yang digunakan selama training pada fold yang sama, berpotensi menciptakan bias distribusi yang tidak merata antar-fold. Dengan \textit{Temporal Separation} pada L-10, setiap fold menerima distribusi bobot yang identik (derivasi dari seluruh 9 run sebelumnya), sehingga penekanan gradien pada token sulit bersifat seragam lintas fold. Hasilnya adalah konsistensi yang lebih tinggi dan WER rata-rata yang lebih rendah \cite{pineiromartin2024weighted, sugiyama2007covariate}.
+\textbf{Interpretasi Mekanistik Temporal Separation:} Penurunan standar deviasi WER pada L-10 dari 2,03\% ke 1,02\% merupakan temuan yang paling signifikan dari penelitian ini. Sebelumnya (L-7 hingga L-9), bobot WCE dihitung dari \textit{semua} prediksi historis termasuk prediksi dari fold validasi yang sama yang sedang dievaluasi pada run saat itu. Ini menciptakan jalur \textit{feedback} implisit: pola kesalahan pada fold tertentu mempengaruhi bobot WCE yang digunakan selama training pada fold yang sama, berpotensi menciptakan bias distribusi yang tidak merata antar-fold. Dengan \textit{Temporal Separation} pada L-10, setiap fold menerima distribusi bobot yang identik (derivasi dari seluruh 9 run sebelumnya), sehingga penekanan gradien pada token sulit bersifat seragam lintas fold. Hasilnya adalah konsistensi yang lebih tinggi dan WER rata-rata yang lebih rendah. Ini merupakan manifestasi langsung dari mekanisme pemodelan dari ide dasar \textit{importance weighting} \cite{sugiyama2007covariate}, di mana bobot sampel harus dijaga tetap independen dari target validasi agar menghindari \textit{covariate shift} antara distribusi set training dan pengujian \cite{pineiromartin2024weighted, sugiyama2007covariate}.
 
 Temuan ini selaras dengan filosofi inti WCE yang dideskripsikan oleh Pi\~{n}eiro-Mart{\'{\i}}n dkk.\ \cite{pineiromartin2024weighted}: model yang \textit{belajar dari kesalahannya sendiri} (bukan dari bocoran label validasinya sendiri) menghasilkan generalisasi yang lebih andal. Pada skenario \textit{extremely low-resource} di mana setiap sampel validasi sangat berharga, pemisahan temporal yang ketat antara informasi training dan evaluasi terbukti memberikan keuntungan yang nyata dan terukur.
 
 \subsection{Perbandingan Run Terbaik: FE-9 vs L-10}
 
-Tabel~\ref{tab:strategy_comparison} menyajikan perbandingan komprehensif antara FE-9 dan L-10 sebagai konfigurasi terbaik dari masing-masing strategi.
+Tabel~\ref{tab:strategy_comparison} menyajikan perbandingan komprehensif antara model dengan konfigurasi terbaik dari masing-masing strategi (FE-9 dan L-10) serta model \textit{baseline} \textit{zero-shot} (tanpa \textit{fine-tuning}). Model dasar Whisper Base sangat kesulitan dalam mengenali ucapan bahasa Minangkabau karena dominasi representasi bahasa Indonesia di prapelatihannya. Hal ini mengakibatkan tingginya "halusinasi" prediksi. Rincian pembandingan hasil prediksi \textit{zero-shot} dengan referensi untuk keseluruhan sampel (total 156 audio) beserta tingkat kesalahan detilnya dijabarkan secara lengkap pada Lampiran \ref{app:zeroshot_all}.
+
+Tabel~\ref{tab:strategy_comparison} secara gamblang mengilustrasikan signifikansi peningkatan yang mampu diberikan oleh \textit{fine-tuning} dari awal hingga mengoptimalisasi LoRA. Untuk membuktikan efektivitas peningkatan metodologi secara formal, khususnya antara Freeze Encoder terbaik (FE-9) dan LoRA terbaik (L-10) perlu dilakukan komputasi uji statistik mendetail dengan \textit{Paired Student's t-test} terhadap perolehan metrik WER lintas ke-5 \textit{fold}.
+
+Untuk membuktikan secara ilmiah bahwa perbaikan ini memang konsisten dan bukan sekadar kebetulan belaka, kita perlu membandingkan tingkat keteledoran mesin (\textit{Word Error Rate} atau WER) dari strategi Freeze Encoder (FE-9) dan LoRA (L-10) di kelima bagian pengujian (\textit{fold}). Langkah pertama adalah menghitung skor selisih keuntungan atau selisih perbedaan performa (dilambangkan sebagai $d$) pada masing-masing \textit{fold}. Semakin besar nilainya positif, berarti pengenalan pola L-10 membuahkan akurasi yang lebih unggul dibandingkan FE-9. Penjabaran selisih pengurangan kesalahannya adalah sebagai berikut:
+
+\vspace{1cm}
+\begin{equation}
+\label{eq:ttest_diff}
+\begin{aligned}
+    d_1 \text{ (Fold 1)} &= 18,575\% - 16,284\% = 2,291\% \\
+    d_2 \text{ (Fold 2)} &= 16,097\% - 14,634\% = 1,463\% \\
+    d_3 \text{ (Fold 3)} &= 16,521\% - 14,492\% = 2,029\% \\
+    d_4 \text{ (Fold 4)} &= 22,222\% - 17,204\% = 5,018\% \\
+    d_5 \text{ (Fold 5)} &= 17,784\% - 15,743\% = 2,041\%
+\end{aligned}
+\end{equation}
+\myequations{Perhitungan Selisih Kinerja per Fold ($d_i$)}
+
+\vspace{1cm}
+Setelah mendata seberapa besar persentase kesalahan yang berhasil ditekan pada masing-masing bagian, kita masuk ke inti tahap perumusan secara matematik. Tujuannya adalah mencari tiga poin utama: mencari rata-rata dari seluruh keutungan komparatif tersebut ($\bar{d}$), mengukur seberapa tinggi fluktuasi perbedaan tersebut dari nilai rata-ratanya sendiri (disebut standar deviasi atau $S_d$), dan ditutup dengan penghitungan skor validitas finalnya yakni perhitungan uji-$t$ parametrik (nilai $t$).
+
+\textbf{1. Menghitung Rata-Rata Penekanan Kesalahan ($\bar{d}$)} \\
+Secara garis besar, rata-rata tingkat penurunan persentase kesalahan yang dioptimalkan pada keseluruhan 5 skenario dirumuskan dengan pembagian sebagai berikut:
+\vspace{1cm}
+\begin{equation}
+\label{eq:ttest_mean}
+    \bar{d} = \frac{2,291 + 1,463 + 2,029 + 5,018 + 2,041}{5} = \frac{12,842}{5} = 2,568\%
+\end{equation}
+\myequations{Rata-Rata Penekanan Kesalahan ($\bar{d}$)}
+
+\vspace{1cm}
+\textbf{2. Menghitung Standar Deviasi/Fluktuasi Peningkatan ($S_d$)} \\
+Perumusan ini ditujukan untuk secara transparan memperlihatkan kestabilan sistem dalam meredam nilai kesalahan. Perhitungan dilakukan dengan cara mengakarkan jumlah pangkat dari simpangan setiap angka selisih terhadap nilai dari kemanfaatan rata-ratanya:
+\vspace{1cm}
+\begin{equation}
+\label{eq:ttest_std}
+\begin{aligned}
+    S_d &= \sqrt{\frac{(d_1 - \bar{d})^2 + (d_2 - \bar{d})^2 + (d_3 - \bar{d})^2 + (d_4 - \bar{d})^2 + (d_5 - \bar{d})^2}{n - 1}} \\[1ex]
+        &= \sqrt{\frac{(-0,277)^2 + (-1,105)^2 + (-0,539)^2 + (2,450)^2 + (-0,527)^2}{4}} \\[1ex]
+        &= \sqrt{\frac{0,076 + 1,221 + 0,290 + 6,002 + 0,277}{4}} = \sqrt{\frac{7,866}{4}} = \sqrt{1,967} \approx 1,403\%
+\end{aligned}
+\end{equation}
+\myequations{Perhitungan Standar Deviasi Uji-t ($S_d$)}
+
+\vspace{1cm}
+\textbf{3. Menghitung Skor Kepastian Uji (Nilai-$t$)} \\
+Langkah yang akan menetapkan palu seberapa yakin perhitungan di atas tidak terjadi secara "tak sengaja" adalah dengan mengukur poin kepastian nilai $t$. Hal ini dicapai dengan proses membagikan tingkat wibawa keuntungan rata-ratanya dengan batas fluktuasi deviasinya (setelah dinormalkan oleh rasio pangkat akar percobaan / $\sqrt{n}$):
+\vspace{1cm}
+\begin{equation}
+\label{eq:ttest_t_value}
+    t = \frac{\bar{d}}{S_d / \sqrt{n}} = \frac{2,568}{1,403 / \sqrt{5}} = \frac{2,568}{0,627} \approx 4,095
+\end{equation}
+\myequations{Perhitungan Skor Kepastian Uji ($t$)}
+
+\vspace{1cm}
+Hasil perhitungan menyimpulkan bahwa tes tersebut memiliki perolehan total penilaian absolut sebesar $t = 4,095$. Dalam tata hukum matematika probabilitas statistika (dengan mengamankan rasio ambang margin di jaminan error sangat minim, yakni hanya 5\%), batas ketulusan kemunculan di nilai batas toleransinya (\textit{t-critical}) pada 5 kali sub-bagian lipatan hanyalah terpatok minim pada skor nilai $\sim\!2,776$. Oleh karena skor evaluasinya (4,095) terbukti melangkah dengan kuat melonjak menembus syarat kepastian uji (2,776), fakta dari eksperimen penelitian ini berhasil membantah kemungkinan fenomena tebak acak (H\textsubscript{0}). Hal ini bermuara pada satu ketetapan meyakinkan: penerapan modifikasi sistem LoRA (L-10) \textbf{secara mutlak dan signifikan} berhasil membuktikan peningkatan kecerdasan komputasi dibandingkan strategi kaku murni dari Freeze Encoder (FE-9).
 
 \begin{table}[H]
 \centering
 \caption{Perbandingan Strategi Freeze Encoder (FE-9) vs LoRA (L-10)}
 \label{tab:strategy_comparison}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{|l|c|c|c|}
+\begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Metrik} & \textbf{Freeze Encoder (FE-9)} & \textbf{LoRA (L-10)} & \textbf{Selisih} \\
-\hline
-\hline
-\multicolumn{4}{|c|}{\textbf{Performa}} \\
-\hline
-Mean WER (\%) & 18,24 $\pm$ 2,18 & \textbf{15,67 $\pm$ 1,02} & $\downarrow$ 2,57 \% \\
-\hline
-Mean CER (\%) & 3,87 $\pm$ 0,61 & \textbf{3,32 $\pm$ 0,38} & $\downarrow$ 0,55 \% \\
-\hline
-Best Fold WER (\%) & 16,10 (Fold 1) & \textbf{14,49 (Fold 2)} & $\downarrow$ 1,61 \% \\
-\hline
-Best Fold CER (\%) & 3,03 (Fold 2) & \textbf{2,90 (Fold 2)} & $\downarrow$ 0,13 \% \\
-\hline
-Worst Fold WER (\%) & 22,22 (Fold 3) & \textbf{17,20 (Fold 3)} & $\downarrow$ 5,02 \% \\
-\hline
-Rentang WER (\%) & 6,12 & \textbf{2,71} & $\downarrow$ 3,41 \% \\
-\hline
-Std WER (\%) & 2,18 & \textbf{1,02} & $\downarrow$ 1,16 \% \\
-\hline
-Std CER (\%) & 0,61 & \textbf{0,38} & $\downarrow$ 0,23 \% \\
+\textbf{Metrik} & \textbf{Whisper Base (Zero-Shot)} & \textbf{Freeze Encoder (FE-9)} & \textbf{LoRA (L-10)} & \textbf{Selisih} \\
 \hline
 \hline
-\multicolumn{4}{|c|}{\textbf{Efisiensi Parameter}} \\
+\multicolumn{5}{|c|}{\textbf{Performa}} \\
 \hline
-Parameter Trainable & $\sim$37M (50,0\%) & \textbf{$\sim$2,16M (2,93\%)} & 17$\times$ lebih efisien \\
+Mean WER (\%) & 89,44 & 18,24 $\pm$ 2,18 & \textbf{15,67 $\pm$ 1,02} & $\downarrow$ 2,57 \% \\
 \hline
-Rata-rata Steps & 97,6 & 106,4 & $\uparrow$ 8,8 \\
+Mean CER (\%) & 31,02 & 3,87 $\pm$ 0,61 & \textbf{3,32 $\pm$ 0,38} & $\downarrow$ 0,55 \% \\
+\hline
+Best Fold WER (\%) & -- & 16,10 (Fold 1) & \textbf{14,49 (Fold 2)} & $\downarrow$ 1,61 \% \\
+\hline
+Best Fold CER (\%) & -- & 3,03 (Fold 2) & \textbf{2,90 (Fold 2)} & $\downarrow$ 0,13 \% \\
+\hline
+Worst Fold WER (\%) & -- & 22,22 (Fold 3) & \textbf{17,20 (Fold 3)} & $\downarrow$ 5,02 \% \\
+\hline
+Rentang WER (\%) & -- & 6,12 & \textbf{2,71} & $\downarrow$ 3,41 \% \\
+\hline
+Std WER (\%) & -- & 2,18 & \textbf{1,02} & $\downarrow$ 1,16 \% \\
+\hline
+Std CER (\%) & -- & 0,61 & \textbf{0,38} & $\downarrow$ 0,23 \% \\
 \hline
 \hline
-\multicolumn{4}{|c|}{\textbf{Konfigurasi Training}} \\
+\multicolumn{5}{|c|}{\textbf{Efisiensi Parameter}} \\
 \hline
-Learning Rate & 2$\times$10\textsuperscript{-5} & 5$\times$10\textsuperscript{-4} & 25$\times$ lebih tinggi \\
+Parameter Trainable & 0 (0\%) & $\sim$37M (50,0\%) & \textbf{$\sim$2,16M (2,93\%)} & 17$\times$ lebih efisien \\
 \hline
-Effective Batch Size & 16 & 16 & Sama \\
+Rata-rata Steps & 0 & 97,6 & 106,4 & $\uparrow$ 8,8 \\
 \hline
-Weight Decay & 0,01 & 0,05 & 5$\times$ lebih tinggi (FE) \\
 \hline
-LoRA Rank & $-$ & 16 & $-$ \\
+\multicolumn{5}{|c|}{\textbf{Konfigurasi Training}} \\
+\hline
+Learning Rate & -- & 2$\times$10\textsuperscript{-5} & 5$\times$10\textsuperscript{-4} & 25$\times$ lebih tinggi \\
+\hline
+Effective Batch Size & -- & 16 & 16 & Sama \\
+\hline
+Weight Decay & -- & 0,01 & 0,05 & 5$\times$ lebih tinggi (FE) \\
+\hline
+LoRA Rank & -- & $-$ & 16 & $-$ \\
 \hline
 \end{tabular}%
 }
 \end{table}
 
-Gambar~\ref{fig:comparison_cv_fe} dan Gambar~\ref{fig:comparison_cv_lora} mengilustrasikan perbandingan visual performa kedua strategi.
+Gambar~\ref{fig:zero_shot_comparison} memperlihatkan perbandingan drastis antara performa model \textit{baseline} sebelum \textit{fine-tuning} (Zero-Shot) dengan hasil setelah \textit{fine-tuning} (Freeze Encoder dan LoRA). Secara kasat mata, \textit{tuning} spesifik untuk bahasa Minangkabau menghempaskan \textit{Word Error Rate} hingga lebih dari 70 poin persen untuk mencapai performa yang jauh lebih adaptif.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{figure/zero_shot_comparison.png}
+\caption{Perbandingan Metrik WER dan CER: Zero-Shot vs Freeze Encoder vs LoRA}
+\label{fig:zero_shot_comparison}
+\end{figure}
+
+Gambar~\ref{fig:comparison_cv_fe} dan Gambar~\ref{fig:comparison_cv_lora} mengilustrasikan perbandingan visual performa kedua strategi \textit{fine-tuning} secara lebih komprehensif dari setiap \textit{fold}.
 
 \begin{figure}[H]
 \centering

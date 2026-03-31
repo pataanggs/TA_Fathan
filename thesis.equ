@@ -12,3 +12,7 @@
 \contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{59}{equation.3.5.7}%
 \contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA (Matriks A dan B)}{59}{equation.3.5.8}%
 \contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{59}{equation.3.5.9}%
+\contentsline {myequations}{\numberline {Rumus~4.1}Perhitungan Selisih Kinerja per Fold ($d_i$)}{78}{equation.4.4.1}%
+\contentsline {myequations}{\numberline {Rumus~4.2}Rata-Rata Penekanan Kesalahan ($\bar {d}$)}{78}{equation.4.4.2}%
+\contentsline {myequations}{\numberline {Rumus~4.3}Perhitungan Standar Deviasi Uji-t ($S_d$)}{79}{equation.4.4.3}%
+\contentsline {myequations}{\numberline {Rumus~4.4}Perhitungan Skor Kepastian Uji ($t$)}{79}{equation.4.4.4}%
