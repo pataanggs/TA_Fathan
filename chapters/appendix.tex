@@ -17,14 +17,14 @@ Tabel berikut menyajikan pembandingan secara utuh antara referensi (\textit{grou
 \vspace{0.5cm}
 
 \begin{longtable}{|c|p{0.4\textwidth}|p{0.4\textwidth}|}
-\caption{Hasil Prediksi Zero-Shot Seluruh Sampel Audio} \label{tab:zeroshot_all_samples} \\
+\multicolumn{3}{c}{\textbf{Hasil Prediksi Zero-Shot Seluruh Sampel Audio}} \\
 \hline
 \textbf{Sampel} & \textbf{Referensi (Ground Truth)} & \textbf{Prediksi (Zero-Shot)} \\
 \hline
 \endfirsthead
 
 \multicolumn{3}{c}%
-{{\bfseries \tablename\ \thetable{} -- Lanjutan dari halaman sebelumnya}} \\
+{{\bfseries Lanjutan dari halaman sebelumnya}} \\
 \hline
 \textbf{Sampel} & \textbf{Referensi (Ground Truth)} & \textbf{Prediksi (Zero-Shot)} \\
 \hline
@@ -350,3 +350,306 @@ Tabel berikut menyajikan pembandingan secara utuh antara referensi (\textit{grou
 156 & pasal dua puluh delapan tiok urang punyo hak mandapek katartiban sosial dan katartiban internasional untuak mawujudkan saluruah hak hak dan kabebasan sasuai jo deklarasi ko & assal 20 dalapan jok urang punya hak mandapak kata rtban sosial dan kata rtban international untuk mau jutkan saluruh hak hak dan kebebasan sasuay yo deklarasi ko \\
 \hline
 \end{longtable}
+
+\clearpage
+\section{Snippet Kode Latihan (Training) LoRA dan Freeze Encoder}
+\label{app:training_code}
+
+Berikut ini merupakan beberapa potongan kode (\textit{code snippet}) konfigurasi dan implementasi pelatihan pada model Whisper menggunakan metode adaptasi \textit{Low-Rank Adaptation} (LoRA) serta \textit{Freeze Encoder}, ditambah dengan implementasi penanganan \textit{data imbalance} melalui \textit{Weighted Cross-Entropy}.
+
+\subsection{Implementasi Pelatihan dengan LoRA}
+Pada pendekatan \textit{Parameter-Efficient Fine-Tuning} (PEFT) dengan menggunakan LoRA, sebagian besar bobot model dibekukan. Berikut konfigurasi dan inisialisasi pembentukan model parametrik menggunakan ukuran matriks ber-\textit{rank} rendah ($r=16$).
+
+\textbf{1. Konfigurasi LoRA (\texttt{code/lora/config.py})}
+\begin{lstlisting}[language=Python]
+LORA_CONFIG = {
+    "r": 16,                         # Increased rank to support target modules
+    "lora_alpha": 32,                # Scaling factor (alpha/r)
+    "lora_dropout": 0.15,            # Dropout rate on LoRA layers
+    "target_modules": [              # Attention + FFN linear layers
+        "q_proj", "v_proj", "k_proj", "out_proj", "fc1", "fc2"
+    ],
+    "bias": "none",
+    "task_type": "SEQ_2_SEQ_LM",
+    "modules_to_save": [],           
+}
+\end{lstlisting}
+
+\textbf{2. Modifikasi Model menggunakan PEFT (\texttt{code/lora/trainer.py})}
+\begin{lstlisting}[language=Python]
+from peft import LoraConfig, get_peft_model
+
+def apply_lora(model):
+    """Apply LoRA adapters to the Whisper model."""
+    lora_config = LoraConfig(
+        r=LORA_CONFIG["r"],
+        lora_alpha=LORA_CONFIG["lora_alpha"],
+        lora_dropout=LORA_CONFIG["lora_dropout"],
+        target_modules=LORA_CONFIG["target_modules"],
+        bias=LORA_CONFIG["bias"],
+        task_type=None,
+    )
+    
+    # Wrap model with LoRA parametrisation
+    model = get_peft_model(model, lora_config)
+    return model
+\end{lstlisting}
+
+\subsection{Implementasi Pelatihan dengan Freeze Encoder}
+Pada metode \textit{Freeze Encoder}, bagian \textit{encoder} sepenuhnya dibekukan dan \textit{decoder} dilatih. Berbeda dari LoRA, bagian ini melatih jutaan parameter \textit{decoder} secara utuh.
+
+\textbf{1. Konfigurasi dan Hyperparameter (\texttt{code/freeze\_encoder/config.py})}
+\begin{lstlisting}[language=Python]
+TRAINING_ARGS = {
+    "per_device_train_batch_size": 16,       
+    "gradient_accumulation_steps": 1,        
+    "learning_rate": 2e-5,                   
+    "warmup_ratio": 0.1,                     
+    "max_steps": 400,                        
+    "weight_decay": 0.01,   # Minimal L2 weight constraint                 
+    "label_smoothing_factor": 0.1,         
+    "optim": "adamw_torch",
+}
+FREEZE_ENCODER = True
+\end{lstlisting}
+
+\textbf{2. Pembekuan Layer Encoder (\texttt{code/freeze\_encoder/trainer.py})}
+\begin{lstlisting}[language=Python]
+def freeze_encoder(model):
+    """Freeze the encoder weights; only train the decoder."""
+    # Matikan gradien pada layer encoder
+    model.model.encoder.requires_grad_(False)
+    
+    # Nyalakan kembali/pastikan gradien bekerja pada layer decoder
+    model.model.decoder.requires_grad_(True)
+    
+    return model
+\end{lstlisting}
+
+\subsection{Weighted Cross-Entropy Loss (\texttt{code/weighted\_ce.py})}
+Pendekatan kustom untuk menghitung \textit{Cross-Entropy Loss} yang telah diberikan bobot (\textit{weighted}) pada level fonem agar model memberikan penalti yang lebih tinggi ketika salah memprediksi pada karakter/fonem minoritas (*data imbalance*).
+
+\begin{lstlisting}[language=Python]
+import torch
+
+class WeightedCEMixin:
+    """
+    Custom Mixin untuk Seq2SeqTrainer guna menghitung 
+    Weighted Cross-Entropy dengan label smoothing.
+    """
+    def compute_loss(self, model, inputs, num_items_in_batch=None, **kwargs):
+        # 1. Pre-compute decoder_input_ids for label smoothing
+        if "labels" in inputs and "decoder_input_ids" not in inputs:
+            labels = inputs["labels"]
+            decoder_input_ids = labels.new_zeros(labels.shape)
+            decoder_input_ids[:, 1:] = labels[:, :-1].clone()
+            decoder_input_ids[:, 0] = model.config.decoder_start_token_id
+            decoder_input_ids = decoder_input_ids.masked_fill(
+                decoder_input_ids == -100, model.config.pad_token_id
+            )
+            inputs["decoder_input_ids"] = decoder_input_ids
+
+        # Gunakan method standard jika tidak ada bobot yang dimuat
+        if getattr(self, "token_weights", None) is None:
+            return super().compute_loss(model, inputs, **kwargs)
+
+        # 2. Forward pass untuk mendapatkan logits
+        labels = inputs.pop("labels")
+        outputs = model(**inputs)
+        logits = outputs.logits
+
+        # 3. Formulasi kalkulasi Weighted Cross-Entropy Loss
+        loss_fct = torch.nn.CrossEntropyLoss(
+            weight=self.token_weights.to(logits.device),
+            label_smoothing=self.args.label_smoothing_factor
+        )
+        
+        # Hitung loss untuk entire batch / dimension token
+        loss = loss_fct(
+            logits.view(-1, model.config.vocab_size), 
+            labels.view(-1)
+        )
+
+        return (loss, outputs) if "return_outputs" in kwargs and kwargs["return_outputs"] else loss
+\end{lstlisting}
+
+
+\subsection{Konversi Audio (\texttt{code/convert\_audio.py})}
+Skrip ini digunakan untuk melakukan konversi awal seluruh file audio ke format WAV dengan \textit{sample rate} 16 kHz agar sesuai dengan format masukan standar model Whisper.
+
+\begin{lstlisting}[language=Python]
+import librosa
+import soundfile as sf
+from config import SAMPLE_RATE
+
+def convert_audio_to_wav(input_path: str, output_path: str) -> bool:
+    '''Convert audio file to WAV format at 16kHz.'''
+    try:
+        # Load audio
+        audio, sr = librosa.load(input_path, sr=SAMPLE_RATE, mono=True)
+        
+        # Normalize amplitude
+        max_val = max(abs(audio.max()), abs(audio.min()))
+        if max_val > 0:
+            audio = audio / max_val
+        
+        # Save as WAV
+        sf.write(output_path, audio, SAMPLE_RATE)
+        return True
+    except Exception as e:
+        print(f"Error: {input_path} - {e}")
+        return False
+\end{lstlisting}
+
+\subsection{Pra-pemrosesan Audio (\texttt{code/audio\_preprocessing.py})}
+Sistem memuat audio yang telah dikonversi ke resolusi frekuensi 16 kHz untuk kemudian dinormalisasi amplitudonya sebelum diteruskan ke ekstrator fitur (\textit{feature extractor}).
+
+\begin{lstlisting}[language=Python]
+import librosa
+import numpy as np
+from config import SAMPLE_RATE
+
+def load_wav_audio(audio_path: str) -> np.ndarray:
+    '''Load a WAV audio file and return as numpy array.'''
+    audio, _ = librosa.load(audio_path, sr=SAMPLE_RATE, mono=True)
+    return audio
+
+def normalize_amplitude(audio: np.ndarray) -> np.ndarray:
+    '''Normalize audio amplitude to [-1, 1] range.'''
+    max_val = np.max(np.abs(audio))
+    if max_val > 0:
+        audio = audio / max_val
+    return audio
+\end{lstlisting}
+
+\subsection{Pra-pemrosesan Teks (\texttt{code/text\_preprocessing.py})}
+Pemrosesan teks transkripsi berfokus pada tahapan \textit{lowercasing} (huruf kecil semua), penghapusan tanda baca (\textit{punctuation removal}) dengan mempertahankan angka, dan normalisasi spasi kosong.
+
+\begin{lstlisting}[language=Python]
+import re
+import string
+
+def remove_punctuation(text: str, keep_digits: bool = True) -> str:
+    '''Remove punctuation from text while optionally keeping digits.'''
+    if keep_digits:
+        pattern = f"[{re.escape(string.punctuation)}]"
+        text = re.sub(pattern, " ", text)
+    else:
+        text = text.translate(str.maketrans("", "", string.punctuation))
+    return text
+
+def preprocess_text(text: str) -> str:
+    '''Full text preprocessing pipeline.'''
+    if not isinstance(text, str):
+        return ""
+    text = text.lower()
+    text = remove_punctuation(text, keep_digits=True)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+\end{lstlisting}
+
+\subsection{Augmentasi Data (\texttt{code/augmentation.py})}
+Teknik augmentasi data yang diterapkan mencakup \textit{Speed Perturbation} (perubahan kecepatan), \textit{Noise Injection} (penambahan \textit{noise}), \textit{Pitch Shift} (pergeseran nada), dan pengapilkasian \textit{SpecAugment} pada \textit{mel-spectrogram}. Pendekatan ini esensial pada pelatihan set data berukuran kecil untuk mencegah pelebihaan kecocokan (\textit{overfitting}).
+
+\begin{lstlisting}[language=Python]
+class AudioAugmenter:
+    '''Combined audio augmentation pipeline for training.'''
+    
+    def augment_waveform(self, audio: np.ndarray, sample_rate: int = 16000) -> np.ndarray:
+        # 1. Random speed perturbation
+        if self.use_speed_perturbation and random.random() < self.prob:
+            audio = self.speed_perturb(audio, sample_rate)
+            
+        # 2. Random pitch shift
+        if self.use_pitch_shift and random.random() < self.prob:
+            audio = self.pitch_shift(audio, sample_rate)
+            
+        # 3. Random noise injection
+        if self.use_noise_injection and random.random() < self.prob:
+            audio = self.noise_inject(audio)
+            
+        return audio
+        
+    def augment_spectrogram(self, mel_spectrogram: torch.Tensor) -> torch.Tensor:
+        # 4. SpecAugment (Time and Frequency Masking)
+        if self.use_specaugment and random.random() < self.prob:
+            mel_spectrogram = self.specaugment(mel_spectrogram)
+        return mel_spectrogram
+\end{lstlisting}
+
+\subsection{Pemuat Data (\texttt{code/data\_loader.py})}
+Modul \textit{Data Loader} menangani ekstraksi fail \textit{metadata CSV}, penyaringan hanya untuk sampel bahasa Minangkabau (kode \texttt{min}), penggabungan (\textit{merging}) \textit{train/test split}, lalu mengonversinya menjadi objek komputasi \textit{HuggingFace Dataset}.
+
+\begin{lstlisting}[language=Python]
+def load_and_merge_datasets() -> pd.DataFrame:
+    '''Load train and test CSV files, filter, and merge.'''
+    train_df = load_metadata(TRAIN_METADATA)
+    test_df = load_metadata(TEST_METADATA)
+    
+    # Filter for Minangkabau language
+    train_df = filter_by_language(train_df, "min")
+    test_df = filter_by_language(test_df, "min")
+    
+    train_df = create_full_path(train_df)
+    test_df = create_full_path(test_df)
+    
+    merged_df = pd.concat([train_df, test_df], ignore_index=True)
+    return merged_df
+
+def dataframe_to_hf_dataset(df: pd.DataFrame) -> Dataset:
+    '''Convert pandas DataFrame to HuggingFace Dataset.'''
+    dataset_df = df[["full_path", "transcript"]].copy()
+    dataset_df = dataset_df.rename(columns={
+        "full_path": "audio_path",
+        "transcript": "text",
+    })
+    return Dataset.from_pandas(dataset_df)
+\end{lstlisting}
+
+\subsection{Konstruktor Dataset \& Data Collator (\texttt{code/dataset.py})}
+Tahapan yang menyatukan logik pemrosesan audio (mendapatkan masukan \textit{input features}/spektrogram) dan pelabelan teks (\textit{input ids}) menjadi format \textit{batch} tensor siap komputasi agar sesuai dengan format masukan model Seq2Seq.
+
+\begin{lstlisting}[language=Python]
+def prepare_dataset(batch, processor, augmenter=None, is_training=True):
+    audio = load_processed_audio(batch["audio_path"])
+    
+    if is_training and augmenter is not None:
+        audio = augmenter.augment_waveform(audio)
+        
+    input_features = processor.feature_extractor(
+        audio, sampling_rate=SAMPLE_RATE, return_tensors="np"
+    ).input_features[0]
+    
+    if is_training and augmenter is not None:
+        input_features_tensor = torch.from_numpy(input_features).unsqueeze(0)
+        input_features_tensor = augmenter.augment_spectrogram(input_features_tensor)
+        input_features = input_features_tensor.squeeze(0).numpy()
+        
+    batch["input_features"] = input_features
+    text = preprocess_text(batch["text"])
+    batch["labels"] = processor.tokenizer(text).input_ids
+    return batch
+\end{lstlisting}
+
+\subsection{Perekam Metrik (\texttt{code/metrics\_logger.py})}
+Modul sistem penebaran \textit{log} kustom berbasis evaluasi metrik ASR generik di antaranya \textit{Word Error Rate} (WER), \textit{Character Error Rate} (CER), durasi eksekusi, serta rekaman loss model, yang dapat disimpan secara berkesinambungan secara lokal pada format CSV/JSON maupun diteruskan ke portal evaluasi eksternal \textit{Weights \& Biases} (WandB).
+
+\begin{lstlisting}[language=Python]
+class ComprehensiveMetricsCallback(TrainerCallback):
+    '''Custom callback that logs all metrics during training.'''
+    
+    def on_evaluate(self, args, state, control, metrics=None, **kwargs):
+        '''Log evaluation metrics globally and per-epoch.'''
+        if metrics is not None:
+            wer = metrics.get("eval_wer", 0.0)
+            cer = metrics.get("eval_cer", 0.0)
+            loss = metrics.get("eval_loss", 0.0)
+            
+            self.metrics_logger.log_evaluation(
+                step=state.global_step,
+                epoch=state.epoch,
+                eval_loss=loss,
+                wer=wer,
+                cer=cer
+            )
+\end{lstlisting}

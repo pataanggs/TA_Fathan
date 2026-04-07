@@ -22,6 +22,8 @@ Bab ini disusun dengan urutan: (1) hasil dan analisis strategi \textit{Freeze En
 %% ====================================================================
 \section{Hasil Strategi Freeze Encoder} \label{IV.FreezeEncoder}
 
+Bagian ini akan memaparkan secara rinci hasil dari pendekatan \textit{fine-tuning} yang pertama, yakni strategi \textit{Freeze Encoder}. Penjabaran akan diawali dengan perbandingan sepuluh percobaan yang telah dilakukan untuk menemukan konfigurasi parameter pelatih terbaik. Selanjutnya, bagian ini juga mengeksplorasi proses konvergensi metrik pelatihan dari evaluasi model silang peretas silang (\textit{cross-validation}), yang kemudian diakhiri dengan telaah langsung terhadap percontohan output hasil prediksi wicara model serta pola kesalahan halusinasi persisten yang masih terjadi.
+
 \subsection{Perbandingan Sepuluh Percobaan Freeze Encoder}
 
 Tabel~\ref{tab:fe_run_configs} merangkum konfigurasi \textit{hyperparameter} dari kesepuluh percobaan \textit{Freeze Encoder}, dan Tabel~\ref{tab:fe_run_comparison} menyajikan perbandingan hasil yang diperoleh.
@@ -270,6 +272,8 @@ Pola kesalahan yang teramati pada strategi \textit{Freeze Encoder} dapat dikelom
 %% SECTION: HASIL LoRA
 %% ====================================================================
 \section{Hasil Strategi LoRA} \label{IV.LoRA}
+
+Bagian ini difokuskan untuk mengelaborasi hasil uji coba \textit{fine-tuning} dari pendekatan alternatif yang berbasis pada \textit{Minimum-Parameter} atau \textit{Low-Rank Adaptation} (LoRA). Pembahasan merangkum sepuluh iterasi eksperimen LoRA untuk memverifikasi keandalan konfigurasi pelatihannya di tengah kendala dataset dengan ukuran sangat minim. Bersamaan dengan mengkaji progres penurunan nilai probabilitas kesalahan dan fluktuasi metrik hasil \textit{cross-validation}, bagian ini juga akan menelisik langsung beberapa contoh keluaran prediksi referensi untuk membuktikan daya tangkap generalisasi dari model setelah diaplikasikan adaptasi LoRA.
 
 \subsection{Perbandingan Sepuluh Percobaan LoRA}
 
@@ -607,6 +611,8 @@ Pola kesalahan LoRA L-10 masih ada, tapi frekuensinya jauh lebih rendah dibandin
 
 \section{Perbandingan Strategi Fine-Tuning} \label{IV.Perbandingan}
 
+Pada bagian ini, dilakukan evaluasi perbandingan performa secara komprehensif dari hasil prediksi mode referensi (\textit{zero-shot}) dan model hasil dari penerapan strategi \textit{Freeze Encoder} maupun LoRA. Tahap evaluasi ini mencakup penyajian detail nilai pengukuran rata-rata dari seluruh ke-20 pengujian untuk menyorot keunggulan kinerja modifikasi pembobotan WCE dan metode koreksi penguatan model melalui kalkulasi validasi per-\textit{fold} secara terpisah. Untuk memverifikasi dengan ketat kebahasaan \textit{out-of-domain}, bagian ini memastikan bahwa angka peningkatan kinerja antar konfigurasi tersebut dikalibrasi melalui kerangka komputasi persuratan efisiensi (pengujian Paired Student's \textit{t-test}).
+
 \subsection{Ringkasan Seluruh Dua Puluh Percobaan}
 
 Tabel~\ref{tab:all_runs_summary} menyajikan ringkasan seluruh dua puluh percobaan yang dilakukan selama penelitian, diurutkan berdasarkan strategi dan kronologi.
@@ -825,6 +831,8 @@ Gambar~\ref{fig:comparison_cv_fe} dan Gambar~\ref{fig:comparison_cv_lora} mengil
 %% SECTION: PEMBAHASAN
 %% ====================================================================
 \section{Pembahasan} \label{IV.Analisis}
+
+Bagian ini berfokus pada diskusi teoretis dan pemaknaan ilmiah yang dihasikan berdasarkan seluruh rangkaian penelitian Asisten Suara Rekaman berbasis bahasa \textit{extremely low-resource} ini. Telaah utamanya mencakup penjelasan analitis mengenai determinan keberhasilan modifikasi LoRA, dinamika operasional distribusi korektif dari pengujian WCE, dan rasio pertukaran performa algoritma selama proses normalisasi fitur (\textit{regularization}) berlangsung. Sebagai penutup, bagian kajian ini mengeksplorasi penarikan taksonomi rincian kekeliruan tebakan linguistik yang dikategorisasikan oleh kelas fonologis lisan dan pola-pola kognisi dari tantangan lokalitas model.
 
 \subsection{Efektivitas LoRA pada Skenario Extremely Low-Resource}
 
