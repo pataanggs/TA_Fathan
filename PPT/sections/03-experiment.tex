@@ -1,0 +1,77 @@
+\section{Strategi \& Inovasi}
+
+\begin{frame}{Strategi Adaptasi Fine-Tuning}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Strategi 1: Freeze Encoder}
+                \begin{itemize}
+                    \item Membekukan seluruh \textbf{encoder}, hanya melatih \textbf{decoder}.
+                    \item Parameter terlatih \(\sim 37\) juta (\(\sim 50\%\) dari model Whisper Base).
+                    \item Mempertahankan kemampuan ekstraksi fitur akustik dasar Whisper, memaksa dekoder fokus murni memetakan pola ke teks basaha Minang tanpa merusak representasi akustik yang general.
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \hfill
+        \begin{column}{0.48\textwidth}
+            \begin{exampleblock}{Strategi 2: LoRA (PEFT)}
+                \begin{itemize}
+                    \item \textbf{Low-Rank Adaptation}: Menginjeksi matriks ber-rank kecil (\(r = 16\), \(\alpha = 32\)) ke dimensi linear model utama (\texttt{q, k, v, out\_proj, fc1, fc2}).
+                    \item Sangat efisien: Hanya melatih \(\boldsymbol{\sim 2,16 \text{ Juta parameter}}\) ($\sim$2,93\% dari seluruh bobot model).
+                    \item Dapat ditambahkan sebagai \textit{adapter weights} sangat kecil di atas model utama.
+                \end{itemize}
+            \end{exampleblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Inovasi Pendekatan (WCE \& Temporal Separation)}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Weighted Cross-Entropy (WCE)}
+            \begin{itemize}
+                \item Distribusi token (huruf/kata) sangat \textit{imbalance} di dataset lokal.
+                \item WCE memberikan bobot penalti token secara adaptif berdasarkan tingkat kesulitan prediksi riwayat sebelumnya.
+                \item Memaksa model memberi perhatian penalti lebih pada token (kata) yang sering keliru.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}[!ht]
+                \centering
+                \textbf{Temporal Separation (Validasi Non-Leakage)}
+            \end{figure}
+            \begin{itemize}
+                \item Digunakan bersamaan dengan WCE dalam pipeline 5-Fold.
+                \item Bobot WCE \textbf{hanya} dihitung secara kumulatif dari \textit{training history} folder/run sebelumnya.
+                \item \textit{Zero Data Leakage}: Mencegah metrik distribusi dari data evaluasi saat ini "bocor" saat melatih fold tersebut.
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Konfigurasi Hyperparameter Terbaik (Fase 3)}
+    \begin{center}
+        \scriptsize
+        \begin{tabular}{lcc}
+            \toprule
+            \textbf{Hyperparameter} & \textbf{Freeze Encoder (run\_20260303\_202534)} & \textbf{LoRA (lora\_20260305\_205845)} \\
+            \midrule
+            Parameter dilatih & \(\sim 37\) juta (50\%) & \(\sim 2{,}16\) juta (2,93\%) \\
+            Max Steps (per 1 Fold) & 400 langkah & 400 langkah \\
+            Strategi Loss & WCE + Temporal Separation & WCE + Temporal Separation \\
+            Learning Rate & \(2 \times 10^{-5}\) & \(5 \times 10^{-4}\) \\
+            LR Scheduler & Cosine & Cosine \\
+            Effective Batch Size & 16 & 16 \\
+            Weight Decay & 0,01 & 0,05 \\
+            Dropout Rate & 0,1 & 0,1 \\
+            Label Smoothing Factor & \textit{None} & 0,1 \\
+            LoRA Dropout & - & 0,15 \\
+            Beam Width (Greedy) & 5 & 5 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \vspace{0.2cm}
+    \begin{block}{Konfigurasi Augmentasi (Khusus Training Set)}
+        \scriptsize
+        \textit{Speed Perturbation} (0.85--1.15x), \textit{Noise Injection} (SNR 10-30 dB), \textit{Pitch Shift} ($\pm$2 semitone), dan \textit{SpecAugment} (Time-masking=10/50, Freq-masking=10/40).
+    \end{block}
+\end{frame}

@@ -1,0 +1,28 @@
+\section{Kesimpulan \& Saran}
+
+\begin{frame}{Kesimpulan Umum \& Kontribusi}
+    \begin{alertblock}{Kesimpulan Adaptasi ASR Minangkabau}
+        Kombinasi adaptasi pe-parameter efisien \textit{Low-Rank Adaptation} (LoRA), penalti terbobot adaptif (\textit{Weighted Cross-Entropy}), dan instrumen validasi silang bebas kebocoran (\textit{Temporal Separation}) adalah solusi mutakhir untuk mengonversi data \textit{extremely low-resource} (1,3 Jam) menjadi representasi ASR berkualitas tinggi.
+    \end{alertblock}
+    
+    \begin{block}{Sintesis Hasil Eksekusi}
+        \begin{itemize}
+            \item Lompatan akurasi masif: WER dari \textit{baseline Zero-Shot} sebesar 89,44\% direduksi secara stabil hingga rata-rata 15,67\% $\pm$ 1,02\% pada LoRA terbaik (\texttt{lora\_20260305\_205845}).
+            \item Efisiensi Pelatihan: LoRA mampu menyamai bahkan mengungguli kemampuan Freeze Encoder dengan komputasi bobot matriks linier $\sim$17 kali lebih sedikit dilatih (hanya $\sim$2,16 juta parameter dari $74$ juta).
+            \item Kestabilan Varians \textit{Cross-Validation}: 5-Fold menunjukkan LoRA mengamankan standar deviasi yang sangat ketat ($\pm$ 1\% di WER) dibandingkan Freeze Encoder.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Saran Pengembangan Lanjutan}
+    \begin{description}
+        \item[Perluasan Kualitas \& Kuantitas Dataset:] Kendala fonetik terbesar bukan pada arsitektur \textit{attention} semata, melainkan tiadanya keragaman audio. Menginisiasi \textit{crowdsourcing} (percakapan non-deklarasi / spontan) akan sangat mendongkrak utilitas ASR di skenario lapangan harian.
+        \item[Studi Komparatif Skala Model:] Melakukan komparasi performa dari adaptasi efisien pada tier \textit{Whisper Small}, \textit{Medium}, dan \textit{Large} untuk menyelidiki titik setimbang antara skala parameter model lawan laju presisi \textit{low-resource}.
+        \item[Standardisasi \textit{Text Normalizer} Khusus Daerah:] Membuat pedoman penyambungan leksikal ortografi Minangkabau khusus ASR, guna menekan drastis \textit{CER} dan \textit{word boundary error} (contoh: disambiguasi \textit{mukadimah} vs \textit{muka di ma}).
+    \end{description}
+    \vspace{0.2cm}
+    \begin{center}
+        \Large \textbf{\textit{TERIMA KASIH}} \\
+        \small \textit{Sesi Tanya Jawab} $\mid$ Mohon masukan dan bimbingan dari Dewan Penguji.
+    \end{center}
+\end{frame}

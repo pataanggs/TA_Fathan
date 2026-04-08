@@ -1,0 +1,46 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{whale}
+\usecolortheme{orchid}
+\useinnertheme[shadow=true]{rounded}
+\usefonttheme{professionalfonts}
+
+% Load Packages
+\usepackage[utf8]{inputenc}
+\usepackage[indonesian]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{caption}
+
+\graphicspath{{../figure/}}
+
+% Title Page Information
+\title[Implementasi Fine-tuning Whisper Base untuk ASR Minangkabau]{Implementasi Fine-Tuning OpenAI Whisper Base untuk Automatic Speech Recognition Bahasa Minangkabau}
+\author[Fathan Andi Kartagama]{Fathan Andi Kartagama \\ NIM 122140055}
+\institute[ITERA]{
+    \includegraphics[height=1.5cm]{Logo_ITERA.png} \\
+    \vspace{0.2cm}
+    Program Studi Teknik Informatika \\
+    Institut Teknologi Sumatera
+}
+\date{Sidang Akhir Skripsi \quad April 2026}
+
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage
+\end{frame}
+
+\begin{frame}{Rencana Presentasi / \textit{Outline}}
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+\input{sections/01-introduction.tex}
+\input{sections/02-methodology.tex}
+\input{sections/03-experiment.tex}
+\input{sections/04-results.tex}
+\input{sections/05-conclusion.tex}
+
+\end{document}

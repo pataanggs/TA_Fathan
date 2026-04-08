@@ -396,7 +396,9 @@ Transkrip teks juga memerlukan standardisasi:
     
     \item \textbf{Speed Perturbation} \cite{ko2015audio}: Variasi kecepatan audio dengan faktor tertentu (misalnya, 0.9, 1.0, 1.1) untuk mensimulasikan variasi kecepatan bicara alami.
     
-    \item \textbf{Noise Injection}: Penambahan \textit{background noise} dengan SNR tertentu untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam.
+    \item \textbf{Noise Injection} \cite{kim2020augmentation}: Penambahan \textit{background noise} dengan SNR tertentu untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam.
+    
+    \item \textbf{Pitch Shift} \cite{kim2020augmentation}: Modifikasi nada (\textit{pitch}) audio dengan menaikkan atau menurunkan beberapa \textit{semitone} tanpa mengubah durasi atau tempo aslinya. Teknik ini membantu model agar lebih tangguh terhadap variasi karakteristik frekuensi dasar suara (seperti suara rendah/tinggi) antar pembicara yang berbeda.
 \end{enumerate}
 
 \subsection{Regularisasi dan Optimisasi}

@@ -9,7 +9,7 @@ Pada penelitian ini, alur dirancang untuk memastikan setiap tahapan pemrosesan d
 
 \begin{figure}[H]
 \centering
-\includegraphics[angle=-90,width=1.1\textwidth]{figure/Alur_Penelitian.pdf}
+\includegraphics[width=1.1\textwidth]{figure/Alur_Penelitian.pdf}
 \caption{Alur Penelitian Fine-Tuning Whisper untuk ASR Bahasa Minangkabau}
 \label{fig:3.alur}
 \end{figure}
@@ -99,20 +99,21 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
     \begin{itemize}[noitemsep]
         \item \textbf{Maximum duration}: Whisper memiliki batasan maksimal \textbf{30 detik} untuk input audio. Audio yang melebihi durasi ini (jika ada) akan \textbf{dipotong} (\textit{truncated}) pada detik ke-30 atau \textbf{dibuang} jika informasi penting terpotong
         \item \textbf{Minimum duration}: Audio yang terlalu pendek ($<$2 detik) akan \textbf{difilter} karena kemungkinan tidak mengandung informasi linguistik yang cukup untuk pembelajaran
-        \item \textbf{No padding}: Audio pendek (2-20 detik) \textbf{tidak} di-\textit{pad} secara artifisial, karena Whisper dapat menangani audio dengan panjang variabel melalui mekanisme \textit{attention masking}. Selama \textit{training}, \textbf{batching} diimplementasikan menggunakan \textit{data collator} khusus yang secara dinamis mem-\textit{pad} audio dalam \textit{batch} ke panjang maksimal dalam \textit{batch} tersebut (bukan panjang maksimal global), sehingga setiap \textit{batch} dapat diproses oleh GPU secara efisien meski panjang audio berbeda-beda antar \textit{batch}. Pendekatan \textit{dynamic padding per-batch} ini lebih efisien secara memori dibandingkan \textit{global padding} yang akan membuang banyak komputasi pada bagian yang di-\textit{pad}.
+        \item \textbf{No padding}: Audio pendek (2-20 detik) \textbf{tidak} di-\textit{pad} secara artifisial, karena Whisper dapat menangani audio dengan panjang variabel melalui mekanisme \textit{attention masking}. Selama \textit{training}, \textbf{batching} diimplementasikan menggunakan \textit{data collator} khusus yang secara dinamis mem-\textit{pad} audio dalam \textit{batch} ke panjang maksimal dalam \textit{batch} tersebut (bukan panjang maksimal global), sehingga setiap \textit{batch} dapat diproses oleh GPU secara efisien meski panjang audio berbeda-beda antar \textit{batch}. Pendekatan \textit{dynamic padding per-batch} ini lebih efisien secara memori dibandingkan \textit{global padding} yang akan membuang banyak komputasi pada bagian yang di-\textit{pad}. Dengan validasi ini, dataset final yang digunakan untuk pelatihan adalah subset dari 156 file audio asli yang memenuhi kriteria durasi, memastikan kompatibilitas dengan batasan teknis Whisper tanpa kehilangan informasi linguistik yang signifikan
     \end{itemize}
-    Dengan validasi ini, dataset final yang digunakan untuk pelatihan adalah subset dari 156 file audio asli yang memenuhi kriteria durasi, memastikan kompatibilitas dengan batasan teknis Whisper tanpa kehilangan informasi linguistik yang signifikan
+    
     \item \textbf{Normalization}: Normalisasi \textit{amplitude} audio untuk memastikan konsistensi volume di seluruh dataset, menghindari bias model terhadap audio dengan volume tertentu
     \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir setiap \textit{clip}, sehingga model tidak perlu memproses bagian audio yang tidak mengandung informasi linguistik
     \item \textbf{Quality Check}: Penyaringan \textit{clips} dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau mengandung distorsi signifikan, untuk memastikan hanya data berkualitas tinggi yang digunakan dalam \textit{training}
     \item \textbf{SpecAugment}: Teknik \textit{augmentation} pada representasi spektrogram dengan menerapkan \textit{time masking} (T=70) dan \textit{frequency masking} (F=27) untuk meningkatkan invariansi temporal dan frekuensi \cite{park2019specaugment}, diterapkan selama \textit{training} untuk meningkatkan \textit{robustness} model
     \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik \cite{ko2015audio}
     \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam dan meningkatkan generalisasi pada skenario \textit{low-resource} \cite{salamon2017scaper,kim2020augmentation}
+    \item \textbf{Pitch Shift}: Perubahan nada suara (\(\pm\)2 semitone) tanpa mengubah durasi untuk meningkatkan ketahanan model terhadap variasi karakteristik frekuensi dasar antar pembicara \cite{kim2020augmentation}
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
-Ketiga teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, dan \textit{Noise Injection}) \textbf{hanya diterapkan pada data training} di dalam setiap \textit{fold}, dan \textbf{TIDAK PERNAH diterapkan pada test set}. Pipeline yang benar adalah: \textbf{(1) Split Fold, (2) Augment Training Data Only, (3) Train}. Augmentasi tidak boleh dilakukan sebelum proses splitting karena akan menyebabkan \textit{data leakage} di mana informasi dari \textit{test set} bocor ke \textit{training set} melalui versi teraugmentasi. Hal ini sangat krusial untuk memastikan evaluasi yang valid dan tidak bias.
+Keempat teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, \textit{Noise Injection}, dan \textit{Pitch Shift}) \textbf{hanya diterapkan pada data training} di dalam setiap \textit{fold}, dan \textbf{TIDAK PERNAH diterapkan pada test set}.
 
 Potongan Kode~\ref{lst:data_augmentation} menampilkan cuplikan dari kelas pipeline augmentasi menggunakan pustaka \texttt{torchaudio} yang diimplementasikan pada file \texttt{augmentation.py}.
 
@@ -173,7 +174,7 @@ Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi
     \begin{itemize}[noitemsep]
         \item Satu \textit{fold} digunakan sebagai \textit{test/evaluation set} (31-32 audio, $\sim$0.26 jam)
         \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} (124-125 audio, $\sim$1.04 jam). Exact size: 124 audio untuk fold yang memiliki 32 audio sebagai test set, 125 audio untuk fold yang memiliki 31 audio sebagai test set.
-        \item \textbf{Data augmentation} (SpecAugment, Speed Perturbation, Noise Injection) diterapkan \textbf{hanya pada training set}, bukan pada test set, untuk mencegah \textit{data leakage}
+        \item \textbf{Data augmentation} (SpecAugment, Speed Perturbation, Noise Injection, dan Pitch Shift) diterapkan \textbf{hanya pada training set}, bukan pada test set, untuk mencegah \textit{data leakage}
         \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Base) pada \textit{training set} yang telah diaugmentasi
         \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat dan \textbf{tidak teraugmentasi}
     \end{itemize}
