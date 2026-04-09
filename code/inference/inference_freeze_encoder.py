@@ -32,7 +32,7 @@ if __name__ == "__main__":
     BEST_CHECKPOINT_PATH = "../freeze_encoder/outputs/checkpoints/fold_0/checkpoint-84" # <-- Ganti jika fold lain lebih baik
     
     # TODO: 3. Masukkan path file audio yang ingin ditranskripsi saat demo
-    AUDIO_FILE = "contoh_audio.wav"
+    AUDIO_FILE = "../Data/test/minangkabau/universal-declaration-of-human-rights/human_rights_un_min_sd_0075.mp3"
 
     print(f"=== DEMO SKRIPSI: Inferensi Model Freeze Encoder ===")
     print(f"File Audio  : {AUDIO_FILE}")
