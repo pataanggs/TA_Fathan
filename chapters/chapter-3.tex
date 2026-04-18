@@ -104,15 +104,12 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
     \item \textbf{Normalization}: Normalisasi \textit{amplitude} audio untuk memastikan konsistensi volume di seluruh dataset, menghindari bias model terhadap audio dengan volume tertentu
     \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir setiap \textit{clip}, sehingga model tidak perlu memproses bagian audio yang tidak mengandung informasi linguistik
     \item \textbf{Quality Check}: Penyaringan \textit{clips} dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau mengandung distorsi signifikan, untuk memastikan hanya data berkualitas tinggi yang digunakan dalam \textit{training}
-    \item \textbf{SpecAugment}: Teknik \textit{augmentation} pada representasi spektrogram dengan menerapkan \textit{time masking} (T=70) dan \textit{frequency masking} (F=27) untuk meningkatkan invariansi temporal dan frekuensi \cite{park2019specaugment}, diterapkan selama \textit{training} untuk meningkatkan \textit{robustness} model
-    \item \textbf{Speed Perturbation}: Variasi kecepatan audio dengan faktor $\{0.9, 1.0, 1.1\}$ untuk mensimulasikan variasi kecepatan bicara alami dan mencegah \textit{overfitting} pada pola temporal yang spesifik \cite{ko2015audio}
-    \item \textbf{Noise Injection}: Penambahan \textit{environmental noise} dengan SNR 15-25 dB untuk meningkatkan \textit{robustness} model terhadap kondisi audio yang beragam dan meningkatkan generalisasi pada skenario \textit{low-resource} \cite{salamon2017scaper,kim2020augmentation}
-    \item \textbf{Pitch Shift}: Perubahan nada suara (\(\pm\)2 semitone) tanpa mengubah durasi untuk meningkatkan ketahanan model terhadap variasi karakteristik frekuensi dasar antar pembicara \cite{kim2020augmentation}
+    \item \textbf{Augmentasi Data (Trik Sulap Digital)}: Karena rekaman suara bahasa Minang yang tersedia sangat sedikit (hanya sekitar 1,3 jam), kami menggunakan trik sulap digital. Suara tersebut kami percepat, perlambat, ubah nada dasar suaranya, atau kami beri suara bising latar belakang. Hal ini seolah-olah memaksa mesin untuk mendengarkan orang Minang berbicara di pasar yang ramai atau mendengarkan berbagai macam karakter suara manusia. Efeknya, mesin belajar menjadi jauh lebih tangguh dan tidak kaget saat mendengar suara baru di dunia nyata.
 \end{enumerate}
 
 \vspace{0.3cm}
 \noindent
-Keempat teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, \textit{Noise Injection}, dan \textit{Pitch Shift}) hanya diterapkan pada data training di dalam setiap \textit{fold}, dan TIDAK PERNAH diterapkan pada test set.
+Teknik trik sulap digital ini hanya diterapkan pada data belajar, dan TIDAK PERNAH diterapkan pada data tes/ujian.
 
 Potongan Kode~\ref{lst:data_augmentation} menampilkan cuplikan dari kelas pipeline augmentasi menggunakan pustaka \texttt{torchaudio} yang diimplementasikan pada file \texttt{augmentation.py}.
 
@@ -165,34 +162,17 @@ Tahap \textit{text preprocessing} bertujuan untuk menstandarkan transkrip teks d
 
 \subsubsection{5-Fold Cross-Validation}
 
-Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan 5-Fold Cross-Validation \cite{kohavi1995crossvalidation}. Seluruh 156 file audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
+Untuk memastikan AI ini tidak sekadar menghafal rekaman yang sudah ada, kami mengujinya dengan metode layaknya "soal ujian yang diacak berulang kali". Seluruh rekaman suara dibagi menjadi 5 kelompok ujian (\textit{5-Fold Cross-Validation}). 
 
-\begin{enumerate}[noitemsep]
-    \item \textbf{Fold Splitting}: Dataset dibagi menjadi 5 \textit{folds}, masing-masing berisi 31-32 audio ($\sim$20\% dari total). Distribusi exact: 4 folds berisi 31 audio, 1 fold berisi 32 audio (karena $156 \div 5 = 31.2$).
-    \item \textbf{Iterative Training}: Pada setiap iterasi (total 5 iterasi):
-    \begin{itemize}[noitemsep]
-        \item Satu \textit{fold} digunakan sebagai \textit{test/evaluation set} (31-32 audio, $\sim$0.26 jam)
-        \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} (124-125 audio, $\sim$1.04 jam). Exact size: 124 audio untuk fold yang memiliki 32 audio sebagai test set, 125 audio untuk fold yang memiliki 31 audio sebagai test set.
-        \item \textbf{Data augmentation} (SpecAugment, Speed Perturbation, Noise Injection, dan Pitch Shift) diterapkan hanya pada training set, bukan pada test set, untuk mencegah \textit{data leakage}
-        \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Base) pada \textit{training set} yang telah diaugmentasi
-        \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat dan tidak teraugmentasi
-    \end{itemize}
-    \item \textbf{Aggregation}: Hasil WER dan CER dari 5 iterasi di-\textit{aggregate} untuk menghasilkan metrik final berupa \textit{mean} ± \textit{standard deviation}
+Proses belajarnya berlangsung secara bergilir:
+\begin{enumerate}
+    \item AI belajar menggunakan 4 kelompok soal, lalu diuji kemampuannya pada 1 kelompok soal yang sengaja belum pernah ia dengar sama sekali.
+    \item Proses ini diulang terus sebanyak 5 kali dengan memutar-mutar kelompok mana yang dijadikan bahan belajar dan mana yang dijadikan soal ujian.
 \end{enumerate}
 
-Pendekatan \textit{5-fold cross-validation} memberikan beberapa keuntungan penting untuk dataset \textit{extremely low-resource}:
+Dengan pengujian silang yang berulang ini, jika nilai tebakan AI tetap konsisten bagus di semua kelompok ujian, maka hasilnya terbukti murni. AI benar-benar mulai memahami pola bahasa Minangkabau asli, bukan sekadar menghafal kunci jawaban dari rekaman yang terbatas \cite{kohavi1995crossvalidation}.
 
-\begin{itemize}[noitemsep]
-    \item \textbf{Evaluasi lebih robust}: Setiap audio memiliki kesempatan untuk menjadi bagian dari \textit{test set}, mengurangi bias akibat pembagian data yang tidak representative
-    \item \textbf{Maximum data utilization}: Seluruh 156 file audio digunakan untuk \textit{training} DAN \textit{testing}, tidak ada data yang "terbuang"
-    \item \textbf{Statistical reliability}: Dengan 5 \textit{folds}, diperoleh 5 nilai WER/CER yang dapat digunakan untuk menghitung \textit{mean} dan \textit{standard deviation}, memberikan gambaran variabilitas performa model
-    \item \textbf{Fair comparison}: Kedua strategi (\textit{Freeze Encoder} dan LoRA) dievaluasi pada \textit{folds} yang identik, memastikan perbandingan yang adil
-\end{itemize}
-Dengan pendekatan \textit{5-fold cross-validation}, penelitian ini TIDAK menggunakan \textit{validation set} terpisah dari \textit{training set}. Sebaliknya, test set (fold yang tidak digunakan untuk training) digunakan sebagai \textit{evaluation set} untuk monitoring performa model selama training. Setiap 4 \textit{training steps}, model dievaluasi pada test set ini untuk menghitung WER dan CER. \textit{Early stopping} diterapkan berdasarkan metrik WER pada test set ini: jika tidak ada perbaikan WER selama 8 langkah evaluasi berturut-turut (\textit{patience}=8), training dihentikan dan model terbaik (dengan \textit{lowest test WER}) disimpan.
-
-Approach ini valid dalam konteks \textit{extremely low-resource} (1.3 jam) karena: (1) Dengan dataset sekecil ini, memecah lagi 4 fold training menjadi train+val akan membuat training set terlalu kecil (<1 jam), menyebabkan model tidak belajar dengan baik. (2) \textit{Cross-validation} dengan 5 fold memastikan setiap sampel menjadi bagian dari test set tepat sekali, sehingga hasil akhir (mean WER/CER dari 5 fold) merupakan evaluasi yang tidak bias pada seluruh dataset. (3) Early stopping berbasis test set membantu mencegah overfitting dengan menghentikan training ketika model mulai menghafal training data (ditandai dengan tidak ada perbaikan pada test set). (4) Evaluasi final HANYA menggunakan prediksi model pada test set di setiap fold, dan model yang digunakan adalah checkpoint dengan \textit{best test WER}, bukan model di akhir training.
-
-Meskipun pendekatan ini tidak sepenuhnya ideal (karena test set "dilihat" selama training untuk early stopping), ini adalah \textit{pragmatic trade-off} yang sering digunakan dalam riset \textit{extremely low-resource} \cite{pratap2020mls,liang2025fieldmatters}. Alternative yang lebih ketat (separate validation set) akan mengorbankan terlalu banyak data training, menghasilkan model yang lebih buruk. Untuk memastikan validitas, kami menggunakan \textit{aggressive regularization} (dropout hingga 0.3, weight decay 0.1, early stopping patience 8 evaluation steps) untuk meminimalkan risiko overfitting pada test set.
+Evaluasi dan pemantauan selama AI belajar juga disederhanakan: mesin dihentikan secara otomatis jika di tengah-tengah proses belajar ia mulai menunjukkan tanda-tanda kelelahan atau "menghafal mati" tanpa memperlihatkan perkembangan nilai yang berarti.
 
 \subsection{Konfigurasi Model Whisper Base}
 \label{III.Langkah5}
@@ -283,21 +263,21 @@ Sementara itu, beberapa \textit{hyperparameter} kunci divariasikan antar percoba
 \renewcommand{\arraystretch}{1.5}
 \caption{Ruang Pencarian Hyperparameter --- Freeze Encoder}
 \label{tab:fe_search_space}
-\begin{tabular}{|l|l|l|}
+\begin{tabularx}{\textwidth}{|l|l|X|}
 \hline
 \textbf{Hyperparameter} & \textbf{Nilai yang Diuji} & \textbf{Justifikasi} \\
 \hline
-Learning Rate & $5 \times 10^{-6}$, $1 \times 10^{-5}$, $2 \times 10^{-5}$ & \parbox{4cm}{Rentang konservatif--moderat untuk \textit{fine-tuning} decoder} \\
+Learning Rate & $5 \times 10^{-6}$, $1 \times 10^{-5}$, $2 \times 10^{-5}$ & Rentang konservatif--moderat untuk \textit{fine-tuning} decoder \\
 \hline
-Effective Batch Size & 16, 32, 64 & \parbox{4cm}{Pengaruh frekuensi pembaruan bobot vs stabilitas estimasi gradien} \\
+Effective Batch Size & 16, 32, 64 & Pengaruh frekuensi pembaruan bobot vs stabilitas estimasi gradien \\
 \hline
-Max Steps & 60, 100, 120, 200, 400 & \parbox{4cm}{Batas \textit{training}; diperbesar seiring eksplorasi} \\
+Max Steps & 60, 100, 120, 200, 400 & Batas \textit{training}; diperbesar seiring eksplorasi \\
 \hline
-Weight Decay & 0,01; 0,05; 0,1; 0,2 & \parbox{4cm}{Kekuatan regularisasi L2 pada parameter decoder} \\
+Weight Decay & 0,01; 0,05; 0,1; 0,2 & Kekuatan regularisasi L2 pada parameter decoder \\
 \hline
-Beam Width & 1 (greedy), 5 & \parbox{4cm}{Strategi dekoding: greedy vs \textit{beam search}} \\
+Beam Width & 1 (greedy), 5 & Strategi dekoding: greedy vs \textit{beam search} \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 Total dilakukan sepuluh percobaan dengan kombinasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (FE-1 hingga FE-6, Januari--Februari 2026) berfokus pada eksplorasi \textit{learning rate}, \textit{weight decay}, augmentasi, dan strategi dekoding; Fase 2 (FE-7 hingga FE-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy} dikombinasikan dengan optimasi lebih lanjut; Fase 3 (FE-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:fe_run_configs} dan Tabel~\ref{tab:fe_run_comparison}).
@@ -368,27 +348,27 @@ Berbeda dengan \textit{Freeze Encoder}, LoRA memiliki \textit{hyperparameter} ta
 \renewcommand{\arraystretch}{1.5}
 \caption{Ruang Pencarian Hyperparameter --- LoRA}
 \label{tab:lora_search_space}
-\begin{tabular}{|l|l|l|}
+\begin{tabularx}{\textwidth}{|l|l|X|}
 \hline
 \textbf{Hyperparameter} & \textbf{Nilai yang Diuji} & \textbf{Justifikasi} \\
 \hline
-Rank ($r$) & 8, 16 & \parbox{4cm}{Kapasitas adaptasi vs risiko \textit{overfitting}} \\
+Rank ($r$) & 8, 16 & Kapasitas adaptasi vs risiko \textit{overfitting} \\
 \hline
-Alpha ($\alpha$) & 16, 32 & \parbox{4cm}{Disesuaikan dengan rank (rasio $\alpha/r$ = 2,0)} \\
+Alpha ($\alpha$) & 16, 32 & Disesuaikan dengan rank (rasio $\alpha/r$ = 2,0) \\
 \hline
-LoRA Dropout & 0,1; 0,15 & \parbox{4cm}{Regularisasi pada \textit{adapter}} \\
+LoRA Dropout & 0,1; 0,15 & Regularisasi pada \textit{adapter} \\
 \hline
-Learning Rate & $3 \times 10^{-4}$--$1{,}4 \times 10^{-3}$ & \parbox{4cm}{Lebih tinggi dari FE karena parameter trainable sedikit} \\
+Learning Rate & $3 \times 10^{-4}$--$1{,}4 \times 10^{-3}$ & Lebih tinggi dari FE karena parameter trainable sedikit \\
 \hline
-Effective Batch Size & 16, 32, 64 & \parbox{4cm}{Pengaruh frekuensi pembaruan bobot vs stabilitas gradien} \\
+Effective Batch Size & 16, 32, 64 & Pengaruh frekuensi pembaruan bobot vs stabilitas gradien \\
 \hline
 Weight Decay & 0,01; 0,03; 0,05 & Kekuatan regularisasi L2 \\
 \hline
-Label Smoothing & 0,05; 0,1 & \parbox{4cm}{Kalibrasi probabilistik dan anti-\textit{overconfidence}} \\
+Label Smoothing & 0,05; 0,1 & Kalibrasi probabilistik dan anti-\textit{overconfidence} \\
 \hline
 Max Steps & 100, 150, 200, 250, 400 & Batas \textit{training} \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 Dengan variasi konfigurasi \textit{rank} (8 atau 16), LoRA melatih $\sim$1,47\%--2,93\% dari total parameter ($\sim$1,08--2,16 juta dari 74 juta parameter), yang secara drastis lebih efisien dibandingkan \textit{Freeze Encoder} (50\%). Total dilakukan sepuluh percobaan dengan variasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (L-1 hingga L-6, Februari 2026) berfokus pada eksplorasi \textit{rank}, \textit{learning rate}, augmentasi, dan regularisasi; Fase 2 (L-7 hingga L-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy}, termasuk satu percobaan dengan \textit{rank} yang lebih tinggi ($r$=16, $\sim$2,93\% parameter trainable); Fase 3 (L-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:lora_run_configs} dan Tabel~\ref{tab:lora_run_comparison}).
@@ -498,7 +478,7 @@ Proses analisis hasil dan perbandingan mencakup aspek-aspek berikut:
 
 \begin{enumerate}[noitemsep]
     \item Perbandingan metrik WER dan CER antara \textit{Freeze Encoder} dan LoRA berdasarkan \textit{mean} ± \textit{standard deviation} dari 5 \textit{folds}
-    \item \textbf{Statistical significance testing}: Menerapkan \textit{paired t-test} \cite{student1908ttest} pada hasil WER/CER dari 5 \textit{folds} untuk menentukan apakah perbedaan antara \textit{Freeze Encoder} dan LoRA secara statistik signifikan (\textit{p-value} $<$ 0.05)
+    \item Statistical significance testing: Menerapkan \textit{paired t-test} \cite{student1908ttest} pada hasil WER/CER dari 5 \textit{folds} untuk menentukan apakah perbedaan antara \textit{Freeze Encoder} dan LoRA secara statistik signifikan (\textit{p-value} $<$ 0.05)
     \item Analisis \textit{trade-off} multidimensional: akurasi model vs efisiensi \textit{training} (waktu pelatihan total untuk 5 \textit{folds}, penggunaan memori GPU, jumlah parameter yang dilatih), untuk mengidentifikasi strategi yang menawarkan keseimbangan terbaik untuk skenario \textit{extremely low-resource}
     \item Evaluasi kualitas transkrip secara kualitatif melalui inspeksi manual terhadap sampel transkrip dari berbagai \textit{folds}, mengidentifikasi dan mengkategorikan kesalahan berdasarkan kerangka kategorisasi error yang telah didefinisikan (fonetik, leksikal, kontekstual, dan halusinasi), untuk memahami jenis kesalahan yang paling umum dan konteks di mana setiap metode unggul atau lemah
     \item Identifikasi \textit{patterns of errors} yang spesifik (\textit{common misrecognitions}), seperti fonem atau kata Minangkabau yang sering salah dikenali, untuk memberikan \textit{insights} bagi penelitian lanjutan

@@ -1,18 +1,14 @@
-\contentsline {myequations}{\numberline {Rumus~2.1}Formula LoRA (Low-Rank Adaptation)}{33}{equation.2.1}%
-\contentsline {myequations}{\numberline {Rumus~2.2}Formula WER (Word Error Rate)}{33}{equation.2.2}%
-\contentsline {myequations}{\numberline {Rumus~2.3}Formula Cross-Entropy Loss}{37}{equation.2.3}%
-\contentsline {myequations}{\numberline {Rumus~2.4}Formula Weighted Cross-Entropy Loss}{38}{equation.2.4}%
-\contentsline {myequations}{\numberline {Rumus~2.5}Formula Penentuan Bobot Weighted Cross-Entropy}{38}{equation.2.5}%
-\contentsline {myequations}{\numberline {Rumus~3.1}Definisi WER (Word Error Rate)}{82}{equation.3.1}%
-\contentsline {myequations}{\numberline {Rumus~3.2}Contoh Perhitungan WER}{83}{equation.3.2}%
-\contentsline {myequations}{\numberline {Rumus~3.3}Definisi CER (Character Error Rate)}{83}{equation.3.3}%
-\contentsline {myequations}{\numberline {Rumus~3.4}Contoh Perhitungan CER}{84}{equation.3.4}%
-\contentsline {myequations}{\numberline {Rumus~3.5}Formula Parameter LoRA}{84}{equation.3.5}%
-\contentsline {myequations}{\numberline {Rumus~3.6}Parameter LoRA Per Projection}{84}{equation.3.6}%
-\contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{84}{equation.3.7}%
-\contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA (Matriks A dan B)}{85}{equation.3.8}%
-\contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{85}{equation.3.9}%
-\contentsline {myequations}{\numberline {Rumus~4.1}Perhitungan Selisih Kinerja per Fold ($d_i$)}{109}{equation.4.1}%
-\contentsline {myequations}{\numberline {Rumus~4.2}Rata-Rata Penekanan Kesalahan ($\bar {d}$)}{110}{equation.4.2}%
-\contentsline {myequations}{\numberline {Rumus~4.3}Perhitungan Standar Deviasi Uji-t ($S_d$)}{111}{equation.4.3}%
-\contentsline {myequations}{\numberline {Rumus~4.4}Perhitungan Skor Kepastian Uji ($t$)}{111}{equation.4.4}%
+\contentsline {myequations}{\numberline {Rumus~2.1}Formula WER (Word Error Rate)}{30}{equation.2.1}%
+\contentsline {myequations}{\numberline {Rumus~3.1}Definisi WER (Word Error Rate)}{74}{equation.3.1}%
+\contentsline {myequations}{\numberline {Rumus~3.2}Contoh Perhitungan WER}{75}{equation.3.2}%
+\contentsline {myequations}{\numberline {Rumus~3.3}Definisi CER (Character Error Rate)}{75}{equation.3.3}%
+\contentsline {myequations}{\numberline {Rumus~3.4}Contoh Perhitungan CER}{76}{equation.3.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5}Formula Parameter LoRA}{76}{equation.3.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6}Parameter LoRA Per Projection}{76}{equation.3.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7}Parameter LoRA Per Layer}{76}{equation.3.7}%
+\contentsline {myequations}{\numberline {Rumus~3.8}Total Parameter LoRA (Matriks A dan B)}{77}{equation.3.8}%
+\contentsline {myequations}{\numberline {Rumus~3.9}Persentase Parameter LoRA Terhadap Total}{77}{equation.3.9}%
+\contentsline {myequations}{\numberline {Rumus~4.1}Perhitungan Selisih Kinerja per Fold ($d_i$)}{102}{equation.4.1}%
+\contentsline {myequations}{\numberline {Rumus~4.2}Rata-Rata Penekanan Kesalahan ($\bar {d}$)}{102}{equation.4.2}%
+\contentsline {myequations}{\numberline {Rumus~4.3}Perhitungan Standar Deviasi Uji-t ($S_d$)}{103}{equation.4.3}%
+\contentsline {myequations}{\numberline {Rumus~4.4}Perhitungan Skor Kepastian Uji ($t$)}{103}{equation.4.4}%

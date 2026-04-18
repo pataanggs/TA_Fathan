@@ -16,338 +16,339 @@ Meskipun repositori utama menyediakan berbagai bahasa daerah, penelitian ini sec
 Tabel berikut menyajikan pembandingan secara utuh antara referensi (\textit{ground truth}) dengan hasil kalimat prediksi menggunakan model dasar Whisper Base pada pengaturan \textit{zero-shot} untuk semua 156 sampel dalam dataset Minangkabau. Secara keseluruhan, model mendapatkan \textbf{Word Error Rate (WER) sebesar 89.44\%} dan \textbf{Character Error Rate (CER) sebesar 31.02\%}. Hasil ini menunjukkan tingginya halusinasi akibat kurangnya penyesuaian untuk bahasa sasaran.
 \vspace{0.5cm}
 
-\begin{longtable}{|c|p{0.4\textwidth}|p{0.4\textwidth}|}
-\multicolumn{3}{c}{\textbf{Hasil Prediksi Zero-Shot Seluruh Sampel Audio}} \\
+\footnotesize
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{0.19\textwidth}|>{\raggedright\arraybackslash}p{0.19\textwidth}|>{\raggedright\arraybackslash}p{0.19\textwidth}|>{\raggedright\arraybackslash}p{0.19\textwidth}|}
+\multicolumn{5}{c}{\normalsize\textbf{Hasil Prediksi Seluruh Sampel Audio}} \\
 \hline
-\textbf{Sampel} & \textbf{Referensi (Ground Truth)} & \textbf{Prediksi (Zero-Shot)} \\
+\textbf{Sampel} & \textbf{Referensi (Ground Truth)} & \textbf{Zero-Shot} & \textbf{Freeze Encoder} & \textbf{LoRA} \\
 \hline
 \endfirsthead
 
-\multicolumn{3}{c}%
-{{\bfseries Lanjutan dari halaman sebelumnya}} \\
+\multicolumn{5}{c}%
+{{\bfseries\normalsize Lanjutan dari halaman sebelumnya}} \\
 \hline
-\textbf{Sampel} & \textbf{Referensi (Ground Truth)} & \textbf{Prediksi (Zero-Shot)} \\
+\textbf{Sampel} & \textbf{Referensi (Ground Truth)} & \textbf{Zero-Shot} & \textbf{Freeze Encoder} & \textbf{LoRA} \\
 \hline
 \endhead
 
 \hline
-\multicolumn{3}{|r|}{{Berlanjut ke halaman berikutnya...}} \\
+\multicolumn{5}{|r|}{{Berlanjut ke halaman berikutnya...}} \\
 \hline
 \endfoot
 
 \hline
 \endlastfoot
-1 & manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan & manusia sadayoyoyoyo lah ya kadunya membu hakak dan kamar di kean mandasar dan sama dan indak dapat dipisahkan \\
+1 & manusia sadonyo lahia ka dunia mambao hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan & manusia sadayoyoyoyo lah ya kadunya membu hakak dan kamar di kean mandasar dan sama dan indak dapat dipisahkan & manusia sadayo jo lahia kadunia mambuh hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan & manusia sadonyo jo lahia kadunia mambo hak hak dan kamardekaan mandasar nan samo dan indak dapek dipisahkan \\
 \hline
-2 & limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi & lim bago per serikatan bangsa bangsa padekat untuk menjulmjulm tinggi \\
+2 & limbago perserikatan bangsa bangsa batekad untuak manjunjuang tinggi & lim bago per serikatan bangsa bangsa padekat untuk menjulmjulm tinggi & limbago perserikatan bangsa bangsa padakad untuak manjuljang tinggi & limbago perserikatan bangsa bangsa padekat untuak panjung jungen tinggi \\
 \hline
-3 & manggiatkan dan malinduangi hak hak asasi tiok urang & manggiatkan dan malindungi hak hak asasi tiap orang \\
+3 & manggiatkan dan malinduangi hak hak asasi tiok urang & manggiatkan dan malindungi hak hak asasi tiap orang & manggiatkan dan malinduangi hak hak asasi tiok urang & manggiatkan dan malinduangi hak hak asasi tiok urang \\
 \hline
-4 & tekad ko bamulo dari piagam perserikatan bangsa bangsa & tekat ko bambuloh dari piagam perserikatan bangsabangsa \\
+4 & tekad ko bamulo dari piagam perserikatan bangsa bangsa & tekat ko bambuloh dari piagam perserikatan bangsabangsa & tekat ko pamulo dari piagam perserikatan bangsa bangsa & tekat ko bangulah dari piagam perserikatan bangsa bangsa \\
 \hline
-5 & nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi & mengukuhakan kaya kinen umat manusia di dunia teradok hakhak asasi dan martapat nanda serasar atau nilai manusia secara pribadi \\
+5 & nan mangukuahkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi & mengukuhakan kaya kinen umat manusia di dunia teradok hakhak asasi dan martapat nanda serasar atau nilai manusia secara pribadi & manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi & manguku hakkan kayakinan umat manusia di dunia taradok hak hak asasi dan martabat nan mandasar sarato nilai manusia sacaro pribadi \\
 \hline
-6 & dalam deklarasi sadunia hak hak asasi manusia & dalam rekerasi sadunya hakak asasi manusia \\
+6 & dalam deklarasi sadunia hak hak asasi manusia & dalam rekerasi sadunya hakak asasi manusia &  dalam rekelerasi sadunia hak hak asasi manusia & dalam deklarasi sadunia hak hak asasi manusia \\
 \hline
-7 & perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang & percerikatan bahasa bangsa mau raihkan secara jala hak hak dan dimiliki tiok urang \\
+7 & perserikatan bangsa bangsa mauraikan sacaro jaleh hak hak nan dimiliki tiok urang & percerikatan bahasa bangsa mau raihkan secara jala hak hak dan dimiliki tiok urang &  perserikatan basah bangsa mawurahikan sacaro jalay hak hak nan dimiliki tiok urang &  perserikatan basabangsa mawuraitkan sacaro jalay hak hak nan dimiliki tiok urang \\
 \hline
-8 & hak hak ko adolah milik awak & ha ha ko adola milik awak \\
+8 & hak hak ko adolah milik awak & ha ha ko adola milik awak & hak hak ko adolah milik awak & hak hak ko adolah milik awak \\
 \hline
-9 & itulah hak hak awak & itu lah awak \\
+9 & itulah hak hak awak & itu lah awak & kitu lah kakawak & itulah ha ha awak \\
 \hline
-10 & bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia & bandula mau ujutkan dan mempatahkan yo untuk diri awak surang atau pun untuk asas sama umat manisyo \\
+10 & bantulah mawujudkan dan mampatahankannyo untuak diri awak surang atau pun untuak sasamo umat manusia & bandula mau ujutkan dan mempatahkan yo untuk diri awak surang atau pun untuk asas sama umat manisyo & bantula mawujudkan dan mampatahakanyo untuak diri awak surang ataupun untuak sasamo umat manasio & bantula mawujudkan dan mampatahankannyo untuk diri awak surang atau pun untuak sasamo umat manusia \\
 \hline
-11 & deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan & deklarasi sadunya hakak manusia mukadima sesungguhnya pengakuan taradok martabat desar dan hakak dan sama saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamer dkn \\
+11 & deklarasi sadunia hak hak asasi manusia mukadimah sasungguahnyo pangakuan taradok martabat dasar dan hak hak nan samo sarato mutlak dari tiok anggota kaluarga manusia adolah landasan dari kamardekaan & deklarasi sadunya hakak manusia mukadima sesungguhnya pengakuan taradok martabat desar dan hakak dan sama saratom butlak dari tiok anggota keluarga manusia adolah landasan dari kamer dkn & deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan & deklarasi sadunia hak hak manusia muka di ma sasungguahnyo pangakuan taradok martabat tasar dan hak hak nan samo sarato mutlak dari tiok anggota keluarga manusia adolah landasan dari kamardekaan \\
 \hline
-12 & kaadilan dan pardamaian di dunia & keadilan dan pak damayan di dunia \\
+12 & kaadilan dan pardamaian di dunia & keadilan dan pak damayan di dunia & ka adilan dan park damayan di dunia & kaadilan dan pardamaian di dunia \\
 \hline
-13 & sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia & sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia tabuki manga kibatakan pari laku biadap dan sangat malu koi nurani umat manusia \\
+13 & sasungguahnyo sikap tak paduli dan malecehkan hak hak asasi manusia tabukti mangakibatkan parilaku biadab nan sangat malukoi nurani umat manusia & sesungguhnya sikap tak paduli dan malah cekkan hakak asasi manusia tabuki manga kibatakan pari laku biadap dan sangat malu koi nurani umat manusia & sasungguahnyo sikap tak paduli dan malahicekkan hak hak asasi manusia tabuki mangah kibatakan parilaku biadab nan sangat malukoi nurani umat manusia & sasungguahnyo sikap tak paduli dan malajahkan hak hak asasi manusia tabuki manga kibatakan parilaku biadap nan sangat malukoi nurani umat manusia \\
 \hline
-14 & dan alah dicanangkannyo suatu dunia di ma tiok urang dapek manikmati kabebasan manyampaikan pandapek & dan alah di canang kanyo suatu dunia di mata tiok orang dapat manik mati kabebasan manyangpai kan pandapnya \\
+14 & dan alah dicanangkannyo suatu dunia di ma tiok urang dapek manikmati kabebasan manyampaikan pandapek & dan alah di canang kanyo suatu dunia di mata tiok orang dapat manik mati kabebasan manyangpai kan pandapnya & dan alah dicanangkan jo suatu dunia di mata tiok urang dapek manikmati kabebasan manyampaikan pandapek & dan alah dicanang kanyo suatu dunia dimata tiok urang dapek manikmati kabebasan manyampaikan pandapek \\
 \hline
-15 & bakayakinan & bakaian ke nanti \\
+15 & bakayakinan & bakaian ke nanti & bakayakinan & bakayakinan \\
 \hline
-16 & sabagai cito cito paliang tinggi dari sadonyo urang & sebagai citocito pali yang tinggi dari sadunya orang \\
+16 & sabagai cito cito paliang tinggi dari sadonyo urang & sebagai citocito pali yang tinggi dari sadunya orang & sabagai cito cito paliang tinggi dari sadonyo urang & sabagai cito cito paliang tinggi dari sadonyo urang \\
 \hline
-17 & sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan & seseungguhnya supaya kurang indak tapas o mamiliya barontak sebagai usaha pengabisan untuk menantang kajaliman dan panindasan \\
+17 & sasungguahnyo supayo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kazaliman dan panindasan & seseungguhnya supaya kurang indak tapas o mamiliya barontak sebagai usaha pengabisan untuk menantang kajaliman dan panindasan & sasungguahnyo supo jo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan & sasungguahnyo supo jo urang indak tapaso mamiliah barontak sabagai usaho pangabisan untuak manantang kajaliman dan panindasan \\
 \hline
-18 & hak hak asasi manusia paralu dijamin malalui tartib hukum & hakak asesimanusia para lu dijamin malah lui terti buku \\
+18 & hak hak asasi manusia paralu dijamin malalui tartib hukum & hakak asesimanusia para lu dijamin malah lui terti buku & hak hak asasi manusia paralu dijamin malalui tartib hukum & hak hak asasi manusia paralu dijamin malalui tartib hukum \\
 \hline
-19 & sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia & sesungguhnya paralu bana mamajukan panggambangan hubungan bahasa habat di antarobansobanso di dunia \\
+19 & sasungguahnyo paralu bana mamajukan pangambangan hubuangan basahabat di antaro banso banso di dunia & sesungguhnya paralu bana mamajukan panggambangan hubungan bahasa habat di antarobansobanso di dunia & sasungguahnyo paralu bana mamajukan pangambangan hubungan basahabat di antaro banso banso di dunia & sasungguahnyo paralu bana mamajukan pangambang hubungan basahabat diantaro banso banso di dunia \\
 \hline
-20 & sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & sesungguhnya dalam piagam perserikatan bangsabangsa sadunya anggota ala mengukuhakan baliak kaya kenan tarado khakak asasi manusia dan mandasara \\
+20 & sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & sesungguhnya dalam piagam perserikatan bangsabangsa sadunya anggota ala mengukuhakan baliak kaya kenan tarado khakak asasi manusia dan mandasara & sasungguahnyo dalam piagam persadikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar & sasungguahnyo dalam piagam perserikatan bangsa bangsa sadonyo anggota alah mangukuahkan baliak kayakinan taradok hak hak asasi manusia nan mandasar \\
 \hline
-21 & taradok martabat dan nilai tiok urang & tarah dok martabat dan nilai tiap urang \\
+21 & taradok martabat dan nilai tiok urang & tarah dok martabat dan nilai tiap urang & taradok martabat dan nilai tiok urang & taradok martabat dan nilai tiok urang \\
 \hline
-22 & dan taradok hak hak nan samo dari laki laki jo padusi & dan taradok hakhak nanti sama dari lagilaki yo padusi \\
+22 & dan taradok hak hak nan samo dari laki laki jo padusi & dan taradok hakhak nanti sama dari lagilaki yo padusi & dan taradok hak hak nan samo dari laki laki jo padusi & dan taradok hak hak nan samo dari laki laki jo padusi \\
 \hline
-23 & dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang & dan patekat untuk mandorong kamu ajuan sosial serato tarof iduik dan labia elo dalam kamer dkn dan labia gadang \\
+23 & dan batekad untuak mandorong kamajuan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadang & dan patekat untuk mandorong kamu ajuan sosial serato tarof iduik dan labia elo dalam kamer dkn dan labia gadang & dan patekad untuak mandaurang kamajoan sosial sarato taraf iduik nan labiah elok dalam kamardekaan nan labiah gadgang & dan batekad untuak mandorang kamajuan sosial sarato taraf iduik nan labiah elo dalam kamardekaan nan labiah gadang \\
 \hline
-24 & sasungguahnyo ikrar negara negara anggota & susungguhnya iklar negaranegara anggota \\
+24 & sasungguahnyo ikrar negara negara anggota & susungguhnya iklar negaranegara anggota & susungguahnyo iklar negara negara anggota & susungguahnyo iklar negara negara negara anggota \\
 \hline
-25 & bakarajo samo jo perserikatan bangsa bangsa & bakar ayo sama yuk per sedekatan bangsa bangsa \\
+25 & bakarajo samo jo perserikatan bangsa bangsa & bakar ayo sama yuk per sedekatan bangsa bangsa & bakarayo samo jo perserikatan bangsa bangsa & bakarayo samo jo perserikatan bangsa bangsa \\
 \hline
-26 & untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar & untuk memajukan panggur matang tarah dokkhak asasi manusia dan kamerdekaan nama dasar \\
+26 & untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar & untuk memajukan panggur matang tarah dokkhak asasi manusia dan kamerdekaan nama dasar & untuak mamajukan pangormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar & untuak mamajukan panghormatan taradok hak hak asasi manusia dan kamardekaan nan mandasar \\
 \hline
-27 & sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar & seseungguhnya pahal bana ada yau pemahaman dan sama tantang hakak dan kabebasan kabebasan koh supaya dapat diwujutkan seluruh ahni sasuai yau ikrar \\
+27 & sasungguahnyo paralu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar & seseungguhnya pahal bana ada yau pemahaman dan sama tantang hakak dan kabebasan kabebasan koh supaya dapat diwujutkan seluruh ahni sasuai yau ikrar & sasungguahnyo palu bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supaya dapek diwujudkan saluruahnyo sasuai jo ikrar & sasungguahnyo palo bana adonyo pamahaman nan samo tantang hak hak dan kabebasan kabebasan ko supayo dapek diwujudkan saluruahnyo sasuai jo ikrar \\
 \hline
-28 & mako majlis umum mancanangkan deklarasi sadunia hak hak asasi manusia sabagai satu tolok ukua basamo untuak sadonyo urang dan sagalo banso & moko majelis umum mancanakan deklarasi sadunya haggak manusia sebagai satu tolok ukwa basamok untua kcedoyonurang dan sagalo bansol \\
+28 & mako majlis umum mancanangkan deklarasi sadunia hak hak asasi manusia sabagai satu tolok ukua basamo untuak sadonyo urang dan sagalo banso & moko majelis umum mancanakan deklarasi sadunya haggak manusia sebagai satu tolok ukwa basamok untua kcedoyonurang dan sagalo bansol & mokor majilis umum mancanangkan deklarasi sadunia hak hak manusia sabagai satu tolak ukwa basamo untuak sadonyo urang dan sagalo banso & moko majilis umum mancanangkan deklarasi sadunia hak hak manusia sabagai satu tulok ukwa basamo untuak sadonyo urang dan sagalo banso \\
 \hline
-29 & supayo tiok urang dan limbago dalam masyarakat sanantiaso mamparatikan deklarasi ko & supaya tiok orang dan limbago dalam masyarakat senantian so memparatikan deklarasi ko \\
+29 & supayo tiok urang dan limbago dalam masyarakat sanantiaso mamparatikan deklarasi ko & supaya tiok orang dan limbago dalam masyarakat senantian so memparatikan deklarasi ko & supayo tiok urang dan libago dalam masyarakat sanantiaso mamparatikan deklarasi ko & supayo tiok urang dan libago dalam masyarakat sanan tiaso mamparatikan deklarasi ko \\
 \hline
-30 & untuak manjamin pangakuan dan palaksanaannyo sacaro universal & untuk menjamin pahakuan dan palak sana anjo sajar o univer salah \\
+30 & untuak manjamin pangakuan dan palaksanaannyo sacaro universal & untuk menjamin pahakuan dan palak sana anjo sajar o univer salah & untuak manjamin pahakuan dan palaksanaannyo sacaro universal & untuak manjamin pakuan dan palaksanaannyo sacaro universal \\
 \hline
-31 & di antaro sasamo banso negara anggota sarato masyarakat dalam wilayah nan dikuasoinyo & di antara sama bansuan agara anggota sarato masyarakat dalam bilaya dan di kwasoinya \\
+31 & di antaro sasamo banso negara anggota sarato masyarakat dalam wilayah nan dikuasoinyo & di antara sama bansuan agara anggota sarato masyarakat dalam bilaya dan di kwasoinya & di antaro sasamo banso negara anggota sarato masyarakat dalam milayah nan di kwasoinyo & di antaro sasamo banso negara anggota sarato masyarakat dalam wilayah nan di kwasoinyo \\
 \hline
-32 & malalui pandidikan dan pangajaran untuak manumbuahkan raso hormat taradok hak hak dan kamardekaan sapanjang maso & melalui pandidikan dan pengajaran untuk manumbuhkan raso hormat taradok hakkak dan rekamadekean sepanjang raso \\
+32 & malalui pandidikan dan pangajaran untuak manumbuahkan raso hormat taradok hak hak dan kamardekaan sapanjang maso & melalui pandidikan dan pengajaran untuk manumbuhkan raso hormat taradok hakkak dan rekamadekean sepanjang raso & melalui pandidikan dan pangajaran untuak manumbuhkan raso hormat taradok hak hak dan kamardekaan sepanjang raso & malalui pandidikan dan pangajaran untuak manungguahkan raso hormat taradok hak hak dan kamardekaan sepanjang raso \\
 \hline
-33 & di tingkek nasional jo internasional & ditingkek national yo international \\
+33 & di tingkek nasional jo internasional & ditingkek national yo international & di tingkek nasional jo intern nasional & ditingkek nasional jo internasional \\
 \hline
-34 & pasal satu sadonyo manusia dilahiakan mardeka dan punyo martabat sarato hak hak nan samo & pasal c sadoyu manusia dilahiyakan mardeka nanti punya martabat carato hak hak nanti sama \\
+34 & pasal satu sadonyo manusia dilahiakan mardeka dan punyo martabat sarato hak hak nan samo & pasal c sadoyu manusia dilahiyakan mardeka nanti punya martabat carato hak hak nanti sama & pasal ti sadoyo manusia dilahiyakan mardeka nan punyo martabat sarato hak hak nan samo & pasal ce sadonyo manusia dilahiokan mardeka nan punyo martabak sarato hak hak nan samo \\
 \hline
-35 & mareka dikaruniai aka jo hati nurani  supayo satu samo lain bagaul sarupo urang badunsanak & mereka di karunnya akan yuk hati nurani supaya satu sama lain bagaul sarupa orang badun sana \\
+35 & mareka dikaruniai aka jo hati nurani  supayo satu samo lain bagaul sarupo urang badunsanak & mereka di karunnya akan yuk hati nurani supaya satu sama lain bagaul sarupa orang badun sana & mareka di karuniai akai jo hati nurani supayo satu samo lain bagaul sarupo urang badun sana & mareka di karuniai akai jo hati nurani supayo satu samo lain bagaul sarupa urang badun sana \\
 \hline
-36 & pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tacantum dalam deklarasi ko & pasal 2 tiak orang punya hock manik mati hakkak dan kamerdekaan dan tajantum dalam deklarasiko \\
+36 & pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tacantum dalam deklarasi ko & pasal 2 tiak orang punya hock manik mati hakkak dan kamerdekaan dan tajantum dalam deklarasiko & pasal dua tiok urang punyo hak manikmati hak hak dan kamardekaan nan tajantum dalam deklarasi ko & pasal dua tiok urang punyo hak manik mati hak hak dan kamardekaan nan tacantum dalam deklarasi ko \\
 \hline
-37 & warno kulik jinih kalamin & kuala kulit jenik kalamin \\
+37 & warno kulik jinih kalamin & kuala kulit jenik kalamin & warno kulik jinih kalamin & warnok kulik jinih kalamin \\
 \hline
-38 & bahaso agamo politik atau pandangan lain & bahasa agama politik atau pandangan lain \\
+38 & bahaso agamo politik atau pandangan lain & bahasa agama politik atau pandangan lain & bahaso agamo politik atau pandangan lain & bahaso agamo politik atau pandangan lain \\
 \hline
-39 & asa usua kabansoan atau tingkek sosial  kakayaan  kalahiran ataupun kadudukan lainnyo & asa usua kaban soan atau tinggak sosial kakayaan kalahiran atau pun kadudukan naiknya \\
+39 & asa usua kabansoan atau tingkek sosial  kakayaan  kalahiran ataupun kadudukan lainnyo & asa usua kaban soan atau tinggak sosial kakayaan kalahiran atau pun kadudukan naiknya & asa usua kaban suann atau tinggi sosial kakayaan kalahiran atau pun kadudukan nainyo & aso usua kaban soan atau tingak sosial kakayaan kalahiran atau pun kadudukan na inyo \\
 \hline
-40 & lain dari pado itu & lain dari podok itu \\
+40 & lain dari pado itu & lain dari podok itu & lain dari podok itu & lime dari pado itu \\
 \hline
-41 & kakuasaan hukum atau kadudukan internasional dari negara atau daerah asa sasaurang & kakua sehan hukum atau kadudukan internasional dari negara atau daerah asasasas orang \\
+41 & kakuasaan hukum atau kadudukan internasional dari negara atau daerah asa sasaurang & kakua sehan hukum atau kadudukan internasional dari negara atau daerah asasasas orang & kakuasaan hukum atau kadudukan internasional dari negara atau daerah asasa urang & kakuasaan hukum atau kadudukan internasional dari negara atau daerah asasasa urang \\
 \hline
-42 & pasal tiga tiok urang punyo hak untuak iduik  untuak mardeka  dan kasalamatan salaku manusia pribadi & pasal tiga tiag orang punya hak untuak iduik untuak mardeka dan keselamatan salahku manusia pribadi \\
+42 & pasal tiga tiok urang punyo hak untuak iduik  untuak mardeka  dan kasalamatan salaku manusia pribadi & pasal tiga tiag orang punya hak untuak iduik untuak mardeka dan keselamatan salahku manusia pribadi & pasal tiga tiok urang punyo hak untuak iduik untuak mardeka dan keselamatan salaku manusia pribadik & pasal tiga tiok urang punyo hak untuak iduik untuak mardeka dan kaslamatan salaku manusia pribadi \\
 \hline
-43 & pasal empat indak surang pun buliah dipabudak atau disuruah karajo rodi & pasal ampah indak surang pun bulia di pabudak atau di suruh karajorodi \\
+43 & pasal empat indak surang pun buliah dipabudak atau disuruah karajo rodi & pasal ampah indak surang pun bulia di pabudak atau di suruh karajorodi & pasal empat indak surang pun buliah dipabudak atau disuruh karajo rodi & pasal empat indak surang pun buliah di pabudak atau di surah karajo rodi \\
 \hline
-44 & mampabudak dan mampadagangkan budak dalam sagalo bantuak musti dilarang & mempah budak dan mempahdagangan budak dalam segala bantuan mesti di larang \\
+44 & mampabudak dan mampadagangkan budak dalam sagalo bantuak musti dilarang & mempah budak dan mempahdagangan budak dalam segala bantuan mesti di larang & mampabudak nan mampadagangkan budak dalam sagalo bantuak musti dilarang & mampabudak nan mampadagangkan budak dalam sagalo bantuak musti dilarang \\
 \hline
-45 & pasal lima indak surang pun buliah dianiayo atau dizalimi & di jalan \\
+45 & pasal lima indak surang pun buliah dianiayo atau dizalimi & di jalan & pasal lima indak surang pun buliah dianiayo atau di jalini & pasal lima indak surang pun buliah dianiayo atau dijalimi \\
 \hline
-46 & atau dihukum sacaro kajam  tidak bakamanusiaan atau dihino & atau di hukum sacara kajam tidak bakal manusiaan atau dihinol \\
+46 & atau dihukum sacaro kajam  tidak bakamanusiaan atau dihino & atau di hukum sacara kajam tidak bakal manusiaan atau dihinol & atau dihukum sacaro kajam tidak bakamanusiaan atau dihino & atau dihukum sacaro kajam tidak baka manusiaan atau dihino \\
 \hline
-47 & pasal enam di ma sajo barado & di masa jauh baradot \\
+47 & pasal enam di ma sajo barado & di masa jauh baradot & pasal enam dimaso baradok & pasal enam dimasajo barado \\
 \hline
-48 & tiok urang punyo hak untuak dapek parlakuan sabagai manusia di hadapan hukum & di atiok orang punya hak untuk waktap perlakuan sebagai manusia dihadapan hukum \\
+48 & tiok urang punyo hak untuak dapek parlakuan sabagai manusia di hadapan hukum & di atiok orang punya hak untuk waktap perlakuan sebagai manusia dihadapan hukum & tiok urang punyo hak untuak dapek parlakuan sabagai manusia dihadapan hukum & tiok urang punyo hak untuak dapek parlakuan sabagai manusia dihadapan hukum \\
 \hline
-49 & dan karano tu punyo hak nan indak bakacuali untuk mandapek linduangan hukum nan samo & dan karena untuk punya hak nandak bakacuali untuk mendapat lindungan pokom dan samos \\
+49 & dan karano tu punyo hak nan indak bakacuali untuk mandapek linduangan hukum nan samo & dan karena untuk punya hak nandak bakacuali untuk mendapat lindungan pokom dan samos & dan karano tu punyo hak nan indak bakacuali untuak mandapek linduangan hukum nan samo & dan karano tu punyo hak nan indak bakacuali untuak mandapek linduangan hukum nan samo \\
 \hline
-50 & sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko & saka kalian orang punya hak mandap pake lindungan dan sama taradok segala pembedaan dan batan tangan jo deklarasiko \\
+50 & sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko & saka kalian orang punya hak mandap pake lindungan dan sama taradok segala pembedaan dan batan tangan jo deklarasiko & sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko & sakalian urang punyo hak mandapek linduangan nan samo taradok sagalo pambedaan nan batantangan jo deklarasi ko \\
 \hline
-51 & dan taradok sagalo ancaman nan mangarah pado pambedaan samacam itu & dan teladok segala ancaman dan mengarah pada pambedahan samasama \\
+51 & dan taradok sagalo ancaman nan mangarah pado pambedaan samacam itu & dan teladok segala ancaman dan mengarah pada pambedahan samasama & dan taladok sagalah ancaman dan mangarah pada pambedaan samacam & dan taradok sagala ancaman nan mangara padah pamvedaan samacam \\
 \hline
-52 & pasal delapan tiok urang punyo hak mandapek ganti rugi nyato malalui paradilan nasional nan bawenang dari tindakan urang lain nan malangga hak hak dasar nan dimilikinyo sasuai jo undang undang dasar atau hukum & pasal salapan tiok orang punya hak mandepak cantirug di nyatuh melalui paradilan nasional dan bauenang dari tindakan orang lain dan malangga hakhak desar dan dimilikinus sasuai yau undangundang desar atau hukum \\
+52 & pasal delapan tiok urang punyo hak mandapek ganti rugi nyato malalui paradilan nasional nan bawenang dari tindakan urang lain nan malangga hak hak dasar nan dimilikinyo sasuai jo undang undang dasar atau hukum & pasal salapan tiok orang punya hak mandepak cantirug di nyatuh melalui paradilan nasional dan bauenang dari tindakan orang lain dan malangga hakhak desar dan dimilikinus sasuai yau undangundang desar atau hukum & pasal salapan tiok urang punyo hak mandapek cantirup di nyato melalui paradilan nasional nan baunang dari tindakan urang lain nan malangga hak hak dasar dan dimilikinyo sasuai jo undang undang dasar atau hukum & pasal salapan tiok urang punyo hak mandapek gantirugdinyo toch melalui paradilan nasional nan baunang dari tindakan urang lain nan malangga hak hak dasar nan di milikinyo sasuai jo undang undang dasar atau hukum \\
 \hline
-53 & dalam mampatahankan hak dan kawajibannyo  sarato dalam tiok tuntutan pidana nan didakwakan ka inyo & dalam mempahdakan hak dan kawajibannya serato dalam tiuk tunutan pidana dan didakwakan kaya inyo \\
+53 & dalam mampatahankan hak dan kawajibannyo  sarato dalam tiok tuntutan pidana nan didakwakan ka inyo & dalam mempahdakan hak dan kawajibannya serato dalam tiuk tunutan pidana dan didakwakan kaya inyo &  dalam mampatakan hak dan kawajibanyo sarato dalam tiok tuntutan pidana nan didakwaakan kayo & dalam mampatakan hak dan kawajibanyo sarato dalam tiok tundutan pidana nan didakuakan kaiinyo \\
 \hline
-54 & pasal sebelas tiok urang nan didakwa malakukan palanggaran pidana punyo hak dianggap tak basalah sampai inyo tabukti basalah sacaro hukum dalam paradilan umum & di atas kebukaan \\
+54 & pasal sebelas tiok urang nan didakwa malakukan palanggaran pidana punyo hak dianggap tak basalah sampai inyo tabukti basalah sacaro hukum dalam paradilan umum & di atas kebukaan & pasal sablas tiok urang nan didakwa malakukan palanggaran pidana punyo hak dianggap tak basalah sampe inyo tabukti basalah sacaro hukum dalam paradilan umum & pasal sablas tiok urang nan didakwa malakukan palanggaran pidana punyo hak dianggap tak basala sampe inyo tabukti basala sacaro hukum dalam paradilan umum \\
 \hline
-55 & dan inyo mandapek sagalo jaminan nan paralu untuak mambela diri & dan ini mandapak segala jaminan dan parah lu untuk membelah diri \\
+55 & dan inyo mandapek sagalo jaminan nan paralu untuak mambela diri & dan ini mandapak segala jaminan dan parah lu untuk membelah diri & dan inyo mandapek sagalo jaminan nan paralu untuak mambela diri dua & dan inyo mandapek sagalo jaminan nan paralu untuak mambelah diri dua \\
 \hline
-56 & indak surang pun dapek dianggap basalah malakukan tindakan pidana nan disababkan malakukan atau tidak malakukan sasuatu & indak surang pun dapat ke dianggap basalah malah kukan tindakan pidana dan disabapkan malah kukan atau tidak malah kukan sesuatu \\
+56 & indak surang pun dapek dianggap basalah malakukan tindakan pidana nan disababkan malakukan atau tidak malakukan sasuatu & indak surang pun dapat ke dianggap basalah malah kukan tindakan pidana dan disabapkan malah kukan atau tidak malah kukan sesuatu & indak surang pun dapek dianggap basalah malakukan tindakan pidana nan disababkan malakukan atau tidak malakukan sasuatu & indak surang pun dapek dianggap basalah malakukan tindakan pidana nan disabapkan malakukan atau tidak malakukan sasuatu \\
 \hline
-57 & baitu pulo indak buliah mahukum labiah barek dari katantuan hukum nan balaku katiko palanggaran pidana itu dilakukan & baito pulak indak buli mahu kum labia barik dari katantuan hukum nambalaku ketika palanggaran pidana itu dilakukan \\
+57 & baitu pulo indak buliah mahukum labiah barek dari katantuan hukum nan balaku katiko palanggaran pidana itu dilakukan & baito pulak indak buli mahu kum labia barik dari katantuan hukum nambalaku ketika palanggaran pidana itu dilakukan & baitu pulo indak buliah mahukum labiahbarek dari katantuan hukum nan belakukku katiko palanggaran pidana itu dilakukan & baitu pulo indak buliah mahukum labiabarak dari katantuan hukum nan balakuku katiko palanggaran pidana itu dilakukan \\
 \hline
-58 & pasal dua belas indak surang pun buliah diganggu hak pribadinyo & pasal dua balas indak surang pun boleh digangguh hak pribadi nyok \\
+58 & pasal dua belas indak surang pun buliah diganggu hak pribadinyo & pasal dua balas indak surang pun boleh digangguh hak pribadi nyok & pasal dua belas indak surang pun buliah digangguh hak pribadinyo & pasal dua belas indak surang pun buliah diganggu hak pribadinyo \\
 \hline
-59 & kaluarga  rumah tanggo atau surek manyureknyo  pargaulannyo & ke luargar rumah tanggo atau surek manjurek nyok pergauan nyok \\
+59 & kaluarga  rumah tanggo atau surek manyureknyo  pargaulannyo & ke luargar rumah tanggo atau surek manjurek nyok pergauan nyok & kaluarga rumah tanggok atau surek manjureknyo pargaulahnyo & kaluarga rumah tanggo atau surak manyuraknyo pargauannyo \\
 \hline
-60 & baitu pulo kahormatan jo namo baiaknyo & baik itu puluh kahormatan nyok namu baik nyok \\
+60 & baitu pulo kahormatan jo namo baiaknyo & baik itu puluh kahormatan nyok namu baik nyok & baitu pulo kahormatan jo nan mo baiknyo & baitu pulo kahormatannyo namo baiknyo \\
 \hline
-61 & tiok urang punyo hak mandapek linduangan hukum taradok gangguan atau palanggaran saroman ko & diok orang punya hak mandapak lindungan hukum taradok gangguan atau palanggaran saruman ko \\
+61 & tiok urang punyo hak mandapek linduangan hukum taradok gangguan atau palanggaran saroman ko & diok orang punya hak mandapak lindungan hukum taradok gangguan atau palanggaran saruman ko & tiok urang punyo hak mandapek linduangan hukum taradok gangguan atau palanggaran saruman ko & tiok urang punyo hak mandapek linduangan hukum taradok gangguan atau palanggaran saraman ko \\
 \hline
-62 & pasal tiga belas tiok urang punyo hak taradok kamardekaan marantau dan punyo kadiaman di dalam bateh wilayah tiok negara & pasal tigo balos tiok orang punya hak taradok kemar dekaan maran tau dan punya kadamayan di dalam batih vilaya tiok negara \\
+62 & pasal tiga belas tiok urang punyo hak taradok kamardekaan marantau dan punyo kadiaman di dalam bateh wilayah tiok negara & pasal tigo balos tiok orang punya hak taradok kemar dekaan maran tau dan punya kadamayan di dalam batih vilaya tiok negara & pasal tiga belas tiok urang punyo hak taradok kamardekaan marantau dan punyo kadamayan di dalam bateh wilayah tiok negara & pasal tiga belas tiok urang punyo hak taradok kamardekaan marantau dan punyo kadamayan di dalam bateh milayah tiok negara \\
 \hline
-63 & tiok urang punyo hak untuak ka lua dari suatu negara   tamasuak negaranyo surang & di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini \\
+63 & tiok urang punyo hak untuak ka lua dari suatu negara   tamasuak negaranyo surang & di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini di sini & tiok urang punyo hak untuak kaluah dari suatu negara tamasuak negaronyo surang & tiok urang punyo hak untuak kalua dari suatu negara tamasuak negaronyo surang \\
 \hline
-64 & dan baliak lai ka negaranyo & dan beli lagi ke nagaranya \\
+64 & dan baliak lai ka negaranyo & dan beli lagi ke nagaranya & dan baliak lai ka negaranyo & dan baliak lai ka negaranyo \\
 \hline
-65 & hak ko indak balaku untuak dakwaan kajahatan non politik & hakko indak balaku untuk dakuahan kajahatan nonpolitik \\
+65 & hak ko indak balaku untuak dakwaan kajahatan non politik & hakko indak balaku untuk dakuahan kajahatan nonpolitik & hak ko indak balaku untuak dakuan kajahatan nan politik & hak ko indak balaku untuak dan kajahatan non politik \\
 \hline
-66 & atau karano tindakan nan batantangan jo tujuan dan asas asas perserikatan bangsa bangsa & atau karena tindakan batan tangan yuk tujuan dan asasasas per serikatan bangsabangsa \\
+66 & atau karano tindakan nan batantangan jo tujuan dan asas asas perserikatan bangsa bangsa & atau karena tindakan batan tangan yuk tujuan dan asasasas per serikatan bangsabangsa & atau karano tindakan nan batantangan jo tujuan dan asas asas perserikatan bangsa bangsa & atau karano tindakan nan batantangan jo tujuan dan asas asas perserikatan bangsa bangsa \\
 \hline
-67 & pasal lima belas tiok urang punyo hak mamiliki kawarga negaraan & pasal limo balos cee tio orang punya hak mamiliki kawarga nagaraan \\
+67 & pasal lima belas tiok urang punyo hak mamiliki kawarga negaraan & pasal limo balos cee tio orang punya hak mamiliki kawarga nagaraan & pasal lima belas tiok urang punyo hak mamiliki kawarga negara anda & pasal lima belas tiok urang punyo hak mamiliki kawarga negaraan \\
 \hline
-68 & indak surang pun buliah dicabuik kawarga negaraannyo atau ditulak haknyo untuak manuka kawarga negaraan & indak surang pun beli ya di cabuik kawarga negara nya atau ditulak haknya untuk manuka kawarga negaraan \\
+68 & indak surang pun buliah dicabuik kawarga negaraannyo atau ditulak haknyo untuak manuka kawarga negaraan & indak surang pun beli ya di cabuik kawarga negara nya atau ditulak haknya untuk manuka kawarga negaraan & indak surang pun buliah dicabuik kawarga negaranyo atau ditulak haknyo untuak manuko kawarga negaraan & indak surang pun buliah digabuik kawarga negaranyo atau di tulak haknyo untuak manuka kawarga negaraan \\
 \hline
-69 & pasal enam belas laki laki jo padusi nan akil baligh & pasal anam balos jay lakilaki yo padusinan akil balik \\
+69 & pasal enam belas laki laki jo padusi nan akil baligh & pasal anam balos jay lakilaki yo padusinan akil balik & pasal enam belas tiok laki laki jo padusi nan akil balik & pasal enam belas tiok laki laki jo padusi nan akil balik \\
 \hline
-70 & apopun ras  banso  atau agamonyo  punyo hak manikah dan bakaluarga & apapun ras banso atau agamonio punya hak manika nann bakal luarga \\
+70 & apopun ras  banso  atau agamonyo  punyo hak manikah dan bakaluarga & apapun ras banso atau agamonio punya hak manika nann bakal luarga & apopun ras banso atau agamonyo punyo hak manikah nan bakal luarga & apupun ras banso atau agamonyo punyo hak manikah nan bakaluarga \\
 \hline
-71 & mareka punyo hak nan samo dalam urusan kawin mawin  baiak di maso parkawinan atau katiko carai & mereka punya haknan sama dalam urusan kawin mawin bayak di masa perkawinan atau katiko carai \\
+71 & mareka punyo hak nan samo dalam urusan kawin mawin  baiak di maso parkawinan atau katiko carai & mereka punya haknan sama dalam urusan kawin mawin bayak di masa perkawinan atau katiko carai & mareka punyo hak nan samo dalam urusan kawin mawin bayak dimaso perkawinan atau katiko carai & mareka punyo hak nan samo dalam urusan kawin mawin bayak dimaso perkawinan atau katiko carai \\
 \hline
-72 & parkawinan hanyo dapek dilakukan badasar piliahan bebas dan pasatujuan panuah pasangan nan basangkutan & perkauinan hanya dapat dilakukan badasar pilihan bebas dan pasa tujuan panwa pasangan dan basang kutan \\
+72 & parkawinan hanyo dapek dilakukan badasar piliahan bebas dan pasatujuan panuah pasangan nan basangkutan & perkauinan hanya dapat dilakukan badasar pilihan bebas dan pasa tujuan panwa pasangan dan basang kutan & parkawinan hanya dapek dilakukan badasar piliahan bebas dan pasatujuan panwa pasangan dan basang kutan & parkawinan hanyo dapek dilakukan badasar pilihan bebas dan pasatujuan panuah pasangan nan basang kutan \\
 \hline
-73 & kaluarga adolah kalompok alamiah dan mandasar dari masyarakat & dan mandasar dari masyarakat \\
+73 & kaluarga adolah kalompok alamiah dan mandasar dari masyarakat & dan mandasar dari masyarakat & kaluargo adolah kalompok alamian dan mandasar dari masyarakat & kaluargo adolah kalompok alamiah dan mandasar dari masyarakat \\
 \hline
-74 & punyo hak mandapek linduangan masyarakat jo negara & punya hak mandapak limdu dengan masyarakat yo nagara \\
+74 & punyo hak mandapek linduangan masyarakat jo negara & punya hak mandapak limdu dengan masyarakat yo nagara & punyo hak mandapek linduangan masyarakat jo negara & punyo hak mandapek linduangan masyarakat jo negara \\
 \hline
-75 & pasal tujuh belas tiok urang punyo hak mamiliki harato surang  baitu pulo basamo samo jo urang lain & pasal 7 balos tiak orang punya cia tiak orang punya hak mamiliki harato surang bayi to puluh basamos sama yo orang lain \\
+75 & pasal tujuh belas tiok urang punyo hak mamiliki harato surang  baitu pulo basamo samo jo urang lain & pasal 7 balos tiak orang punya cia tiak orang punya hak mamiliki harato surang bayi to puluh basamos sama yo orang lain & pasal tujuh belas tiok urang punyo tiok urang punyo hak mamiliki harato surang baiato pulo basamo samo jo urang lain & pasal tujuh belas tiok urang punyo tiok urang punyo hak mamiliki harato surang baito pulo basamosamo jo urang lain \\
 \hline
-76 & indak satu urang pun buliah dirampok haratonyo sacaro sawenang wenang & 1 orang pun buliah di rampuk hartonya secara saue nang \\
+76 & indak satu urang pun buliah dirampok haratonyo sacaro sawenang wenang & 1 orang pun buliah di rampuk hartonya secara saue nang & indak satu urang pun buliah dirampok hartonyo sacaro sauenang wenang & indak satu urang pun buliah di rampok heartonyo sacaro sawenang wenang \\
 \hline
-77 & pasal delapan belas tiok urang punyo hak kamardekaan untuak bapikia & dikasih di bawah \\
+77 & pasal delapan belas tiok urang punyo hak kamardekaan untuak bapikia & dikasih di bawah & pasal salapan belas tiok urang punyo hak kamardekaan untuak bapakia & pasal salapan belas tiok urang punyo hak kamardekaan untuak bapikia \\
 \hline
-78 & dan punyo kamardekaan untuak manyatokan agamo atau kaparcayaannyo malalui ajaran & dan punya kamerdekaan untuk menyebutkan agama atau kapasai anjo melalui ajaran \\
+78 & dan punyo kamardekaan untuak manyatokan agamo atau kaparcayaannyo malalui ajaran & dan punya kamerdekaan untuk menyebutkan agama atau kapasai anjo melalui ajaran & dan punyo kamardekaan untuak manyatokan agamo atau kaparcayaannyo melalui ajaran & dan punyo kamardekaan untuak manyatokan agamo atau kapasayaannyo malalui ajaran \\
 \hline
-79 & amalan pamujaan dan ibadat  baiak surang atau dalam kalompok  di tampek umum ataupun sacaro pribadi & amalan pemujahan dan ibadat baik surang atau dalam kelompok ditampak umum atau pun secara pribadi \\
+79 & amalan pamujaan dan ibadat  baiak surang atau dalam kalompok  di tampek umum ataupun sacaro pribadi & amalan pemujahan dan ibadat baik surang atau dalam kelompok ditampak umum atau pun secara pribadi & amalan pamujahan dan ibadat baik surang atau dalam kelompok ditampak umum ataupun sacara pribadi & amalan pamujaan dan ibadat baiak surang atau dalam kelompok di tampek umum ataupun sacara pribadi \\
 \hline
-80 & pasal sembilan belas tiok urang punyo hak taradok kamardekaan bapandapek dan mangamukokan pandapeknyo & pasal sambilan balos tiap orang punya hak tarado kemardekan bapan dapet dan mengamuk kokan penda peknya \\
+80 & pasal sembilan belas tiok urang punyo hak taradok kamardekaan bapandapek dan mangamukokan pandapeknyo & pasal sambilan balos tiap orang punya hak tarado kemardekan bapan dapet dan mengamuk kokan penda peknya & pasal sambilan belas tiok urang punyo hak taradok kamardekaan bapan dapek dan mangammu kokan pandapeknyo & pasal sembilan belas tiok urang punyo hak karado kamardekaan bapan dapek dan mangammu kokan pandapeknyo \\
 \hline
-81 & tamasuak kabebasan untuak mampatahankan pandapek   jan ditakan & di tempat kebabaan untuk mempatahkan pandepikan ditakkan \\
+81 & tamasuak kabebasan untuak mampatahankan pandapek   jan ditakan & di tempat kebabaan untuk mempatahkan pandepikan ditakkan & tamasuak kabebasan untuak mampatahankan pandepekan ditakkan & tamasuak kabebasan untuak mampatahkan pandapekkan ditakkan \\
 \hline
-82 & dan untuak mancari & dan untuk mencari \\
+82 & dan untuak mancari & dan untuk mencari & dan untuak mancari & dan untuak mancaring \\
 \hline
-83 & manarimo dan manyampaikan barito dan buah pikiran malalui media apopun nan indak diampang ampang dek bateh negara & manori moh dan menyampaikan baritoh buat dikiran oleh media apapun tidak diampangampang dek batih negara \\
+83 & manarimo dan manyampaikan barito dan buah pikiran malalui media apopun nan indak diampang ampang dek bateh negara & manori moh dan menyampaikan baritoh buat dikiran oleh media apapun tidak diampangampang dek batih negara & manorimu dan manyangpaikan barito dan buat dikiraan lalu media apopun nan tidak di ampang ampang dek bateh negara & manorimu dan manyampaikan barito dan buat dikiran lari media apopun nan tidak di ampang ampang dek bateh negara \\
 \hline
-84 & pasal dua puluh tiok urang punyo hak untuk kamardekaan bakumpua dan basyarikat sacaro damai & pasal 20c tio orang punya hak untuk kamerdekaan bakum puah dan basuari ket secara damai \\
+84 & pasal dua puluh tiok urang punyo hak untuk kamardekaan bakumpua dan basyarikat sacaro damai & pasal 20c tio orang punya hak untuk kamerdekaan bakum puah dan basuari ket secara damai & pasal dua puluh tiok urang punyo hak untuak kamardekaan bakumpuah dan basuiarikat sacaro damai & pasal dua puluh tiok urang punyo hak untuak kamardekaan bakumpua dan basuarikat sacaro damai \\
 \hline
-85 & indak surang pun buliah dipaso masuak suatu parkumpulan & indah surang pun boleh di pasok masuk suatu perkumpulan \\
+85 & indak surang pun buliah dipaso masuak suatu parkumpulan & indah surang pun boleh di pasok masuk suatu perkumpulan & indak surang pun buliah dipaso masuak suatu perkumpulan & indak surang pun buliah dipaso masuak suatu perkumpulan \\
 \hline
-86 & pasal dua puluh satu tiok urang punyo hak untuak sato dalam pamarintahan di negaranyo & di negara \\
+86 & pasal dua puluh satu tiok urang punyo hak untuak sato dalam pamarintahan di negaranyo & di negara & pasal dua puluh tiok tiok urang punyo hak untuak satu dalam pamirintahan di negaranyo & pasal dua puluh tiok urang punyo hak untuak satu dalam pamerintahan di negaranyo \\
 \hline
-87 & lansuang atau malalui wakia wakia nan dipiliah sacaro bebas & lansuang atau malah luih wakia wakianan dipilihnya secara bebas \\
+87 & lansuang atau malalui wakia wakia nan dipiliah sacaro bebas & lansuang atau malah luih wakia wakianan dipilihnya secara bebas & lansuang atau malalui wakijah wakijanan di piliah sacaro bebas & lansuang atau malalui wakia wakia nan dipiliah sacaro bebas \\
 \hline
-88 & kandak ko musti dinyatokan dalam pamiliahan umum nan diadokan sacaro barkala dan murni jo hak piliah nan basifat umum dan sadarajat & kanda kamu mesti dinyatokin dalam pemilihan umum dan diadakan secara barkalanan murni yo hak pilihanan basifat umum dan sadarajat \\
+88 & kandak ko musti dinyatokan dalam pamiliahan umum nan diadokan sacaro barkala dan murni jo hak piliah nan basifat umum dan sadarajat & kanda kamu mesti dinyatokin dalam pemilihan umum dan diadakan secara barkalanan murni yo hak pilihanan basifat umum dan sadarajat & kanda ko musti dinyatokan dalam pamilahan umum nan diadokan sacaro barkalanan murny jo hak piliah nan basifat umum dan sadarajat & kandakko musti dinyatokan dalam pamilahan umum nan diadokan sacaro barkala nan murni jo hak piliah nan basifat umum dan sadarajat \\
 \hline
-89 & sarato pamungutan suaro sacaro rasio atau pakai caro lain nan samo samo manjamin kabebasan manantukan piliahan & saratu pambungutan suarok sacaro rasio atau pakai carol lain dan samasama manjamin kebebasan manuntukan pilihan \\
+89 & sarato pamungutan suaro sacaro rasio atau pakai caro lain nan samo samo manjamin kabebasan manantukan piliahan & saratu pambungutan suarok sacaro rasio atau pakai carol lain dan samasama manjamin kebebasan manuntukan pilihan & sarato pamungutan suaro sacaro rasio atau pake carol lain nan samo samo manjamin kebebasan manuntukan pilihan & sarato pamungutan suaro sacaro rasio atau pake caro lain nan samo samo manjamin kabebasan manuntukan pilihan \\
 \hline
-90 & pasal dua puluh dua sabagai anggota masyarakat & pasal dua puluh dua sabagain yang gotat mesyarakat \\
+90 & pasal dua puluh dua sabagai anggota masyarakat & pasal dua puluh dua sabagain yang gotat mesyarakat & pasal dua puluh dua sabagai anggota masyarakat & pasal dua puluh dua sabagai anggota masyarakat \\
 \hline
-91 & sosial jo budaya & sosial juga mudaya \\
+91 & sosial jo budaya & sosial juga mudaya & sosial jo mudaiah & sosial jo budaya \\
 \hline
-92 & nan mutlak paralu untuak martabat dan parkambangan bebas dari pribadinyo & dan mutlak para lu untuk kuntuk martabat dan perkambangan bebas dari pribadi nyolah \\
+92 & nan mutlak paralu untuak martabat dan parkambangan bebas dari pribadinyo & dan mutlak para lu untuk kuntuk martabat dan perkambangan bebas dari pribadi nyolah & nan mutlak paralu untuak untuak martabat dan parkambangan bebas dari pribadinyo & nan mutlak paralu untuak martabat dan parkambangan bebas dari pribadinyo \\
 \hline
-93 & malalui usaho usaho nasional dan karajo samo internasional & melali usahausaha nasional dan karajau sama internasional \\
+93 & malalui usaho usaho nasional dan karajo samo internasional & melali usahausaha nasional dan karajau sama internasional & melalui usaho usaho nasional dan karajo samo internasional & malalui usaho usaho nasional dan karajo samo internasional \\
 \hline
-94 & sesuai jo pangaturan sarato sumber sumber kakayaan di tiok negara & sesuai pangaturan sarato sumbersumber kakayaan di tiok nagara \\
+94 & sesuai jo pangaturan sarato sumber sumber kakayaan di tiok negara & sesuai pangaturan sarato sumbersumber kakayaan di tiok nagara & susuayo pangaturan sarato sumber sumber kakayaan di tiok negara & sasuai jo pangaturan sarato sumber kakayaan di tiok negara \\
 \hline
-95 & pasal dua puluh tiga tiok urang punyo hak mandapek karajo & pasal 23 jiet tiwa orang puyuhak mendapat karajok \\
+95 & pasal dua puluh tiga tiok urang punyo hak mandapek karajo & pasal 23 jiet tiwa orang puyuhak mendapat karajok & pasal dua puluh tiga tiok urang punyo hak mandapek karajo & pasal dua puluh tiga tiok urang punyo hak mandapek karajo \\
 \hline
-96 & bebas mamiliah jinih karajo & bebas mamilia jenih karajo \\
+96 & bebas mamiliah jinih karajo & bebas mamilia jenih karajo & bebas mamiliah jinih karajo & bebas mamiliah jinih karajo \\
 \hline
-97 & punyo hak taradok syarat syarat karajo nan adil dan pantas & punyo hak taradok syaratsharat kerajonan adil dan pantas \\
+97 & punyo hak taradok syarat syarat karajo nan adil dan pantas & punyo hak taradok syaratsharat kerajonan adil dan pantas & punyo hak taradok syarat syarat karajo nan adil dan pantas & punyo hak taradok syarat syarat karajo nan adil dan pantas \\
 \hline
-98 & tiok urang   indak bakacuali  punyo hak dapek upah samo untuak karajo nansamo & yok orang indah bakal cuali punya hak dapat upoh sama untuk karajah dan sama \\
+98 & tiok urang   indak bakacuali  punyo hak dapek upah samo untuak karajo nansamo & yok orang indah bakal cuali punya hak dapat upoh sama untuk karajah dan sama & yok urang indak bakal juali punyo hak dapek upo samo untuak karajo nan samo & yok urang indak bakacuali punyo hak dapek upo samo untuak karajo nan samo \\
 \hline
-99 & tiok urang nan bakarajo punyo hak dapek upah nan adil dan pantas untuak manjamin iduiknyo surang dan kaluarga & tio orang nann bakar jo punya hak dapak upah nann adil nann pantas untuk manjamin idwig nyok surang dan kaluarga \\
+99 & tiok urang nan bakarajo punyo hak dapek upah nan adil dan pantas untuak manjamin iduiknyo surang dan kaluarga & tio orang nann bakar jo punya hak dapak upah nann adil nann pantas untuk manjamin idwig nyok surang dan kaluarga & tiok urang nan bakar jo punyo hak dapek upah nan adil nan pantas untuak manjamin iduiknyo surang dan kaluarga & tiok urang nan bakarajo punyo hak dapek upah nan adil nan pantas untuak manjamin iduiknyo surang dan kaluarga \\
 \hline
-100 & nan sasuai jo martabatnyo salaku manusia  dan jiko paralu ditambah jo linduangan sosial lainnyo & dan sesuai yo martabat yo salahku manusia dan jikoh paralu ditambah yo lindungan sosial lainnya \\
+100 & nan sasuai jo martabatnyo salaku manusia  dan jiko paralu ditambah jo linduangan sosial lainnyo & dan sesuai yo martabat yo salahku manusia dan jikoh paralu ditambah yo lindungan sosial lainnya & dan sasuai jo martabatnyo salaku manusia dan jikoh paralu ditambah jo linduangan sosial lainnyo & nan sasuai jo martabatnyo salaku manusia dan jikoh paralu di tambah jo linduangan sosial lainnyo \\
 \hline
-101 & tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantiangannyo & di awal yang berkaitan dan diberikan ke raja untuk melindungi ke pantingannya \\
+101 & tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantiangannyo & di awal yang berkaitan dan diberikan ke raja untuk melindungi ke pantingannya & tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduangi kapantianyo & tiok urang punyo hak mandirikan dan masuak syarikat syarikat karajo untuak malinduanyo \\
 \hline
-102 & pasal dua puluh empat tiok urang punyo hak untuak baistirahat dan liburan & pasal 20 ampeh tiok orang punya hak untuk baik tirahat dan liburantin \\
+102 & pasal dua puluh empat tiok urang punyo hak untuak baistirahat dan liburan & pasal 20 ampeh tiok orang punya hak untuk baik tirahat dan liburantin & pasal dua puluh ampah tiok urang punyo hak untuak baistirahat dan liburan & pasal dua puluh empah tiok urang punyo hak untuak baistirahat dan liburan \\
 \hline
-103 & dan tatap dapek upah di hari perai atau katiko cuti & dan tetap dapat upa di hari pria atau kati ko tutup \\
+103 & dan tatap dapek upah di hari perai atau katiko cuti & dan tetap dapat upa di hari pria atau kati ko tutup & dan tetap dapek upah di hari prai atau katiko juta & dan tatap dapek upang di hari parai atau katikocuti \\
 \hline
-104 & pasal dua puluh lima tiok urang punyo hak taradok taraf iduik nan manjamin kasehatan dan kasajahteraan diri jo kaluarga & pasal 205 cee tiap orang punya hak tarah doktor av iduik nant manjamin kasihatan dan kas sejatraan diri yo kaluarga \\
+104 & pasal dua puluh lima tiok urang punyo hak taradok taraf iduik nan manjamin kasehatan dan kasajahteraan diri jo kaluarga & pasal 205 cee tiap orang punya hak tarah doktor av iduik nant manjamin kasihatan dan kas sejatraan diri yo kaluarga & pasal dua puluh lima tiok urang punyo hak taradok tarraf iduik nan manjamin kasihatan dan kasajatraan diri jo kaluarga & pasal dua puluh lima tiok urang punyo hak taradok taraf iduik nan manjamin kasehatan dan kasejetraan dari jo kaluarga \\
 \hline
-105 & tamasuak makanan & tama suak makan dan \\
+105 & tamasuak makanan & tama suak makan dan & tamasuak makanan & tamasuak makanan \\
 \hline
-106 & pakaian sarato palayanan sosial nan paralu & pakayan saratu palaianan sosial dan para lu \\
+106 & pakaian sarato palayanan sosial nan paralu & pakayan saratu palaianan sosial dan para lu & pakayan sarato palayanan sosial nan paralu & pakayan sarato palayanan sosial nan paralu \\
 \hline
-107 & dan punyo hak jaminan katiko manganggur & dan punya hak jaminan kati ko menganggur \\
+107 & dan punyo hak jaminan katiko manganggur & dan punya hak jaminan kati ko menganggur & dan punyo hak jaminan katiko manganggur & dan punyo hak jaminan katiko manganggur \\
 \hline
-108 & sakik  cacat  marando  maso tuo  atau kailangan nafkah sabagai akibat hal hal nan di lua kamauannyo & saktik cacat marando masalah tuat atau kailangan nabukah sebagai akipat halhal dan di luar kemuan \\
+108 & sakik  cacat  marando  maso tuo  atau kailangan nafkah sabagai akibat hal hal nan di lua kamauannyo & saktik cacat marando masalah tuat atau kailangan nabukah sebagai akipat halhal dan di luar kemuan & sakik cacat marando maso tuo atau kaiilangan nafka sabagai akibat hal hal nan dilua kamuanyo & sakik cacat marando masotua atau kailangan nafka sabagai acapepat hal-hal nan di lua kamonyo \\
 \hline
-109 & kaum ibu jo anak anak punyo hak mandapek linduangan dan bantuan khusus & kau ibu iya anakanak punya hak mandapak lindungan dan bantuan khusus \\
+109 & kaum ibu jo anak anak punyo hak mandapek linduangan dan bantuan khusus & kau ibu iya anakanak punya hak mandapak lindungan dan bantuan khusus & kawam ibu jo anak anak punyo hak mandapek linduangan dan bantuan kusus & kauum ibu jo anak anak punyo hak mandapek linduangan dan bantuan kusus \\
 \hline
-110 & sakalian anak & sakalian anak \\
+110 & sakalian anak & sakalian anak & sakalian anak & sakalian anak \\
 \hline
-111 & nan dilahiakan di dalam maupun di lua parkawinan  musti mandapek linduangan sosial nan samo & di dalam maupun di luar perkawanan mesti mandap pake lindungan sosial dan sama \\
+111 & nan dilahiakan di dalam maupun di lua parkawinan  musti mandapek linduangan sosial nan samo & di dalam maupun di luar perkawanan mesti mandap pake lindungan sosial dan sama & nan dilahiahkan di dalam maupun dilua parkawinan musti mandapek linduangan sosial nan samo & nan dilahiakan di dalam maupun di lua parkawinan musti mandapek linduangan sosial nan samo \\
 \hline
-112 & pasal dua puluh enam tiok urang punyo hak mandapek pandidikan & pasal 206 dia orang punya hak mandapak pandidikan \\
+112 & pasal dua puluh enam tiok urang punyo hak mandapek pandidikan & pasal 206 dia orang punya hak mandapak pandidikan & pasal dua puluh enam tiok urang punyo hak mandapek pandidikan & pasal dua puluh enam tiok urang punyo hak mandapek pandidikan \\
 \hline
-113 & pandidikan musti perai  paliang tidak tingkek sikola randah jo pandidikan dasar & pandidikan mesti perai pal yang tindak tingkek si kolah randa yo pandidikan dasar \\
+113 & pandidikan musti perai  paliang tidak tingkek sikola randah jo pandidikan dasar & pandidikan mesti perai pal yang tindak tingkek si kolah randa yo pandidikan dasar & pandidikan musti perai paliang tindak tingkek sikola aranda jo pandidikan dasar & pandidikan musti perai paliang tindak tingkek sikolah randa jo pandidikan dasar \\
 \hline
-114 & pandidikan kajuruan dan kaahlian musti tasadio untuak tiok urang & panditikan kajuruan dan keahlihan musti tasadio untuk tiok orang \\
+114 & pandidikan kajuruan dan kaahlian musti tasadio untuak tiok urang & panditikan kajuruan dan keahlihan musti tasadio untuk tiok orang & pandidikan kajuruan dan kaalian musti tasadio untuak tiok urang & pandidikan kajuruan dan kaalian musti tasadio untuak tiok urang \\
 \hline
-115 & baitu pulo paguruan tinggi musti tasadio untuak tiok urang sasuai jo kamampuan & baik itu pulau panggung guran tinggi musti tasadi untuk diokoran sasua yuk kamu ampuan \\
+115 & baitu pulo paguruan tinggi musti tasadio untuak tiok urang sasuai jo kamampuan & baik itu pulau panggung guran tinggi musti tasadi untuk diokoran sasua yuk kamu ampuan & baitu pulo pangganguran tinggi musti tasadiah untuak tiok urang sasuai jo kamampuan & baitu pulo pangkurang tinggi musti tasadio untuak tiok urang sasuai jo kamampuan \\
 \hline
-116 & pandidikan andaknyo diarahkan untuak mangambangkan kapribadian sapanuah panuahnyo & di arahkan untuk pengambangan kapribadian 8 wah nyok \\
+116 & pandidikan andaknyo diarahkan untuak mangambangkan kapribadian sapanuah panuahnyo & di arahkan untuk pengambangan kapribadian 8 wah nyok & pandidikan adaknyo diarakan untuak pangambangan kapribadian sapanuah panuahnyo & pandidikan undaknyo diarahkan untuak pangambangan kapribadian sapanuah panuahnyo \\
 \hline
-117 & dan untuak mampakokoh raso hormat taradok hak hak asasi manusia dan kamardekaan nan mandasar & dan untuk mempahkokkan rasol hormat taradok khakak asasi manusia dan kemerdekaan \\
+117 & dan untuak mampakokoh raso hormat taradok hak hak asasi manusia dan kamardekaan nan mandasar & dan untuk mempahkokkan rasol hormat taradok khakak asasi manusia dan kemerdekaan & dan untuak mampakok ko raso hormat taradok hak hak asasi manusia dan kamardekaan nan mandasar & dan untuak mampakok jo raso hormat taradok hak hak asasi manusia dan kamardekaan nan mandasar \\
 \hline
-118 & pandidikan diadokan untuak manggiatkan saliang mangarati & padi di kan diadoh kan untuk menggiatkan sali yang menggarati \\
+118 & pandidikan diadokan untuak manggiatkan saliang mangarati & padi di kan diadoh kan untuk menggiatkan sali yang menggarati & pandidikan diadokan untuak manggiatkan saliang mangarati & pandidikan diadokan untuak mangiatkan saliang mangarati \\
 \hline
-119 & toleransi dan pasahabatan di antaro sagalo banso & dan habatan di antarok segala bansol \\
+119 & toleransi dan pasahabatan di antaro sagalo banso & dan habatan di antarok segala bansol & toleransi dan pasahabatan di antaro sagalo banso & tolaransi dan pasahabbatan di antaro sagalo banso \\
 \hline
-120 & kalompok ras & kalau puk ras \\
+120 & kalompok ras & kalau puk ras & kalompok ras & kalompok ras \\
 \hline
-121 & sarato agamo & sarapa agama \\
+121 & sarato agamo & sarapa agama & sarapan agamo & sarato agamo \\
 \hline
-122 & dan untuak manunjang kagiatan kagiatan perserikatan bangsa bangsa dalam mamaliaro pardamaian & dan untuk menunjung kagetankagetan per serikatan bangsabangsa dalam mamaliaro perdamayan \\
+122 & dan untuak manunjang kagiatan kagiatan perserikatan bangsa bangsa dalam mamaliaro pardamaian & dan untuk menunjung kagetankagetan per serikatan bangsabangsa dalam mamaliaro perdamayan & dan untuak manujung kagiatan kagiatan perserikatan bangsa bangsa dalam mamaliaro perdamaian & dan untuak manujung kagiatan kagiatan perserikatan bangsa bangsa dalam mamaliaro pardonayan \\
 \hline
-123 & para urang tuo sah punyo hak untuak mamiliah jinih pandidikan untuak anak anaknyo & para orang tiosa punya hak untuak mamilia jini pandi di kan untuak anakanaknya \\
+123 & para urang tuo sah punyo hak untuak mamiliah jinih pandidikan untuak anak anaknyo & para orang tiosa punya hak untuak mamilia jini pandi di kan untuak anakanaknya & para urang tiota punyo hak untuak mamiliah jini pandidikan untuak anak anaknyo & para urang tiok sah punyo hak untuak mamiliah jini pandidikan untuak anak anaknyo \\
 \hline
-124 & pasal dua puluh tujuh tiok urang punyo hak mardeka untuak sato dalam kahidupan kabudayaan masyarakat & pasal 207 tiag orang punyuhak mardeka untuk satu dalam kehidupan kebudayaan masyarakat \\
+124 & pasal dua puluh tujuh tiok urang punyo hak mardeka untuak sato dalam kahidupan kabudayaan masyarakat & pasal 207 tiag orang punyuhak mardeka untuk satu dalam kehidupan kebudayaan masyarakat & pasal dua puluh tujuh tiok urang punyo hak mardeka untuak satu dalam kahidupan ka budayaan masyarakat & pasal dua puluh kajur tiok urang punyo hak mardeka untuak satu dalam kahidupan kabudaian masyarakat \\
 \hline
-125 & baitu pulo untuak sato dalam mamajukan ilmu pangatahuan  dan mandapek manfaatnyo & baitu puluh untuk satu dalam memajukan ilmu pengatih huwan dan mandapak manfaatnya \\
+125 & baitu pulo untuak sato dalam mamajukan ilmu pangatahuan  dan mandapek manfaatnyo & baitu puluh untuk satu dalam memajukan ilmu pengatih huwan dan mandapak manfaatnya & baitu pulo untuak satu dalam mamajukan ilmu pangatahuan dan mandapek manfaatnyo & baitu pulo untuak satu dalam mamajukan ilmbu pangatahuan dan mandapek manfaatnyo \\
 \hline
-126 & tiok urang punyo hak mandapek linduangan taradok kapantiangan moril jo materil bakaitan jo hasil karajo ilmiah & tiyok orang punya hak mendapat lindungan taradok kapan tiyangan moral yo material bakaitan yo hasil karajo ilmiya \\
+126 & tiok urang punyo hak mandapek linduangan taradok kapantiangan moril jo materil bakaitan jo hasil karajo ilmiah & tiyok orang punya hak mendapat lindungan taradok kapan tiyangan moral yo material bakaitan yo hasil karajo ilmiya & tiok urang punyo hak mendapat linduangan taradok kapan tiangan moril jo materil bakaitan jo hasil karajo ilmiah & tiok urang punyo hak mandapek linduangan taradok kapan tiangan moril jo materil bakaitan jo hasil karajo ilmia \\
 \hline
-127 & sastra atau kasenian nan diciptakannyo & sastra atau kassenian dan dicipp tak aneh \\
+127 & sastra atau kasenian nan diciptakannyo & sastra atau kassenian dan dicipp tak aneh & sastra atau kasenian nan dicipta kanyo & sastra atau kasanian nan dicip takannyo \\
 \hline
-128 & pasal dua puluh sembilan tiok urang punyo kawajiban taradok masyarakat nan marupokan satu satunyo tampek kapribadiannyo dapek bakambang sacaro bebas dan sapanuah panuahnyo & di bawah \\
+128 & pasal dua puluh sembilan tiok urang punyo kawajiban taradok masyarakat nan marupokan satu satunyo tampek kapribadiannyo dapek bakambang sacaro bebas dan sapanuah panuahnyo & di bawah & pasal dua puluh sambilan tiok urang punyo kawajiban taradok masyarakat nan marupokan satu satunyo tampak kapribadianyo dapekambangan sacaro bebas dan sapanuah panuahnyo & pasal dua puluh sambilan tiok urang punyo kawajiban taradok masyarakat nan marupokan satu satunyo tampek kapribadiannyo dapek ambangan sacaro bebas nan sapanuah panuahnyo \\
 \hline
-129 & bateh bateh dalam mawujudkan hak hak dan kabebasan tiok urang ko hanyo buliah ado jiko ditatapkan jo undang undang nan batujuan samato mato untuak manjamin diharagoi dan dihormatinyo hak hak dan kabebasan kabebasan urang lain & batihbatih dalam mengujut hakhak dan kabebasan tiap orang kohak hanya buli ya ado jika ditatapkan yuk undangundang nand batu juan sama tomatuh untuk menjamin di hargowi dan di hormatin yuk hakhak dan kabebasan kabebasan orang lain \\
+129 & bateh bateh dalam mawujudkan hak hak dan kabebasan tiok urang ko hanyo buliah ado jiko ditatapkan jo undang undang nan batujuan samato mato untuak manjamin diharagoi dan dihormatinyo hak hak dan kabebasan kabebasan urang lain & batihbatih dalam mengujut hakhak dan kabebasan tiap orang kohak hanya buli ya ado jika ditatapkan yuk undangundang nand batu juan sama tomatuh untuk menjamin di hargowi dan di hormatin yuk hakhak dan kabebasan kabebasan orang lain & batah batah dalam mawujudkan hak hak dan kabebasan tiok urang ko hanyo buliah adol jiko ditatapkan jo undang undang nan batujuan samato mato untuak manjamin di hargoi dan di hormatinyo hak hak dan kabebasan kabebasan urang lain &  bateh bate dalam mawujudkan hak hak dan kabebasan tiok urang ko hak hanya buliah ado jiko ditatapkan jo undang undang nan batujuan samato mato untuak manjamin di hargaui dan dihormatinyo hak hak dan kabebasan kabebasan urang lain \\
 \hline
-130 & sasuai jo syarat syarat nan adil dari kasusilaan & sasua yo siaratsiarat nantadil dari kasus silahan \\
+130 & sasuai jo syarat syarat nan adil dari kasusilaan & sasua yo siaratsiarat nantadil dari kasus silahan & saswa jo syarat syarat nan adil dari kasusilan & sasuai jo syarat syarat nan adil dari kasusilaan \\
 \hline
-131 & katantraman dan kasajahteraan umum dalam suatu masyarakat nan demokratis & kata teraman dan kesejitraan umum dalam suatu masyarakat dan demokratis \\
+131 & katantraman dan kasajahteraan umum dalam suatu masyarakat nan demokratis & kata teraman dan kesejitraan umum dalam suatu masyarakat dan demokratis & katan traman dan kasajitraann umum dalam suatu masyarakat nan demokratis & katantraman dan kasajitraan umum dalam suatu masyarakat nan demokratis \\
 \hline
-132 & hak hak dan kabebasan kabebasan ko jan sakali kali dipagunokanuntuak tujuan nan balawanan jo prinsip prinsip perserikatan bangsa bangsa & saka dan kebebasan kebebasan ko yang sekalikali di pagunokan untuak tujuan dan balawanan yoprinciprinci perserikatan bangsabangsa \\
+132 & hak hak dan kabebasan kabebasan ko jan sakali kali dipagunokanuntuak tujuan nan balawanan jo prinsip prinsip perserikatan bangsa bangsa & saka dan kebebasan kebebasan ko yang sekalikali di pagunokan untuak tujuan dan balawanan yoprinciprinci perserikatan bangsabangsa & sakhak dan kabebasan kabebasan ko jan sacali kali dipagunokan untuak tujuan nan balawanan jo prinsip prinsip perserikatan bangsa bangsa & hak dan kabebasan kabebasan ko yan sacali kali di pagunokan untuak tujuan nan balawanan jo prinsip prinsip perserikatan bangsa bangsa \\
 \hline
-133 & pasal tiga puluh indak ciek pun pasal dari deklarasi ko buliah ditafsirkan sabagai manyatujui adonyo hak suatu negara & pasal 310 indak check pun pasal dari declarasi ko bulya ditaksirkan sebagai manya tujuhi adanya hak suatu negara \\
+133 & pasal tiga puluh indak ciek pun pasal dari deklarasi ko buliah ditafsirkan sabagai manyatujui adonyo hak suatu negara & pasal 310 indak check pun pasal dari declarasi ko bulya ditaksirkan sebagai manya tujuhi adanya hak suatu negara & pasal tiga puluh indak cek punpasal dari deklarasi ko buliah ditaksirkan sebagai manjatujui adonyo hak suatu negara & pasal tiga puluh indak cek pun pasal dari deklarasi ko buliah ditaksirkan sebagai manyatujui adonyo hak suatu negara \\
 \hline
-134 & kalompok atau sasaurang & kalau puk atau susah orang \\
+134 & kalompok atau sasaurang & kalau puk atau susah orang & kalompok atau sasa urangga & kalompok atau sasa urang \\
 \hline
-135 & untuak malakukan kagiatan apopun & kemudian \\
+135 & untuak malakukan kagiatan apopun & kemudian & puntuak malakukan kagiatan apopun & puntuak malakukan kagiatan apopun \\
 \hline
-136 & atau malakukan sasuatu nan batujuan marusak hak hak dan kabebasan kabebasan nan diuraikan dalam deklarasi ko & atau malah kukan sesuatu nann batu juan marusak hakak dan kebebasan kebebasan nann diuraitkan dalam deklasik kok \\
+136 & atau malakukan sasuatu nan batujuan marusak hak hak dan kabebasan kabebasan nan diuraikan dalam deklarasi ko & atau malah kukan sesuatu nann batu juan marusak hakak dan kebebasan kebebasan nann diuraitkan dalam deklasik kok & atau malakukan sesuatu nan batujuan marusak hak hak dan kabebasan kabebasan nan diuraikan dalam deklarasi ko & atau malakukan sasatu nan batuajuan marusak hak hak dan kabebasan kabebasan nan diuraikan dalam deklarasi ko \\
 \hline
-137 & katahui bana hak hak awak ko & kata hui bana hakak awak \\
+137 & katahui bana hak hak awak ko & kata hui bana hakak awak & atahui bana hak hak awak & katahui bana hak hak awak \\
 \hline
-138 & dan kabebasan dari raso takuik dan dari kakurangan & dan kabebasan dari raso takkwi dan dari kakurangan \\
+138 & dan kabebasan dari raso takuik dan dari kakurangan & dan kabebasan dari raso takkwi dan dari kakurangan & dan kabebasan dari raso takweg dan dari kakurangan & dan kabebasan dari raso takwik dan dari kakurangan \\
 \hline
-139 & supayo manjadi kanyataan & supaya manjadi kanyataan \\
+139 & supayo manjadi kanyataan & supaya manjadi kanyataan & supayo manjadi kanyataan & supayo manjadi kanyataan \\
 \hline
-140 & indak ado pambedaan   umpamonyo pambedaan ras & indah ada pambedaan umpamon yuk pambedaan ras \\
+140 & indak ado pambedaan   umpamonyo pambedaan ras & indah ada pambedaan umpamon yuk pambedaan ras & indak adok pambedaan umpamojo pambedaan ras & indak ada pambedaan um pamonyo pambedaan ras \\
 \hline
-141 & indak diadokan pambedaan badasar kadudukan politik & indak dia dokan pembedaan badas sar kadudukan politik \\
+141 & indak diadokan pambedaan badasar kadudukan politik & indak dia dokan pembedaan badas sar kadudukan politik & indak diadokan pembedaan badasar kadudukan politik & indak diadokan pambedaan badasar kadudukan politik \\
 \hline
-142 & baiak babantuak negara mardeka & baik iya baban tua negara madeka \\
+142 & baiak babantuak negara mardeka & baik iya baban tua negara madeka & pahiak babantuak negara mardeka & paiak babantuak negara mardeka \\
 \hline
-143 & wilayah wilayah parwalian  jajahan atau bantuak katarbatasan kadaulatan nan lain & wilayah wilayah per walihan jajahan atau bantuak keterbatasan ke daulatan nenglain \\
+143 & wilayah wilayah parwalian  jajahan atau bantuak katarbatasan kadaulatan nan lain & wilayah wilayah per walihan jajahan atau bantuak keterbatasan ke daulatan nenglain &  wilayah wilayah par walian jajahan atau bantuak katar batasan kadaulatan dan lain & wilayah wilayah parwalian jajahan atau bantuak katar batasan kadauatan nan lain \\
 \hline
-144 & pasal tujuh sadonyo urang samo di hadapan hukum & asoel 7 sadoyanya orang sama dihadap pan hukum \\
+144 & pasal tujuh sadonyo urang samo di hadapan hukum & asoel 7 sadoyanya orang sama dihadap pan hukum & pasal tujuh sadonyo urang samo dihadapan hukum & pasal tujuh sadonyo urang samo dihadapan hukum \\
 \hline
-145 & pasal sembilan indak surang pun buliah ditangkok  ditahan atau diasiangkan sacaro sawenang wenang & pasal sambilan indaksuram pun buli ya di tangkok di tahan atau di asyankan sacaro sawanangwanang \\
+145 & pasal sembilan indak surang pun buliah ditangkok  ditahan atau diasiangkan sacaro sawenang wenang & pasal sambilan indaksuram pun buli ya di tangkok di tahan atau di asyankan sacaro sawanangwanang & pasal sembilan indak surang pun buliah ditangkok ditahan atau diasiangkan sacaro sawanang manang & pasal sembilan indak surang pun buliah ditangkok ditahan atau diasiangkan sacaro sawenang manang \\
 \hline
-146 & pasal sepuluh tiok urang punyo hak nan samo mandapek paradilan nan adil dan tabuka di pangadilan nan bebas dan tak mamihak & di atas \\
+146 & pasal sepuluh tiok urang punyo hak nan samo mandapek paradilan nan adil dan tabuka di pangadilan nan bebas dan tak mamihak & di atas & pasal puluh tiok urang punyo hak nan samo mandapek paradilan dan adil dan tabuka di pangadilan dan bebas nan tak mami hak & pasal sas puluh tiok urang punyo hak nan samo mandapek paradilan nan adil dan tabuka di pangadilan nan bebas nan tak mami hak \\
 \hline
-147 & nan bukan tamasuak palanggaran hukum nasional atau internasional katiko paristiwa itu tajadi & dan bukan tamasuk palanggaran hukum nasional atau internasional ketika paris tiba itu tajadi \\
+147 & nan bukan tamasuak palanggaran hukum nasional atau internasional katiko paristiwa itu tajadi & dan bukan tamasuk palanggaran hukum nasional atau internasional ketika paris tiba itu tajadi & nan bukan tamasuak palanggaran hukum nasional atau internasional katiko paris tiwa itu tajadi & nan bukan tamasuak palanggaran hukum nasional atau internasional katiko paristiwa itu tacadi \\
 \hline
-148 & pasal empat belas tiok urang punyo hak mancari dan manikmati suaka di negara lain untuak malinduangi diri dari panganiayoan  di negaranyo & pasal ampe balos cee tiak orang punya hak mancari dan manik mati suaka di negara lain untuk melindungi diri dari panggania on di negara nyok \\
+148 & pasal empat belas tiok urang punyo hak mancari dan manikmati suaka di negara lain untuak malinduangi diri dari panganiayoan  di negaranyo & pasal ampe balos cee tiak orang punya hak mancari dan manik mati suaka di negara lain untuk melindungi diri dari panggania on di negara nyok & pasal sampai balas tiok urang punyo hak mancari dan manikmati suaka di negara lain untuak malinduangi diri dari panganiah on di negaranyo & pasal empat belas tiok urang punyo hak mancari dan manikmati suaka di negara lain untuak malinduangi diri dari panganiah on di negaranyo \\
 \hline
-149 & bahati nurani dan ba agamo  tamasuak hak batuka agamo atau kaparcayaan & bahati nurani nambah agamu termasuk hak bantukku agamu atau kapar cahayaan \\
+149 & bahati nurani dan ba agamo  tamasuak hak batuka agamo atau kaparcayaan & bahati nurani nambah agamu termasuk hak bantukku agamu atau kapar cahayaan & bahati nurani nan baagamo termasu hak bantu ko agamo atau kaparcayaan & bahatin urani nan bahagamo termasuk hak bantu ko agamo atau kaparcayaan \\
 \hline
-150 & tiok urang punyo hak mandapek kasampatan nan samo untuak diangkek dalam jabatan pamarintahan negaranyo & tia orang punya ahak mandap pekasam patan nann sama untuk diangkak dalam jabatan pemerintahan negara nyok \\
+150 & tiok urang punyo hak mandapek kasampatan nan samo untuak diangkek dalam jabatan pamarintahan negaranyo & tia orang punya ahak mandap pekasam patan nann sama untuk diangkak dalam jabatan pemerintahan negara nyok & tiok urang punyo hak mandapek kasampatan nan samo untuak diangkek dalam jabatan pamarintahan negaranyo & tiok urang punyo hak mandapek kasampatan nan samo untuak diangkek dalam jabatan pamarintahan negaranyo \\
 \hline
-151 & kandak rakyat musti manjadi landasan kakuasaan pamarintah & kandakkrakat musti menjadi landasan kekuasaan pemerintah \\
+151 & kandak rakyat musti manjadi landasan kakuasaan pamarintah & kandakkrakat musti menjadi landasan kekuasaan pemerintah & kanda kraktat musti manjadi landasan kakuasaan pamarintah & kandak rakat musti manjadi landasan kakuasaan pamarinta \\
 \hline
-152 & tiok urang punyo hak mandapek jaminan sosial dan punyo hak pulo untuak talaksananyo hak hak ekonomi & tio orang puyohak mendapat jaminan sosial dan puyohak pulau untuk talak sanayohakhak ekonomi \\
+152 & tiok urang punyo hak mandapek jaminan sosial dan punyo hak pulo untuak talaksananyo hak hak ekonomi & tio orang puyohak mendapat jaminan sosial dan puyohak pulau untuk talak sanayohakhak ekonomi & tiok urang punyo hak mandapek jaminan sosial dan punyo hak pulo untuak talak sanayo hak hak ekonomi & tiok urang punyo hak mandapek jaminan sosial dan punyo hak pulo untuak talak sanayo hak hak ekonomi \\
 \hline
-153 & baitu pulo punyo hak mandapek linduangan katiko manganggur & itu puluh punya hak mendapat lindungan ketiko menganggur \\
+153 & baitu pulo punyo hak mandapek linduangan katiko manganggur & itu puluh punya hak mendapat lindungan ketiko menganggur & baitu pulo punyo hak mandapek linduangan katiko manganggura & baitu pulo punyo hak mandapek linduangan katiko manganggu \\
 \hline
-154 & tamasuak pambatasan nan layak taradok jam karajo & tama suak pembatasan dan layak teradok jam karaju \\
+154 & tamasuak pambatasan nan layak taradok jam karajo & tama suak pembatasan dan layak teradok jam karaju & tamasuak pambatasan nan layak taradok jam karajo & tamasuak pambatan nan layak taradok jam karajo \\
 \hline
-155 & pandidikan dasar musti diwajibkan & di wajibkan \\
+155 & pandidikan dasar musti diwajibkan & di wajibkan & pandidikan dasar musti diwajibkan & pandidikan dasar musti diwajibkan \\
 \hline
-156 & pasal dua puluh delapan tiok urang punyo hak mandapek katartiban sosial dan katartiban internasional untuak mawujudkan saluruah hak hak dan kabebasan sasuai jo deklarasi ko & assal 20 dalapan jok urang punya hak mandapak kata rtban sosial dan kata rtban international untuk mau jutkan saluruh hak hak dan kebebasan sasuay yo deklarasi ko \\
+156 & pasal dua puluh delapan tiok urang punyo hak mandapek katartiban sosial dan katartiban internasional untuak mawujudkan saluruah hak hak dan kabebasan sasuai jo deklarasi ko & assal 20 dalapan jok urang punya hak mandapak kata rtban sosial dan kata rtban international untuk mau jutkan saluruh hak hak dan kebebasan sasuay yo deklarasi ko & asal dua puluh delapan tiok urang punyo hak mandapek katartiban sosial dan katartiban internasional untuak mawujudkan saluru hak hak dan kabebasan sasuai jo deklarasi ko & asal dua puluh delapan tiok urang punyo hak mandapek katartiban sosial dan katartiban internasional untuak mawujudkan saluru hak hak dan kabebasan sasuai jo deklarasi ko \\
 \hline
 \end{longtable}
 

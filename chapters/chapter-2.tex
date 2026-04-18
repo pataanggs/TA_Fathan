@@ -224,7 +224,11 @@ Model \textit{pre-trained} multibahasa seperti wav2vec 2.0 \cite{baevski2020wav2
 
 Whisper adalah model \textit{general-purpose speech recognition} yang dilatih pada dataset audio berskala besar yang beragam. Berbeda dengan model ASR konvensional yang umumnya dilatih pada dataset terkurasi, Whisper dilatih menggunakan pendekatan \textit{weakly supervised} pada 680.000 jam data audio multibahasa dan multitugas yang dikumpulkan dari internet \cite{radford2023whisper}. Skala data yang masif dan keragaman sumber data ini memberikan Whisper kemampuan \textit{robustness} yang tinggi terhadap berbagai aksen, kebisingan latar belakang, dan bahasa teknis, serta memungkinkannya melakukan transkripsi dalam berbagai bahasa maupun terjemahan ke dalam bahasa Inggris.
 
-Secara arsitektural, Whisper menggunakan model \textit{Transformer} \cite{vaswani2017attention} dalam konfigurasi \textit{encoder-decoder} yang telah terbukti efektif untuk tugas sekuens-ke-sekuens. Arsitektur ini terdiri dari dua komponen utama: \textit{encoder} yang memproses representasi audio dan \textit{decoder} yang menghasilkan transkrip teks.
+Secara arsitektural, Whisper menggunakan model \textit{Transformer} \cite{vaswani2017attention} yang sangat handal dalam menerjemahkan pola rumit. Analoginya, bayangkan Whisper sebagai seorang penerjemah poliglot yang sangat cerdas. Ia sudah mendengarkan dan mempelajari ribuan jam percakapan dari internet dalam berbagai bahasa.
+
+Penerjemah ini bekerja dengan dua otak utama:
+1. Telinga (Encoder): Bagian ini bertugas mendengarkan suara, menangkap nada, intonasi, dan membuang suara bising.
+2. Mulut (Decoder): Bagian ini bertugas merangkai suara yang didengar menjadi teks tertulis kata demi kata.
 
 \begin{figure}[H]
 \centering
@@ -235,9 +239,9 @@ Secara arsitektural, Whisper menggunakan model \textit{Transformer} \cite{vaswan
 
 \subsubsection{Varian Model dan Parameter}
 
-Whisper tersedia dalam berbagai ukuran model yang menawarkan keseimbangan berbeda antara akurasi dan kebutuhan sumber daya komputasi. OpenAI merilis lima ukuran model utama: \textit{Tiny}, \textit{Base}, \textit{Small}, \textit{Medium}, dan \textit{Large}, serta varian \textit{Turbo} yang dioptimalkan untuk kecepatan. Pemilihan ukuran model sangat bergantung pada ketersediaan memori GPU (VRAM) dan kebutuhan kecepatan inferensi.
+Whisper tersedia dalam berbagai ukuran "kapasitas otak". OpenAI merilis beberapa varian: \textit{Tiny}, \textit{Base}, \textit{Small}, \textit{Medium}, dan \textit{Large}. Pemilihan ini ibarat memilih seberapa besar kapasitas memori sang penerjemah; semakin besar maka semakin pintar, tapi butuh tenaga komputer yang jauh lebih berat.
 
-Tabel \ref{table:2.whisper_models} menyajikan perbandingan spesifikasi teknis untuk setiap varian model Whisper. Model \textit{English-only} (berakhiran \texttt{.en}) dilatih khusus pada data bahasa Inggris, sedangkan model \textit{Multilingual} dilatih pada data multibahasa termasuk bahasa Indonesia.
+Tabel \ref{table:2.whisper_models} menyajikan perbandingan ukuran model Whisper. 
 
 \begin{table}[H]
 \centering
@@ -259,78 +263,46 @@ Turbo & 809 M & N/A & turbo & $\sim$6 GB & $\sim$8x \\
 }
 \end{table}
 
-Dalam penelitian ini, model Whisper Base dipilih sebagai basis untuk \textit{fine-tuning}. Dengan 74 juta parameter, Whisper Base menawarkan keseimbangan optimal untuk skenario \textit{extremely low-resource}: cukup kompleks untuk menang kap nuansa bahasa Minangkabau, namun tidak terlalu besar sehingga risiko overfitting pada dataset 1.3 jam dapat diminimalkan dibandingkan varian Small (244M) atau Medium (769M) yang membutuhkan dataset jauh lebih besar.
+Dalam penelitian ini, model Whisper Base (74 juta parameter) dipiilih. Kapasitas ini dianggap paling pas: cukup cerdas untuk menangkap logat Minangkabau, namun tidak terlalu besar sehingga tidak gampang "menghafal" (\textit{overfitting}) data suara kita yang hanya berdurasi 1,3 jam.
 
 \subsubsection{Encoder}
 
-\textit{Encoder} Whisper menerima input berupa representasi \textit{log-Mel spectrogram} dari audio dengan 80 dimensi frekuensi. Spektrogram dihitung dengan \textit{window size} 25ms dan \textit{hop length} 10ms, menghasilkan 100 frame per detik audio. Input ini diproses melalui beberapa lapisan \textit{Transformer encoder} yang menggunakan mekanisme \textit{multi-head self-attention} \cite{bahdanau2015attention} untuk menangkap dependensi temporal jarak jauh dalam sekuens audio.
-
-Setiap lapisan \textit{encoder} terdiri dari dua sublapisan utama: (i) \textit{multi-head self-attention} yang memungkinkan model memperhatikan bagian-bagian berbeda dari input audio secara paralel, dan (ii) \textit{feed-forward network} (FFN) yang menerapkan transformasi non-linear pada representasi menggunakan fungsi aktivasi seperti GELU \cite{hendrycks2016gelu}. Kedua sublapisan ini dilengkapi dengan \textit{residual connections} dan \textit{layer normalization} \cite{ba2016layernorm} untuk stabilitas pelatihan. Sebelum era \textit{Transformer}, arsitektur berbasis RNN seperti LSTM \cite{hochreiter1997lstm} dan GRU \cite{cho2014gru} mendominasi pemodelan sekuensial dalam ASR.
+\textit{Encoder} (Si Telinga) mengubah suara menjadi serangkaian sinyal frekuensi. Sebelumnya, sistem pengenal suara menggunakan teknologi yang lebih tradisional, tetapi Whisper menggunakan \textit{Transformer} yang memungkinkannya mengaitkan hubungan satu kata dengan kata lain meskipun posisinya berjauhan dalam satu kalimat pembicaraan.
 
 \subsubsection{Decoder}
 
-\textit{Decoder} Whisper adalah \textit{autoregressive Transformer decoder} yang menghasilkan transkrip teks secara sekuensial, satu \textit{token} pada satu waktu. \textit{Decoder} menggunakan \textit{masked self-attention} untuk mencegah model melihat \textit{token} masa depan selama pelatihan, serta \textit{cross-attention} untuk memperhatikan representasi audio dari \textit{encoder}.
-
-Proses generasi teks dimulai dengan \textit{token} khusus yang mengindikasikan bahasa target dan tugas yang akan dilakukan (\textit{transcription} atau \textit{translation}). \textit{Decoder} kemudian secara berulang memprediksi \textit{token} berikutnya berdasarkan \textit{token}-\textit{token} sebelumnya dan representasi audio, hingga \textit{token} akhir sekuens diprediksi.
+\textit{Decoder} (Si Mulut) bertugas menebak dan menuliskan kata apa yang sedang diucapkan berdasarkan sinyal dari Encoder. Ia bekerja secara berurutan, menebak kata demi kata dari awal kalimat sampai kalimat tersebut selesai diucapkan.
 
 \subsubsection{Whisper Base}
 
-Whisper tersedia dalam berbagai ukuran model, dari \textit{Tiny} (39M parameter) hingga \textit{Large} (1550M parameter). Whisper Base, dengan 74 juta parameter, menawarkan keseimbangan optimal antara performa dan efisiensi komputasi untuk skenario \textit{extremely low-resource} \cite{liu2024exploration}. Arsitektur Whisper Base terdiri dari 6 lapisan \textit{encoder} dan 6 lapisan \textit{decoder}, dengan dimensi \textit{hidden state} 512 dan 8 \textit{attention heads} per lapisan. Ukuran \textit{vocabulary} adalah 51,864 \textit{tokens} yang mencakup representasi karakter dan \textit{subword} \cite{sennrich2016bpe} untuk berbagai bahasa.
+Whisper Base menawarkan keseimbangan yang sangat kuat antara kecerdasan dan efisiensi. Sangat cocok digunakan untuk situasi di mana data bahasa daerah kita sangatlah terbatas \cite{liu2024exploration}.
 
 \subsection{Fine-Tuning: Konsep dan Strategi}
 \label{II.FineTuning}
 
-\textit{Fine-tuning} adalah proses adaptasi model \textit{pre-trained} ke tugas atau domain spesifik dengan melanjutkan pelatihan pada dataset target yang lebih kecil \cite{pan2010transfer}. Dalam konteks ASR untuk bahasa \textit{low-resource}, \textit{fine-tuning} memungkinkan model yang telah dilatih pada bahasa-bahasa lain untuk disesuaikan dengan karakteristik linguistik dan akustik bahasa target.
+Meskipun Whisper sudah sangat pintar (\textit{pre-trained}), ia belum pernah secara khusus diajari bahasa Minangkabau asli. \textit{Fine-tuning} adalah proses menyekolahkan kembali model ini menggunakan data bahasa daerah kita agar ia terbiasa dengan logat dan kosakatanya.
 
 \subsubsection{Full Fine-Tuning}
 
-\textit{Full fine-tuning} adalah pendekatan tradisional di mana seluruh parameter model (atau sebagian besar parameter, kecuali lapisan ekstraksi fitur yang sering di-\textit{freeze}) di-\textit{update} selama proses pelatihan pada dataset target \cite{liu2024exploration}. Pendekatan ini memberikan fleksibilitas maksimal bagi model untuk beradaptasi dengan bahasa target, tetapi memerlukan sumber daya komputasi yang signifikan karena gradien harus dihitung dan parameter harus di-\textit{update} untuk seluruh jaringan.
-
-Keuntungan \textit{full fine-tuning} adalah potensi akurasi maksimal karena semua parameter dapat disesuaikan dengan data target. Namun, keterbatasannya termasuk: (i) kebutuhan memori GPU yang besar untuk menyimpan gradien dan \textit{optimizer states} untuk semua parameter, (ii) waktu pelatihan yang lebih lama, dan (iii) risiko \textit{overfitting} pada dataset kecil jika tidak diterapkan regularisasi yang memadai. Dalam konteks model \textit{sequence-to-sequence}, arsitektur seperti \textit{RNN Transducer} \cite{graves2012transducer} juga telah menunjukkan efektivitas dalam ASR \textit{streaming}, namun memerlukan \textit{full fine-tuning} untuk adaptasi optimal. Dalam konteks model \textit{sequence-to-sequence}, arsitektur seperti \textit{RNN Transducer} \cite{graves2012transducer} juga telah menunjukkan efektivitas dalam ASR \textit{streaming}, namun memerlukan \textit{full fine-tuning} untuk adaptasi optimal.
+\textit{Full fine-tuning} ibarat merombak ulang seluruh otak sang penerjemah dari nol. Ia bebas belajar segalanya, tapi proses ini butuh waktu sangat lama dan komputer super canggih. Jika datanya sedikit, proses perombakan total ini justru berbahaya karena mesin cenderung hanya menghafal tanpa memahami polanya.
 
 \subsubsection{Freeze Encoder Fine-Tuning}
 
-\textit{Freeze Encoder Fine-Tuning} adalah strategi \textit{fine-tuning} yang membekukan (\textit{freeze}) seluruh parameter \textit{encoder} dan hanya melatih parameter \textit{decoder} dalam arsitektur \textit{encoder-decoder} seperti Whisper \cite{liu2024exploration}. Pendekatan ini didasarkan pada hipotesis bahwa representasi akustik yang telah dipelajari \textit{encoder} dari data \textit{pre-training} multibahasa bersifat universal dan dapat digunakan langsung untuk bahasa target, sementara \textit{decoder} perlu diadaptasi untuk mempelajari pola linguistik spesifik bahasa target.
-
-Dalam konteks Whisper Base, strategi ini membekukan 6 lapisan \textit{encoder} Transformer ($\sim$37M parameter) dan hanya melatih 6 lapisan \textit{decoder} Transformer ($\sim$37M parameter), sehingga mengurangi jumlah parameter yang di-\textit{update} menjadi sekitar 50\% dari total parameter model. Model Whisper menggunakan tokenisasi berbasis \textit{Byte Pair Encoding} (BPE) \cite{sennrich2016bpe} yang efektif untuk menangani kosakata multibahasa. Pendekatan ini menawarkan beberapa keuntungan untuk skenario \textit{extremely low-resource}:
-
-\begin{itemize}[noitemsep]
-    \item \textbf{Mengurangi Risiko Overfitting}: Dengan hanya melatih \textit{decoder}, model mempertahankan representasi akustik yang telah dipelajari dari 680,000 jam data \textit{pre-training}, mengurangi risiko \textit{overfitting} pada dataset kecil
-    \item \textbf{Efisiensi Komputasi}: Kebutuhan memori GPU dan waktu pelatihan berkurang signifikan dibandingkan \textit{full fine-tuning} karena gradien hanya dihitung untuk separuh parameter
-    \item \textbf{Transfer Learning Optimal}: Memanfaatkan representasi akustik universal dari \textit{encoder} sambil mengadaptasi komponen linguistik (\textit{decoder}) untuk bahasa target
-    \item \textbf{Stabilitas Training}: Dengan \textit{encoder} yang tetap stabil, pelatihan cenderung lebih stabil dan konvergen lebih cepat
-\end{itemize}
-
-Keterbatasan strategi ini adalah model hanya dapat beradaptasi pada level linguistik melalui \textit{decoder}, sehingga jika bahasa target memiliki karakteristik akustik yang sangat berbeda dari bahasa-bahasa dalam data \textit{pre-training}, performa mungkin tidak optimal. Namun, untuk bahasa-bahasa yang masih memiliki kemiripan akustik dengan bahasa-bahasa dalam dataset \textit{pre-training} Whisper (seperti bahasa Minangkabau yang berkaitan dengan bahasa Indonesia), strategi ini terbukti efektif \cite{liu2024exploration}.
+Strategi ini membagi tugas: fungsi pendengaran (\textit{Encoder}) dibekukan atau dikunci agar tidak berubah, karena mesin ini pada dasarnya sudah sangat pintar membedakan suara manusia dari suara bising. Kita hanya melatih ulang bagian "mulutnya" (\textit{Decoder}) agar ia tahu bagaimana menuliskan suara tersebut ke dalam ejaan Minangkabau. Ini sangat menghemat waktu komputasi dan memori.
 
 \vspace{0.3cm}
 \noindent
-\textbf{Catatan Terminologi}: Dalam penelitian ini, istilah "Freeze Encoder" dan "Decoder-Only Fine-Tuning" merujuk pada strategi yang sama. Istilah "Freeze Encoder" akan digunakan sebagai terminologi utama untuk konsistensi, dengan penjelasan "(Decoder-Only Fine-Tuning)" diberikan pada kemunculan pertama di setiap bab untuk klarifikasi.
-
+\textbf{Catatan Terminologi}: Istilah "Freeze Encoder" akan digunakan sebagai terminologi utama untuk strategi ini.
 
 \subsubsection{Parameter-Efficient Fine-Tuning (PEFT)}
 
-\textit{Parameter-Efficient Fine-Tuning} (PEFT) adalah keluarga metode yang bertujuan mengurangi jumlah parameter yang dilatih selama \textit{fine-tuning} sambil mempertahankan performa yang sebanding dengan \textit{full fine-tuning} \cite{hu2022lora,manmatha2017peft}. PEFT sangat relevan untuk skenario \textit{low-resource} di mana sumber daya komputasi terbatas.
-
-Metode PEFT bekerja dengan membekukan (\textit{freeze}) sebagian besar atau seluruh parameter model \textit{pre-trained}, dan hanya melatih sebagian kecil parameter tambahan yang diinjeksikan ke dalam arsitektur. Pendekatan ini secara drastis mengurangi kebutuhan memori dan waktu pelatihan sambil tetap memungkinkan adaptasi yang efektif ke tugas target.
+\textit{Parameter-Efficient Fine-Tuning} (PEFT) adalah keluarga metode jenius yang melatih ulang mesin tanpa merombak otak utamanya. 
 
 \subsubsection{LoRA (Low-Rank Adaptation)}
 
-LoRA (\textit{Low-Rank Adaptation}) \cite{hu2022lora} adalah teknik PEFT yang sangat efisien untuk \textit{fine-tuning} model \textit{Transformer} besar. LoRA didasarkan pada hipotesis bahwa perubahan parameter (\textit{weight updates}) selama \textit{fine-tuning} memiliki dimensi intrinsik yang rendah. Artinya, adaptasi model ke tugas baru dapat diaproksimasi dengan baik menggunakan matriks \textit{low-rank}.
+LoRA (\textit{Low-Rank Adaptation}) \cite{hu2022lora} adalah salah satu teknik PEFT paling populer. Alih-alih merombak ulang seluruh isi kepala sang penerjemah (yang butuh waktu dan tenaga masif), LoRA bekerja layaknya kita menyelipkan sebuah "buku catatan kecil" di saku sang penerjemah. Buku catatan ini hanya berisi kosakata, logat halus, dan kebiasaan bahasa Minangkabau. 
 
-Secara teknis, untuk setiap matriks \textit{weight} $W \in \mathbb{R}^{d \times k}$ dalam lapisan model (misalnya, proyeksi \textit{query}, \textit{key}, atau \textit{value} dalam \textit{attention}), LoRA menambahkan matriks \textit{low-rank} $\Delta W = BA$, di mana $B \in \mathbb{R}^{d \times r}$ dan $A \in \mathbb{R}^{r \times k}$, dengan $r \ll \min(d,k)$. Selama \textit{inference}, output dihitung sebagai:
-
-\vspace{1cm}
-\begin{equation}
-\label{eq:lora}
-h = Wx + \Delta Wx = Wx + BAx
-\end{equation}
-\myequations{Formula LoRA (Low-Rank Adaptation)}
-\vspace{1cm}
-
-Parameter asli $W$ tetap \textit{frozen}, dan hanya matriks $A$ dan $B$ yang dilatih. Jumlah parameter \textit{trainable} per lapisan adalah $r \times (d + k)$, yang jauh lebih kecil dari $d \times k$ parameter asli. Untuk Whisper Base dengan $r=8$, $d=512$, dan LoRA diterapkan pada seluruh 6 \textit{linear layer} per blok Transformer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2}), LoRA melatih $\sim$1,47\% dari total parameter model (1.081.344 parameter trainable), menghasilkan penghematan memori dan waktu pelatihan yang signifikan.
-
-LoRA juga memiliki keunggulan praktis: (i) dapat dengan mudah di-\textit{merge} dengan model dasar untuk \textit{inference} tanpa overhead latensi, (ii) memungkinkan \textit{multi-task learning} dengan menyimpan beberapa set matriks LoRA untuk tugas berbeda, dan (iii) mengurangi risiko \textit{overfitting} karena parameter yang dilatih jauh lebih sedikit.
+Selama penerjemah bekerja, ia menggunakan kepintaran aslinya, lalu merujuk pada buku catatan kecil tersebut saat ia menemui struktur bahasa Minang. Karena "buku catatan" ini ukurannya sangat kecil (menghemat lebih dari 98\% parameter yang harus dilatih), proses pelatihannya menjadi sangat ringan, hemat biaya komputer, namun tetap menghasilkan prediksi yang impresif dan tajam.
 
 \subsection{Metrik Evaluasi ASR}
 \label{II.Metrics}
@@ -431,110 +403,18 @@ AdamW \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan seca
 \subsection{Weighted Cross-Entropy Loss}
 \label{II.WCE}
 
-\textit{Weighted Cross-Entropy} (WCE) adalah variasi dari fungsi \textit{loss} \textit{cross-entropy} standar yang memberikan bobot berbeda pada setiap kelas atau token selama pelatihan, sehingga optimasi diarahkan lebih agresif pada token-token yang sulit diprediksi \cite{pineiromartin2024weighted}. WCE sangat relevan dalam konteks pemodelan sekuensial seperti ASR, di mana distribusi token bersifat tidak seimbang: beberapa token muncul dengan frekuensi sangat tinggi sementara yang lain sangat jarang, dan setiap kelompok memiliki tingkat kesalahan yang berbeda.
+\textit{Weighted Cross-Entropy} (WCE) adalah ibarat sistem guru yang cerdas dalam menghukum kesalahan muridnya \cite{pineiromartin2024weighted}. Pada sistem pembelajaran standar, mesin dihukum dengan bobot nilai yang sama untuk setiap kata yang salah ditebak (misalnya salah menebak kata "dan" dihukum sama beratnya dengan salah menebak kata spesifik Minang seperti "ancak").
 
-\subsubsection{Cross-Entropy Standar}
-
-Dalam pelatihan model ASR berbasis \textit{sequence-to-sequence}, fungsi \textit{loss cross-entropy} standar mengukur divergensi antara distribusi probabilitas yang diprediksi model $\hat{y}$ dan distribusi target \textit{one-hot} $y$ pada setiap posisi token. Untuk sekuens dengan panjang $T$, \textit{loss} total adalah:
-
-\vspace{0.5cm}
-\begin{equation}
-\label{eq:ce}
-\mathcal{L}_{\text{CE}} = -\frac{1}{T} \sum_{t=1}^{T} \log P(y_t \mid y_{<t},\, \mathbf{x})
-\end{equation}
-\myequations{Formula Cross-Entropy Loss}
-\vspace{0.5cm}
-
-\noindent di mana $y_t$ adalah token referensi pada posisi $t$ dan $\mathbf{x}$ adalah representasi audio dari encoder. Pada formulasi standar ini, setiap token memberikan kontribusi yang sama terhadap nilai \textit{loss} total, terlepas dari tingkat kesulitan prediksinya.
-
-\subsubsection{Weighted Cross-Entropy}
-
-Pada \textit{Weighted Cross-Entropy}, setiap token $t$ diberi bobot skalar $w_t \geq 0$ yang diskalakan berdasarkan statistik kesalahan historis. Fungsi \textit{loss} termodifikasi menjadi:
-
-\vspace{0.5cm}
-\begin{equation}
-\label{eq:wce}
-\mathcal{L}_{\text{WCE}} = -\frac{1}{\sum_{t=1}^{T} w_t} \sum_{t=1}^{T} w_t \cdot \log P(y_t \mid y_{<t},\, \mathbf{x})
-\end{equation}
-\myequations{Formula Weighted Cross-Entropy Loss}
-\vspace{0.5cm}
-
-\noindent di mana $w_t$ adalah bobot yang ditetapkan untuk token $y_t$. Token yang sering mengalami kesalahan prediksi mendapatkan bobot lebih tinggi ($w_t > 1$), sehingga \textit{loss} yang dikontribusikan oleh prediksi yang salah pada token tersebut lebih besar, dan model didorong untuk belajar lebih keras pada token-token tersebut \cite{pineiromartin2024weighted}.
-
-\subsubsection{Penentuan Bobot Berbasis Error Rate}
-
-Bobot per-token dapat ditentukan secara otomatis dari analisis prediksi model pada data sebelumnya. Salah satu pendekatan yang digunakan adalah memetakan \textit{error rate} per-token $e_t \in [0,1]$ ke dalam skala bobot menggunakan fungsi sigmoid yang diperhalus (\textit{smooth sigmoid mapping}):
-
-\vspace{0.5cm}
-\begin{equation}
-\label{eq:wce_weight}
-w_t = w_{\text{base}} + (w_{\text{max}} - w_{\text{base}}) \cdot \sigma\!\left(\frac{e_t - \theta}{\lambda}\right)
-\end{equation}
-\myequations{Formula Penentuan Bobot Weighted Cross-Entropy}
-\vspace{0.5cm}
-
-\noindent di mana $\sigma(\cdot)$ adalah fungsi sigmoid, $w_{\text{base}}$ adalah bobot minimum (nilai \textit{default} untuk token tanpa riwayat kesalahan), $w_{\text{max}}$ adalah bobot maksimum untuk token dengan \textit{error rate} tertinggi, $\theta$ adalah ambang batas \textit{error rate} di sekitar mana transisi bobot terjadi, dan $\lambda$ adalah parameter \textit{smoothing} yang mengontrol ketajaman transisi. Formulasi sigmoid memastikan bahwa bobot bersifat kontinu dan tidak terjadi perubahan drastis yang dapat mendestabilisasi pelatihan.
-
-\subsubsection{Manfaat dalam Konteks ASR Low-Resource}
-
-WCE memberikan beberapa keuntungan dalam konteks ASR untuk bahasa \textit{low-resource}:
-
-\begin{itemize}[noitemsep]
-    \item \textbf{Fokus pada Token Sulit}: Dengan memberikan bobot lebih pada token yang sering salah diprediksi, sinyal gradien diarahkan lebih efisien ke bagian model yang paling memerlukan perbaikan.
-
-    \item \textbf{Mitigasi Ketidakseimbangan Distribusi Token}: Dalam bahasa seperti Minangkabau, beberapa token fonetik atau morfologis muncul jarang namun sangat penting untuk kebermaknaan transkripsi. WCE memastikan token-token tersebut mendapatkan perhatian yang memadai selama pelatihan \cite{pineiromartin2024weighted}.
-
-    \item \textbf{Kompatibilitas dengan Teknik Regularisasi Lain}: WCE dapat dikombinasikan secara langsung dengan \textit{label smoothing} \cite{szegedy2016rethinking}, \textit{dropout} \cite{srivastava2014dropout}, dan \textit{weight decay} tanpa modifikasi arsitektur.
-
-    \item \textbf{Adaptif Terhadap Pola Kesalahan}: Bobot yang dibangun dari statistik kesalahan historis mencerminkan karakteristik spesifik kesulitan bahasa target, menjadikan WCE sebagai teknik yang \textit{data-driven} dan tidak memerlukan penentuan bobot secara manual.
-\end{itemize}
+Dengan WCE, sistem ini memberikan perhatian dan "hukuman" ekstra pada kata-kata Minang yang secara statistik paling sering salah ditebak oleh komputer di tes-tes sebelumnya. Hasilnya, alih-alih terus-terusan mengulangi kesalahan yang sama, mesin dipaksa untuk lebih serius belajar dari kelemahan terbesarnya. Teknik ini sangat berguna untuk bahasa daerah yang memiliki banyak kosakata unik yang jarang ditemui mesin sebelumnya.
 
 \subsection{K-Fold Cross-Validation}
 \label{II.KFoldCV}
 
-\textit{K-Fold Cross-Validation} adalah teknik evaluasi model yang sangat penting untuk dataset berukuran kecil, di mana pembagian data tunggal (\textit{fixed train-test split}) dapat menghasilkan estimasi performa yang bias atau tidak representatif \cite{kohavi1995crossvalidation}. Metode ini memaksimalkan penggunaan data yang tersedia dengan memastikan setiap sampel dalam dataset digunakan untuk \textit{training} maupun \textit{testing}.
+Dalam sistem AI, ada risiko mesin terlihat pintar bukan karena ia benar-benar paham bahasanya, tapi karena ia "menghafal" kunci jawaban dari data rekaman yang terbatas. Untuk mencegah hal ini, digunakanlah teknik \textit{K-Fold Cross-Validation} \cite{kohavi1995crossvalidation}.
 
-\subsubsection{Prinsip Dasar K-Fold Cross-Validation}
+Analoginya seperti ini: untuk memastikan AI benar-benar pintar, kita membagi total data ujian (rekaman suara) menjadi beberapa bagian (misalnya 5 bagian, disebut 5-Fold). 
+1. Mesin disuruh belajar menggunakan 4 bagian data.
+2. Kemudian mesin dites menggunakan 1 bagian data yang belum pernah ia lihat sama sekali.
+3. Proses ini diulang 5 kali dengan memutar bagian mana yang menjadi bahan belajar dan mana yang menjadi bahan ujian.
 
-Dalam \textit{K-Fold Cross-Validation}, seluruh dataset dibagi menjadi $K$ partisi (\textit{folds}) dengan ukuran yang kurang lebih sama. Proses validasi dilakukan secara iteratif sebanyak $K$ kali, di mana pada setiap iterasi:
-
-\begin{enumerate}[noitemsep]
-    \item Satu \textit{fold} digunakan sebagai \textit{test set}
-    \item $K-1$ \textit{folds} lainnya digabungkan sebagai \textit{training set}
-    \item Model dilatih dari awal (\textit{scratch}) pada \textit{training set}
-    \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat
-    \item Metrik performa (misalnya, \textit{accuracy}, WER, atau CER) dicatat
-\end{enumerate}
-
-Setelah $K$ iterasi, diperoleh $K$ nilai metrik yang kemudian di-\textit{aggregate} untuk menghasilkan estimasi performa final, biasanya dalam bentuk \textit{mean} $\pm$ \textit{standard deviation}.
-
-\subsubsection{Keuntungan untuk Dataset Kecil}
-
-Kohavi \cite{kohavi1995crossvalidation} menunjukkan bahwa \textit{K-Fold Cross-Validation} memberikan estimasi performa yang lebih akurat dan \textit{unbiased} dibandingkan \textit{holdout validation} (pembagian tunggal), terutama untuk dataset kecil. Keuntungan utama meliputi:
-
-\begin{itemize}[noitemsep]
-    \item \textbf{Maximum Data Utilization}: Setiap sampel digunakan untuk \textit{training} ($K-1$ kali) dan \textit{testing} (1 kali), memaksimalkan penggunaan data yang terbatas
-    \item \textbf{Reduced Variance}: Dengan melakukan evaluasi pada $K$ \textit{folds} yang berbeda, variabilitas akibat pembagian data tertentu diminimalkan
-    \item \textbf{Unbiased Performance Estimate}: Estimasi performa yang dihasilkan lebih mendekati performa sebenarnya pada data baru karena tidak bergantung pada satu pembagian data spesifik
-    \item \textbf{Statistical Reliability}: Dengan $K$ nilai metrik, dapat dihitung \textit{confidence intervals} dan dilakukan \textit{statistical significance testing} (misalnya, \textit{paired t-test}) untuk membandingkan beberapa model
-\end{itemize}
-
-\subsubsection{Pemilihan Nilai K}
-
-Nilai $K$ yang umum digunakan adalah 5 atau 10. Pemilihan $K$ melibatkan \textit{trade-off}:
-
-\begin{itemize}[noitemsep]
-    \item \textbf{$K$ kecil (e.g., 5)}: Lebih cepat (fewer iterations), tetapi estimasi performa memiliki \textit{variance} lebih tinggi
-    \item \textbf{$K$ besar (e.g., 10)}: Estimasi lebih akurat dengan \textit{variance} lebih rendah, tetapi memerlukan waktu komputasi lebih lama
-    \item \textbf{Leave-One-Out CV ($K = N$)}: Estimasi paling tidak bias, tetapi sangat mahal secara komputasi dan dapat memiliki \textit{variance} tinggi
-\end{itemize}
-
-Untuk dataset \textit{extremely low-resource} (misalnya, $<$200 sampel), nilai $K=5$ sering menjadi pilihan yang seimbang antara akurasi estimasi dan biaya komputasi \cite{kohavi1995crossvalidation}.
-
-\subsubsection{Stratified K-Fold}
-
-Untuk dataset dengan distribusi kelas atau karakteristik yang tidak seimbang, \textit{Stratified K-Fold} memastikan bahwa setiap \textit{fold} memiliki proporsi kelas yang sama dengan dataset lengkap. Pendekatan ini penting untuk menghindari bias evaluasi akibat distribusi data yang tidak representatif dalam beberapa \textit{folds}.
-
-\subsubsection{Statistical Testing dengan Cross-Validation}
-
-Salah satu keuntungan penting \textit{K-Fold Cross-Validation} adalah kemampuan untuk melakukan \textit{statistical significance testing} ketika membandingkan beberapa model. Dengan $K$ \textit{folds}, diperoleh $K$ pasangan nilai metrik untuk setiap model yang dibandingkan. \textit{Paired t-test} \cite{student1908ttest} dapat diterapkan untuk menentukan apakah perbedaan performa antara dua model secara statistik signifikan ($p < 0.05$), memberikan kepercayaan yang lebih tinggi terhadap kesimpulan perbandingan model.
+Jika hasil ujiannya rata-rata tetap bagus di tes mana pun, berarti mesin tersebut terbukti murni paham bahasa Minangkabau dan bukan cuma menghafal. Pendekatan ini sangat krusial agar AI yang dihasilkan benar-benar tangguh saat dipakai di dunia nyata \cite{kohavi1995crossvalidation}.
