@@ -60,11 +60,11 @@ Hasil dari studi literatur ini menjadi landasan teoritis yang kokoh dalam memili
 
 Dataset LibriVox Indonesia (\url{https://huggingface.co/datasets/indonesian-nlp/librivox-indonesia}) terdiri dari audio MP3 dan file teks yang sesuai yang dihasilkan dari buku audio domain publik LibriVox. Pengumpulan data dikhususkan pada bahasa-bahasa di Indonesia. Durasi buku audio atau file suara LibriVox asli bervariasi dari beberapa menit hingga beberapa jam, namun setiap file audio dalam dataset ucapan telah diproses menjadi berdurasi dari beberapa detik hingga maksimal 20 detik. Konversi buku audio menjadi dataset ucapan ini menggunakan perangkat lunak penyelarasan paksa (\textit{forced alignment}) yang dikembangkan oleh pihak pembuat dataset. Perangkat lunak ini mendukung multibahasa, termasuk bahasa-bahasa dengan sumber daya terbatas, seperti Aceh, Bali, atau Minangkabau, dan dapat digunakan untuk bahasa lain tanpa pekerjaan tambahan untuk melatih model. Dataset saat ini secara keseluruhan terdiri dari 8 jam rekaman dalam 7 bahasa dari Indonesia, dan akan ditambahkan lebih banyak bahasa atau file audio seiring dengan pengumpulannya.
 
-Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0 tersebut sebagai sumber data. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar \textbf{1.3 jam audio}, terdiri dari \textbf{156 file audio} yang sudah \textbf{tersegmentasi} (\textit{pre-segmented}) dengan durasi rata-rata 30 detik per segmen.
+Penelitian ini menggunakan dataset publik LibriVox Indonesia versi 1.0 tersebut sebagai sumber data. Secara spesifik, dataset bahasa Minangkabau yang digunakan berisi rekaman pembacaan \textit{Universal Declaration of Human Rights} (Pernyataan Umum tentang Hak-Hak Asasi Manusia) dalam bahasa Minangkabau. Dataset ini termasuk kategori \textit{extremely low-resource} dengan total durasi sekitar 1.3 jam audio, terdiri dari 156 file audio yang sudah tersegmentasi (\textit{pre-segmented}) dengan durasi rata-rata 30 detik per segmen.
 
-\textbf{Penting untuk dicatat}: Dataset ini diterima dalam kondisi sudah tersegmentasi oleh \textit{maintainer} LibriVox Indonesia, yang telah membagi rekaman pembacaan panjang menjadi klip-klip pendek berdasarkan jeda natural dalam pembacaan. Proses segmentasi ini dilakukan oleh \textit{maintainer}, bukan sebagai bagian dari \textit{preprocessing} penelitian ini. Sebagian besar segmen memiliki durasi yang mendekati batas maksimal input Whisper (30 detik), dengan distribusi durasi berkisar antara 15-35 detik dan median sekitar 28-30 detik.
+Penting untuk dicatat: Dataset ini diterima dalam kondisi sudah tersegmentasi oleh \textit{maintainer} LibriVox Indonesia, yang telah membagi rekaman pembacaan panjang menjadi klip-klip pendek berdasarkan jeda natural dalam pembacaan. Proses segmentasi ini dilakukan oleh \textit{maintainer}, bukan sebagai bagian dari \textit{preprocessing} penelitian ini. Sebagian besar segmen memiliki durasi yang mendekati batas maksimal input Whisper (30 detik), dengan distribusi durasi berkisar antara 15-35 detik dan median sekitar 28-30 detik.
 
-Pemilihan dataset LibriVox Indonesia sebagai sumber data didasarkan pada beberapa pertimbangan penting. Pertama, LibriVox menyediakan audio dengan kualitas rekaman yang relatif baik karena mengikuti standar produksi \textit{audiobook} dengan \textit{sampling rate} 44.1 kHz. Kedua, setiap audio dilengkapi dengan transkrip teks yang akurat karena dibacakan dari naskah tertulis (teks UDHR), sehingga mengurangi beban anotasi manual dan menjamin akurasi transkrip. Ketiga, dataset ini tersedia secara publik dengan lisensi \textit{Public Domain} (CC-0), memungkinkan penggunaan bebas untuk penelitian akademis. Namun, penting untuk dicatat bahwa dataset terbatas pada domain \textbf{pembacaan formal} (\textit{formal reading}) dari teks legal/deklarasi, sehingga performa model pada percakapan spontan atau konteks informal mungkin berbeda.
+Pemilihan dataset LibriVox Indonesia sebagai sumber data didasarkan pada beberapa pertimbangan penting. Pertama, LibriVox menyediakan audio dengan kualitas rekaman yang relatif baik karena mengikuti standar produksi \textit{audiobook} dengan \textit{sampling rate} 44.1 kHz. Kedua, setiap audio dilengkapi dengan transkrip teks yang akurat karena dibacakan dari naskah tertulis (teks UDHR), sehingga mengurangi beban anotasi manual dan menjamin akurasi transkrip. Ketiga, dataset ini tersedia secara publik dengan lisensi \textit{Public Domain} (CC-0), memungkinkan penggunaan bebas untuk penelitian akademis. Namun, penting untuk dicatat bahwa dataset terbatas pada domain pembacaan formal (\textit{formal reading}) dari teks legal/deklarasi, sehingga performa model pada percakapan spontan atau konteks informal mungkin berbeda.
 
 Proses pengumpulan dataset dirancang secara sistematis dengan menggabungkan seluruh data yang tersedia dari folder \textit{train} dan \textit{test} yang disediakan oleh \textit{maintainer} Hugging Face. Tahap awal dimulai dengan mengunduh dataset bahasa Minangkabau dari repositori LibriVox Indonesia melalui platform Hugging Face Datasets. Setelah dataset diunduh, dilakukan proses verifikasi kualitas untuk memastikan bahwa setiap segmen audio memiliki kejernihan ucapan yang baik (\textit{clear speech}), minim \textit{background noise}, dan tidak mengandung distorsi audio yang signifikan. Dataset LibriVox Indonesia telah melalui proses segmentasi otomatis yang membagi rekaman panjang menjadi klip-klip pendek dengan durasi beberapa detik hingga maksimal 30 detik, yang ideal untuk pelatihan model ASR.
 
@@ -79,7 +79,7 @@ Proses pengumpulan dan persiapan dataset mencakup langkah-langkah berikut:
     \item Inventarisasi total durasi audio yang tersedia (156 file @ ~30s = ~1.3 jam total)
 \end{enumerate}
 
-Dataset yang berhasil dikumpulkan mencakup rekaman pembacaan UDHR dalam bahasa Minangkabau dengan total 1.3 jam audio (156 file audio). Meskipun terbatas pada satu jenis teks (dokumen deklarasi HAM) dan durasi yang sangat kecil, dataset ini tetap merepresentasikan bahasa Minangkabau formal dan standar. Karakteristik \textit{extremely low-resource} ini membuat penelitian ini mengadopsi pendekatan \textbf{5-Fold Cross-Validation} untuk memaksimalkan penggunaan data dan memperoleh evaluasi yang lebih robust, dengan strategi \textit{transfer learning} yang sangat efisien dari model \textit{pre-trained} Whisper.
+Dataset yang berhasil dikumpulkan mencakup rekaman pembacaan UDHR dalam bahasa Minangkabau dengan total 1.3 jam audio (156 file audio). Meskipun terbatas pada satu jenis teks (dokumen deklarasi HAM) dan durasi yang sangat kecil, dataset ini tetap merepresentasikan bahasa Minangkabau formal dan standar. Karakteristik \textit{extremely low-resource} ini membuat penelitian ini mengadopsi pendekatan 5-Fold Cross-Validation untuk memaksimalkan penggunaan data dan memperoleh evaluasi yang lebih robust, dengan strategi \textit{transfer learning} yang sangat efisien dari model \textit{pre-trained} Whisper.
 
 \subsection{Preprocessing Dataset}
 \label{III.Langkah4}
@@ -95,11 +95,11 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
 \begin{enumerate}[noitemsep]
     \item \textbf{Format Conversion}: Konversi format audio dari MP3 (format asli LibriVox Indonesia) ke WAV (\textit{Waveform Audio File Format}). Konversi ini diperlukan karena format MP3 yang terkompresi dengan \textit{lossy compression} memerlukan proses \textit{decoding} tambahan yang dapat membebani komputasi Whisper. Format WAV yang \textit{uncompressed} memungkinkan akses langsung ke data audio mentah (\textit{raw audio samples}), sehingga mengurangi beban komputasi dan mempercepat proses \textit{preprocessing} serta \textit{training}
     \item \textbf{Resampling}: Konversi \textit{sampling rate} audio dari 44.1 kHz (format asli LibriVox Indonesia) ke 16 kHz, yang merupakan spesifikasi standar yang digunakan oleh model Whisper. Konversi ini penting karena model Whisper dilatih dengan data audio pada frekuensi 16 kHz dan akan menghasilkan performa optimal pada \textit{sampling rate} yang sama \cite{radford2023whisper}
-    \item \textbf{Duration Filtering and Validation}: Dataset LibriVox Indonesia telah menyediakan audio yang sudah tersegmentasi dengan durasi rata-rata 30 detik per segmen. Proses \textit{preprocessing} tidak melakukan pemotongan ulang (\textit{splitting}) terhadap audio, melainkan melakukan \textbf{validasi durasi} dan \textbf{filtering} untuk memastikan semua audio memenuhi batasan teknis Whisper:
+    \item \textbf{Duration Filtering and Validation}: Dataset LibriVox Indonesia telah menyediakan audio yang sudah tersegmentasi dengan durasi rata-rata 30 detik per segmen. Proses \textit{preprocessing} tidak melakukan pemotongan ulang (\textit{splitting}) terhadap audio, melainkan melakukan validasi durasi dan filtering untuk memastikan semua audio memenuhi batasan teknis Whisper:
     \begin{itemize}[noitemsep]
-        \item \textbf{Maximum duration}: Whisper memiliki batasan maksimal \textbf{30 detik} untuk input audio. Audio yang melebihi durasi ini (jika ada) akan \textbf{dipotong} (\textit{truncated}) pada detik ke-30 atau \textbf{dibuang} jika informasi penting terpotong
-        \item \textbf{Minimum duration}: Audio yang terlalu pendek ($<$2 detik) akan \textbf{difilter} karena kemungkinan tidak mengandung informasi linguistik yang cukup untuk pembelajaran
-        \item \textbf{No padding}: Audio pendek (2-20 detik) \textbf{tidak} di-\textit{pad} secara artifisial, karena Whisper dapat menangani audio dengan panjang variabel melalui mekanisme \textit{attention masking}. Selama \textit{training}, \textbf{batching} diimplementasikan menggunakan \textit{data collator} khusus yang secara dinamis mem-\textit{pad} audio dalam \textit{batch} ke panjang maksimal dalam \textit{batch} tersebut (bukan panjang maksimal global), sehingga setiap \textit{batch} dapat diproses oleh GPU secara efisien meski panjang audio berbeda-beda antar \textit{batch}. Pendekatan \textit{dynamic padding per-batch} ini lebih efisien secara memori dibandingkan \textit{global padding} yang akan membuang banyak komputasi pada bagian yang di-\textit{pad}. Dengan validasi ini, dataset final yang digunakan untuk pelatihan adalah subset dari 156 file audio asli yang memenuhi kriteria durasi, memastikan kompatibilitas dengan batasan teknis Whisper tanpa kehilangan informasi linguistik yang signifikan
+        \item \textbf{Maximum duration}: Whisper memiliki batasan maksimal 30 detik untuk input audio. Audio yang melebihi durasi ini (jika ada) akan dipotong (\textit{truncated}) pada detik ke-30 atau dibuang jika informasi penting terpotong
+        \item \textbf{Minimum duration}: Audio yang terlalu pendek ($<$2 detik) akan difilter karena kemungkinan tidak mengandung informasi linguistik yang cukup untuk pembelajaran
+        \item \textbf{No padding}: Audio pendek (2-20 detik) tidak di-\textit{pad} secara artifisial, karena Whisper dapat menangani audio dengan panjang variabel melalui mekanisme \textit{attention masking}. Selama \textit{training}, batching diimplementasikan menggunakan \textit{data collator} khusus yang secara dinamis mem-\textit{pad} audio dalam \textit{batch} ke panjang maksimal dalam \textit{batch} tersebut (bukan panjang maksimal global), sehingga setiap \textit{batch} dapat diproses oleh GPU secara efisien meski panjang audio berbeda-beda antar \textit{batch}. Pendekatan \textit{dynamic padding per-batch} ini lebih efisien secara memori dibandingkan \textit{global padding} yang akan membuang banyak komputasi pada bagian yang di-\textit{pad}. Dengan validasi ini, dataset final yang digunakan untuk pelatihan adalah subset dari 156 file audio asli yang memenuhi kriteria durasi, memastikan kompatibilitas dengan batasan teknis Whisper tanpa kehilangan informasi linguistik yang signifikan
     \end{itemize}
     
     \item \textbf{Normalization}: Normalisasi \textit{amplitude} audio untuk memastikan konsistensi volume di seluruh dataset, menghindari bias model terhadap audio dengan volume tertentu
@@ -113,7 +113,7 @@ Tahap \textit{audio preprocessing} berfokus pada transformasi sinyal audio menta
 
 \vspace{0.3cm}
 \noindent
-Keempat teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, \textit{Noise Injection}, dan \textit{Pitch Shift}) \textbf{hanya diterapkan pada data training} di dalam setiap \textit{fold}, dan \textbf{TIDAK PERNAH diterapkan pada test set}.
+Keempat teknik augmentasi di atas (\textit{SpecAugment}, \textit{Speed Perturbation}, \textit{Noise Injection}, dan \textit{Pitch Shift}) hanya diterapkan pada data training di dalam setiap \textit{fold}, dan TIDAK PERNAH diterapkan pada test set.
 
 Potongan Kode~\ref{lst:data_augmentation} menampilkan cuplikan dari kelas pipeline augmentasi menggunakan pustaka \texttt{torchaudio} yang diimplementasikan pada file \texttt{augmentation.py}.
 
@@ -166,7 +166,7 @@ Tahap \textit{text preprocessing} bertujuan untuk menstandarkan transkrip teks d
 
 \subsubsection{5-Fold Cross-Validation}
 
-Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan \textbf{5-Fold Cross-Validation} \cite{kohavi1995crossvalidation}. Seluruh 156 file audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
+Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi yang lebih robust, penelitian ini menggunakan pendekatan 5-Fold Cross-Validation \cite{kohavi1995crossvalidation}. Seluruh 156 file audio yang tersedia (dari gabungan folder \textit{train} dan \textit{test} yang disediakan \textit{maintainer} Hugging Face) dibagi menjadi 5 \textit{folds} dengan distribusi yang seimbang. Proses \textit{cross-validation} dilakukan sebagai berikut:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Fold Splitting}: Dataset dibagi menjadi 5 \textit{folds}, masing-masing berisi 31-32 audio ($\sim$20\% dari total). Distribusi exact: 4 folds berisi 31 audio, 1 fold berisi 32 audio (karena $156 \div 5 = 31.2$).
@@ -174,9 +174,9 @@ Untuk memaksimalkan penggunaan data yang sangat terbatas dan memperoleh evaluasi
     \begin{itemize}[noitemsep]
         \item Satu \textit{fold} digunakan sebagai \textit{test/evaluation set} (31-32 audio, $\sim$0.26 jam)
         \item Empat \textit{folds} lainnya digabungkan sebagai \textit{training set} (124-125 audio, $\sim$1.04 jam). Exact size: 124 audio untuk fold yang memiliki 32 audio sebagai test set, 125 audio untuk fold yang memiliki 31 audio sebagai test set.
-        \item \textbf{Data augmentation} (SpecAugment, Speed Perturbation, Noise Injection, dan Pitch Shift) diterapkan \textbf{hanya pada training set}, bukan pada test set, untuk mencegah \textit{data leakage}
+        \item \textbf{Data augmentation} (SpecAugment, Speed Perturbation, Noise Injection, dan Pitch Shift) diterapkan hanya pada training set, bukan pada test set, untuk mencegah \textit{data leakage}
         \item Model dilatih dari \textit{scratch} (dari \textit{pre-trained} Whisper Base) pada \textit{training set} yang telah diaugmentasi
-        \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat dan \textbf{tidak teraugmentasi}
+        \item Model dievaluasi pada \textit{test set} yang belum pernah dilihat dan tidak teraugmentasi
     \end{itemize}
     \item \textbf{Aggregation}: Hasil WER dan CER dari 5 iterasi di-\textit{aggregate} untuk menghasilkan metrik final berupa \textit{mean} ± \textit{standard deviation}
 \end{enumerate}
@@ -189,7 +189,7 @@ Pendekatan \textit{5-fold cross-validation} memberikan beberapa keuntungan penti
     \item \textbf{Statistical reliability}: Dengan 5 \textit{folds}, diperoleh 5 nilai WER/CER yang dapat digunakan untuk menghitung \textit{mean} dan \textit{standard deviation}, memberikan gambaran variabilitas performa model
     \item \textbf{Fair comparison}: Kedua strategi (\textit{Freeze Encoder} dan LoRA) dievaluasi pada \textit{folds} yang identik, memastikan perbandingan yang adil
 \end{itemize}
-Dengan pendekatan \textit{5-fold cross-validation}, penelitian ini \textbf{TIDAK menggunakan \textit{validation set} terpisah} dari \textit{training set}. Sebaliknya, \textbf{test set (fold yang tidak digunakan untuk training) digunakan sebagai \textit{evaluation set}} untuk monitoring performa model selama training. Setiap 4 \textit{training steps}, model dievaluasi pada test set ini untuk menghitung WER dan CER. \textit{Early stopping} diterapkan berdasarkan metrik WER pada test set ini: jika tidak ada perbaikan WER selama 8 langkah evaluasi berturut-turut (\textit{patience}=8), training dihentikan dan model terbaik (dengan \textit{lowest test WER}) disimpan.
+Dengan pendekatan \textit{5-fold cross-validation}, penelitian ini TIDAK menggunakan \textit{validation set} terpisah dari \textit{training set}. Sebaliknya, test set (fold yang tidak digunakan untuk training) digunakan sebagai \textit{evaluation set} untuk monitoring performa model selama training. Setiap 4 \textit{training steps}, model dievaluasi pada test set ini untuk menghitung WER dan CER. \textit{Early stopping} diterapkan berdasarkan metrik WER pada test set ini: jika tidak ada perbaikan WER selama 8 langkah evaluasi berturut-turut (\textit{patience}=8), training dihentikan dan model terbaik (dengan \textit{lowest test WER}) disimpan.
 
 Approach ini valid dalam konteks \textit{extremely low-resource} (1.3 jam) karena: (1) Dengan dataset sekecil ini, memecah lagi 4 fold training menjadi train+val akan membuat training set terlalu kecil (<1 jam), menyebabkan model tidak belajar dengan baik. (2) \textit{Cross-validation} dengan 5 fold memastikan setiap sampel menjadi bagian dari test set tepat sekali, sehingga hasil akhir (mean WER/CER dari 5 fold) merupakan evaluasi yang tidak bias pada seluruh dataset. (3) Early stopping berbasis test set membantu mencegah overfitting dengan menghentikan training ketika model mulai menghafal training data (ditandai dengan tidak ada perbaikan pada test set). (4) Evaluasi final HANYA menggunakan prediksi model pada test set di setiap fold, dan model yang digunakan adalah checkpoint dengan \textit{best test WER}, bukan model di akhir training.
 
@@ -215,13 +215,13 @@ Tahap konfigurasi model Whisper Base mencakup beberapa langkah teknis penting:
 \subsection{Implementasi Fine-Tuning}
 \label{III.Langkah6}
 
-Penelitian ini menerapkan pendekatan komparatif eksperimental dengan membandingkan dua strategi \textit{fine-tuning} yang berbeda: \textbf{Freeze Encoder (Decoder-Only Fine-Tuning)} sebagai pendekatan standar dan \textbf{Low-Rank Adaptation (LoRA)} sebagai pendekatan \textit{parameter-efficient}. Kedua strategi ini dipilih untuk mengevaluasi \textit{trade-off} antara jumlah parameter yang dilatih dan performa pada skenario \textit{extremely low-resource}.
+Penelitian ini menerapkan pendekatan komparatif eksperimental dengan membandingkan dua strategi \textit{fine-tuning} yang berbeda: Freeze Encoder (Decoder-Only Fine-Tuning) sebagai pendekatan standar dan Low-Rank Adaptation (LoRA) sebagai pendekatan \textit{parameter-efficient}. Kedua strategi ini dipilih untuk mengevaluasi \textit{trade-off} antara jumlah parameter yang dilatih dan performa pada skenario \textit{extremely low-resource}.
 
 \textit{Freeze Encoder} melatih seluruh \textit{decoder} (37 juta parameter, sekitar 50\% dari total model) sambil membekukan seluruh \textit{encoder}. Pendekatan ini mempertahankan representasi akustik universal yang telah dipelajari \textit{encoder} dari 680,000 jam data \textit{pre-training}, sementara mengadaptasi \textit{decoder} untuk pola linguistik bahasa Minangkabau.
 
 Sebaliknya, LoRA merupakan teknik \textit{Parameter-Efficient Fine-Tuning} (PEFT) yang hanya melatih $\sim$1,47\% dari total parameter (sekitar 1,08 juta parameter), menawarkan efisiensi komputasi yang maksimal dan regularisasi implisit melalui pembatasan kapasitas model. Dengan membatasi jumlah parameter yang dilatih, LoRA mengurangi risiko \textit{overfitting} pada dataset sangat terbatas.
 
-Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$1,47\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat melalui proses \textbf{eksplorasi \textit{hyperparameter}} secara iteratif. Masing-masing strategi diuji dalam \textbf{empat kali percobaan (\textit{run})} dengan variasi \textit{hyperparameter} kunci untuk menemukan konfigurasi optimal. Subbab berikut menjelaskan kerangka konfigurasi dan ruang pencarian \textit{hyperparameter} untuk setiap strategi, sedangkan konfigurasi spesifik dan hasil dari setiap percobaan dibahas secara rinci pada Bab~\ref{Bab IV}.
+Pendekatan komparatif ini memungkinkan analisis mendalam terhadap \textit{trade-off} antara akurasi model dan efisiensi sumber daya. Dalam konteks bahasa Minangkabau dengan dataset \textit{extremely low-resource} (1.3 jam), pertanyaan penting yang perlu dijawab adalah: apakah efisiensi LoRA (dengan hanya melatih $\sim$1,47\% parameter) memberikan hasil yang sebanding dengan \textit{Freeze Encoder} (yang melatih 50\% parameter, yaitu seluruh \textit{decoder})? Untuk menjawab pertanyaan ini, implementasi kedua metode dirancang dengan cermat melalui proses eksplorasi \textit{hyperparameter} secara iteratif. Masing-masing strategi diuji dalam empat kali percobaan (\textit{run}) dengan variasi \textit{hyperparameter} kunci untuk menemukan konfigurasi optimal. Subbab berikut menjelaskan kerangka konfigurasi dan ruang pencarian \textit{hyperparameter} untuk setiap strategi, sedangkan konfigurasi spesifik dan hasil dari setiap percobaan dibahas secara rinci pada Bab~\ref{Bab IV}.
 
 \subsubsection{Freeze Encoder Fine-Tuning}
 
@@ -254,7 +254,7 @@ def freeze_encoder(model: WhisperForConditionalGeneration) -> WhisperForConditio
     return model
 \end{lstlisting}
 
-Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{tetap} (tidak divariasikan) pada seluruh percobaan \textit{Freeze Encoder} adalah:
+Komponen arsitektural dan parameter \textit{training} yang bersifat tetap (tidak divariasikan) pada seluruh percobaan \textit{Freeze Encoder} adalah:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Frozen Components}: Seluruh 6 lapisan \textit{encoder} Transformer dan \textit{feature extractor} (konvolusi) dibekukan
@@ -266,7 +266,7 @@ Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{teta
     \item \textbf{Dropout}: \textit{Standard dropout} 0,3; \textit{attention dropout} 0,2; \textit{activation dropout} 0,2 (agresif untuk mencegah \textit{overfitting} pada 37M parameter trainable) \cite{srivastava2014dropout}
     \item \textbf{Early Stopping}: \textit{Patience} 8 \textit{evaluation steps} dengan evaluasi setiap 4 \textit{training steps}
     \item \textbf{Best Model Selection}: Berdasarkan \textit{lowest evaluation WER}
-    \item \textbf{Data Augmentation} (diterapkan \textbf{hanya pada training set}):
+    \item \textbf{Data Augmentation} (diterapkan hanya pada training set):
     \begin{itemize}[noitemsep]
         \item \textit{Speed Perturbation}: Faktor $\{0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15\}$
         \item \textit{Noise Injection}: SNR 10--30 dB
@@ -277,7 +277,7 @@ Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{teta
     \item \textbf{Loss Function}: \textit{Cross-entropy loss} standar
 \end{enumerate}
 
-Sementara itu, beberapa \textit{hyperparameter} kunci \textbf{divariasikan} antar percobaan untuk menemukan konfigurasi optimal. Tabel~\ref{tab:fe_search_space} merangkum ruang pencarian \textit{hyperparameter} yang dieksplorasi.
+Sementara itu, beberapa \textit{hyperparameter} kunci divariasikan antar percobaan untuk menemukan konfigurasi optimal. Tabel~\ref{tab:fe_search_space} merangkum ruang pencarian \textit{hyperparameter} yang dieksplorasi.
 
 \begin{table}[H]
 \centering
@@ -301,7 +301,7 @@ Beam Width & 1 (greedy), 5 & \parbox{4cm}{Strategi dekoding: greedy vs \textit{b
 \end{tabular}
 \end{table}
 
-Total dilakukan \textbf{sepuluh percobaan} dengan kombinasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (FE-1 hingga FE-6, Januari--Februari 2026) berfokus pada eksplorasi \textit{learning rate}, \textit{weight decay}, augmentasi, dan strategi dekoding; Fase 2 (FE-7 hingga FE-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy} dikombinasikan dengan optimasi lebih lanjut; Fase 3 (FE-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:fe_run_configs} dan Tabel~\ref{tab:fe_run_comparison}).
+Total dilakukan sepuluh percobaan dengan kombinasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (FE-1 hingga FE-6, Januari--Februari 2026) berfokus pada eksplorasi \textit{learning rate}, \textit{weight decay}, augmentasi, dan strategi dekoding; Fase 2 (FE-7 hingga FE-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy} dikombinasikan dengan optimasi lebih lanjut; Fase 3 (FE-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:fe_run_configs} dan Tabel~\ref{tab:fe_run_comparison}).
 
 Implementasi modifikasi fungsi \textit{loss} menjadi \textit{Weighted Cross-Entropy} beserta \textit{Label Smoothing} menggunakan kerangka kelas bawaan dari pustaka \texttt{transformers} ditunjukkan pada Potongan Kode~\ref{lst:wce_loss}.
 
@@ -347,7 +347,7 @@ class WeightedCEMixin:
 
 Metode LoRA (\textit{Low-Rank Adaptation}) bekerja dengan menambahkan matriks \textit{low-rank} sebagai parameter yang dapat dilatih pada seluruh \textit{linear layer} di setiap blok Transformer, sementara seluruh parameter \textit{pre-trained} dari Whisper Base tetap \textit{frozen}. Pendekatan ini diperkenalkan oleh Hu et al. \cite{hu2022lora} dan telah terbukti efektif untuk adaptasi model besar dengan dataset terbatas \cite{gupta2024parameter,wang2025ssvd}. Bagat dan Kumar \cite{bagat2025mixture} menunjukkan bahwa LoRA dapat dikombinasikan dengan arsitektur \textit{mixture of experts} untuk meningkatkan adaptasi multi-domain.
 
-Komponen arsitektural dan parameter \textit{training} yang bersifat \textbf{tetap} pada seluruh percobaan LoRA adalah:
+Komponen arsitektural dan parameter \textit{training} yang bersifat tetap pada seluruh percobaan LoRA adalah:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Target Modules}: Seluruh 6 \textit{linear layer} pada setiap blok Transformer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2}), mencakup \textit{attention projections} dan \textit{feed-forward network} pada encoder maupun decoder
@@ -392,7 +392,7 @@ Max Steps & 100, 150, 200, 250, 400 & Batas \textit{training} \\
 \end{tabular}
 \end{table}
 
-Dengan variasi konfigurasi \textit{rank} (8 atau 16), LoRA melatih $\sim$\textbf{1,47\%--2,93\%} dari total parameter ($\sim$1,08--2,16 juta dari 74 juta parameter), yang secara drastis lebih efisien dibandingkan \textit{Freeze Encoder} (50\%). Total dilakukan \textbf{sepuluh percobaan} dengan variasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (L-1 hingga L-6, Februari 2026) berfokus pada eksplorasi \textit{rank}, \textit{learning rate}, augmentasi, dan regularisasi; Fase 2 (L-7 hingga L-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy}, termasuk satu percobaan dengan \textit{rank} yang lebih tinggi ($r$=16, $\sim$2,93\% parameter trainable); Fase 3 (L-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:lora_run_configs} dan Tabel~\ref{tab:lora_run_comparison}).
+Dengan variasi konfigurasi \textit{rank} (8 atau 16), LoRA melatih $\sim$1,47\%--2,93\% dari total parameter ($\sim$1,08--2,16 juta dari 74 juta parameter), yang secara drastis lebih efisien dibandingkan \textit{Freeze Encoder} (50\%). Total dilakukan sepuluh percobaan dengan variasi \textit{hyperparameter} yang berbeda, dilaksanakan dalam tiga fase: Fase 1 (L-1 hingga L-6, Februari 2026) berfokus pada eksplorasi \textit{rank}, \textit{learning rate}, augmentasi, dan regularisasi; Fase 2 (L-7 hingga L-9, 3 Maret 2026) memperkenalkan \textit{Weighted Cross-Entropy}, termasuk satu percobaan dengan \textit{rank} yang lebih tinggi ($r$=16, $\sim$2,93\% parameter trainable); Fase 3 (L-10, 5 Maret 2026) menambahkan \textit{Temporal Separation} pada WCE, di mana bobot token dihitung hanya dari riwayat percobaan sebelumnya untuk menghindari kebocoran informasi validasi. Konfigurasi spesifik dan hasil dari setiap percobaan dijabarkan pada Bab~\ref{Bab IV} (Tabel~\ref{tab:lora_run_configs} dan Tabel~\ref{tab:lora_run_comparison}).
 
 Potongan Kode~\ref{lst:lora_config} menunjukkan implementasi dari konfigurasi LoRA menggunakan pustaka PEFT (\textit{Parameter-Efficient Fine-Tuning}) dari Hugging Face yang digunakan dalam pengembangan model ini.
 
@@ -423,11 +423,11 @@ model.print_trainable_parameters()
 Selain \textit{data augmentation}, beberapa teknik \textit{regularization} diterapkan untuk mencegah \textit{overfitting} dan meningkatkan generalisasi model \cite{krogh1991regularization}. Strategi regularisasi dirancang berbeda untuk kedua metode, disesuaikan dengan jumlah parameter yang dilatih:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{\textit{Dropout}} pada berbagai level untuk mengurangi \textit{co-adaptation} antar \textit{neurons} \cite{srivastava2014dropout}. \textit{Freeze Encoder} menggunakan \textit{dropout} yang lebih agresif (hingga 0,3) karena melatih 37M parameter pada dataset kecil, sedangkan LoRA menggunakan \textit{dropout} yang lebih ringan (0,05--0,15) karena \textit{low-rank constraint} sudah berfungsi sebagai regularisasi struktural. Nilai spesifik \textit{dropout} yang digunakan pada tiap percobaan dirinci pada Bab~\ref{Bab IV}
-    \item \textbf{\textit{Weight Decay}}: Divariasikan antar percobaan (lihat Tabel~\ref{tab:fe_search_space} dan Tabel~\ref{tab:lora_search_space}) untuk menemukan keseimbangan antara regularisasi L2 dan kapasitas belajar
-    \item \textbf{\textit{Label Smoothing}}: Diterapkan pada strategi LoRA ($\epsilon = 0,05{-}0,1$) untuk mencegah \textit{overconfidence} pada prediksi dan meningkatkan kalibrasi model \cite{szegedy2016rethinking}. \textit{Freeze Encoder} menggunakan \textit{cross-entropy} standar tanpa \textit{label smoothing}
-    \item \textbf{\textit{Gradient Clipping}}: \textit{Max norm} = 1,0 untuk mencegah \textit{exploding gradients} selama \textit{training} \cite{pascanu2013difficulty} (tetap pada kedua strategi)
-    \item \textbf{\textit{Early Stopping}}: Menghentikan \textit{training} jika tidak ada perbaikan WER selama 8 \textit{evaluation steps} berturut-turut (\textit{patience}=8, evaluasi setiap 4 \textit{training steps}) --- tetap pada kedua strategi
+    \item \textit{Dropout} pada berbagai level untuk mengurangi \textit{co-adaptation} antar \textit{neurons} \cite{srivastava2014dropout}. \textit{Freeze Encoder} menggunakan \textit{dropout} yang lebih agresif (hingga 0,3) karena melatih 37M parameter pada dataset kecil, sedangkan LoRA menggunakan \textit{dropout} yang lebih ringan (0,05--0,15) karena \textit{low-rank constraint} sudah berfungsi sebagai regularisasi struktural. Nilai spesifik \textit{dropout} yang digunakan pada tiap percobaan dirinci pada Bab~\ref{Bab IV}
+    \item \textit{Weight Decay}: Divariasikan antar percobaan (lihat Tabel~\ref{tab:fe_search_space} dan Tabel~\ref{tab:lora_search_space}) untuk menemukan keseimbangan antara regularisasi L2 dan kapasitas belajar
+    \item \textit{Label Smoothing}: Diterapkan pada strategi LoRA ($\epsilon = 0,05{-}0,1$) untuk mencegah \textit{overconfidence} pada prediksi dan meningkatkan kalibrasi model \cite{szegedy2016rethinking}. \textit{Freeze Encoder} menggunakan \textit{cross-entropy} standar tanpa \textit{label smoothing}
+    \item \textit{Gradient Clipping}: \textit{Max norm} = 1,0 untuk mencegah \textit{exploding gradients} selama \textit{training} \cite{pascanu2013difficulty} (tetap pada kedua strategi)
+    \item \textit{Early Stopping}: Menghentikan \textit{training} jika tidak ada perbaikan WER selama 8 \textit{evaluation steps} berturut-turut (\textit{patience}=8, evaluasi setiap 4 \textit{training steps}) --- tetap pada kedua strategi
 \end{enumerate}
 
 Perbedaan mendasar dalam filosofi regularisasi kedua strategi ini---\textit{aggressive explicit regularization} pada \textit{Freeze Encoder} vs \textit{structural regularization} melalui \textit{low-rank constraint} pada LoRA---merupakan salah satu aspek yang dianalisis dalam perbandingan hasil (Bab~\ref{Bab IV}).
@@ -541,7 +541,7 @@ Alat-alat yang digunakan dalam penelitian ini meliputi perangkat keras dan peran
 
 \subsubsection{Perangkat Lunak}
 
-\textbf{Lingkungan Pengembangan dan Sistem Operasi:}
+Lingkungan Pengembangan dan Sistem Operasi:
 \begin{enumerate}[noitemsep]
     \item \textbf{Python 3.10+} \cite{vanrossum2009python}: Bahasa pemrograman utama untuk implementasi model dan \textit{data processing}
     \item \textbf{CachyOS x86\_64}: Sistem operasi \textit{Linux} (Kernel 6.18.7) yang digunakan pada Local PC
@@ -557,9 +557,9 @@ Seluruh \textit{library} Python yang digunakan dalam penelitian ini dikelola mel
 
 \vspace{0.3cm}
 \noindent
-\textbf{Framework Deep Learning dan Library Inti:}
+Framework Deep Learning dan Library Inti:
 \begin{enumerate}[noitemsep]
-    \item \textbf{PyTorch 2.9.1} \cite{paszke2019pytorch} dan \textbf{torchaudio 2.9.1}: \textit{Deep learning framework} untuk \textit{training}, \textit{inference}, dan \textit{audio processing} model Whisper
+    \item \textbf{PyTorch 2.9.1} \cite{paszke2019pytorch} dan torchaudio 2.9.1: \textit{Deep learning framework} untuk \textit{training}, \textit{inference}, dan \textit{audio processing} model Whisper
     \item \textbf{Transformers 4.57.3} \cite{wolf2020transformers}: \textit{Library} Hugging Face untuk memuat dan \textit{fine-tune} model Whisper \textit{pre-trained}
     \item \textbf{Datasets 4.4.2} \cite{lhoest2021datasets}: \textit{Library} Hugging Face untuk manajemen dataset, \textit{data loading}, dan \textit{streaming}
     \item \textbf{Accelerate 1.12.0}: \textit{Library} Hugging Face untuk \textit{distributed training}, optimisasi memori, dan akselerasi GPU
@@ -573,7 +573,7 @@ Seluruh \textit{library} Python yang digunakan dalam penelitian ini dikelola mel
 
 \vspace{0.3cm}
 \noindent
-\textbf{Library Audio Processing dan Augmentation:}
+Library Audio Processing dan Augmentation:
 \begin{enumerate}[noitemsep]
     \item \textbf{librosa 0.11.0} \cite{mcfee2015librosa}: Analisis audio dan ekstraksi fitur musik/suara
     \item \textbf{audiomentations 0.43.1}: \textit{Data augmentation} audio (\textit{noise injection}, \textit{pitch shifting}, \textit{time stretching}) \cite{ko2015audio,park2019specaugment}
@@ -584,7 +584,7 @@ Seluruh \textit{library} Python yang digunakan dalam penelitian ini dikelola mel
 
 \vspace{0.3cm}
 \noindent
-\textbf{Library Machine Learning dan Evaluasi:}
+Library Machine Learning dan Evaluasi:
 \begin{enumerate}[noitemsep]
     \item \textbf{scikit-learn 1.8.0} \cite{pedregosa2011scikitlearn}: Utilitas \textit{machine learning} (\textit{data splitting}, metrik evaluasi, \textit{preprocessing})
     \item \textbf{jiwer 4.0.0} \cite{morris2004wer}: Perhitungan metrik evaluasi ASR (WER dan CER)
@@ -595,7 +595,7 @@ Seluruh \textit{library} Python yang digunakan dalam penelitian ini dikelola mel
 
 \vspace{0.3cm}
 \noindent
-\textbf{Library Visualisasi dan Monitoring:}
+Library Visualisasi dan Monitoring:
 \begin{enumerate}[noitemsep]
     \item \textbf{matplotlib 3.10.8} \cite{hunter2007matplotlib}: Visualisasi data dan plotting grafik
     \item \textbf{Weights \& Biases (wandb) 0.23.1} \cite{biewald2020wandb}: Platform untuk \textit{experiment tracking}, visualisasi \textit{learning curves}, dan \textit{logging} metrik
@@ -604,7 +604,7 @@ Seluruh \textit{library} Python yang digunakan dalam penelitian ini dikelola mel
 
 \vspace{0.3cm}
 \noindent
-\textbf{Library Pendukung:}
+Library Pendukung:
 \begin{enumerate}[noitemsep]
     \item \textbf{pydantic 2.12.5}: Validasi data menggunakan Python type hints
     \item \textbf{python-dotenv 1.2.1}: Manajemen variabel environment dari file \texttt{.env}
@@ -616,7 +616,7 @@ Seluruh \textit{library} Python yang digunakan dalam penelitian ini dikelola mel
 
 \vspace{0.3cm}
 \noindent
-\textbf{NVIDIA CUDA Libraries} (untuk akselerasi GPU):
+NVIDIA CUDA Libraries (untuk akselerasi GPU):
 \begin{enumerate}[noitemsep]
     \item \textbf{nvidia-cuda-runtime-cu12 12.8.90} \cite{nvidia2023cuda}: CUDA \textit{runtime library}
     \item \textbf{nvidia-cudnn-cu12 9.10.2.21} \cite{chetlur2014cudnn}: cuDNN untuk akselerasi operasi \textit{deep learning}
@@ -669,7 +669,7 @@ Penelitian ini menggunakan pendekatan eksperimental dengan metodologi yang terst
 \subsection{Pendekatan Penelitian}
 \label{III.Pendekatan}
 
-Penelitian ini mengadopsi \textbf{pendekatan eksperimental} dengan karakteristik:
+Penelitian ini mengadopsi pendekatan eksperimental dengan karakteristik:
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Quantitative Evaluation}: Pengukuran performa menggunakan metrik objektif (WER, CER) dengan agregasi mean ± std dari 5 folds
@@ -709,7 +709,7 @@ Strategi ini mempertahankan representasi akustik universal dari encoder sambil m
     \begin{itemize}[noitemsep]
         \item Training set: 4 folds ($\sim$124 audio)
         \item Test set: 1 fold ($\sim$31 audio)
-        \item \textbf{Apply augmentation}: SpecAugment, Speed Perturbation, Noise Injection \textbf{pada training set only} (tidak pada test set)
+        \item \textbf{Apply augmentation}: SpecAugment, Speed Perturbation, Noise Injection pada training set only (tidak pada test set)
         \item Training dengan supervised learning dari scratch menggunakan augmented training data
         \item Monitoring training loss untuk convergence
         \item Early stopping berdasarkan WER pada evaluation set (patience=8 evaluation steps)
@@ -735,7 +735,7 @@ Parameter-Efficient Fine-Tuning dengan hanya melatih low-rank adapters ($\sim$1,
     \item \textbf{5-Fold Iteration}: Sama seperti Freeze Encoder, untuk setiap fold k:
     \begin{itemize}[noitemsep]
         \item Training pada 4 folds, test pada 1 fold
-        \item \textbf{Apply augmentation}: SpecAugment, Speed Perturbation, Noise Injection \textbf{pada training set only}
+        \item \textbf{Apply augmentation}: SpecAugment, Speed Perturbation, Noise Injection pada training set only
         \item Higher learning rate (5e-4) karena parameter lebih sedikit
         \item Dropout 0.1 pada LoRA layers untuk regularisasi
     \end{itemize}
@@ -820,11 +820,11 @@ di mana:
 
 Misalkan kita memiliki pasangan reference-hypothesis berikut:
 
-\textbf{Reference:} ``\textit{awak ingin pai ka pasar pagi iko}''
+Reference: ``\textit{awak ingin pai ka pasar pagi iko}''
 
-\textbf{Hypothesis:} ``\textit{awak ingin pergi pasar pagi ini}''
+Hypothesis: ``\textit{awak ingin pergi pasar pagi ini}''
 
-\textbf{Alignment:}
+Alignment:
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.5}
@@ -840,7 +840,7 @@ Misalkan kita memiliki pasangan reference-hypothesis berikut:
 \caption{Alignment untuk perhitungan WER (C=Correct, S=Substitution, D=Deletion)}
 \end{table}
 
-\textbf{Perhitungan:}
+Perhitungan:
 \begin{itemize}[noitemsep]
     \item Substitutions ($S$): 2 (``pai'' $\rightarrow$ ``pergi'', ``iko'' $\rightarrow$ ``ini'')
     \item Deletions ($D$): 1 (``ka'' dihapus)
@@ -884,11 +884,11 @@ di mana:
 
 Menggunakan contoh yang sama:
 
-\textbf{Reference:} ``\textit{awakinginpaikapasarpagiiko}'' (tanpa spasi: 26 karakter)
+Reference: ``\textit{awakinginpaikapasarpagiiko}'' (tanpa spasi: 26 karakter)
 
-\textbf{Hypothesis:} ``\textit{awakinginpergipasarpagiini}'' (tanpa spasi: 26 karakter)
+Hypothesis: ``\textit{awakinginpergipasarpagiini}'' (tanpa spasi: 26 karakter)
 
-\textbf{Perhitungan:}
+Perhitungan:
 \begin{itemize}[noitemsep]
     \item Character substitutions ($S_c$): 6 (``a''→``e'', ``i''→``r'', ``k''→``g'', ``a''→``i'', ``k''→``n'', ``o''→``i'')
     \item Character deletions ($D_c$): 0
@@ -938,7 +938,7 @@ Whisper Base memiliki:
     \item LoRA applied to: Seluruh 6 \textit{linear layer} per blok Transformer (\texttt{q\_proj}, \texttt{v\_proj}, \texttt{k\_proj}, \texttt{out\_proj}, \texttt{fc1}, \texttt{fc2})
 \end{itemize}
 
-\textbf{Perhitungan per layer:}
+Perhitungan per layer:
 
 \vspace{0.3cm}
 \begin{equation}
@@ -956,7 +956,7 @@ Whisper Base memiliki:
 \myequations{Parameter LoRA Per Layer}
 \vspace{0.2cm}
 
-\textbf{Total LoRA parameters:}
+Total LoRA parameters:
 
 \vspace{0.3cm}
 \begin{equation}
@@ -967,9 +967,9 @@ Whisper Base memiliki:
 \vspace{0.2cm}
 
 \noindent
-\textbf{Catatan}: Perhitungan di atas hanya mencakup matriks LoRA A dan B. Dalam implementasi aktual, total parameter trainable juga mencakup \textit{layer normalization} dan komponen lain yang tidak di-\textit{freeze}, sehingga total parameter trainable yang dilaporkan oleh PEFT \textit{library} adalah \textbf{1.081.344} ($\sim$1,47\% dari 73.675.264 parameter total termasuk LoRA \textit{overhead}).
+\textbf{Catatan}: Perhitungan di atas hanya mencakup matriks LoRA A dan B. Dalam implementasi aktual, total parameter trainable juga mencakup \textit{layer normalization} dan komponen lain yang tidak di-\textit{freeze}, sehingga total parameter trainable yang dilaporkan oleh PEFT \textit{library} adalah 1.081.344 ($\sim$1,47\% dari 73.675.264 parameter total termasuk LoRA \textit{overhead}).
 
-\textbf{Percentage of total parameters:}
+Percentage of total parameters:
 
 \vspace{0.3cm}
 \begin{equation}

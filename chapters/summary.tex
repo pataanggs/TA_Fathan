@@ -8,16 +8,14 @@
 	\normalsize \normalfont {\thetitle}\\
 	\normalsize \normalfont {\theauthor}\\
 	\bigskip
+	
+	\normalsize \normalfont \justifying
+	\normalsize \normalfont \justifying
+	Teknologi \textit{Automatic Speech Recognition} (ASR) masih kurang mendukung bahasa bersumber daya rendah (\textit{low-resource}) seperti Minangkabau akibat keterbatasan dataset dan tingginya variasi dialek. Oleh karena itu, penelitian ini bertujuan mengadaptasi model bahasa universal secara efisien ke bahasa daerah Minangkabau. Penelitian dilakukan melalui proses \textit{fine-tuning} model OpenAI Whisper Base menggunakan arsitektur \textit{Parameter-Efficient Fine-Tuning} via \textit{Low-Rank Adaptation} (LoRA) untuk meminimalisasi beban komputasi. Optimasi \textit{Weighted Cross-Entropy Loss} turut diintegrasikan guna mengatasi ketimpangan kemunculan fonem pada set pelatihan.
+
+	Evaluasi menggunakan \textit{Word Error Rate} (WER) dan \textit{Character Error Rate} (CER) membuktikan terwujudnya peningkatan akurasi yang signifikan dibandingkan mode \textit{zero-shot} asalnya. Implementasi ganda antara metrik bobot kerugian dan LoRA sukses mereduksi kesalahan fonetik, walaupun sistem masih rentan terhadap diksi yang jarang terjadi. Kesimpulannya, metode eksperimental yang diuji ini merupakan kerangka yang efektif dan hemat biaya sumber daya untuk merancang ASR bahasa lokal. Disarankan untuk meluaskan representasi data wicara Minangkabau pada korpus masif masa depan untuk mempertinggi utilitas dunia nyata.
+
+	\vfill
+	
 \end{center}
-
-	\normalsize \normalfont \justifying \singlespacing
-	Teknologi \textit{Automatic Speech Recognition} (ASR) saat ini masih berfokus pada bahasa mayor dan kurang mendukung bahasa bersumber daya rendah (\textit{low-resource}) seperti Minangkabau. Keterbatasan dataset dan tingginya variasi dialek menjadi tantangan komputasi utama. Oleh karena itu, penelitian ini bertujuan mengadaptasi model bahasa universal ke bahasa daerah secara efisien serta mengevaluasi peningkatannya.
-
-	Metodologi penelitian ini berpusat pada proses \textit{fine-tuning} model \textit{pre-trained} OpenAI Whisper Base. Untuk meminimalisasi beban komputasi, diterapkan teknik \textit{Parameter-Efficient Fine-Tuning} melalui \textit{Low-Rank Adaptation} (LoRA). Selain itu, optimasi berbasis \textit{Weighted Cross-Entropy Loss} digunakan untuk mengatasi ketidakseimbangan data (\textit{data imbalance}) pada hierarki karakter dan fonem. Evaluasi diukur secara kuantitatif membandingkan metrik \textit{Word Error Rate} (WER) dan \textit{Character Error Rate} (CER) dengan model dasarnya.
-
-	Hasil observasi menunjukkan model adaptasi terbukti mentranskripsikan tuturan Minangkabau dengan jauh lebih akurat dibandingkan mode \textit{zero-shot}. Penggunaan \textit{Weighted Cross-Entropy} juga sukses meluruskan pemetaan fonetik, meskipun sistem masih rentan terhadap penutur berdialek kental dengan serapan kata berbeda. Analisis kesalahan mengungkapkan bahwa sebagian besar kesalahan terjadi pada kata-kata yang jarang muncul dalam data pelatihan, menegaskan pentingnya penyeimbangan data untuk meningkatkan performa model. 
-
-	Penelitian ini menyimpulkan bahwa kombinasi LoRA dan \textit{Weighted Cross-Entropy} pada Whisper menjadi solusi yang efektif sekaligus efisien bagi ASR bahasa lokal. Sebagai saran pengembangan, direkomendasikan pengumpulan korpus data wicara yang lebih masif, misalnya melalui \textit{crowdsourcing} atau ekstraksi siaran lokal, agar model dapat mengatasi luasnya variasi diksi verbal Minangkabau sesungguhnya.
-
-\vfill
 \clearpage

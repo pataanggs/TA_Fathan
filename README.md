@@ -1,13 +1,13 @@
 # Latex-TA-IF-ITERA
 Template Latex Tugas Akhir untuk Program Studi Teknik Informatika, ITERA
 
-Kontributor: Radhinka Bagaskara, Martin C.T. Manullang, I Wayan Wiprayoga Wisesa, Jose Alfredo Sitanggang (IF 2016), Ardoni Yeriko Rifana Gultom (IF 2021), Syabana Minggus Noviantosa (IF 2018), Rizki Alfaina (IF 2021)
+Kontributor: Radhinka Bagaskara, Martin C.T. Manullang, I Wayan Wiprayoga Wisesa, Jose Alfredo Sitanggang (IF 2016), Ardoni Yeriko Rifana Gultom (IF 2021), Syabana Minggus Noviantosa (IF 2018), Rizki Alfaina (IF 2021), Cornelius Linux (2022)
 
 ![Screenshot LaTex dari TeXstudio](ss.jpg)
 
 ## Apakah ini?
 
-Proyek ini bertujuan untuk membuat template Tugas Akhir Teknik Informatika ITERA berbasis LaTex. Template dibuat berdasarkan template [Microsoft Word Tugas Akhir Informatika ITERA 1.3](https://docs.google.com/document/d/1SYtSpRevbRvscXIJRAxuT41kJqqzsHyw/edit?usp=sharing&ouid=103935211052656359121&rtpof=true&sd=true), serta berdasarkan [Templat LaTeX Tesis Informatika ITB](https://github.com/petrabarus/if-itb-latex) oleh Petra Barus & Peb Ruswono Aryan.
+Proyek ini bertujuan untuk membuat template Tugas Akhir Teknik Informatika ITERA berbasis LaTex. Template dibuat berdasarkan template [Pedoman Tugas Akhir Format Terbaru (UNESCO)](https://docs.google.com/document/d/1m2WutVlV-NSbEeZUKMPsThl__LI8m_bd), serta berdasarkan [Templat LaTeX Tesis Informatika ITB](https://github.com/petrabarus/if-itb-latex) oleh Petra Barus & Peb Ruswono Aryan.
 
 ## Mengapa memakai LaTex?
 

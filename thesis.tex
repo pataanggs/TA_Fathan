@@ -2,14 +2,14 @@
 %--------------------------------------------------------------------%
 %
 % Template TA LaTeX Teknik Informatika ITERA.
-% Editor: Radhinka Bagaskara, Martin C.T. Manullang, I Wayan Wiprayoga Wisesa, Jose Alfredo Sitanggang (IF 2016), Ardoni Yeriko Rifana Gultom (IF 2021), Syabana Minggus Noviantosa (IF 2018), Rizki Alfaina (IF 2021)
-% Version 2025.5
+% Editor: Radhinka Bagaskara, Martin C.T. Manullang, I Wayan Wiprayoga Wisesa, Jose Alfredo Sitanggang (IF 2016), Ardoni Yeriko Rifana Gultom (IF 2021), Syabana Minggus Noviantosa (IF 2018), Rizki Alfaina (IF 2021), Cornelius Linux (IF 2022)
+% Version 2026.1
 % TELAH DISESUAIKAN DENGAN FORMAT PERPUSTAKAAN ITERA MEI 2025 (UNESCO FORMAT)
 %
 % Berdasarkan "Templat LaTeX Tesis Informatika ITB" oleh Petra Barus & Peb Ruswono Aryan
 % https://github.com/petrabarus/if-itb-latex
-% Berdasarkan Panduan Tugas Akhir Teknik Informatika ITERA v1.3
-% https://docs.google.com/document/d/1SYtSpRevbRvscXIJRAxuT41kJqqzsHyw/edit?usp=sharing&ouid=103935211052656359121&rtpof=true&sd=true
+% Berdasarkan Pedoman Tugas Akhir Format Terbaru (UNESCO)
+% https://docs.google.com/document/d/1m2WutVlV-NSbEeZUKMPsThl__LI8m_bd
 %
 %--------------------------------------------------------------------%
 %
@@ -18,42 +18,41 @@
 %--------------------------------------------------------------------%
 
 % Set jenis dokumen Tugas Akhir
-\documentclass{report} % Untuk versi perpustakaan
+\documentclass[article]{report} % Untuk versi perpustakaan
 \usepackage[paperwidth=155mm, % Setting layout kertas UNESCO (155 x 230 mm)
 			paperheight=230mm,
-			top=2cm,
-			bottom=2cm,
+			top=2cm, 
+			bottom=2cm, 
 			left=2cm,
-			right=2cm,
-			includefoot,
-			heightrounded,
+			right=2cm, 
+			includefoot, 
+			heightrounded, 
 			bindingoffset=0.5cm]
-			{geometry}
+			{geometry} 
 
 \input{config/config.sty} % Import konfigurasi laporan
-\addbibresource{references.bib} % Import list Daftar Pustaka (gunakan addbibresource untuk biblatex)
+\bibliography{references.bib} % Import list Daftar Pustaka
 
 \begin{document}
 
     %----------------------------------------------------------------%
     % Konfigurasi Informasi Tugas Akhir
     %----------------------------------------------------------------%
-
-    % Judul Tugas Akhir, dalam Bahasa Indonesia
+    
+    % Judul Tugas Akhir, dalam Bahasa Indonesia	
     \title{Implementasi Fine-Tuning OpenAI Whisper Base untuk Automatic Speech Recognition Bahasa Minangkabau}
     % Judul Tugas Akhir dalam Bahasa Inggris
     \titleEN{Implementation of OpenAI Whisper Base Fine-Tuning for Minangkabau Automatic Speech Recognition}
     % JUDUL AKAN DITULIS DALAM HURUF KAPITAL; Font size 16 pt; Bold; Tidak melebihi 4 baris
-
+    
     % Informasi Mahasiswa
 	\author{Fathan Andi Kartagama}		% Nama Mahasiswa
 	\nim{122140055}				% NIM Mahasiswa
-
+	
 	%Informasi Dosen Pembimbing
 	\dosbingA%
 		{Martin Clinton Tosima Manullang, Ph.D.}%			% Nama Dosen Pembimbing 1
-		{19930109 201903 1 017}	% NIP Dosen Pembimbing 1
-
+		{NIP. 19930109 201903 1 017}	% NIP Dosen Pembimbing 1
 
 	%Informasi Dosen Penguji
 	\pengujiA%
@@ -91,34 +90,35 @@
 	\input{chapters/statement} 		% Halaman Pernyataan Orisinalitas
 	\input{chapters/publication} 	% Halaman Persetujuan Publikasi
 	\input{chapters/forewords} 		% Kata Pengantar
+	\input{chapters/motto} 			% Motto
 	\input{chapters/summary} 		% Ringkasan
 	\input{chapters/abstract-id} 	% Abstrak (Indonesia)
-	\input{chapters/abstract-en} 	% Abstrak (Inggris)
+	\input{chapters/abstract-en} 	% Abstrak (Inggris)    
     %----------------------------------------------------------------%
     % Halaman Daftar
-    %----------------------------------------------------------------%
+    %----------------------------------------------------------------%    
 	% Daftar Isi
-	\phantomsection%
+	\phantomsection% 
 	\addcontentsline{toc}{chapter}{DAFTAR ISI}
 	\tableofcontents
 	% Daftar tabel
-	\phantomsection%
+	\phantomsection% 
 	\addcontentsline{toc}{chapter}{DAFTAR TABEL}
 	\listoftables
 	% Daftar gambar
-	\phantomsection%
+	\phantomsection% 
 	\addcontentsline{toc}{chapter}{DAFTAR GAMBAR} % TODO: No halaman ga selang-seling di Daftar? (RDB)
 	\listoffigures
 	% Daftar rumus
 	% \pagestyle{daftarrumusstyle}
-	\phantomsection%
+	\phantomsection% 
 	\addcontentsline{toc}{chapter}{DAFTAR RUMUS}
 	\listofmyequations
 	% \thispagestyle{daftarrumusstyle}
 	% \pagebreak
 	%    \input{chapters/symbols}
 	% Daftar kode
-	\phantomsection%
+	\phantomsection% 
 	\addcontentsline{toc}{chapter}{DAFTAR KODE}
 	\lstlistoflistings
 	\pagebreak
@@ -140,7 +140,7 @@
     }
     % Reset penomoran halaman menjadi 1
     \setcounter{page}{1}
-    \pagenumbering{arabic}
+    \pagenumbering{arabic}    
     \justifying
     % Mulai selang-seling halaman
     \forceoddpage
@@ -157,8 +157,9 @@
     \input{chapters/chapter-5}
 	%----------------------------------------------------------------%
     % Daftar Pustaka
+    % Minimal 30 artikel Berbahasa Inggris, 15 artikel Berbahasa Indonesia, 3 Buku/E-Book Penunjang. Hanya dapat menggunakan situs resmi
     \newpage
-    \phantomsection%
+    \phantomsection% 
     \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
     \printbibliography[title={Daftar Pustaka}]
 	%----------------------------------------------------------------%

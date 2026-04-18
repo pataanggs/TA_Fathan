@@ -1,0 +1,40 @@
+{
+  "os":  "Linux-6.18.9-2-cachyos-x86_64-with-glibc2.42",
+  "python":  "CPython 3.14.2",
+  "startedAt":  "2026-02-08T10:13:23.458697Z",
+  "program":  "/home/pataangg/Developer/TA_Fathan/code/lora/main.py",
+  "codePath":  "code/lora/main.py",
+  "codePathLocal":  "code/lora/main.py",
+  "git":  {
+    "remote":  "git@github.com:pataanggs/TA_Fathan.git",
+    "commit":  "439d80887ac48fd59d44130456efbcf9743786f8"
+  },
+  "email":  "ryukikun4@gmail.com",
+  "root":  "/home/pataangg/Developer/TA_Fathan",
+  "host":  "Pataangg-PC",
+  "executable":  "/home/pataangg/Developer/TA_Fathan/.venv/bin/python",
+  "cpu_count":  6,
+  "cpu_count_logical":  12,
+  "gpu":  "NVIDIA GeForce RTX 5060 Ti",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "511793483776",
+      "used":  "115769237504"
+    }
+  },
+  "memory":  {
+    "total":  "16348246016"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 5060 Ti",
+      "memoryTotal":  "17103323136",
+      "cudaCores":  4608,
+      "architecture":  "Blackwell",
+      "uuid":  "GPU-8dc1d6fa-3cd7-57e8-b7e9-8ad4115c9771"
+    }
+  ],
+  "cudaVersion":  "13.1",
+  "writerId":  "8bexofio9wphqlg8d1gtvoe1g9xpm1zr"
+}

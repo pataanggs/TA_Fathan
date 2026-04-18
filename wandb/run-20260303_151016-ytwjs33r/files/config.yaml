@@ -1,0 +1,93 @@
+_wandb:
+    value:
+        cli_version: 0.23.1
+        e:
+            kuzc4rp732falazueuacamjo5a7d639e:
+                codePath: code/lora/main.py
+                codePathLocal: code/lora/main.py
+                cpu_count: 6
+                cpu_count_logical: 12
+                cudaVersion: "13.1"
+                disk:
+                    /:
+                        total: "511793483776"
+                        used: "177215692800"
+                email: ryukikun4@gmail.com
+                executable: /home/pataangg/Developer/TA_Fathan/.venv/bin/python
+                git:
+                    commit: 32be42df68a21de869d20c10f4385d4b37928055
+                    remote: git@github.com:pataanggs/TA_Fathan.git
+                gpu: NVIDIA GeForce RTX 5060 Ti
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 4608
+                      memoryTotal: "17103323136"
+                      name: NVIDIA GeForce RTX 5060 Ti
+                      uuid: GPU-8dc1d6fa-3cd7-57e8-b7e9-8ad4115c9771
+                host: Pataangg-PC
+                memory:
+                    total: "16347881472"
+                os: Linux-6.19.5-3-cachyos-x86_64-with-glibc2.43
+                program: /home/pataangg/Developer/TA_Fathan/code/lora/main.py
+                python: CPython 3.14.3
+                root: /home/pataangg/Developer/TA_Fathan
+                startedAt: "2026-03-03T08:10:16.024454Z"
+                writerId: kuzc4rp732falazueuacamjo5a7d639e
+        m: []
+        python_version: 3.14.3
+        t:
+            "1":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 51
+                - 53
+                - 71
+                - 98
+                - 100
+            "2":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 51
+                - 53
+                - 71
+                - 98
+                - 100
+            "3":
+                - 13
+                - 16
+            "4": 3.14.3
+            "5": 0.23.1
+            "6": 4.57.3
+            "10":
+                - 20
+            "12": 0.23.1
+            "13": linux-x86_64
+fold:
+    value: 1
+learning_rate:
+    value: 0.0014
+lora_alpha:
+    value: 16
+lora_dropout:
+    value: 0.15
+lora_r:
+    value: 8
+lora_target_modules:
+    value:
+        - q_proj
+        - v_proj
+        - k_proj
+        - out_proj
+        - fc1
+        - fc2
+max_steps:
+    value: 100
+strategy:
+    value: LoRA
+weight_decay:
+    value: 0.05

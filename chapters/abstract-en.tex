@@ -5,15 +5,15 @@
 
 \begin{center}
 	\large \bfseries \MakeUppercase{Abstract}\\
-	\normalsize \normalfont {\thetitleEN}\\
-	\normalsize \normalfont {\theauthor}\\
+%	\normalsize \normalfont {\thetitleEN}\\
+%	\normalsize \normalfont {\theauthor}\\
 	\bigskip
 	
 	\normalsize \normalfont \justifying \singlespacing
-    Automatic Speech Recognition (ASR) technology is currently predominantly centered on high-resource languages, while regional languages such as Minangkabau, which are extremely low-resource (1.3 hours of training data), remain inadequately facilitated. This results in the low accuracy of generic ASR systems due to the complexity of local dialect variations. This study aims to improve the accuracy of Minangkabau language ASR systems through the implementation of fine-tuning on the pre-trained OpenAI Whisper Base model. The methodology focuses on the Parameter-Efficient Fine-Tuning (PEFT) technique using Low-Rank Adaptation (LoRA) to minimize computational load, and is compared against the Freeze Encoder strategy. Furthermore, a Weighted Cross-Entropy (WCE) function with temporal separation is introduced to address the imbalance of phoneme distribution without leaking validation data. Model performance is evaluated using a 5-Fold Cross-Validation scheme with Word Error Rate (WER) and Character Error Rate (CER) metrics. The experimental results confirm that LoRA consistently outperforms the Freeze Encoder, achieving an average WER of 15.67\% and CER of 3.32\% while only training 2.93\% of the model parameters. In conclusion, the combination of LoRA and WCE weighting proves to be effective and efficient in transcribing the Minangkabau language, although minor challenges remain with specific dialectal phonetic utterances. In the future, expanding the speech corpus through a crowdsourcing scheme is recommended for further research.\par
+	Automatic Speech Recognition (ASR) technology is currently predominantly centered on high-resource languages, while regional languages such as Minangkabau, which are extremely low-resource (1.3 hours of training data), remain inadequately facilitated. This results in the low accuracy of generic ASR systems due to the complexity of local dialect variations. This study aims to improve the accuracy of Minangkabau language ASR systems through the implementation of fine-tuning on the pre-trained OpenAI Whisper Base model. The methodology focuses on the Parameter-Efficient Fine-Tuning (PEFT) technique using Low-Rank Adaptation (LoRA) to minimize computational load, and is compared against the Freeze Encoder strategy. Furthermore, a Weighted Cross-Entropy (WCE) function with temporal separation is introduced to address the imbalance of phoneme distribution without leaking validation data. Model performance is evaluated using a 5-Fold Cross-Validation scheme with Word Error Rate (WER) and Character Error Rate (CER) metrics. The experimental results confirm that LoRA consistently outperforms the Freeze Encoder, achieving an average WER of 15.67\% and CER of 3.32\% while only training 2.93\% of the model parameters. In conclusion, the combination of LoRA and WCE weighting proves to be effective and efficient in transcribing the Minangkabau language, although minor challenges remain with specific dialectal phonetic utterances. In the future, expanding the speech corpus through a crowdsourcing scheme is recommended for further research.\par
 
     \vspace{20pt}
-    \raggedright \textbf{Keywords}: Speech Recognition, OpenAI Whisper, Minangkabau, Fine-Tuning, LoRA
+	\raggedright \textbf{Keywords}: Speech Recognition, OpenAI Whisper, Minangkabau, Fine-Tuning, LoRA
     
 	\vfill
 	

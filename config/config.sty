@@ -1,7 +1,7 @@
 %-------------------------------------------------------------------%
 %
 % Konfigurasi dokumen LaTeX untuk laporan tesis IF ITB
-%
+% 
 %
 % @author Radhinka Bagaskara, Petra Novandi (ITB)
 %
@@ -13,8 +13,6 @@
 
 % Import package penting
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{textcomp} % For additional text symbols including quotes
 \usepackage{subcaption} % Paket untuk mengatur gambar berdampingan
 \usepackage{graphicx}
 \usepackage{titling}
@@ -25,6 +23,8 @@
 \usepackage{array} % % Untuk tabel di math mode
 \usepackage{float} % Untuk tabular
 \usepackage{longtable} % Untuk tabel yang potong halaman
+\usepackage{tabularx}
+\usepackage{xltabular}
 \usepackage{amsmath} % Untuk equation
 \usepackage{enumitem} % Untuk list enumerate yg lebih rapi
 \usepackage{nameref} % Untuk dapat menggunakan nameref, referensi dengan nama section/caption
@@ -56,26 +56,15 @@
 \hyphenpenalty=10000
 
 % Font
-%\usepackage{mathptmx}
-\usepackage{newtx}
+%\usepackage{mathptmx} 
+\usepackage{newtx} 
 % Times New Roman itu copyright dari Microsoft. Ini alternatifnya (RDB)
 
 % Judul bahasa Indonesia
-\usepackage{babel}
-\babelprovide[import, main]{indonesian}
+\usepackage[bahasa]{babel}
 
 % Format tanggal
 \usepackage[style=ddmmyyyy,datesep=-]{datetime2}
-
-% csquotes must be loaded before biblatex
-% Use simple quote style compatible with all fonts
-\usepackage[autostyle=false]{csquotes}
-\newcommand{\openquote}{``}
-\newcommand{\closequote}{''}
-\DeclareQuoteStyle{custom}
-  {\openquote}{\closequote}
-  {`}{'}
-\setquotestyle{custom}
 
 % Format citation
 \usepackage[backend=bibtex,citestyle=ieee]{biblatex} % Untuk bisa jalan di Texstudio, harus backend=bibtex
@@ -90,54 +79,23 @@
 \DeclareFieldFormat{doi}{#1}        % Use default font for DOI
 
 % Remove DOI and URL fields if not needed (optional)
-%\AtEveryBibitem{
-%  \clearfield{doi}
-%  \clearfield{url}
-%}
+\AtEveryBibitem{
+  \clearfield{doi}
+  \clearfield{url}
+}
 
-\DeclareLanguageMapping{indonesian}{english}
+\DeclareLanguageMapping{bahasa}{english}
 
 % Package untuk link di daftar isi.
 %\usepackage{titlesec}       % Package Format judul
 %\usepackage{parskip}
 \usepackage{ragged2e}		% Alignment
-\usepackage{ltablex}        % longtable + tabularx (untuk tabel fleksibel)
-\keepXColumns               % Mempertahankan kolom X di ltablex
-\renewcommand\tabularxcolumn[1]{m{#1}} % Kolom X dengan vertical centering
-\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X} % Kolom X dengan RaggedRight
-\setlength\LTleft{0pt}      % Tabel tabularx mepet margin kiri
-\setlength\LTright{0pt}     % Tabel tabularx mepet margin kanan
 \usepackage{multirow}		% Untuk bisa merge cell di tabel
 \usepackage{tikz}			% Untuk menggambar kotak pas foto
 \usepackage{setspace}		% Spacing paragraph
 \usepackage{fancyhdr}		% Agar nomor halaman di pojok kanan atas
 \usepackage{caption} 		% Caption gambar & tabel
 \usepackage{comment}
-
-% ---- Float khusus persamaan + daftar persamaan ----
-\usepackage{newfloat}
-\DeclareFloatingEnvironment[
-  fileext=loe,                % ekstensi aux utk daftar
-  listname={Daftar Persamaan},% judul list
-  name={Persamaan}            % nama caption di bawah rumus
-]{eqfloat}
-% Pemanggilan daftar persamaan: \listof{eqfloat}{Daftar Persamaan}
-
-% Penomoran persamaan per section (subbab)
-\usepackage{chngcntr}
-\counterwithin{equation}{section}
-
-% Hook untuk menambahkan caption eqfloat ke daftar myequations
-\usepackage{etoolbox}
-\AtBeginEnvironment{eqfloat}{%
-  \let\oldeqfloatcaption\caption
-  \def\caption#1{%
-    \oldeqfloatcaption{#1}%
-    \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}%
-  }%
-}
-
-
 
 \captionsetup[figure]{font=footnotesize} % Mengatur caption gambar ke 10pt (footnotesize)
 \captionsetup[figure]{labelsep=space} % Mengubah ":" menjadi spasi setelah nomor gambar
@@ -194,7 +152,7 @@
 %  }}
 %\makeatother
 
-
+    
 % Setting spacing di setiap judul chapter
 \titlespacing*{\chapter}{0pt}{0pt}{10pt}
 \titlespacing*{\section}{0pt}{10pt}{0pt}
@@ -239,7 +197,7 @@
   \apptocmd {\listoftables} { \endgroup}{}{}
 \makeatother
 
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{3} 
 
 % Tambahkan kata "BAB" sebelum nomor bab di daftar isi
 \renewcommand*\cftchappresnum{\MakeUppercase{BAB}~}
@@ -250,7 +208,7 @@
 	\protect\renewcommand*\protect\cftchappresnum{\MakeUppercase{\chaptername}~}
 }
 
-\renewcommand{\cftchapleader}{\dotfill}
+\renewcommand{\cftchapleader}{\dotfill} 
 \renewcommand{\cftsecleader}{\dotfill}
 \renewcommand{\cftsubsecleader}{\dotfill}
 \renewcommand{\cftsubsubsecleader}{\dotfill}
@@ -258,7 +216,7 @@
 \renewcommand{\cfttableader}{\dotfill}
 
 % Nama daftar isi, gambar, tabel, rumus dalam bahasa Indonesia
-\addto\captionsindonesian{%
+\addto\captionsbahasa{%
 	\renewcommand{\contentsname}{DAFTAR ISI}%
 	\renewcommand{\listfigurename}{DAFTAR GAMBAR}%
 	\renewcommand{\listtablename}{DAFTAR TABEL}%
@@ -402,12 +360,12 @@
 
 % Untuk mengganti nama bulan di babel bahasa
 % tapi belum jalan (RDB)
-\StartBabelCommands*{indonesian}{date}
+\StartBabelCommands*{bahasa}{date}
 \SetStringLoop{month#1name}{%
 	Januari,Februari,Maret,April,Mei,Juni,%
 	Juli,Agustus,September,Oktober,November,%
 	Desember}
-\EndBabelCommands
+\EndBabelCommands     
 
 % english title
 \providecommand\titleEN[1]{\providecommand\thetitleEN{#1}}
@@ -424,15 +382,15 @@
 
 % Command untuk variabel Dosen Pembimbing I & II
 \newcommand{\namadosbinga}[1]{\def\@namadosbinga{#1}}
-\newcommand{\namadosbingb}[1]{\def\@namadosbingb{#1}}
+% \newcommand{\namadosbingb}[1]{\def\@namadosbingb{#1}}
 \newcommand{\nipdosbinga}[1]{\def\@nipdosbinga{#1}}
-\newcommand{\nipdosbingb}[1]{\def\@nipdosbingb{#1}}
+% \newcommand{\nipdosbingb}[1]{\def\@nipdosbingb{#1}}
 \newcommand{\printnamadosbinga}{\@namadosbinga}
-\newcommand{\printnamadosbingb}{\@namadosbingb}
+% \newcommand{\printnamadosbingb}{\@namadosbingb}
 \newcommand{\printnipdosbinga}{\@nipdosbinga}
-\newcommand{\printnipdosbingb}{\@nipdosbingb}
+% \newcommand{\printnipdosbingb}{\@nipdosbingb}
 \newcommand{\dosbingA}[2]{\namadosbinga{#1} \nipdosbinga{#2}}
-\newcommand{\dosbingB}[2]{\namadosbingb{#1} \nipdosbingb{#2}}
+% \newcommand{\dosbingB}[2]{\namadosbingb{#1} \nipdosbingb{#2}}
 
 % Command untuk variabel Dosen Penguji I & II
 \newcommand{\namapengujia}[1]{\def\@namapengujia{#1}}
@@ -460,3 +418,4 @@
 }
 
 \makeatother % Jangan dihapus
+

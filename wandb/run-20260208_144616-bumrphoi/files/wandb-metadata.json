@@ -1,0 +1,40 @@
+{
+  "os":  "Linux-6.18.9-2-cachyos-x86_64-with-glibc2.42",
+  "python":  "CPython 3.14.2",
+  "startedAt":  "2026-02-08T07:46:16.966159Z",
+  "program":  "/home/pataangg/Developer/TA_Fathan/code/freeze_encoder/main.py",
+  "codePath":  "code/freeze_encoder/main.py",
+  "codePathLocal":  "code/freeze_encoder/main.py",
+  "git":  {
+    "remote":  "git@github.com:pataanggs/TA_Fathan.git",
+    "commit":  "c16370199c8f44a31698a6194ab5ea1940a0f82a"
+  },
+  "email":  "ryukikun4@gmail.com",
+  "root":  "/home/pataangg/Developer/TA_Fathan",
+  "host":  "Pataangg-PC",
+  "executable":  "/home/pataangg/Developer/TA_Fathan/.venv/bin/python",
+  "cpu_count":  6,
+  "cpu_count_logical":  12,
+  "gpu":  "NVIDIA GeForce RTX 5060 Ti",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "511793483776",
+      "used":  "113852334080"
+    }
+  },
+  "memory":  {
+    "total":  "16348246016"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 5060 Ti",
+      "memoryTotal":  "17103323136",
+      "cudaCores":  4608,
+      "architecture":  "Blackwell",
+      "uuid":  "GPU-8dc1d6fa-3cd7-57e8-b7e9-8ad4115c9771"
+    }
+  ],
+  "cudaVersion":  "13.1",
+  "writerId":  "cx8f784kr2puqerc4qx7qplvs86itt23"
+}

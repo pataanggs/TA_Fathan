@@ -1,0 +1,24 @@
+Freeze Encoder: Total 10 runs. Average Run Time (5 folds): 0.45 hours atau 26.72 menit atau 1603.19 detik
+Detail per run:
+  - run_20260122_160012: 0.42 hours (25.27 menit)
+  - run_20260122_165745: 0.38 hours (22.56 menit)
+  - run_20260122_173234: 0.39 hours (23.39 menit)
+  - run_20260208_145119: 0.71 hours (42.46 menit)
+  - run_20260211_221604: 0.47 hours (28.27 menit)
+  - run_20260212_060037: 0.47 hours (28.19 menit)
+  - run_20260303_155257: 0.31 hours (18.55 menit)
+  - run_20260303_185056: 0.52 hours (31.31 menit)
+  - run_20260303_202534: 0.40 hours (23.92 menit)
+  - run_20260305_214751: 0.39 hours (23.28 menit)
+LoRA: Total 10 runs. Average Run Time (5 folds): 0.66 hours atau 39.52 menit atau 2370.93 detik
+Detail per run:
+  - lora_20260208_163018: 0.85 hours (51.25 menit)
+  - lora_20260208_174410: 0.93 hours (55.62 menit)
+  - lora_20260208_185138: 0.68 hours (41.04 menit)
+  - lora_20260208_194104: 0.74 hours (44.28 menit)
+  - lora_20260211_225346: 0.54 hours (32.40 menit)
+  - lora_20260212_063207: 0.48 hours (29.02 menit)
+  - lora_20260303_151407: 0.56 hours (33.43 menit)
+  - lora_20260303_171715: 0.57 hours (34.10 menit)
+  - lora_20260303_181323: 0.54 hours (32.40 menit)
+  - lora_20260305_205845: 0.69 hours (41.62 menit)

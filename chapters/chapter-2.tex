@@ -9,7 +9,7 @@ Bagian ini mengulas penelitian-penelitian terdahulu yang relevan dengan topik \t
 {\small
 \setlength{\tabcolsep}{4pt}
 {\renewcommand\tabularxcolumn[1]{>{\RaggedRight\arraybackslash}p{#1}}
-\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.05\textwidth}|X|X|X|X|}
+\begin{xltabular}{\textwidth}{|>{\centering\arraybackslash}p{0.05\textwidth}|X|X|X|X|}
 \caption{Ringkasan Penelitian Terdahulu (2022--2025)}
 \label{table:2.literasi}\\
 \hline
@@ -114,7 +114,7 @@ Evaluasi enam varian Whisper pada dataset percakapan Indonesia sintetis; \textit
 Whisper turbo (\textit{distil-large-v2}) terbaik untuk bahasa Indonesia dengan WER 7,97\% dan inferensi 1,25 detik; memberikan \textit{baseline} perbandingan Whisper pada bahasa Indonesia sebagai acuan terhadap penelitian Minangkabau ini \\
 \hline
 
-\end{tabularx}
+\end{xltabular}
 }
 }
 
@@ -188,7 +188,14 @@ Berdasarkan temuan-temuan tersebut, penelitian ini mengidentifikasi beberapa pel
 
 \section{Dasar Teori}\label{II.Dasar Teori}
 
-Bagian ini menjelaskan landasan teoritis yang mendukung metodologi penelitian pada Bab III. Pembahasan disusun secara hierarkis dari konsep umum hingga spesifik: (i) \textit{Automatic Speech Recognition} (ASR) dan tantangan bahasa \textit{low-resource}, (ii) \textit{transfer learning} dan model \textit{pre-trained}, (iii) arsitektur Whisper, (iv) strategi \textit{fine-tuning} (\textit{Full} dan LoRA), (v) metrik evaluasi ASR, serta (vi) \textit{preprocessing} data audio dan teks.
+Bagian ini menjelaskan landasan teoritis yang mendukung metodologi penelitian pada Bab III. Pembahasan disusun secara hierarkis dari konsep umum hingga spesifik: (i) Bahasa Minangkabau secara linguistik, (ii) \textit{Automatic Speech Recognition} (ASR) dan tantangan bahasa \textit{low-resource}, (iii) \textit{transfer learning} dan model \textit{pre-trained}, (iv) arsitektur Whisper, (v) strategi \textit{fine-tuning} (\textit{Full} dan LoRA), (vi) metrik evaluasi ASR, serta (vii) \textit{preprocessing} data audio dan teks.
+
+\subsection{Bahasa Minangkabau}
+\label{II.BahasaMinangkabau}
+
+Bahasa Minangkabau adalah bahasa dari rumpun Austronesia yang secara historis dan kultural melekat pada etnis Minangkabau, utamanya dituturkan di provinsi Sumatera Barat, Indonesia, serta daerah-daerah perantauannya. Secara klasifikasi linguistik, bahasa ini berkerabat sangat erat dengan bahasa Melayu dan Indonesia, hal ini tercermin dari tingginya koeksistensi kognat, kemiripan sintaksis, serta struktur afiksasi dasarnya. Meski memiliki kedekatan tersebut, bahasa Minangkabau memiliki identitas leksikal, tata fonologi khusus (seperti peluluhan fonem tertentu di akhir kata), serta variasi dialek geografis yang sangat kaya yang saling dapat dipahami sesama penutur asli \cite{koto2020minangkabau}. 
+
+Sayangnya, dalam kajian Pemrosesan Bahasa Alami (\textit{Natural Language Processing} atau NLP) dan Teknologi Ucapan (\textit{Speech Technology}), bahasa Minangkabau berstatus sebagai bahasa dengan sumber daya rendah (\textit{low-resource language}). Terdapat jarak yang signifikan antara intensitas penuturan bahasa ini secara lisan dalam kehidupan sehari-hari (hingga jutaan penutur) dengan minimnya jumlah korpus teks paralel maupun dataset audio berteknologi tinggi yang tersedia secara publik \cite{sovia2022minangkabau}. Tantangan kesenjangan data digital ini menjadi landasan mengapa penelitian kecerdasan buatan, seperti sistem pengenalan wicara (ASR), wajib menggunakan strategi adaptasi tingkat lanjut agar mesin mampu merawat dan memahami bahasa daerah di era modern \cite{koto2020minangkabau}.
 
 \subsection{Automatic Speech Recognition (ASR)}
 \label{II.ASR}
@@ -222,7 +229,7 @@ Secara arsitektural, Whisper menggunakan model \textit{Transformer} \cite{vaswan
 \begin{figure}[H]
 \centering
 \includegraphics[angle=-90, width=1\textwidth]{figure/Whisper_Architecture.pdf}
-\caption{Arsitektur dan \textit{Multitask Training Format} Whisper}
+\caption{Arsitektur dan \textit{Multitask Training Format} Whisper \cite{radford2023whisper}} 
 \label{fig:2.whisper_arch}
 \end{figure}
 
@@ -232,13 +239,12 @@ Whisper tersedia dalam berbagai ukuran model yang menawarkan keseimbangan berbed
 
 Tabel \ref{table:2.whisper_models} menyajikan perbandingan spesifikasi teknis untuk setiap varian model Whisper. Model \textit{English-only} (berakhiran \texttt{.en}) dilatih khusus pada data bahasa Inggris, sedangkan model \textit{Multilingual} dilatih pada data multibahasa termasuk bahasa Indonesia.
 
-{\small
-\setlength{\tabcolsep}{4pt}
 \begin{table}[H]
 \centering
 \caption{Spesifikasi dan Kebutuhan Sumber Daya Varian Model Whisper}
 \label{table:2.whisper_models}
-\begin{tabularx}{\textwidth}{|l|c|c|c|c|c|}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
 \textbf{Size} & \textbf{Parameters} & \textbf{English-only} & \textbf{Multilingual} & \textbf{VRAM} & \textbf{Relative Speed} \\
 \hline
@@ -249,11 +255,11 @@ Medium & 769 M & medium.en & medium & $\sim$5 GB & $\sim$2x \\
 Large & 1550 M & N/A & large & $\sim$10 GB & 1x \\
 Turbo & 809 M & N/A & turbo & $\sim$6 GB & $\sim$8x \\
 \hline
-\end{tabularx}
-\end{table}
+\end{tabular}
 }
+\end{table}
 
-Dalam penelitian ini, model \textbf{Whisper Base} dipilih sebagai basis untuk \textit{fine-tuning}. Dengan 74 juta parameter, Whisper Base menawarkan keseimbangan optimal untuk skenario \textit{extremely low-resource}: cukup kompleks untuk menang kap nuansa bahasa Minangkabau, namun tidak terlalu besar sehingga risiko overfitting pada dataset 1.3 jam dapat diminimalkan dibandingkan varian Small (244M) atau Medium (769M) yang membutuhkan dataset jauh lebih besar.
+Dalam penelitian ini, model Whisper Base dipilih sebagai basis untuk \textit{fine-tuning}. Dengan 74 juta parameter, Whisper Base menawarkan keseimbangan optimal untuk skenario \textit{extremely low-resource}: cukup kompleks untuk menang kap nuansa bahasa Minangkabau, namun tidak terlalu besar sehingga risiko overfitting pada dataset 1.3 jam dapat diminimalkan dibandingkan varian Small (244M) atau Medium (769M) yang membutuhkan dataset jauh lebih besar.
 
 \subsubsection{Encoder}
 
@@ -299,7 +305,7 @@ Keterbatasan strategi ini adalah model hanya dapat beradaptasi pada level lingui
 
 \vspace{0.3cm}
 \noindent
-\textbf{Catatan Terminologi}: Dalam penelitian ini, istilah \textbf{"Freeze Encoder"} dan \textbf{"Decoder-Only Fine-Tuning"} merujuk pada strategi yang sama. Istilah "Freeze Encoder" akan digunakan sebagai terminologi utama untuk konsistensi, dengan penjelasan "(Decoder-Only Fine-Tuning)" diberikan pada kemunculan pertama di setiap bab untuk klarifikasi.
+\textbf{Catatan Terminologi}: Dalam penelitian ini, istilah "Freeze Encoder" dan "Decoder-Only Fine-Tuning" merujuk pada strategi yang sama. Istilah "Freeze Encoder" akan digunakan sebagai terminologi utama untuk konsistensi, dengan penjelasan "(Decoder-Only Fine-Tuning)" diberikan pada kemunculan pertama di setiap bab untuk klarifikasi.
 
 
 \subsubsection{Parameter-Efficient Fine-Tuning (PEFT)}
@@ -420,7 +426,7 @@ Untuk mencegah \textit{overfitting} pada dataset kecil dan memastikan konvergens
 
 \subsubsection{Optimisasi}
 
-\textbf{AdamW} \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan secara luas untuk \textit{fine-tuning} model \textit{Transformer}. AdamW adalah varian dari Adam yang memisahkan \textit{weight decay} dari optimisasi gradien, menghasilkan regularisasi yang lebih efektif \cite{krogh1991regularization}. AdamW menggunakan \textit{adaptive learning rates} per-parameter berdasarkan estimasi momen pertama dan kedua dari gradien, memungkinkan konvergensi cepat sambil mempertahankan stabilitas pelatihan.
+AdamW \cite{loshchilov2019adamw} adalah algoritma optimisasi yang digunakan secara luas untuk \textit{fine-tuning} model \textit{Transformer}. AdamW adalah varian dari Adam yang memisahkan \textit{weight decay} dari optimisasi gradien, menghasilkan regularisasi yang lebih efektif \cite{krogh1991regularization}. AdamW menggunakan \textit{adaptive learning rates} per-parameter berdasarkan estimasi momen pertama dan kedua dari gradien, memungkinkan konvergensi cepat sambil mempertahankan stabilitas pelatihan.
 
 \subsection{Weighted Cross-Entropy Loss}
 \label{II.WCE}

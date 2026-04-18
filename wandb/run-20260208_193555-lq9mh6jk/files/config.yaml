@@ -1,0 +1,70 @@
+_wandb:
+    value:
+        cli_version: 0.23.1
+        e:
+            42jv5w9drgxwqnt3rkr43ugol5zkrj1t:
+                codePath: code/lora/main.py
+                codePathLocal: code/lora/main.py
+                cpu_count: 6
+                cpu_count_logical: 12
+                cudaVersion: "13.1"
+                disk:
+                    /:
+                        total: "511793483776"
+                        used: "116051120128"
+                email: ryukikun4@gmail.com
+                executable: /home/pataangg/Developer/TA_Fathan/.venv/bin/python
+                git:
+                    commit: 439d80887ac48fd59d44130456efbcf9743786f8
+                    remote: git@github.com:pataanggs/TA_Fathan.git
+                gpu: NVIDIA GeForce RTX 5060 Ti
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 4608
+                      memoryTotal: "17103323136"
+                      name: NVIDIA GeForce RTX 5060 Ti
+                      uuid: GPU-8dc1d6fa-3cd7-57e8-b7e9-8ad4115c9771
+                host: Pataangg-PC
+                memory:
+                    total: "16348246016"
+                os: Linux-6.18.9-2-cachyos-x86_64-with-glibc2.42
+                program: /home/pataangg/Developer/TA_Fathan/code/lora/main.py
+                python: CPython 3.14.2
+                root: /home/pataangg/Developer/TA_Fathan
+                startedAt: "2026-02-08T12:35:55.694930Z"
+                writerId: 42jv5w9drgxwqnt3rkr43ugol5zkrj1t
+        m: []
+        python_version: 3.14.2
+        t:
+            "1":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 51
+                - 53
+                - 71
+                - 98
+                - 100
+            "2":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 51
+                - 53
+                - 71
+                - 98
+                - 100
+            "3":
+                - 2
+                - 13
+                - 62
+            "4": 3.14.2
+            "5": 0.23.1
+            "6": 4.57.3
+            "10":
+                - 20
+            "12": 0.23.1
+            "13": linux-x86_64
