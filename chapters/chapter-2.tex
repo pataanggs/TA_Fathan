@@ -290,6 +290,15 @@ Meskipun Whisper sudah sangat pintar (\textit{pre-trained}), ia belum pernah sec
 
 Strategi ini membagi tugas: fungsi pendengaran (\textit{Encoder}) dibekukan atau dikunci agar tidak berubah, karena mesin ini pada dasarnya sudah sangat pintar membedakan suara manusia dari suara bising. Kita hanya melatih ulang bagian "mulutnya" (\textit{Decoder}) agar ia tahu bagaimana menuliskan suara tersebut ke dalam ejaan Minangkabau. Ini sangat menghemat waktu komputasi dan memori.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{figure/FreezeEncoder-Visualization.png}
+\caption{Visualisasi Strategi \textit{Freeze Encoder}} 
+\label{fig:2.freeze_encoder}
+\end{figure}
+
+Visualisasi pada Gambar \ref{fig:2.freeze_encoder} mengilustrasikan cara kerja strategi ini secara sederhana. Sisi kiri model yang bertugas mendengarkan audio (Encoder) diberi label "Frozen" beserta ikon gembok. Hal ini menandakan bahwa memori pemahaman suara bawaan mesin sudah sangat mapan sehingga bobot di area tersebut dikunci dan tidak perlu dilatih ulang maupun diutak-atik. Di sisi lain, bagian yang bertugas memproduksi kalimat dari suara (Decoder) diberi label "Trainable" dengan instruksi terbuka, menandakan bahwa khusus hanya bagian ini yang secara aktif dipoles dan dilatih ulang kemampuannya supaya sanggup merangkai kata dalam dialek dan ejaan bahasa Minangkabau. Melalui diskriminasi tugas cerdas ini, kinerja pelatihan menjadi efisien dan cepat tanpa harus membebani kinerja komputer.
+
 \vspace{0.3cm}
 \noindent
 \textbf{Catatan Terminologi}: Istilah "Freeze Encoder" akan digunakan sebagai terminologi utama untuk strategi ini.
@@ -303,6 +312,15 @@ Strategi ini membagi tugas: fungsi pendengaran (\textit{Encoder}) dibekukan atau
 LoRA (\textit{Low-Rank Adaptation}) \cite{hu2022lora} adalah salah satu teknik PEFT paling populer. Alih-alih merombak ulang seluruh isi kepala sang penerjemah (yang butuh waktu dan tenaga masif), LoRA bekerja layaknya kita menyelipkan sebuah "buku catatan kecil" di saku sang penerjemah. Buku catatan ini hanya berisi kosakata, logat halus, dan kebiasaan bahasa Minangkabau. 
 
 Selama penerjemah bekerja, ia menggunakan kepintaran aslinya, lalu merujuk pada buku catatan kecil tersebut saat ia menemui struktur bahasa Minang. Karena "buku catatan" ini ukurannya sangat kecil (menghemat lebih dari 98\% parameter yang harus dilatih), proses pelatihannya menjadi sangat ringan, hemat biaya komputer, namun tetap menghasilkan prediksi yang impresif dan tajam.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{figure/LoRA-Visualization.png}
+\caption{Visualisasi Mekanisme \textit{Low-Rank Adaptation} (LoRA) \cite{hu2022lora}} 
+\label{fig:2.lora}
+\end{figure}
+
+Secara mekanis, proses ini diilustrasikan pada Gambar \ref{fig:2.lora}. Balok tebal di sebelah kiri (\textit{Pretrained Weights}) adalah kumpulan pengetahuan asli model bahasa yang sengaja dipertahankan kuat dan dikunci (dilabeli \textit{frozen}). Karena merombak balok besar ini menyita daya komputer yang brutal, strategi LoRA memasang jalur alternatif di sisi kanannya. Jalur ini terdiri dari perantara dua buah matriks ringan yaitu $A$ dan $B$. Sepanjang masa pelatihan ke dalam bahasa Minangkabau, model cukup secara terfokus memoles dua kotak kecil tersebut. Matriks ini didesain berukuran sangat ramping dalam bentuk dimensi \textit{rank}-nya ($r$), namun telah dipastikan cukup solid untuk mencatat kekhasan pola unik pengucapan dialek. Saat mesin akhirnya bertugas melakukan transkripsi wicara sesungguhnya, rumus luaran dari rute "buku saku" ($B \times A$) ini tinggal dijumlahkan (+) langsung dengan rute kecerdasan primernya. AI versi kolaborasi ini akhirnya piawai menerjemahkan bahasa daerah tanpa pernah terbeban untuk merombak total otak aslinya.
 
 \subsection{Metrik Evaluasi ASR}
 \label{II.Metrics}
