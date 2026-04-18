@@ -7,13 +7,27 @@ Konversi buku audio tersebut menjadi dataset ucapan dilakukan menggunakan perang
 
 Meskipun repositori utama menyediakan berbagai bahasa daerah, penelitian ini secara khusus hanya mengekstraksi dan menggunakan subset penyusun dataset berbahasa Minangkabau. Bahasa daerah lain (seperti Aceh, Bali, Jawa, dll.) yang terdapat di dalam koleksi LibriVox Indonesia tersebut tidak digunakan sama sekali dalam proses pelatihan maupun evaluasi model pada penelitian ini.
 
-% \section{Hasil Wawancara}
+\section{Repositori Log Pelatihan (\textit{Weights \& Biases})}
+\label{app:wandb}
 
-% \section{Rincian Kasus Uji}
-\section{Evaluasi Hasil Prediksi Whisper Base (Zero-Shot) Seluruh Sampel}
+Seluruh rekam jejak, metrik, dan grafik pelatihan AI dalam penelitian ini didokumentasikan secara transparan menggunakan \textit{Weights \& Biases} (WandB). Platform ini bertindak seperti "buku rapor" interaktif yang mencatat secara \textit{real-time} setiap perkembangan mesin dari awal ia belajar hingga selesai.
+
+Bagi orang awam maupun penguji yang ingin melihat buktinya, platform ini menyajikan:
+\begin{itemize}
+    \item \textbf{Grafik Penurunan Kesalahan}: Kurva yang memperlihatkan bagaimana tingkat kesalahan AI yang awalnya sangat tinggi perlahan menurun seiring berjalannya proses belajar.
+    \item \textbf{Pembandingan Mesin}: Performa sistem ketika menggunakan metode \textit{Freeze Encoder} yang diadu langsung melawan metode \textit{LoRA}.
+    \item \textbf{Laporan Durasi Waktu}: Riwayat lengkap tentang berapa lama mesin membutuhkan waktu untuk berlatih di setiap percobaan.
+\end{itemize}
+
+Seluruh eksperimen secara independen dapat diakses dan diverifikasi melalui tautan dasbor publik berikut: \\
+\url{https://wandb.ai/pataangg-institut-teknologi-sumatera/whisper-minangkabau?nw=nwuserpataangg}
+
+\section{Evaluasi Hasil Prediksi Seluruh Sampel Pengujian}
 \label{app:zeroshot_all}
 
-Tabel berikut menyajikan pembandingan secara utuh antara referensi (\textit{ground truth}) dengan hasil kalimat prediksi menggunakan model dasar Whisper Base pada pengaturan \textit{zero-shot} untuk semua 156 sampel dalam dataset Minangkabau. Secara keseluruhan, model mendapatkan \textbf{Word Error Rate (WER) sebesar 89.44\%} dan \textbf{Character Error Rate (CER) sebesar 31.02\%}. Hasil ini menunjukkan tingginya halusinasi akibat kurangnya penyesuaian untuk bahasa sasaran.
+Tabel berikut menyajikan pembandingan secara utuh antara teks referensi asli (\textit{ground truth}) dengan kalimat hasil prediksi menggunakan 3 pendekatan berbeda: model murni sebelum dilatih (\textit{Zero-Shot}), serta 2 model yang telah dilatih (\textit{Freeze Encoder}, dan \textit{LoRA}).
+
+Hal ini bertujuan agar pembaca dapat melihat lompatan akurasi secara transparan dari hasil prediksi \textit{zero-shot} yang tadinya memiliki rekor \textit{Word Error Rate (WER) parah sebesar 89,44\%} (akibat berhalusinasi), menjadi tebakan cemerlang dari model yang telah dipoles dengan metode \textit{Freeze Encoder} dan \textit{LoRA}.
 \vspace{0.5cm}
 
 \footnotesize
