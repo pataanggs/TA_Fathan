@@ -280,20 +280,20 @@ Whisper Base menawarkan keseimbangan yang sangat kuat antara kecerdasan dan efis
 \subsection{Fine-Tuning: Konsep dan Strategi}
 \label{II.FineTuning}
 
-Meskipun Whisper sudah sangat pintar (\textit{pre-trained}), ia belum pernah secara khusus diajari bahasa Minangkabau asli. \textit{Fine-tuning} adalah proses menyekolahkan kembali model ini menggunakan data bahasa daerah kita agar ia terbiasa dengan logat dan kosakatanya.
+Meskipun Whisper sudah sangat pintar (\textit{pre-trained}), ia belum pernah secara khusus diajari bahasa Minangkabau asli. \textit{Fine-tuning} adalah proses menyekolahkan kembali model ini menggunakan data bahasa daerah kita agar ia terbiasa dengan logat dan kosakatanya \cite{liu2024exploration,timmel2024finetune}.
 
 \subsubsection{Full Fine-Tuning}
 
-\textit{Full fine-tuning} ibarat merombak ulang seluruh otak sang penerjemah dari nol. Ia bebas belajar segalanya, tapi proses ini butuh waktu sangat lama dan komputer super canggih. Jika datanya sedikit, proses perombakan total ini justru berbahaya karena mesin cenderung hanya menghafal tanpa memahami polanya.
+\textit{Full fine-tuning} ibarat merombak ulang seluruh otak sang penerjemah dari nol. Ia bebas belajar segalanya, tapi proses ini butuh waktu sangat lama dan komputer super canggih. Jika datanya sedikit, proses perombakan total ini justru berbahaya karena mesin cenderung hanya menghafal tanpa memahami polanya \cite{liu2024exploration}.
 
 \subsubsection{Freeze Encoder Fine-Tuning}
 
-Strategi ini membagi tugas: fungsi pendengaran (\textit{Encoder}) dibekukan atau dikunci agar tidak berubah, karena mesin ini pada dasarnya sudah sangat pintar membedakan suara manusia dari suara bising. Kita hanya melatih ulang bagian "mulutnya" (\textit{Decoder}) agar ia tahu bagaimana menuliskan suara tersebut ke dalam ejaan Minangkabau. Ini sangat menghemat waktu komputasi dan memori.
+Strategi ini membagi tugas: fungsi pendengaran (\textit{Encoder}) dibekukan atau dikunci agar tidak berubah, karena mesin ini pada dasarnya sudah sangat pintar membedakan suara manusia dari suara bising. Kita hanya melatih ulang bagian "mulutnya" (\textit{Decoder}) agar ia tahu bagaimana menuliskan suara tersebut ke dalam ejaan Minangkabau. Ini sangat menghemat waktu komputasi dan memori \cite{liu2024exploration,timmel2024finetune}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{figure/FreezeEncoder-Visualization.png}
-\caption{Visualisasi Strategi \textit{Freeze Encoder}} 
+\caption{Visualisasi Strategi \textit{Freeze Encoder} \cite{radford2023whisper,liu2024exploration}} 
 \label{fig:2.freeze_encoder}
 \end{figure}
 
@@ -343,7 +343,7 @@ di mana $S$ adalah jumlah substitusi (kata yang salah diganti), $D$ adalah jumla
 
 \subsubsection{Character Error Rate (CER)}
 
-\textit{Character Error Rate} (CER) mengukur \textit{edit distance} pada level karakter, dihitung dengan formula yang sama dengan WER tetapi operasi substitusi, penghapusan, dan penyisipan diterapkan pada karakter individual. CER lebih sensitif terhadap kesalahan fonetik dan memberikan perspektif komplementer terhadap WER, terutama untuk bahasa dengan sistem penulisan yang kompleks atau ketika kesalahan parsial dalam kata perlu dipertimbangkan.
+\textit{Character Error Rate} (CER) mengukur \textit{edit distance} pada level karakter, dihitung dengan formula yang sama dengan WER tetapi operasi substitusi, penghapusan, dan penyisipan diterapkan pada karakter individual \cite{morris2004wer}. CER lebih sensitif terhadap kesalahan fonetik dan memberikan perspektif komplementer terhadap WER, terutama untuk bahasa dengan sistem penulisan yang kompleks atau ketika kesalahan parsial dalam kata perlu dipertimbangkan.
 
 Kedua metrik ini penting karena memberikan informasi yang berbeda: WER mengukur akurasi semantik pada level kata (lebih penting untuk pemahaman makna), sementara CER memberikan granularitas lebih tinggi dan berguna untuk mengidentifikasi pola kesalahan fonetik spesifik.
 
@@ -357,15 +357,15 @@ Kedua metrik ini penting karena memberikan informasi yang berbeda: WER mengukur 
 Audio \textit{preprocessing} mencakup beberapa operasi penting:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Resampling}: Konversi \textit{sampling rate} audio ke frekuensi standar yang digunakan oleh model (16 kHz untuk Whisper). Resampling memastikan konsistensi temporal audio dan kompatibilitas dengan arsitektur model.
+    \item \textbf{Resampling}: Konversi \textit{sampling rate} audio ke frekuensi standar yang digunakan oleh model (16 kHz untuk Whisper). Resampling memastikan konsistensi temporal audio dan kompatibilitas dengan arsitektur model \cite{radford2023whisper}.
     
-    \item \textbf{Normalisasi Amplitudo}: Standarisasi volume audio di seluruh dataset untuk menghindari bias model terhadap audio dengan volume tertentu. Normalisasi dapat dilakukan dengan teknik seperti \textit{peak normalization} atau \textit{RMS normalization}.
+    \item \textbf{Normalisasi Amplitudo}: Standarisasi volume audio di seluruh dataset untuk menghindari bias model terhadap audio dengan volume tertentu. Normalisasi dapat dilakukan dengan teknik seperti \textit{peak normalization} atau \textit{RMS normalization} \cite{mcfee2015librosa}.
     
-    \item \textbf{Segmentasi}: Pemotongan audio panjang menjadi segmen dengan durasi yang sesuai untuk pelatihan (biasanya 10-30 detik). Segmentasi meningkatkan efisiensi pelatihan dan mengurangi penggunaan memori.
+    \item \textbf{Segmentasi}: Pemotongan audio panjang menjadi segmen dengan durasi yang sesuai untuk pelatihan (biasanya 10-30 detik). Segmentasi meningkatkan efisiensi pelatihan dan mengurangi penggunaan memori \cite{radford2023whisper}.
     
-    \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir klip audio, sehingga model fokus pada bagian yang mengandung informasi linguistik.
+    \item \textbf{Silence Removal}: Penghapusan periode \textit{silence} yang tidak informatif di awal dan akhir klip audio, sehingga model fokus pada bagian yang mengandung informasi linguistik \cite{mcfee2015librosa}.
     
-    \item \textbf{Quality Filtering}: Penyaringan klip dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau distorsi signifikan untuk memastikan hanya data berkualitas tinggi yang digunakan dalam pelatihan.
+    \item \textbf{Quality Filtering}: Penyaringan klip dengan \textit{Signal-to-Noise Ratio} (SNR) rendah atau distorsi signifikan untuk memastikan hanya data berkualitas tinggi yang digunakan dalam pelatihan \cite{radford2023whisper}.
 \end{enumerate}
 
 \subsubsection{Text Preprocessing}
@@ -373,11 +373,11 @@ Audio \textit{preprocessing} mencakup beberapa operasi penting:
 Transkrip teks juga memerlukan standardisasi:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Normalisasi Huruf}: Konversi teks ke huruf kecil atau format konsisten lainnya untuk mengurangi variabilitas yang tidak relevan.
+    \item \textbf{Normalisasi Huruf}: Konversi teks ke huruf kecil atau format konsisten lainnya untuk mengurangi variabilitas yang tidak relevan \cite{radford2023whisper}.
     
-    \item \textbf{Normalisasi Tanda Baca}: Standarisasi penggunaan tanda baca di seluruh dataset.
+    \item \textbf{Normalisasi Tanda Baca}: Standarisasi penggunaan tanda baca di seluruh dataset \cite{radford2023whisper}.
     
-    \item \textbf{Normalisasi Whitespace}: Pembersihan spasi berlebih dan karakter \textit{whitespace} lainnya.
+    \item \textbf{Normalisasi Whitespace}: Pembersihan spasi berlebih dan karakter \textit{whitespace} lainnya \cite{radford2023whisper}.
 \end{enumerate}
 
 \noindent

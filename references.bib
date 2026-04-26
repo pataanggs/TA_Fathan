@@ -1,13 +1,13 @@
 % WHISPER AND FINE-TUNING (Core Papers)
 
-@article{radford2023whisper,
-  title   = {Robust Speech Recognition via Large-Scale Weak Supervision},
-  author  = {Radford, Alec and Kim, Jong Wook and Xu, Tao and Brockman, Greg and McLeavey, Christine and Sutskever, Ilya},
-  journal = {arXiv preprint arXiv:2212.04356},
-  year    = {2023},
-  note    = {OpenAI Whisper paper},
-  doi={10.48550/arXiv.2212.04356},
-  url={https://arxiv.org/abs/2212.04356}
+@inproceedings{radford2023whisper,
+  title={Robust Speech Recognition via Large-Scale Weak Supervision},
+  author={Radford, Alec and Kim, Jong Wook and Xu, Tao and Brockman, Greg and McLeavey, Christine and Sutskever, Ilya},
+  booktitle={International Conference on Machine Learning (ICML)},
+  pages={28492--28518},
+  year={2023},
+  organization={PMLR},
+  doi={10.48550/arXiv.2212.04356}
 }
 
 @article{liu2024exploration,
@@ -79,14 +79,12 @@
 }
 
 @inproceedings{pineiromartin2024weighted,
-  title     = {Weighted Cross-entropy for Low-Resource Languages in Multilingual Speech Recognition},
-  author    = {Pi{\~n}eiro-Mart{\'\i}n, Andr{\'e}s and Garc{\'\i}a-Mateo, Carmen and Doc{\'\i}o-Fern{\'a}ndez, Laura and L{\'o}pez-P{\'e}rez, Mar{\'\i}a del Carmen and Rehm, Georg},
-  booktitle = {Proceedings of Interspeech 2024},
-  year      = {2024},
-  pages     = {1235--1239},
-  note      = {arXiv:2409.16954},
-  doi={10.48550/arXiv.2409.16954},
-  url={https://arxiv.org/abs/2409.16954}
+  title={Weighted Cross Entropy for Automatic Speech Recognition},
+  author={Pi{\~n}eiro-Mart{\'\i}n, A and others},
+  booktitle={ICASSP 2024 - 2024 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  year={2024},
+  organization={IEEE},
+  doi={10.1109/ICASSP48485.2024.10446101}
 }
 
 @article{martin2026speechsummary,
@@ -237,24 +235,22 @@
 }
 
 @inproceedings{kohavi1995crossvalidation,
-  title     = {A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection},
-  author    = {Kohavi, Ron},
-  booktitle = {Proceedings of the 14th International Joint Conference on Artificial Intelligence (IJCAI)},
-  volume    = {2},
-  pages     = {1137--1143},
-  year      = {1995},
-  publisher = {Morgan Kaufmann},
-  address   = {Montreal, Canada},
-  note      = {Classic paper on cross-validation methodology}
+  title={A study of cross-validation and bootstrap for accuracy estimation and model selection},
+  author={Kohavi, Ron and others},
+  booktitle={Proceedings of the 14th International Joint Conference on Artificial Intelligence (IJCAI)},
+  volume={14},
+  number={2},
+  pages={1137--1145},
+  year={1995},
+  doi={10.5555/1643031.1643047}
 }
 
-@article{loshchilov2019adamw,
-  title   = {Decoupled Weight Decay Regularization},
-  author  = {Loshchilov, Ilya and Hutter, Frank},
-  journal = {arXiv preprint arXiv:1711.05101},
-  year    = {2019},
-  doi={10.48550/arXiv.1711.05101},
-  url={https://arxiv.org/abs/1711.05101}
+@inproceedings{loshchilov2019adamw,
+  title={Decoupled Weight Decay Regularization},
+  author={Loshchilov, Ilya and Hutter, Frank},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2019},
+  doi={10.48550/arXiv.1711.05101}
 }
 
 % REGULARIZATION TECHNIQUES
@@ -271,14 +267,15 @@
 }
 
 @article{srivastava2014dropout,
-  title     = {Dropout: A Simple Way to Prevent Neural Networks from Overfitting},
-  author    = {Srivastava, Nitish and Hinton, Geoffrey and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan},
-  journal   = {Journal of Machine Learning Research},
-  volume    = {15},
-  number    = {1},
-  pages     = {1929--1958},
-  year      = {2014},
-  url       = {http://jmlr.org/papers/v15/srivastava14a.html}
+  title={Dropout: a simple way to prevent neural networks from overfitting},
+  author={Srivastava, Nitish and Hinton, Geoffrey and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan},
+  journal={The Journal of Machine Learning Research (JMLR)},
+  volume={15},
+  number={1},
+  pages={1929--1958},
+  year={2014},
+  publisher={JMLR.org},
+  doi={10.5555/2627435.2670313}
 }
 
 @inproceedings{pascanu2013difficulty,
@@ -291,30 +288,31 @@
 }
 
 @inproceedings{szegedy2016rethinking,
-  title     = {Rethinking the Inception Architecture for Computer Vision},
-  author    = {Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jon and Wojna, Zbigniew},
-  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
-  pages     = {2818--2826},
-  year      = {2016}
+  title={Rethinking the inception architecture for computer vision},
+  author={Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jon and Wojna, Zbigniew},
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages={2818--2826},
+  year={2016},
+  doi={10.1109/CVPR.2016.308}
 }
 
 % DATA AUGMENTATION
 
-@article{park2019specaugment,
-  title   = {SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition},
-  author  = {Park, Daniel S and Chan, William and Zhang, Yu and Chiu, Chung-Cheng and Zoph, Barret and Cubuk, Ekin D and Le, Quoc V},
-  journal = {arXiv preprint arXiv:1904.08779},
-  year    = {2019},
-  doi={10.48550/arXiv.1904.08779},
-  url={https://arxiv.org/abs/1904.08779}
+@inproceedings{park2019specaugment,
+  title={SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition},
+  author={Park, Daniel S and Chan, William and Zhang, Yu and Chiu, Chung-Cheng and Zoph, Barret and Cubuk, Ekin D and Le, Quoc V},
+  booktitle={Interspeech 2019},
+  pages={2613--2617},
+  year={2019},
+  doi={10.21437/Interspeech.2019-2680}
 }
 
 @inproceedings{ko2015audio,
-  title     = {Audio Augmentation for Speech Recognition},
-  author    = {Ko, Tom and Peddinti, Vijayaditya and Povey, Daniel and Khudanpur, Sanjeev},
-  booktitle = {Sixteenth Annual Conference of the International Speech Communication Association},
-  year      = {2015},
-  doi       = {10.21437/Interspeech.2015-711}
+  title={Audio augmentation for speech recognition},
+  author={Ko, Tom and Peddinti, Vijayaditya and Povey, Daniel and Khudanpur, Sanjeev},
+  booktitle={16th Annual Conference of the International Speech Communication Association (Interspeech)},
+  year={2015},
+  doi={10.21437/Interspeech.2015-711}
 }
 
 % TOKENIZATION

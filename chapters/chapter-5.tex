@@ -19,20 +19,18 @@ Penelitian ini telah berhasil mengadaptasi model \textit{Automatic Speech Recogn
 
     \item \textbf{Perbandingan Strategi \textit{Freeze Encoder} vs LoRA}
 
-    Perbandingan komprehensif antara dua strategi \textit{fine-tuning} menghasilkan temuan-temuan berikut:
+    Perbandingan komprehensif antara dua strategi \textit{fine-tuning} ini menghasilkan temuan-temuan berikut:
 
     \begin{enumerate}
+        \item \textbf{LoRA Menang Telak dan Konsisten}: Strategi LoRA (khususnya racikan L-10) keluar sebagai juara dengan rata-rata tingkat kesalahan kata (WER) 15,67\% $\pm$ 1,02\% dan CER 3,32\% $\pm$ 0,38\%. Angka ini jelas mengungguli rekor terbaik \textit{Freeze Encoder} (FE-9) yang tertahan di 18,24\% $\pm$ 2,18\%. Kehebatan LoRA ini bersifat sistematis; bahkan rentang skor terburuk dari seluruh eksperimen LoRA masih berada di bawah atau setara dengan skor puncak milik \textit{Freeze Encoder}.
 
-        \item \textbf{LoRA unggul secara konsisten}: Strategi LoRA (L-10, konfigurasi terbaik keseluruhan) mencapai WER rata-rata 15,67\% $\pm$ 1,02\% dan CER 3,32\% $\pm$ 0,38\%, mengungguli strategi \textit{Freeze Encoder} terbaik (FE-9) yang mencapai WER 18,24\% $\pm$ 2,18\% dan CER 3,87\% $\pm$ 0,61\%. Keunggulan LoRA bersifat \textit{robust} dan sistematis: seluruh rentang WER percobaan LoRA (15,67\%--18,37\%) berada di bawah atau sebanding dengan percobaan \textit{Freeze Encoder} terbaik.
+        \item \textbf{Sangat Irit, Namun Lebih Akurat}: LoRA (pada L-10, \textit{rank} 16) hanya melatih sekitar 2,93\% dari total parameter model ($\sim$2,16 juta dari 74 juta). Ini berarti LoRA 17 kali lebih efisien secara komputasi ketimbang \textit{Freeze Encoder} yang melatih 50\% parameter ($\sim$37 juta). Ajaibnya, meski sangat hemat, LoRA justru menghasilkan tingkat kesalahan (WER) yang 2,57 poin persentase lebih rendah dengan standar deviasi yang jauh lebih kecil (1,02\% vs 2,18\%).
 
-        \item \textbf{Efisiensi parameter LoRA sangat signifikan}: LoRA (L-10, \textit{rank} 16) hanya melatih $\sim$2,93\% parameter ($\sim$2,16 juta dari 74 juta total), 17 kali lebih efisien dari \textit{Freeze Encoder} yang melatih 50\% parameter ($\sim$37 juta). Meskipun demikian, LoRA menghasilkan WER rata-rata yang 2,57 poin persentase lebih rendah dan standar deviasi yang lebih kecil (1,02\% vs 2,18\%).
+        \item \textbf{Rekor \textit{Single-Fold} Dipegang LoRA}: Jika dibedah per partisi evaluasi, L-9 Fold~4 mencapai WER 12,83\% dan L-9 Fold~2 mencapai CER 2,77\%. Angka ini merupakan rekor per-\textit{fold} paling sempurna di antara seluruh 20 percobaan dan 100 evaluasi \textit{fold} yang dilakukan. Menariknya, walau L-10 tidak memecahkan rekor \textit{peak} individu ini, ia tetap meraih rata-rata terbaik secara keseluruhan (15,67\%), membuktikan bahwa \textit{Temporal Separation} sukses meratakan konsistensi performa antar-\textit{fold}.
 
-        \item \textit{Best single-fold} dicapai oleh LoRA: L-9 Fold~4 mencapai WER 12,83\% dan L-9 Fold~2 mencapai CER 2,77\%, merupakan nilai WER dan CER terbaik per-\textit{fold} di antara seluruh 20 percobaan dan 100 evaluasi \textit{fold} yang dilakukan. Secara mean per-percobaan, L-10 mencapai WER rata-rata terbaik (15,67\%) melebihi L-9 (16,33\%), menunjukkan bahwa \textit{Temporal Separation} pada WCE mengoptimalkan konsistensi lintas-\textit{fold} meskipun tidak melampaui \textit{peak} per-\textit{fold} individu.
+        \item \textbf{Kombinasi Kuat WCE dan \textit{Temporal Separation}}: Penerapan WCE pada fase akhir sukses memangkas WER sebesar 1,68 poin persentase pada \textit{Freeze Encoder} dan 0,99 poin persentase pada LoRA. Puncaknya, saat mekanisme \textit{Temporal Separation} diaktifkan pada Run 10 (L-10), WER turun lebih jauh ke 15,67\% sekaligus memotong standar deviasi menjadi 1,02\% (paling stabil dari seluruh 20 percobaan). Mekanisme ini memastikan bobot WCE dihitung murni dari riwayat masa lalu tanpa mengeksploitasi label validasi saat ini \cite{pineiromartin2024weighted}. Pendekatan historis ini merupakan pengamalan empiris dari prinsip menghindari \textit{covariate shift} milik Sugiyama dkk.\ \cite{sugiyama2007covariate}.
 
-        \item WCE dan \textit{Temporal Separation} memberikan peningkatan berlapis: Penerapan \textit{Weighted Cross-Entropy} pada fase akhir (Run 7--9) menurunkan WER sebesar 1,68 poin persentase pada \textit{Freeze Encoder} (FE-4: 19,92\% $\rightarrow$ FE-9: 18,24\%) dan 0,99 poin persentase pada LoRA (L-1: 17,32\% $\rightarrow$ L-9: 16,33\%). Selanjutnya, penerapan mekanisme \textit{Temporal Separation} pada Run 10 (L-10) menurunkan WER lebih jauh menjadi 15,67\% sekaligus memotong standar deviasi WER dari 2,03\% menjadi 1,02\%terendah di antara seluruh 20 percobaan. Mekanisme ini memastikan bobot token WCE dihitung \textit{hanya} dari riwayat percobaan yang telah selesai, sehingga model benar-benar \textit{belajar dari kesalahan historisnya} tanpa mengeksploitasi label validasi saat ini \cite{pineiromartin2024weighted}. Implementasi mekanisme bobot historis ini merupakan pengamalan prinsip algoritma menghindari pergeseran kovariat dari \textit{importance weighting} Sugiyama et al.\ \cite{sugiyama2007covariate}. WCE paling efektif ketika dikombinasikan dengan \textit{Temporal Separation}, jumlah \textit{training steps} yang cukup ($\geq$400), dan konfigurasi \textit{hyperparameter} yang optimal.
-
-        \item \textbf{Augmentasi perlu dikalibrasi hati-hati}: Augmentasi berlebihan (FE-5, WER 21,14\%; L-5, WER 18,37\%) secara konsisten menurunkan performa dibandingkan konfigurasi augmentasi standar, mengkonfirmasi bahwa pada dataset sangat terbatas, keseimbangan antara diversifikasi data dan preservasi informasi linguistik sangat kritis.
-
+        \item \textbf{Hati-Hati Memanipulasi Data (\textit{Augmentasi})}: Augmentasi yang berlebihan (seperti pada FE-5 dan L-5) secara konsisten menurunkan performa model. Hal ini mengkonfirmasi bahwa pada kondisi dataset yang sangat terbatas, menjaga keseimbangan antara diversifikasi data dan preservasi informasi fonetik asli merupakan hal yang sangat kritis.
     \end{enumerate}
 
     \item \textbf{Evaluasi dan Analisis Kesalahan Model}
@@ -55,43 +53,36 @@ Penelitian ini telah berhasil mengadaptasi model \textit{Automatic Speech Recogn
 
 \end{enumerate}
 
-\par
+
 Secara keseluruhan, penelitian ini menunjukkan bahwa \textit{fine-tuning} Whisper Base dengan strategi LoRA merupakan pendekatan yang paling efektif dan efisien untuk skenario ASR bahasa \textit{low-resource} seperti bahasa Minangkabau. Keunggulan LoRA tidak hanya terletak pada efisiensi parameter, tetapi juga pada kemampuannya menghasilkan adaptasi yang lebih menyeluruh dengan risiko \textit{overfitting} yang lebih rendah melalui regularisasi struktural dari \textit{low-rank constraint} \cite{hu2022lora, song2024lorawhisper}. Penambahan WCE dengan \textit{Temporal Separation} membuktikan bahwa pada skenario \textit{extremely low-resource} tanpa korpus eksternal seperti KBBI, model dapat menyempurnakan dirinya sendiri secara iteratif\textit{belajar dari kesalahan historisnya} dengan integritas metodologis yang terjamin menghasilkan model akhir (L-10) dengan WER terbaik keseluruhan (15,67\% $\pm$ 1,02\%) dan konsistensi tertinggi di antara seluruh 20 percobaan.
 
 %% ===================================================================
 
 \section{Saran} \label{V.Saran}
 
-Berdasarkan temuan dan limitasi yang diidentifikasi dalam penelitian ini, berikut adalah saran-saran untuk pengembangan lebih lanjut:
+Berdasarkan temuan dan batasan yang ditemui selama penelitian ini, berikut adalah beberapa rekomendasi strategis untuk penelitian ASR bahasa Minangkabau ke depannya:
 
 \begin{enumerate}
 
-    \item \textbf{Perluasan dan Diversifikasi Dataset}
+    \item \textbf{Perbanyak dan Perkaya Data Suara} \\
+    Keterbatasan terbesar riset ini adalah sempitnya sumber data (hanya 1,3 jam dari pembacaan teks formal). Ke depannya, strategi pengumpulan data harus lebih agresif dan merakyat. Caranya bisa melalui \textit{crowdsourcing} (partisipasi warga), atau menyedot data lisan dari radio, televisi, YouTube, hingga \textit{podcast} lokal di wilayah Sumatera. Fokus utamanya ada tiga: (a) memperbanyak rekaman obrolan santai agar model lebih luwes; (b) merekam berbagai logat daerah (seperti Agam, Lima Puluh Kota, Pasaman, Padang Pariaman) yang punya cengkok fonetik unik; serta (c) merumuskan standar ejaan (ortografi) agar model tidak terus-terusan disalahkan (nilai WER naik semu) hanya karena inkonsistensi cara penulisan kata.
 
-    Keterbatasan utama penelitian ini adalah ukuran dan domain dataset yang sangat spesifik (1,3 jam, pembacaan teks formal UDHR). Mengingat bahasa daerah memiliki variasi dialek yang sangat kental, penelitian lanjutan sangat disarankan untuk menerapkan metode pengumpulan data yang spesifik dan terarah. Strategi seperti \textit{crowdsourcing} partisipatif penduduk lokal dan ekstraksi data dari media siaran lisan (radio, stasiun televisi daerah, YouTube, atau podcast lokal di Sumatera) dapat menjaring keragaman wicara secara masif. Secara khusus, upaya ini perlu mencakup: (a) pengumpulan data percakapan spontan dan konten \textit{informal} dalam bahasa Minangkabau guna meningkatkan generalisasi model; (b) penjaringan variasi dialek regional Minangkabau (seperti dialek Agam, Lima Puluh Kota, Pasaman, Padang Pariaman) yang masing-masing memiliki kekayaan karakteristik fonetik berbeda; serta (c) pengembangan standar anotasi dan ortografi komunal untuk transkripsi bahasa Minangkabau agar konsistensi data meningkat dan \textit{error rate} hasil prediksi model tidak dipengaruhi semata-mata oleh inkonsistensi ejaan.
+    \item \textbf{Coba Varian Model yang Lebih Bongsor (\textit{Scale-Up})} \\
+    Penelitian ini sengaja menahan diri pada Whisper Base (74M parameter) demi menghindari \textit{overfitting} pada data yang minim. Jika kelak ketersediaan data sudah melimpah, sangat disarankan untuk ``naik kelas'' menggunakan varian Whisper Small (244M) atau Medium (769M) yang kapasitas representasinya jauh lebih tajam. Berkat efisiensi metode LoRA yang hanya perlu melatih sebagian sangat kecil dari total parameter ($<$3\%), ongkos komputasi untuk mengeksekusi model raksasa ini akan tetap terjangkau dan masuk akal.
 
-    \item \textbf{Eksplorasi Varian Model yang Lebih Besar}
+    \item \textbf{Latihan Bertahap (\textit{Multi-Stage Fine-Tuning})} \\
+    Ibarat pemanasan, model bisa diajari bahasa Indonesia terlebih dahulu (karena datanya melimpah) sebelum difokuskan pada bahasa Minangkabau \cite{pillai2024multistage}. Karena kedua bahasa ini masih sangat serumpun, "transfer ilmu" secara bertahap ini akan jauh lebih mulus ketimbang memaksa model multibahasa langsung melompat belajar bahasa Minang. Tahap pemanasan ini juga bisa digenjot dengan manipulasi data (\textit{augmentasi}) yang lebih ekstrem.
 
-    Penelitian ini dibatasi pada Whisper Base (74M parameter) karena risiko \textit{overfitting} pada dataset 1,3 jam. Seiring bertambahnya ketersediaan data, varian Whisper Small (244M) atau Medium (769M) berpotensi menghasilkan WER yang lebih rendah karena kapasitas representasi yang lebih besar. Dengan strategi LoRA, biaya komputasi untuk melatih varian lebih besar tetap terjangkau karena hanya $<$3\% parameter yang dilatih, sehingga eksplorasi ini layak dilakukan bahkan dengan data tambahan yang relatif terbatas.
+    \item \textbf{Pasang ``Kamus Pintar'' (\textit{Language Model}) di Tahap Akhir} \\
+    Saat ini, sistem hanya mengandalkan tebakan standar (\textit{beam search}) saat mencetak teks. Padahal, riset Arisaputra dan Zahra \cite{arisaputra2022xlsr53} membuktikan bahwa memasang \textit{language model} tambahan (seperti KenLM) sukses memangkas tingkat kesalahan ASR bahasa Indonesia dari kisaran 20\% menjadi 12\%. Strategi praktis ini sangat layak ditiru: kita cukup menyusun kamus probabilitas dari kumpulan teks Minang di Wikipedia atau sastra digital, tanpa perlu repot menambah rekaman audio.
 
-    \item Penerapan \textit{Multi-Stage Fine-Tuning}
+    \item \textbf{Eksplorasi Teknik Optimasi Tingkat Lanjut} \\
+    Masih banyak ``jurus'' teknis yang bisa dijajal untuk mendongkrak performa, misalnya: (a) \textit{monotonic alignment loss} \cite{zhuang2025monotonic} untuk lebih merapikan sinkronisasi ketukan suara dan teks saat pelatihan; (b) \textit{Mixture of LoRA Experts} \cite{bagat2025mixture} agar model punya spesialis pembobot adaptif untuk masing-masing logat; serta (c) \textit{curriculum learning} \cite{liang2025fieldmatters}, yakni melatih model mulai dari rekaman yang paling gampang dan jernih dulu, baru pelan-pelan diberi materi yang lebih berisik dan susah.
 
-    Strategi \textit{multi-stage fine-tuning} yang pertama kali melatih model pada bahasa Indonesia (yang lebih banyak datanya) sebelum melakukan adaptasi akhir ke bahasa Minangkabau berpotensi meningkatkan performa secara signifikan \cite{pillai2024multistage}. Kedekatan tipologis antara bahasa Indonesia dan Minangkabau menjadikan transfer bertahap ini lebih efektif dibandingkan adaptasi langsung dari model multibahasa ke bahasa Minangkabau. Pendekatan ini juga dapat dikombinasikan dengan \textit{data augmentation} yang lebih agresif pada tahap pelatihan bahasa Indonesia.
+    \item \textbf{Sistem Pengujian dan Metodologi yang Lebih Ketat} \\
+    Agar metrik evaluasi model tidak terkesan terlalu optimis atau bias (karena saat ini memakai data yang sama untuk \textit{early stopping} dan penilaian akhir), metodologi pengujian harus diperketat. Jika volume data sudah cukup besar ($>$5 jam), riset selanjutnya wajib menyisihkan data validasi secara terpisah, atau menyiapkan set ujian rahasia (\textit{held-out test set}) yang sama sekali tidak pernah disentuh model selama masa pelatihan. Ini menjamin evaluasi akhir benar-benar independen dan objektif.
 
-    \item Integrasi \textit{Language Model} pada Tahap \textit{Decoding}
-
-    Penelitian ini hanya menggunakan \textit{beam search} standar pada tahap \textit{decoding} tanpa \textit{external language model}. Arisaputra dan Zahra \cite{arisaputra2022xlsr53} menunjukkan bahwa integrasi \textit{language model} berbasis KenLM 4-gram menurunkan WER bahasa Indonesia dari $\sim$20\% ke $\sim$12\%, mengindikasikan potensi perbaikan yang serupa untuk bahasa Minangkabau. Pembangunan \textit{language model} bahasa Minangkabau dari sumber teks yang tersedia (Wikipedia, teks sastra digital, majalah daerah) dapat menjadi langkah praktis yang berdampak besar tanpa memerlukan data audio tambahan.
-
-    \item \textbf{Penerapan Teknik Regularisasi dan Optimisasi Lanjutan}
-
-    Beberapa teknik yang belum dieksplor dalam penelitian ini dan berpotensi meningkatkan performa di antaranya: (a) \textit{monotonic alignment loss} \cite{zhuang2025monotonic} yang secara eksplisit mengoptimalkan keselarasan antara sekuens audio dan teks selama \textit{fine-tuning}; (b) \textit{Mixture of LoRA Experts} \cite{bagat2025mixture} untuk menangani variasi dialek dalam satu model secara adaptif; serta (c) \textit{curriculum learning} yang menyajikan sampel dari yang mudah ke sulit selama pelatihan, membantu model membangun representasi secara bertahap pada dataset yang sangat terbatas \cite{liang2025fieldmatters}.
-
-    \item \textbf{Perbaikan Metodologi Evaluasi}
-
-    Untuk menghilangkan potensi bias dari penggunaan \textit{evaluation set} yang sama untuk \textit{early stopping} dan pelaporan, penelitian lanjutan disarankan untuk menggunakan skema evaluasi yang lebih ketat: (a) memisahkan \textit{validation set} dari \textit{training set} dalam setiap \textit{fold} ketika ukuran dataset sudah cukup besar ($>$5 jam), atau (b) menggunakan \textit{held-out test set} yang sama sekali tidak disentuh selama proses \textit{training} untuk evaluasi akhir yang benar-benar independen.
-
-    \item Pengembangan ke Sistem \textit{End-to-End}
-
-    Prototipe yang dihasilkan dalam penelitian ini merupakan komponen model saja. Untuk menghasilkan dampak praktis yang lebih besar terhadap pelestarian dan pengembangan bahasa Minangkabau, penelitian lanjutan dapat mengintegrasikan model ini ke dalam sistem yang lebih lengkap, misalnya: (a) aplikasi transkripsi berbasis web atau \textit{mobile} yang memungkinkan masyarakat Minangkabau mengunggah rekaman audio dan mendapatkan transkripsi otomatis; (b) alat bantu pembuatan \textit{subtitle} untuk konten video berbahasa Minangkabau; atau (c) sistem digitalisasi arsip audio budaya (rekaman \textit{kaba}, cerita rakyat, lagu tradisional) yang dapat diakses dan ditelusuri secara digital.
+    \item \textbf{Wujudkan Jadi Aplikasi Siap Pakai (\textit{End-to-End})} \\
+    Prototipe ASR yang dihasilkan sekarang ibarat mesin canggih yang belum dipasang ke bodi mobil. Agar dampak pelestarian bahasanya benar-benar terasa oleh masyarakat luas, model komputasi ini perlu dibungkus menjadi produk peranti lunak utuh. Beberapa ide implementasinya: (a) membangun aplikasi \textit{web} atau \textit{mobile} yang bisa menerjemahkan tuturan bahasa Minang secara \textit{real-time}; (b) menciptakan perangkat pembuat \textit{subtitle} otomatis untuk kreator konten daerah; atau (c) membangun sistem pengarsipan digital pintar untuk menelusuri dan mendigitalisasi rekaman kaba, cerita rakyat, serta lagu tradisional.
 
 \end{enumerate}
