@@ -1,26 +1,83 @@
-# Latex-TA-IF-ITERA
-Template Latex Tugas Akhir untuk Program Studi Teknik Informatika, ITERA
+## Cara Mereproduksi Environment
 
-Kontributor: Radhinka Bagaskara, Martin C.T. Manullang, I Wayan Wiprayoga Wisesa, Jose Alfredo Sitanggang (IF 2016), Ardoni Yeriko Rifana Gultom (IF 2021), Syabana Minggus Noviantosa (IF 2018), Rizki Alfaina (IF 2021), Cornelius Linux (2022)
+Proyek ini menggunakan bahasa pemrograman **Python** (direkomendasikan versi 3.9 atau lebih baru). Berikut adalah langkah-langkah untuk mengatur environment dari awal hingga siap dijalankan:
 
-![Screenshot LaTex dari TeXstudio](ss.jpg)
+1. **Clone repositori ini:**
+   ```bash
+   git clone https://github.com/pataanggs/TA_Fathan
+   cd TA_Fathan
+   ```
 
-## Apakah ini?
+2. **Buat virtual environment menggunakan `uv` (direkomendasikan):**
+   Pastikan Anda telah menginstal `uv`. Jika belum, Anda bisa menginstalnya terlebih dahulu (lihat [dokumentasi resmi uv](https://docs.astral.sh/uv/getting-started/installation/)).
+   ```bash
+   uv venv
+   # Di Windows
+   .venv\Scripts\activate
+   # Di Linux/Mac
+   source .venv/bin/activate
+   ```
 
-Proyek ini bertujuan untuk membuat template Tugas Akhir Teknik Informatika ITERA berbasis LaTex. Template dibuat berdasarkan template [Pedoman Tugas Akhir Format Terbaru (UNESCO)](https://docs.google.com/document/d/1m2WutVlV-NSbEeZUKMPsThl__LI8m_bd), serta berdasarkan [Templat LaTeX Tesis Informatika ITB](https://github.com/petrabarus/if-itb-latex) oleh Petra Barus & Peb Ruswono Aryan.
+3. **Instal library dan dependensi:**
+   Masuk ke direktori `code` dan instal semua library yang dibutuhkan menggunakan `uv pip` agar proses instalasi jauh lebih cepat:
+   ```bash
+   cd code
+   uv pip install -r requirements.txt
+   ```
 
-## Mengapa memakai LaTex?
+4. **Cara Menjalankan Kode Pra-pemrosesan:**
+   Anda dapat menjalankan skrip yang ada di dalam folder `code/` untuk tahap pra-pemrosesan:
+   ```bash
+   python audio_preprocessing.py
+   python text_preprocessing.py
+   ```
 
-Secara general, **LaTex akan menghasilkan dokumen yang lebih rapi & tingkat skalabilitas yang lebih tinggi dibandingkan dokumen Microsoft Word**. Walaupun begitu, penggunaan LaTex tidak selalu lebih mudah dibandingkan dengan Microsoft Word yang bersifat _what you see is what you get_ (WYSIWYG). Penjelasan sederhana LaTex dapat dilihat pada [slide berikut](https://docs.google.com/presentation/d/16ejeYsVfova5_QQAQxzL2NDmMPekJivV_LQMwEACFoI/edit?usp=sharing).
+5. **Cara Mengatur Hyperparameter dan Menjalankan Script Training:**
+   Repositori ini menggunakan dua pendekatan untuk proses *fine-tuning*: **LoRA** dan **Freeze Encoder**. Sebelum menjalankan pelatihan, Anda dapat mengatur hyperparameter seperti *learning rate*, *batch size*, *epoch*, beserta parameter model spesifik pada direktorinya masing-masing.
+   
+   **Untuk pelatihan menggunakan metode LoRA:**
+   Anda dapat mengubah hyperparameter (termasuk *rank* `r`, `lora_alpha`, dan ukuran batch) di dalam file konfigurasi (seperti `config.py` atau argumen *command prompt*). Setelah diatur, jalankan:
+   ```bash
+   cd lora
+   # Jalankan skrip utama pelatihan (sesuaikan dengan nama file skrip Anda, misalnya train.py)
+   python train.py
+   ```
 
-## Bagaimana cara menggunakannya?
+   **Untuk pelatihan menggunakan metode Freeze Encoder (FE):**
+   Ubah hyperparameter serta konfigurasi layer mana saja yang dibekukan (*freeze*) pada file konfigurasi `freeze_encoder/config.py`. Setelah selesai diatur, jalankan:
+   ```bash
+   cd ../freeze_encoder
+   # Jalankan skrip utama pelatihan
+   python train.py
+   ```
 
-Template dapat didownload dengan mengakses halaman [release](https://github.com/rdhnk/Latex-TA-IF-ITERA/releases). Atau dengan melakukan clone/download zip template. Bukalah file `thesis.tex` dengan menggunakan editor Latex.
+6. **Skrip Utilitas Tambahan:**
+   Selain skrip utama di atas, terdapat beberapa skrip utilitas pendukung eksperimen yang juga tersedia di dalam direktori `code/`:
+   *   `augmentation.py`: Digunakan untuk menerapkan augmentasi pada data latih (misalnya memberikan noise atau variasi pada audio) guna memperkaya dataset dan meningkatkan *robustness* (ketahanan) model.
+   *   `metrics_logger.py`: Berfungsi untuk mencatat (*logging*) riwayat metrik penting selama proses pelatihan, seperti *Training/Validation Loss*, *Word Error Rate* (WER), dan *Character Error Rate* (CER). Ini dapat diintegrasikan dengan platform monitoring seperti Weights & Biases (W&B).
+   *   `visualize_metrics.py`: Digunakan untuk membaca hasil log metrik dan memvisualisasikannya menjadi bentuk grafik/plot. Hal ini memudahkan untuk keperluan analisis apakah model mengalami *overfitting* atau *underfitting*, serta membandingkan performa antar eksperimen. Anda dapat memanggilnya melalui:
+       ```bash
+       cd code
+       python visualize_metrics.py
+       ```
 
-## Editor LaTex seperti apa?
+## Cara Sitasi (How to Cite)
 
-Template dapat dibuka & dicompile menggunakan editor seperti [TeXstudio](https://www.texstudio.org/) atau [Overleaf](https://www.overleaf.com). Template secara teknis diedit & diuji menggunakan TeXstudio.
+Jika Anda menggunakan kode atau referensi dari repositori ini, silakan gunakan format sitasi berikut:
 
-## Mengapa ada dua jenis ukuran kertas dalam template ini?
+**Format APA:**
+> Kartagama, F. A. (2026). *Implementasi Fine Tuning Open AI Whisper Base Untuk Automatic Speech Recognition Bahasa Minangkabau* (Skripsi). Program Studi Teknik Informatika, Institut Teknologi Sumatera, Lampung.
 
-Per Mei 2025, ITERA mengubah standar ukuran kertas Tugas Akhir dari A4 menjadi UNESCO (155 x 230 mm). Untuk ukuran A4, silakan gunakan folder [Template TA 2025 - Versi A4](Template%20TA%202025%20-%20Versi%20A4). **Template utama sudah disesuaikan dengan ukuran UNESCO. Kedepannya, template UNESCO adalah template yang akan diberi update & support.**
+**Format BibTeX:**
+```bibtex
+@mastersthesis{Kartagama2026,
+  author  = {Fathan Andi Kartagama},
+  title   = {Implementasi Fine Tuning Open AI Whisper Base Untuk Automatic Speech Recognition Bahasa Minangkabau},
+  school  = {Institut Teknologi Sumatera},
+  year    = {2026},
+  type    = {Skripsi},
+  address = {Lampung, Indonesia},
+  note    = {Program Studi Teknik Informatika}
+}
+```
+
